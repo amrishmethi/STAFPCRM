@@ -25,7 +25,7 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
 
             //Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesParty.aspx", Soft["Type"] == "Soft" ? "0" : Soft["UserId"]).Tables[0];
            
-            getdata.FillUser1(drpUser);
+            getdata.FillUser(drpUser);
             fillData();
         }
     }

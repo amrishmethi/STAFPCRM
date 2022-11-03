@@ -13,8 +13,8 @@ public partial class Admin_UserControls_TopMenu : System.Web.UI.UserControl
             {
                 if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
                
-                //Soft = Request.Cookies["STFP"];
-                //lblName.Text = Soft.Values["UserName"].ToString();
+                Soft = Request.Cookies["STFP"];
+                lblName.Text = Soft.Values["UserName"].ToString();
                 //  profileuser.HRef = "../EmployeeMaster.aspx?id=" + Soft.Values["UserID"] +"&view=true";
             }
         }

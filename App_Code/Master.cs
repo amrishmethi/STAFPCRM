@@ -132,15 +132,6 @@ public class Master
         drp.DataValueField = "ID";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
-    } public void FillUser1(DropDownList drp)
-    {
-        query = "select * from [STM_AcMast].[dbo].[UserMast] order by UserName ";
-        ds = data.getDataSet(query);
-        drp.DataSource = ds;
-        drp.DataTextField = "UserName";
-        drp.DataValueField = "UserName";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select", "0"));
     }
     
 

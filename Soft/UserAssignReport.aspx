@@ -57,7 +57,7 @@
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">User Name</th>
-                                            <th>UserCode</th>
+                                            <th>Mobile</th>
                                             <th style="text-align: center;">Assign</th>
                                             <%--<th style="text-align: center;">Reset Password</th>--%>
 
@@ -74,11 +74,11 @@
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
-                                                    <td style="text-align: left;"><%#Eval("UserName") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Name") %></td>
 
-                                                    <td style="text-align: left;"><%#Eval("UserCode") %></td>
+                                                    <td style="text-align: left;"><%#Eval("MobileNo") %></td>
                                                     <td style="text-align: center;" class="isAssVisible">
-                                                        <a href="#<%--AddUserRoles.aspx?id=<%#Eval("Id") %>--%>" class="btn btn-small btn-primary">Assign Roles</a> </td>
+                                                        <a href="AddUserRoles.aspx?id=<%#Eval("Id") %>" class="btn btn-small btn-primary">Assign Roles</a> </td>
                                                     <%--<td style="text-align: center;" class="isAssVisible">
                                                         <a href="ResetPassword.aspx" class="btn btn-small btn-success"><i class="fa fa-key" aria-hidden="true"></i></a>
                                                     </td>--%>

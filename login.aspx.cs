@@ -27,21 +27,21 @@ public partial class login : System.Web.UI.Page
         //    string url = System.Configuration.ConfigurationManager.AppSettings["SiteUrl"].ToString();
         if (txtuser.Value.Trim() != "" && txtpass.Value.Trim() != "")
         {
-            cmd = new SqlCommand("Sp_Login");
+            cmd = new SqlCommand("usp_API_Login");
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Clear();
-            cmd.Parameters.AddWithValue("@UserName", txtuser.Value);
-            cmd.Parameters.AddWithValue("@Password", txtpass.Value);
+            cmd.Parameters.AddWithValue("@MobileNo", txtuser.Value);
+            cmd.Parameters.AddWithValue("@Pwd", txtpass.Value);
             ds = data.getDataSet(cmd);
             if (ds.Tables[0].Rows.Count > 0)
             {
                 HttpCookie Admin = new HttpCookie("STFP");
                 Admin.Expires = DateTime.Now.AddDays(1d);
 
-                //Soft.Values.Add("EmailId", ds.Tables[0].Rows[0]["Email"].ToString());
-                //Soft.Values.Add("UserName", ds.Tables[0].Rows[0]["Login"].ToString());
-                Admin.Values.Add("UserId", ds.Tables[0].Rows[0][0].ToString());
-                //Soft.Values.Add("Type", ds.Tables[0].Rows[0]["UserType"].ToString());
+                Admin.Values.Add("MobileNo", txtuser.Value.Trim());
+                Admin.Values.Add("UserName", ds.Tables[0].Rows[0]["Name"].ToString());
+                Admin.Values.Add("UserId", ds.Tables[0].Rows[0]["ID"].ToString());
+                Admin.Values.Add("Type", ds.Tables[0].Rows[0]["UserType"].ToString());
                 Response.Cookies.Add(Admin);
 
 
