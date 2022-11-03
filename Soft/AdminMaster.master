@@ -1,0 +1,254 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMaster.master.cs" Inherits="Admin_MasterPage" %>
+
+<%@ Register Src="~/Soft/UserControls/TopMenu.ascx" TagPrefix="uc1" TagName="TopMenu" %>
+<%@ Register Src="~/Soft/UserControls/SideMenu.ascx" TagPrefix="uc1" TagName="SideMenu" %>
+<%@ Register Src="~/Soft/UserControls/FooterMenu.ascx" TagPrefix="uc1" TagName="FooterMenu" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <%--<title>Soft</title>--%>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        name="viewport" />
+    <!-- Bootstrap 3.3.6 -->
+    <link href="../content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+    <!-- Theme style -->
+    <link href="../content/dist/css/AdminLTE.css" rel="stylesheet" />
+    <link href="../content/dist/css/skins/skin-purple.css" rel="stylesheet" />
+    <link href="../content/plugins/select2/select2.css" rel="stylesheet" /> 
+    <link href="../content/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <link href="../content/plugins/jQueryUI/jquery-ui.css" rel="stylesheet" />
+    <link href="../content/plugins/Toster/jquery.toast.css" rel="stylesheet" />
+    <link href="../content/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" />
+    <script src="../content/plugins/jQuery/jquery.js"></script>
+    <script src="../content/plugins/jQueryUI/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="../css/data-table/bootstrap-table.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="../css/data-table/bootstrap-editable.css" />
+    <link href="../colorbox/colorbox.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <script>
+        $(document).ready(function () {
+            var getd = sessionStorage.getItem("menu");
+            if (getd == "set") {
+                $('body').addClass('sidebar-collapse');
+            }
+        });
+    </script>
+    <style>
+        .no-js #loader {
+            display: none;
+        }
+
+        .js #loader {
+            display: block;
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
+
+        .se-pre-con {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: url(/Soft/dist/img/Preloader_10.gif) center no-repeat #fff;
+        }
+
+        #back-top {
+            bottom: 20px;
+            position: fixed;
+            right: 25px;
+            z-index: 9;
+            background: #ebebeb;
+            padding: 0px 3px;
+            box-shadow: 0px 1px 5px 0.5px #888;
+            color: #000;
+        }
+    </style>
+    <style type="text/css">
+        /*td {
+    font-size: 1px;
+  }*/
+        /* th {
+    font-size: 12px;
+  }*/
+        .page_enabled, .page_disabled {
+            display: inline-block;
+            /* height: 20px;*/
+            min-width: 20px;
+            line-height: 20px;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid #ccc;
+        }
+
+        .page_enabled {
+            background-color: #337ab7;
+            color: #fff;
+        }
+
+        .page_disabled {
+            background-color: #00aff0 !important;
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini skin-purple">
+    <div class="se-pre-con"></div>
+    <form id="form1" runat="server" autocomplete="off" style="text-transform: uppercase;">
+        <!-- Site wrapper -->
+        <div class="wrapper">
+            <uc1:TopMenu runat="server" ID="TopMenu" />
+            <uc1:SideMenu runat="server" ID="SideMenu" />
+            <div class="content-wrapper">
+                <asp:ContentPlaceHolder ID="Body" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <uc1:FooterMenu runat="server" ID="FooterMenu" />
+        </div>
+        <a href="javascript:void(0);" id="back-top" style="display: block;"><i class="fa fa-arrow-up fa-2x"></i></a>
+        <!-- Bootstrap 3.3.6 -->
+        <script src="../JsP/data-table/bootstrap-table.js"></script>
+        <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+        <script src="../JsP/data-table/tableExport.js"></script>
+        <script src="../JsP/data-table/data-table-active.js"></script>
+       <script src="../jsp/data-table/bootstrap-table-editable.js"></script>
+        <%--<script src="../jsp/data-table/bootstrap-editable.js"></script>--%>
+        <script src="../JsP/data-table/bootstrap-table-resizable.js"></script>
+        <script src="../JsP/data-table/colResizable-1.5.source.js"></script>
+        <script src="../JsP/data-table/bootstrap-table-export.js"></script>
+
+
+        <script src="../content/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../content/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../content/plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <!-- SlimScroll -->
+        <script src="../content/plugins/slimScroll/jquery.slimscroll.js"></script>
+        <!-- FastClick -->
+        <script src="../content/plugins/fastclick/fastclick.js"></script>
+        <script src="../content/plugins/select2/select2.full.js"></script>
+        <script src="../content/dist/MenuScript.js"></script>
+        <script src="../content/bootstrap/sweetalert.js"></script> 
+        <!-- SoftLTE App -->
+        <script src="../content/dist/js/app.js"></script>
+        <script src="../content/plugins/datepicker/bootstrap-datepicker.js"></script>
+        <script src="../content/plugins/Toster/jquery.toaster.js"></script>
+        <script>
+            $(function () {
+                /* $("#example1").DataTable();*/
+                $('#example').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
+            $(function () {
+                /* $("#example1").DataTable();*/
+                $('#example3').DataTable({
+                    "paging": false,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": false,
+                    "autoWidth": false
+                });
+            });
+
+        </script>
+        <script>
+            $(function () {
+                $("#example1").DataTable();
+
+            });
+        </script>
+        <script type="text/javascript">
+            $(window).load(function () {
+                $(".se-pre-con").fadeOut("slow");;
+            });
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > 200) {
+                    $("#back-top").fadeIn(200)
+                } else {
+                    $("#back-top").fadeOut(200)
+                }
+            });
+            $("#back-top").click(function () {
+                $("html, body").stop().animate({
+                    scrollTop: 0
+                }, "easeInOutExpo")
+            });
+            $('.select2').select2(); 
+        </script>
+        <asp:ContentPlaceHolder ID="Footer" runat="server">
+        </asp:ContentPlaceHolder>
+        <script type="text/javascript"> 
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                timePicker: true,
+                todayHighlight: true,
+                autoclose: true,
+                endDate: new Date(),
+            });
+        </script>
+        <script type="text/javascript"> 
+            $('.datepicker1').datepicker({
+                format: 'dd/mm/yyyy',
+                timePicker: true,
+                todayHighlight: true,
+                autoclose: true,
+                // endDate: new Date(),
+            });
+        </script>
+        <script>
+            $(function () {
+                $('.form-control').keyup(function () {
+                    this.value = this.value.toLocaleUpperCase();
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            function getCookie(key) {
+                var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+                return keyValue ? keyValue[2] : null;
+            } 
+        </script>
+        <script type="text/javascript">  
+            var specialKeys = new Array();
+            specialKeys.push(8);
+            function IsNumeric(e,i) {
+                debugger
+                var keyCode = e.which ? e.which : e.keyCode
+                var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
+                document.getElementsByClassName("numerror")[i].style.display = ret ? "none" : "inline";
+                return ret;
+            }
+            function IsDecimal(e, i) {
+                debugger
+                var keyCode = e.which ? e.which : e.keyCode
+                var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1 || keyCode == 46 || keyCode == 8);
+              document.getElementsByClassName('error')[i].style.display = ret ? "none" : "inline";
+                return ret;
+            }
+        
+        </script>
+         <script src="../colorbox/jquery.colorbox.js"></script>
+        <script type="text/javascript">
+            $('.abc').colorbox({ iframe: true, width: '80%', height: '90%' });
+        </script>
+    </form>
+</body>
+</html>
+
