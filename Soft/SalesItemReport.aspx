@@ -38,6 +38,10 @@
                 <h4>Station:<asp:Label ID="lblStation" runat="server"></asp:Label>
                 </h4>
             </div>
+            <div class="col-sm-4" align="right">
+                 <a class="btn btn-success" href="SecondarySalesReport.aspx">Back
+                 </a>
+            </div>
             <div class="clearfix">&nbsp;</div>
             <div class="box box-primary">
                 <div class="box-body">
@@ -49,7 +53,7 @@
                             </asp:DropDownList>
                         </div>
                         <div class="col-md-2">
-                            <label>Secondary Party</label>
+                            <label> Party</label>
                             <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
                             </asp:DropDownList>
                         </div>
@@ -110,7 +114,7 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="9" style="background-color: lightgray;">
-                                                    <table id="ExportTbl" class="table table-bordered display table-striped">
+                                                    <table id="example" class="table table-bordered display table-striped">
                                                         <thead>
                                                             <tr>
                                                                 <th>Sr. No.</th>
