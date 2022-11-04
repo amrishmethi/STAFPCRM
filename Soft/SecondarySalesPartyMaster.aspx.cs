@@ -18,6 +18,8 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
+
             getdata.FillStation(drpStation);
             if (Request.QueryString["id"] != null)
             {

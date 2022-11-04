@@ -1,17 +1,17 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="CheckInReport.aspx.cs" Inherits="Admin_CheckInReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="AttendanceReport.aspx.cs" Inherits="Admin_AttendanceReport" %>
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-   <title>Check-In Out Report(STAFP)</title>
+   <title>Attendance Report(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
-        <h1>Check-In Report</h1>
+        <h1>Attendance Report</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/CheckInReport.aspx" class="active">Check-In Report </a></li>
+            <li><a href="/Soft/AttendanceReport.aspx" class="active">Attendance Report </a></li>
         </ol>
     </section>
     <section class="content">
@@ -27,14 +27,17 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <label>Date From</label>
-                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker">
+                                <label>Date</label>
+                                <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker">
                                 </asp:TextBox>
                             </div>
                             <div class="col-md-2">
-                                <label>Date To</label>
-                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker">
-                                </asp:TextBox>
+                                <label>IsAttend</label>
+                                <asp:DropDownList ID="drpIsAttend" runat="server" CssClass="form-control">
+                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
+                                    <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
+                                    <asp:ListItem Value="0" Text="No"></asp:ListItem>
+                                </asp:DropDownList>
                             </div>
 
 
@@ -57,8 +60,9 @@
                                         <tr>
                                             <th style="text-align: left;" rowspan="2">Sr. No.</th>
                                             <th style="text-align: left;" rowspan="2">User</th>
-                                            <th style="text-align: center;" colspan="6">CheckIn</th>
-                                            <th style="text-align: center;" colspan="4">CheckOut</th>
+                                            <th style="text-align: left;" rowspan="2">MobileNo</th>
+                                            <th style="text-align: center;" colspan="5">In</th>
+                                            <th style="text-align: center;" colspan="5">Out</th>
 
                                             <%--<th style="text-align: left;" rowspan="2">WhatsApp No</th>--%>
                                             <%--<th>--%>
@@ -66,18 +70,16 @@
                                         </tr>
 
                                         <tr>
-                                            <th style="text-align: left;">Primary party</th>
                                             <th style="text-align: left;">Station</th>
-                                            <th style="text-align: left;">Mobile No</th>
+                                            <th style="text-align: left;">Desciption</th>
                                             <th style="text-align: left;">Date</th>
                                             <th style="text-align: left;">Time</th>
                                             <th style="text-align: left;">Location</th>
+                                            <th style="text-align: left;">Station</th>
+                                            <th style="text-align: left;">Desciption</th>
                                             <th style="text-align: left;">Date</th>
                                             <th style="text-align: left;">Time</th>
                                             <th style="text-align: left;">Location</th>
-                                            <th style="text-align: left;">Next Party</th>
-                                            <%--<th style="text-align: left;">Next Station</th>--%>
-                                            <%--<label id="lblAction">Action</label>--%>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -89,16 +91,17 @@
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("UserName") %></td>
 
-                                                    <td style="text-align: left;"><%#Eval("Party") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Station") %></td>
-                                                    <td style="text-align: left;"><%#Eval("LoginMobile") %></td>
-                                                    <td style="text-align: left;"><%#Eval("CheckDate") %></td>
-                                                    <td style="text-align: left;"><%#Eval("CheckTime") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Place") %></td>
-                                                    <td style="text-align: left;"><%#Eval("OutDate") %></td>
-                                                    <td style="text-align: left;"><%#Eval("OutTime") %></td>
-                                                    <td style="text-align: left;"><%#Eval("ChkOutPlace") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NextParty") %></td>
+                                                    <td style="text-align: left;"><%#Eval("MobileNo") %></td>
+                                                    <td style="text-align: left;"><%#Eval("StationIN") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DesscriptionIN") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DateIN") %></td>
+                                                    <td style="text-align: left;"><%#Eval("TimeIN") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PlaceIN") %></td>
+                                                   <td style="text-align: left;"><%#Eval("StationOUT") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DesscriptionOUT") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DateOUT") %></td>
+                                                    <td style="text-align: left;"><%#Eval("TimeOUT") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PlaceOUT") %></td>
                                                     <%--<td style="text-align: left;"><%#Eval("WhatsAppNo") %></td>--%>
                                                     <%--<td style="text-align: left;">
                                                                                                                <div class="isEditVisible" style="display: inline;">
@@ -129,7 +132,7 @@
         $(document).ready(function () {
 
             $.ajax({
-                url: 'CheckInReport.aspx/ControlAccess',
+                url: 'AttendanceReport.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",

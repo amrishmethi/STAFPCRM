@@ -93,7 +93,7 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
-    <%--<script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
 
             $.ajax({
@@ -131,7 +131,7 @@
             });
         })
 
-    </script>--%>
+    </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
 

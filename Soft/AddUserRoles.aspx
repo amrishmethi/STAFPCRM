@@ -50,13 +50,13 @@
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="left" Width="20%" VerticalAlign="Top" />
                                                                 </asp:TemplateField>
-                                                             <%--   <asp:TemplateField>
+                                                                <asp:TemplateField>
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkAdd" runat="server" />
                                                                         <asp:Label ID="lblPIDAdd" runat="server" Text="Add"></asp:Label>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="left" Width="5%" VerticalAlign="Top" />
-                                                                </asp:TemplateField>--%>
+                                                                </asp:TemplateField>
                                                                 <asp:TemplateField>
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkView" runat="server" />
@@ -71,21 +71,21 @@
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="left" Width="5%" VerticalAlign="Top" />
                                                                 </asp:TemplateField>
-                                                             <%--   <asp:TemplateField>
+                                                                <asp:TemplateField>
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkDelete" runat="server" />
                                                                         <asp:Label ID="lblPIDDel" runat="server" Text="Delete"></asp:Label>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="left" Width="5%" VerticalAlign="Top" />
-                                                                </asp:TemplateField>--%>
+                                                                </asp:TemplateField>
 
-                                                               <%-- <asp:TemplateField>
+                                                                <asp:TemplateField>
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkAssign" runat="server" />
                                                                         <asp:Label ID="lblPIDAss" runat="server" Text="Assign"></asp:Label>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="left" Width="5%" VerticalAlign="Top" />
-                                                                </asp:TemplateField>--%>
+                                                                </asp:TemplateField>
                                                             <%--    <asp:TemplateField>
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkComplete" runat="server" />

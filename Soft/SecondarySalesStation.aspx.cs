@@ -19,11 +19,11 @@ public partial class Admin_SecondarySalesStation : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-          //  if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
+            if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
 
-           // Soft = Request.Cookies["STFP"];
+            Soft = Request.Cookies["STFP"];
 
-            //Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesStation.aspx", Soft["Type"] == "Soft" ? "0" : Soft["UserId"]).Tables[0];
+            Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesStation.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
            getdata.FillStation(drpStation);
             fillData();
         }
@@ -58,5 +58,10 @@ public partial class Admin_SecondarySalesStation : System.Web.UI.Page
         fillData();
     }
 
-   
+    [WebMethod]
+    public static string ControlAccess()
+    {
+        DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
+        return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
+    }
 }

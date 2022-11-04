@@ -15,6 +15,7 @@ public partial class Admin_Dashboard : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
             //    if (HttpContext.Current.Session["latt"] != null && HttpContext.Current.Session["lngg"] != null)
             //    {
 

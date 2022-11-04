@@ -8,7 +8,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Admin_SecondarySalesReport : System.Web.UI.Page
+public partial class Admin_AttendanceReport : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
@@ -19,26 +19,29 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
+              if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
 
             Soft = Request.Cookies["STFP"];
 
-            Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-            dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
+            Session["AccessRigthsSet"] = getdata.AccessRights("AttendanceReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
+            txtDate.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
+            //dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             getdata.FillUser(drpUser);
-            getdata.FillPrimaryParty(drpParty);
-            getdata.FillPrimaryStation(drpStation);
             fillData();
         }
     }
 
     public void fillData()
     {
-        ds = getdata.getSeconarySalesDetails(drpUser.SelectedValue, drpParty.SelectedValue, drpStation.SelectedItem.Text, dpFrom.Text.Trim(), dpTo.Text.Trim());
-        rep.DataSource = ds.Tables[0];
+        ds = getdata.getAttendanceList(drpUser.SelectedValue, txtDate.Text.Trim());
+        DataView dv = ds.Tables[0].DefaultView;
+        if(drpIsAttend.SelectedValue == "0") { dv.RowFilter = " DateIN is null"; }
+        else if(drpIsAttend.SelectedValue == "1") { dv.RowFilter = "DateIN <> ''"; }
+        
+        rep.DataSource = dv.ToTable();
         rep.DataBind();
     }
+
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {

@@ -18,7 +18,7 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            //if (Request.Cookies["BuiltIn"] == null) { Response.Redirect("../Login.aspx"); }
+            if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
             //Admin = Request.Cookies["BuiltIn"];
 
             getdata.FillStation(drpStation);

@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 public partial class Admin_UserAssignReport : System.Web.UI.Page
@@ -19,12 +20,12 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            //  if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
+            if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
 
-            // Soft = Request.Cookies["STFP"];
+            Soft = Request.Cookies["STFP"];
 
-            //Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesParty.aspx", Soft["Type"] == "Soft" ? "0" : Soft["UserId"]).Tables[0];
-           
+            Session["AccessRigthsSet"] = getdata.AccessRights("UserAssignReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
+
             getdata.FillUser(drpUser);
             fillData();
         }
@@ -58,5 +59,20 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
         fillData();
     }
 
+    [WebMethod]
+    public static string ControlAccess()
+    {
+        DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
+        return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString() + "," + tbl1.Rows[0]["AssignStatus"].ToString();
+    }
 
+    protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+        {
+            HyperLink lnkAssbtn = (e.Item.FindControl("lnkAssbtn") as HyperLink);
+            HiddenField hddUserType = (e.Item.FindControl("hddUserType") as HiddenField);
+            lnkAssbtn.Visible = hddUserType.Value == "admin"?false:true;
+        }
+    }
 }

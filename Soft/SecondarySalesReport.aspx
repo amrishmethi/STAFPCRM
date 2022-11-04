@@ -110,11 +110,11 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
-    <%--<script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function () {
 
             $.ajax({
-                url: 'SecondarySalesParty.aspx/ControlAccess',
+                url: 'SecondarySalesReport.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -123,21 +123,21 @@
                     let text = data.d;
                     const myArray = text.split(",");
 
-                    document.getElementById("Body_lnkAdd").style.display = myArray[0] == "False" ? "none" : "";
+                    //document.getElementById("Body_lnkAdd").style.display = myArray[0] == "False" ? "none" : "";
 
-                    var elements = document.getElementsByClassName("isEditVisible");
-                    Array.prototype.forEach.call(elements, function (element) {
-                        element.style.display = myArray[1] == "False" ? "none" : "inline";
-                    });
-                    var elements1 = document.getElementsByClassName("isDelVisible");
-                    Array.prototype.forEach.call(elements1, function (element) {
-                        element.style.display = myArray[2] == "False" ? "none" : "inline";
-                    });
+                    //var elements = document.getElementsByClassName("isEditVisible");
+                    //Array.prototype.forEach.call(elements, function (element) {
+                    //    element.style.display = myArray[1] == "False" ? "none" : "inline";
+                    //});
+                    //var elements1 = document.getElementsByClassName("isDelVisible");
+                    //Array.prototype.forEach.call(elements1, function (element) {
+                    //    element.style.display = myArray[2] == "False" ? "none" : "inline";
+                    //});
                
-                    if (myArray[1] == 'False' && myArray[2] == 'False') {
-                        document.getElementById("lblAction").innerHTML = "";
+                    //if (myArray[1] == 'False' && myArray[2] == 'False') {
+                    //    document.getElementById("lblAction").innerHTML = "";
 
-                    }
+                    //}
                     document.getElementsByClassName("buttons-excel")[0].style.display = myArray[3] == "False" ? "none" : "";
                     document.getElementsByClassName("buttons-pdf")[0].style.display = myArray[3] == "False" ? "none" : "";
                 },
@@ -148,7 +148,7 @@
             });
         })
 
-    </script>--%>
+    </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
 

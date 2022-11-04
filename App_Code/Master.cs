@@ -60,7 +60,25 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
-
+    public DataSet getAttendanceList(string userid, string date)
+    {
+        cmd = new SqlCommand("PROC_ATTENDANCE");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@UserID", userid);
+        cmd.Parameters.AddWithValue("@CheckinDateFrom", data.YYYYMMDD(date));
+       
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+    public DataSet AccessRights(string v, string userid)
+    {
+        cmd = new SqlCommand("Sp_UserAccess");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@pagelink", v);
+        cmd.Parameters.AddWithValue("@uid", userid);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
     public DataSet getUserDetails(string userid)
     {
         cmd = new SqlCommand("PROC_USERDETAILS");
