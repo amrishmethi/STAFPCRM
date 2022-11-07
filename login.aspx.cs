@@ -27,11 +27,11 @@ public partial class login : System.Web.UI.Page
         //    string url = System.Configuration.ConfigurationManager.AppSettings["SiteUrl"].ToString();
         if (txtuser.Value.Trim() != "" && txtpass.Value.Trim() != "")
         {
-            cmd = new SqlCommand("usp_API_Login");
+            cmd = new SqlCommand("Sp_Login");
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Clear();
-            cmd.Parameters.AddWithValue("@MobileNo", txtuser.Value);
-            cmd.Parameters.AddWithValue("@Pwd", txtpass.Value);
+            cmd.Parameters.AddWithValue("@UserName", txtuser.Value);
+            cmd.Parameters.AddWithValue("@Password", txtpass.Value);
             ds = data.getDataSet(cmd);
             if (ds.Tables[0].Rows.Count > 0)
             {
