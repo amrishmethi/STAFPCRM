@@ -63,6 +63,7 @@
                                             <th style="text-align: left;" rowspan="2">MobileNo</th>
                                             <th style="text-align: center;" colspan="5">In</th>
                                             <th style="text-align: center;" colspan="5">Out</th>
+                                            <th style="text-align: center;"  rowspan="2">Leave</th>
 
                                             <%--<th style="text-align: left;" rowspan="2">WhatsApp No</th>--%>
                                             <%--<th>--%>
@@ -102,6 +103,7 @@
                                                     <td style="text-align: left;"><%#Eval("DateOUT") %></td>
                                                     <td style="text-align: left;"><%#Eval("TimeOUT") %></td>
                                                     <td style="text-align: left;"><%#Eval("PlaceOUT") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Leave") %></td>
                                                     <%--<td style="text-align: left;"><%#Eval("WhatsAppNo") %></td>--%>
                                                     <%--<td style="text-align: left;">
                                                                                                                <div class="isEditVisible" style="display: inline;">
