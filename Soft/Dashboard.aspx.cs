@@ -47,9 +47,9 @@ public partial class Admin_Dashboard : System.Web.UI.Page
         {
             chkInusr.InnerHtml = ds.Tables[0].Rows[0]["CheckInUsers"].ToString();
             chkOutusr.InnerHtml = ds.Tables[0].Rows[0]["CheckOutUsers"].ToString();
-            salesItem.InnerHtml = ds.Tables[0].Rows[0]["Items"].ToString();
-            salesGroup.InnerHtml = ds.Tables[0].Rows[0]["Groups"].ToString();
-            SalesUsr.InnerHtml = ds.Tables[0].Rows[0]["Users"].ToString();
+            TotUsr.InnerHtml = ds.Tables[0].Rows[0]["Users"].ToString();
+            AttnIn.InnerHtml = ds.Tables[0].Rows[0]["AttendIn"].ToString();
+            AttnOut.InnerHtml = ds.Tables[0].Rows[0]["AttendOut"].ToString();
             rep.DataSource = ds.Tables[1];
             rep.DataBind();
         }

@@ -66,13 +66,13 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h4>Secondary Sales Items / Groups: <b id="salesItem" runat="server">0</b> / <b id="salesGroup" runat="server">0</b></h4>
-                        <p>Secondary Sales Users : <b id="SalesUsr" runat="server">0</b></p>
+                        <h4>Total Users : <b id="TotUsr" runat="server">0</b></h4>
+                        <p>Attendance : In - <b id="AttnIn" runat="server">0</b> &nbsp;&nbsp;&nbsp;&nbsp; Out - <b id="AttnOut" runat="server">0</b></p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                     </div>
-                    <a href="SecondarySalesReport.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="AttendanceReport.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
