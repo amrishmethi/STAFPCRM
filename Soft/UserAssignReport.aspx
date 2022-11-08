@@ -56,6 +56,7 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
+                                            <th style="text-align: center;">IsLogin CRM</th>
                                             <th style="text-align: left;">User Name</th>
                                             <th>Mobile</th>
                                             <th style="text-align: center;" class="isAssVisible">Assign</th>
@@ -75,6 +76,7 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     <asp:HiddenField ID="hddUserType" Value='<%#Eval("UserType") %>' runat="server"/>
                                                     </td>
+                                                    <td style="text-align: center;"><asp:CheckBox  ID="IsChkLogin" runat="server" Checked="true"/></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
 
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>

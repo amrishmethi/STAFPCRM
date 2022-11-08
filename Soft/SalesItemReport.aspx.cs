@@ -13,18 +13,21 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
     string query;
     SqlCommand cmd = new SqlCommand();
     Master getdata = new Master();
-    HttpCookie Admin;
+    private HttpCookie Soft;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
             if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
-            //Admin = Request.Cookies["BuiltIn"];
 
-            getdata.FillStation(drpStation);
-            getdata.FillParty(drpParty);
+            Soft = Request.Cookies["STFP"];
+
+            Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
+            getdata.FillUser(drpUser);
+            getdata.FillPrimaryParty(drpParty);
+            getdata.FillPrimaryStation(drpStation);
             Filldata();
         }
     }
@@ -32,20 +35,9 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
 
     private void Filldata()
     {
-        SqlCommand cmd = new SqlCommand("PROC_SECONDARYITEMS");
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("@ID", Request.QueryString["id"].ToString());
-        cmd.Parameters.AddWithValue("@PARTY", drpParty.SelectedValue);
-        cmd.Parameters.AddWithValue("@STATION", drpStation.SelectedValue);
-        cmd.Parameters.AddWithValue("@DATEFROM", data.YYYYMMDD(dpFrom.Text.Trim()));
-        cmd.Parameters.AddWithValue("@DATETO", data.YYYYMMDD(dpTo.Text.Trim()));
-        ds = data.getDataSet(cmd);
-        if (ds.Tables[0].Rows.Count > 0)
-        {
-            lblParty.Text = ds.Tables[0].Rows[0]["PrimaryParty"].ToString();
-            lblStation.Text = ds.Tables[0].Rows[0]["PrimaryStation"].ToString();
-        }
-        rep.DataSource = ds;
+        ds = getdata.getSeconarySalesDetails(drpUser.SelectedValue, drpParty.SelectedValue, drpStation.SelectedItem.Text, dpFrom.Text.Trim(), dpTo.Text.Trim());
+      
+        rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
 

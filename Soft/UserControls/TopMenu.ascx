@@ -3,7 +3,7 @@
 <header class="main-header">
     <!-- Logo -->
     <a href="/Soft/Dashboard.aspx" class="logo"> 
-        <span class="logo-mini"><b>STAFP</b></span> 
+        <span class="logo-mini"  style="font-size:12px;"><b>STAFP</b></span> 
         <span class="logo-lg"><b>STAFP</b></span>
     </a> 
     <nav class="navbar navbar-static-top"> 

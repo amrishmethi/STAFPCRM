@@ -50,7 +50,7 @@ public partial class Admin_UserControls_SideMenu : System.Web.UI.UserControl
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 str += "<li class=\"treeview\">";
-                str += "<a href=\"" + ds.Tables[0].Rows[i]["MenuLink"].ToString() + "\"><i class=\"fa fa-files-o\"></i>";
+                str += "<a href=\"" + ds.Tables[0].Rows[i]["MenuLink"].ToString() + "\"><i class=\"fa fa-angle-right\"></i>";
                 str += "<span>" + ds.Tables[0].Rows[i]["MenuName"].ToString() + "</span>";
                     if (Convert.ToInt32(ds.Tables[0].Rows[i]["cc"]) != 0) {
                     str += "<span class='label label-important'>" + ds.Tables[0].Rows[i]["cc"].ToString() + "</span>";
@@ -123,7 +123,7 @@ public partial class Admin_UserControls_SideMenu : System.Web.UI.UserControl
         string str = "";
         foreach (DataRow dr in dv.ToTable().Rows)
         {
-            str = str + "<li class='treeview'><a href = '" + dr["MenuLink"] + "'><i class='fa fa-files-o'></i><span>" + dr["MenuName"] + "</span>";
+            str = str + "<li class='treeview'><a href = '" + dr["MenuLink"] + "'><i class='fa fa-angle-right'></i><span>" + dr["MenuName"] + "</span>";
             if (dr["MenuCount"].ToString() != "")
             {
                 str = str + "<span class='label label-important' style='font-size:13px'>" + dr["MenuCount"] + "</span>";
