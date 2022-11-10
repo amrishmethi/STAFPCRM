@@ -12,8 +12,7 @@
                         <div class="sparkline13-list shadow-reset">
                             <div class="sparkline13-hd">
                                 <div class="main-sparkline13-hd">
-                                    <h1><span class="table-project-n">Assign Role</span> </h1>
-
+                                    <h1><span class="table-project-n">Assign Role to </span><asp:Label ID ="lbluser" runat="server"></asp:Label></h1>
                                 </div>
                             </div>
                             <div class="login-bg">
@@ -86,14 +85,13 @@
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="left" Width="5%" VerticalAlign="Top" />
                                                                 </asp:TemplateField>
-                                                            <%--    <asp:TemplateField>
+                                                                <%--    <asp:TemplateField>
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkComplete" runat="server" />
                                                                         <asp:Label ID="lblPIDComp" runat="server" Text="All Data"></asp:Label>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="left" Width="5%" VerticalAlign="Top" />
                                                                 </asp:TemplateField>--%>
-
                                                             </Columns>
                                                         </asp:GridView>
                                                     </ItemTemplate>

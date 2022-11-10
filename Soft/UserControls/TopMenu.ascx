@@ -208,6 +208,9 @@
               </li>
             </ul>
           </li>--%>
+                <li><p style="color:white;margin-top: revert;">
+                                <asp:Label ID="lblName" runat="server" ></asp:Label>
+                            </p></li>
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
                         <img src="../../img/user-img.jpg" class="user-image" alt="User Image">
@@ -218,9 +221,7 @@
                         <li class="user-header">
                            
                             <img src="../../img/user-img.jpg" class="img-circle" alt="User Image"> 
-                            <p>
-                                <asp:Label ID="lblName" runat="server" ></asp:Label>
-                            </p>
+                            
                             
                         </li> 
                         <li class="user-footer">

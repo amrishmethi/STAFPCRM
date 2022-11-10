@@ -24,6 +24,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                 FillPages();
                 if (Request.QueryString["id"] != null)
                 {
+                    lbluser.Text = data.getDataSet("select Name from [CSinfo].[dbo].[MobileAppUser] where id =" + Request.QueryString["id"]).Tables[0].Rows[0][0].ToString();
                     UpdateRoles(Request.QueryString["id"]);
                 }
             }
