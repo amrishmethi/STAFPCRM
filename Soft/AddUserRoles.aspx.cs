@@ -88,7 +88,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                         CheckBox chkEdit = (CheckBox)GRDInner.Rows[j].FindControl("chkEdit");
                         CheckBox chkDelete = (CheckBox)GRDInner.Rows[j].FindControl("chkDelete");
                         CheckBox chkAssign = (CheckBox)GRDInner.Rows[j].FindControl("chkAssign");
-                        //CheckBox chkComplete = (CheckBox)GRDInner.Rows[j].FindControl("chkComplete");
+                        CheckBox chkLogin = (CheckBox)GRDInner.Rows[j].FindControl("chkLogin");
                         if (!data.Exist("Select PageID from tbl_EmpRoles where UserId=" + userid + " and PageID=" + lblPID1.Text + ""))
                         {
                             chk1.Checked = false;
@@ -106,7 +106,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                             chkEdit.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["EditStatus"].ToString());
                             chkDelete.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["DeleteStatus"].ToString());
                             chkAssign.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["AssignStatus"].ToString());
-                            //chkComplete.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["AssignAllStatus"].ToString());
+                            chkLogin.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["LoginStatus"].ToString());
                         }
                         else
                         {
@@ -115,7 +115,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                             chkEdit.Checked = false;
                             chkDelete.Checked = false;
                             chkAssign.Checked = false;
-                            //chkComplete.Checked = false;
+                            chkLogin.Checked = false;
                         }
                     }
 
@@ -155,7 +155,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
             }
         }
     }
-    bool p = false; bool a = false; bool e = false; bool d = false; bool v = false; bool r = false; bool c = false;
+    bool p = false; bool a = false; bool e = false; bool d = false; bool v = false; bool r = false; bool l = false;
     public void insertRoles(string userid)
     {
         data.executeCommand("delete from tbl_EmpRoles where UserId=" + userid + "");
@@ -167,7 +167,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                 if (chk.Checked == true)
                 {
                     Label lblPID = (Label)GRD.Rows[i].FindControl("lblPID");
-                    data.executeCommand("insert into tbl_EmpRoles (UserId, PageID, AddStatus, EditStatus, DeleteStatus,ViewP,AssignStatus) values(" + userid + "," + lblPID.Text + ",'1','1','1','1','1')");
+                    data.executeCommand("insert into tbl_EmpRoles (UserId, PageID, AddStatus, EditStatus, DeleteStatus,ViewP,AssignStatus,LoginStatus) values(" + userid + "," + lblPID.Text + ",'1','1','1','1','1','1')");
                     GridView GRDInner = (GridView)GRD.Rows[i].FindControl("GRDInner");
                     if (GRDInner.Rows.Count > 0)
                     {
@@ -179,18 +179,18 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                             CheckBox chkEdit = (CheckBox)GRDInner.Rows[j].FindControl("chkEdit");
                             CheckBox chkDelete = (CheckBox)GRDInner.Rows[j].FindControl("chkDelete");
                             CheckBox chkAssign = (CheckBox)GRDInner.Rows[j].FindControl("chkAssign");
-                            //CheckBox chkComplete = (CheckBox)GRDInner.Rows[j].FindControl("chkComplete");
+                            CheckBox chkLogin = (CheckBox)GRDInner.Rows[j].FindControl("chkLogin");
                             p = Convert.ToBoolean(chk1.Checked);
                             a = Convert.ToBoolean(chkAdd.Checked);
                             e = Convert.ToBoolean(chkEdit.Checked);
                             d = Convert.ToBoolean(chkDelete.Checked);
                             v = Convert.ToBoolean(chkView.Checked);
                             r = Convert.ToBoolean(chkAssign.Checked);
-                            //c = Convert.ToBoolean(chkComplete.Checked);
+                            l = Convert.ToBoolean(chkLogin.Checked);
                             Label lblPID1 = (Label)GRDInner.Rows[j].FindControl("lblPID1");
                             if (p == true)
                             {
-                                data.executeCommand("insert into tbl_EmpRoles (UserId, PageID, AddStatus, EditStatus, DeleteStatus,ViewP,AssignStatus) values(" + userid + "," + lblPID1.Text + ",'" + a + "','" + e + "','" + d + "','" + v + "','" + r + "')");
+                                data.executeCommand("insert into tbl_EmpRoles (UserId, PageID, AddStatus, EditStatus, DeleteStatus,ViewP,AssignStatus,LoginStatus) values(" + userid + "," + lblPID1.Text + ",'" + a + "','" + e + "','" + d + "','" + v + "','" + r + "','"+l+"')");
                             }
 
                         }
@@ -220,16 +220,16 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
         HiddenField hddmenupage = (HiddenField)e.Row.FindControl("hddmenupage");
         CheckBox chkAssign = (CheckBox)e.Row.FindControl("chkAssign");
         Label lblPIDAss = (Label)e.Row.FindControl("lblPIDAss");
-        //CheckBox chkComplete = (CheckBox)e.Row.FindControl("chkComplete");
-        //Label lblPIDComp = (Label)e.Row.FindControl("lblPIDComp");
+        CheckBox chkLogin = (CheckBox)e.Row.FindControl("chkLogin");
+        Label lblPIDLgn = (Label)e.Row.FindControl("lblPIDLgn");
         if (hddmenupage != null)
         {
             DataTable dtble = data.getDataSet("select * from tbl_Menu where MenuName='" + hddmenupage.Value + "' and isdelete = 0  order by Menuid").Tables[0];
 
             chkAssign.Visible = Convert.ToBoolean(dtble.Rows[0]["IsRights"]);
             lblPIDAss.Visible = Convert.ToBoolean(dtble.Rows[0]["IsRights"]);
-            //chkComplete.Visible = Convert.ToBoolean(dtble.Rows[0]["IsAll"]);
-            //lblPIDComp.Visible = Convert.ToBoolean(dtble.Rows[0]["IsAll"]);
+            chkLogin.Visible = Convert.ToBoolean(dtble.Rows[0]["IsLogin"]);
+            lblPIDLgn.Visible = Convert.ToBoolean(dtble.Rows[0]["IsLogin"]);
 
         }
     }

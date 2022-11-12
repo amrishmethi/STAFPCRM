@@ -63,7 +63,7 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
     public static string ControlAccess()
     {
         DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
-        return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString() + "," + tbl1.Rows[0]["AssignStatus"].ToString();
+        return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString() + "," + tbl1.Rows[0]["AssignStatus"].ToString() + "," + tbl1.Rows[0]["LoginStatus"].ToString();
     }
 
     protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)

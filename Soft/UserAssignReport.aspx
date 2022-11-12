@@ -56,7 +56,7 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
-                                            <th style="text-align: center;">IsLogin CRM</th>
+                                            <th style="text-align: center;" class="isLoginVisible">IsLogin CRM</th>
                                             <th style="text-align: left;">User Name</th>
                                             <th>Mobile</th>
                                             <th style="text-align: center;" class="isAssVisible">Assign</th>
@@ -77,7 +77,7 @@
                                                     <asp:HiddenField ID="hddUserType" Value='<%#Eval("UserType") %>' runat="server"/>
                                                     <asp:HiddenField ID="hddUid" Value='<%#Eval("id") %>' runat="server"/>
                                                     </td>
-                                                    <td style="text-align: center;"><asp:CheckBox  ID="IsChkLogin" runat="server" Checked='<%# Convert.ToBoolean(Eval("Deactivate"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLogin_CheckedChanged"  /></td>
+                                                    <td style="text-align: center;" class="isLoginVisible"><asp:CheckBox  ID="IsChkLogin" runat="server" Checked='<%# Convert.ToBoolean(Eval("Deactivate"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLogin_CheckedChanged"  /></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
 
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
@@ -127,6 +127,10 @@
                     var elements2 = document.getElementsByClassName("isAssVisible");
                     Array.prototype.forEach.call(elements2, function (element) {
                         element.style.display = myArray[4] == "False" ? "none" : "";
+                    });
+                    var elements3 = document.getElementsByClassName("isLoginVisible");
+                    Array.prototype.forEach.call(elements3, function (element) {
+                        element.style.display = myArray[5] == "False" ? "none" : "";
                     });
                
                     //if (myArray[1] == 'False' && myArray[2] == 'False') {

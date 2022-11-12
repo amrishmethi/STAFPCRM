@@ -85,13 +85,13 @@
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="left" Width="5%" VerticalAlign="Top" />
                                                                 </asp:TemplateField>
-                                                                <%--    <asp:TemplateField>
+                                                                    <asp:TemplateField>
                                                                     <ItemTemplate>
-                                                                        <asp:CheckBox ID="chkComplete" runat="server" />
-                                                                        <asp:Label ID="lblPIDComp" runat="server" Text="All Data"></asp:Label>
+                                                                        <asp:CheckBox ID="chkLogin" runat="server" />
+                                                                        <asp:Label ID="lblPIDLgn" runat="server" Text="CRM Login"></asp:Label>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="left" Width="5%" VerticalAlign="Top" />
-                                                                </asp:TemplateField>--%>
+                                                                </asp:TemplateField>
                                                             </Columns>
                                                         </asp:GridView>
                                                     </ItemTemplate>
