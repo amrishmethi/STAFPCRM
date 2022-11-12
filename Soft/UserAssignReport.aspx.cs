@@ -71,8 +71,28 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
             HyperLink lnkAssbtn = (e.Item.FindControl("lnkAssbtn") as HyperLink);
+            HiddenField hddUid = (HiddenField)e.Item.FindControl("hddUid");
             HiddenField hddUserType = (e.Item.FindControl("hddUserType") as HiddenField);
             lnkAssbtn.Visible = hddUserType.Value == "admin"?false:true;
         }
+    }
+
+    protected void IsChkLogin_CheckedChanged(object sender, EventArgs e)
+    {
+        int ItemC = 0;
+        string[] ClientID = ((CheckBox)sender).ClientID.Split('_');
+        if (ClientID.Length == 4)
+        {
+            ItemC = Convert.ToInt32(ClientID[3]);
+        }
+
+        CheckBox chk = (CheckBox)rep.Items[ItemC].FindControl("IsChkLogin");
+       HiddenField hddUid = (HiddenField)rep.Items[ItemC].FindControl("hddUid");
+        if (hddUid.Value != "")
+        { data.getDataSet("Update [CSInfo].[dbo].[MobileAppUser]  set Deactivate = (case when Deactivate=1 then 0 else 1 end)  where id = " + hddUid.Value);
+            fillData();
+        }
+        
+        
     }
 }
