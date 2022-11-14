@@ -86,6 +86,13 @@ public class Master
         cmd.Parameters.AddWithValue("@UserID", userid);
         ds = data.getDataSet(cmd);
         return ds;
+    }public DataSet getUserTourPlan(string userid)
+    {
+        cmd = new SqlCommand("PROC_USERTOURPLAN");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@UserID", userid);
+        ds = data.getDataSet(cmd);
+        return ds;
     }
     public DataSet getSeconarySalesDetails(string userid, string party, string station,string indate, string intime)
     {
@@ -143,7 +150,7 @@ public class Master
     }
     public void FillUser(DropDownList drp)
     {
-        query = "select * from [CSInfo].[dbo].[MobileAppUser] where DeActivate=0 order by Name ";
+        query = "select * from [CSInfo].[dbo].[MobileAppUser] order by Name ";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "Name";
