@@ -35,7 +35,7 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
     {
         ds = getdata.getUserTourPlan(drpUser.SelectedValue);
 
-        rep.DataSource = ds.Tables[0];
+        rep.DataSource = ds.Tables[1];
         rep.DataBind();
     }
 

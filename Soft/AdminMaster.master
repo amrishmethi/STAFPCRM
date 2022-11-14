@@ -212,6 +212,16 @@
                 // endDate: new Date(),
             });
         </script>
+           <script type="text/javascript"> 
+               $('.datepicker2').datepicker({
+                   format: 'dd/mm/yyyy',
+                   timePicker: true,
+                   todayHighlight: true,
+                   autoclose: true,
+                   minDate: new Date(),
+                   // endDate: new Date(),
+               });
+           </script>
         <script>
             $(function () {
                 $('.form-control').keyup(function () {

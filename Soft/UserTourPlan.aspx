@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="UserTourPlan.aspx.cs" Inherits="Admin_UserTourPlan" %>
-`
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -59,8 +58,6 @@
                                             <th>HeadQuarter</th>
                                             <th>District</th>
                                             <th>Station</th>
-                                            <th>Party</th>
-                                            <th>Mobile</th>
                                             <th>Tour Date</th>
                                             <th style="text-align: center;">
                                                 <label id="lblAction">Action</label></th>
@@ -73,17 +70,17 @@
                                                 <tr class="gradeA">
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
+                                                        <asp:HiddenField ID="hddid" runat="server" Value='<%#Eval("id") %>'/>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
                                                     <td style="text-align: left;"><%#Eval("District") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Party") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Mobile") %></td>
                                                     <td style="text-align: left;">
-                                                        <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker1"></asp:TextBox>
+                                                        <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker2" Text='<%# Eval("TDate") %>'></asp:TextBox>
                                                     </td>
                                                     <td style="text-align: center;">
-                                                        <a href="#" class="btn btn-small btn-success"><i class="fa fa-save" aria-hidden="true"></i></a>
+                                                              <asp:LinkButton ID="lnkSave" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName="Save" CssClass="btn btn-small btn-success"
+                                                                CommandArgument='<%#Eval("ID") %>'><i class="fa fa-save"></i></asp:LinkButton>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
