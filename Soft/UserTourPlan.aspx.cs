@@ -24,7 +24,7 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
 
             Soft = Request.Cookies["STFP"];
 
-            Session["AccessRigthsSet"] = getdata.AccessRights("UserAssignReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
+            Session["AccessRigthsSet"] = getdata.AccessRights("UserTourPlan.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
             getdata.FillUser(drpUser);
             fillData();
@@ -54,10 +54,6 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
     //    }
     //}
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        fillData();
-    }
 
     [WebMethod]
     public static string ControlAccess()
@@ -77,5 +73,27 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
     //    }
     //}
 
- 
+
+
+    protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        if (e.CommandName == "Save")
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                TextBox txtDate = (e.Item.FindControl("txtDate") as TextBox);
+                Label lblHqtr = (e.Item.FindControl("lblHqtr") as Label);
+                Label lblDist = (e.Item.FindControl("lblDist") as Label);
+                Label lblStat = (e.Item.FindControl("lblStat") as Label);
+
+                ds = getdata.saveUserTourPlan(e.CommandArgument.ToString(), drpUser.SelectedValue, lblHqtr.Text, lblDist.Text, lblStat.Text, txtDate.Text == ""?"":data.YYYYMMDD(txtDate.Text.Trim()));
+            }
+            fillData();
+        }
+    }
+
+    protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        fillData();
+    }
 }

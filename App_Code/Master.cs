@@ -49,6 +49,18 @@ public class Master
         cmd.Parameters.AddWithValue("@NAME", name);
         ds = data.getDataSet(cmd);
         return ds;
+    } public DataSet saveUserTourPlan(string id, string uid, string hqtr,string dist,string stat,string tdate)
+    {
+        cmd = new SqlCommand("PROC_SaveUserTourPlan");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@ID", id);
+        cmd.Parameters.AddWithValue("@UsrID", uid);
+        cmd.Parameters.AddWithValue("@Hqt", hqtr);
+        cmd.Parameters.AddWithValue("@Dst", dist);
+        cmd.Parameters.AddWithValue("@Sta", stat);
+        cmd.Parameters.AddWithValue("@Dt", tdate);
+        ds = data.getDataSet(cmd); 
+        return ds;
     }
     public DataSet getCheckInDetails(string userid,string indate,string intime)
     {
