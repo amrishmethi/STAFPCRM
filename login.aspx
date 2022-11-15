@@ -21,7 +21,7 @@
                         <div class="login-container">
                             <div class="center">
                                 <h1>
-                                    <span class="red">STFP</span>
+                                    <span class="red">STAFP</span>
                                 </h1>
                                 <h4 class="blue" id="id-company-text">&copy; SSCompuSoft</h4>
                             </div>
