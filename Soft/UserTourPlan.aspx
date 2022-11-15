@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="UserTourPlan.aspx.cs" Inherits="Admin_UserTourPlan" %>
+
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -22,7 +23,7 @@
 
                             <div class="col-md-3">
                                 <label>User</label>
-                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2">
+                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged ="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
                             <%--<div class="col-md-2">
@@ -37,10 +38,10 @@
                             </div>--%>
 
 
-                            <div class="col-md-1" style="padding-top: 3px;">
+                          <%--  <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>
+                            </div>--%>
 
                         </div>
                         <div class="clearfix">&nbsp;</div>
@@ -65,22 +66,22 @@
 
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="rep" runat="server">
+                                        <asp:Repeater ID="rep" runat="server" OnItemCommand="rep_ItemCommand">
                                             <ItemTemplate>
                                                 <tr class="gradeA">
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
-                                                        <asp:HiddenField ID="hddid" runat="server" Value='<%#Eval("id") %>'/>
+                                                      
                                                     </td>
-                                                    <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
-                                                    <td style="text-align: left;"><%#Eval("District") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Station") %></td>
+                                                    <td style="text-align: left;"><asp:Label ID="lblHqtr" runat="server" Text='<%#Eval("HeadQtr") %>'></asp:Label></td>
+                                                    <td style="text-align: left;"><asp:Label ID="lblDist" runat="server" Text='<%#Eval("District") %>'></asp:Label></td>
+                                                    <td style="text-align: left;"><asp:Label ID="lblStat" runat="server" Text='<%#Eval("Station") %>'></asp:Label></td>
                                                     <td style="text-align: left;">
                                                         <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker2" Text='<%# Eval("TDate") %>'></asp:TextBox>
                                                     </td>
                                                     <td style="text-align: center;">
-                                                              <asp:LinkButton ID="lnkSave" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName="Save" CssClass="btn btn-small btn-success"
-                                                                CommandArgument='<%#Eval("ID") %>'><i class="fa fa-save"></i></asp:LinkButton>
+                                                        <asp:LinkButton ID="lnkSave" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName="Save" CssClass="btn btn-small btn-success"
+                                                            CommandArgument='<%#Eval("TID") %>'><i class="fa fa-save"></i></asp:LinkButton>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
@@ -101,7 +102,7 @@
         $(document).ready(function () {
             debugger
             $.ajax({
-                url: 'UserAssignReport.aspx/ControlAccess',
+                url: 'UserTourPlan.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
