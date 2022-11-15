@@ -15,7 +15,7 @@
         </ol>
     </section>
     <section class="content">
-        <%--<div class="row">--%>
+        <div class="row">
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-body">
@@ -101,7 +101,7 @@
                     </div>
                 </div>
             </div>
-        <%--</div>--%>
+        </div>
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
