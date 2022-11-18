@@ -26,8 +26,18 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
-            getdata.FillUser(drpUser);
-           
+            DataSet dsusr = getdata.getHqtrUser();
+            drpUser.Items.Insert(0, new ListItem("Select", "0"));
+            drpUser.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name","id");
+            drpUser.DataTextField = "Name";
+            drpUser.DataValueField = "id";
+            drpUser.DataBind(); 
+           drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
+            drpheadQtr.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "HeadQtr");
+            drpheadQtr.DataTextField = "HeadQtr";
+            drpheadQtr.DataValueField = "HeadQtr";
+            drpheadQtr.DataBind();
+
         }
     }
 
@@ -108,6 +118,14 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
 
     protected void drpheadQtr_SelectedIndexChanged(object sender, EventArgs e)
     {
+        DataSet dsusr = getdata.getHqtrUser();
+        DataView dv = dsusr.Tables[0].DefaultView;
+        dv.RowFilter = "HeadQtr = " + drpheadQtr.SelectedValue;
+        drpUser.Items.Insert(0, new ListItem("Select", "0"));
+        drpUser.DataSource = dv.ToTable(true, "Name");
+        drpUser.DataTextField = "Name";
+        drpUser.DataValueField = "id";
+        drpUser.DataBind();
         fillData();
     }
 

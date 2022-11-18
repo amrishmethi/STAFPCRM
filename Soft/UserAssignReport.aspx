@@ -3,15 +3,15 @@
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>Employee Assign Report(STAFP)</title>
+    <title>User Assign Report(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
-        <h1>Employee Assign Report</h1>
+        <h1>User Assign Report</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/UserAssignReport.aspx" class="active">Employee Assign Report </a></li>
+            <li><a href="/Soft/UserAssignReport.aspx" class="active">User Assign Report </a></li>
         </ol>
     </section>
     <section class="content">
@@ -22,7 +22,7 @@
                         <div class="form-group">
 
                             <div class="col-md-3">
-                                <label>Employee</label>
+                                <label>User</label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
@@ -57,7 +57,7 @@
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: center;" class="isLoginVisible">IsLogin CRM</th>
-                                            <th style="text-align: left;">Employee Name</th>
+                                            <th style="text-align: left;">User Name</th>
                                             <th>Mobile</th>
                                             <th style="text-align: center;" class="isAssVisible">Assign</th>
                                             <%--<th style="text-align: center;">Reset Password</th>--%>
@@ -74,19 +74,15 @@
                                                 <tr class="gradeA">
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
-                                                        <asp:HiddenField ID="hddUserType" Value='<%#Eval("UserType") %>' runat="server" />
-                                                        <asp:HiddenField ID="hddUid" Value='<%#Eval("id") %>' runat="server" />
+                                                    <asp:HiddenField ID="hddUserType" Value='<%#Eval("UserType") %>' runat="server"/>
+                                                    <asp:HiddenField ID="hddUid" Value='<%#Eval("id") %>' runat="server"/>
                                                     </td>
-                                                    <td style="text-align: center;" class="isLoginVisible">
-                                                        <asp:CheckBox ID="IsChkLogin" runat="server" Checked='<%# Convert.ToBoolean(Eval("Deactivate"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLogin_CheckedChanged" /></td>
+                                                    <td style="text-align: center;" class="isLoginVisible"><asp:CheckBox  ID="IsChkLogin" runat="server" Checked='<%# Convert.ToBoolean(Eval("Deactivate"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLogin_CheckedChanged"  /></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
 
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
                                                     <td style="text-align: center;" class="isAssVisible">
-                                                        <asp:HyperLink ID="lnkAssbtn" runat="server" NavigateUrl='<%# "AddUserRoles.aspx?id=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">Assign Roles</asp:HyperLink>
-
-                                                        <%--<asp:HyperLink ID="lnkHrbtn" runat="server" NavigateUrl='<%# "Payroll.aspx?id=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">HR</asp:HyperLink>--%>
-                                                    </td>
+                                                        <asp:HyperLink id="lnkAssbtn" runat="server" NavigateUrl='<%# "AddUserRoles.aspx?id=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">Assign Roles</asp:HyperLink> </td>
                                                     <%--<td style="text-align: center;" class="isAssVisible">
                                                         <a href="ResetPassword.aspx" class="btn btn-small btn-success"><i class="fa fa-key" aria-hidden="true"></i></a>
                                                     </td>--%>

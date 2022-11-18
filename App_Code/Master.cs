@@ -182,7 +182,14 @@ public class Master
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
-
+    public DataSet getHqtrUser()
+    {
+        query = "select HQD.HeadQtr,MU.Name, MU.id from[STM_STMAST].[DBO].[HEADQTRDISTRICT]  HQD "+
+"LEFT JOIN[STM_STMAST].[DBO].[MRMAST] M ON M.HEADQTR = HQD.HEADQTR "+
+"LEFT JOIN[CSINFO].[DBO].[MOBILEAPPUSER] MU ON MU.MOBILENO = M.MOBILENO ";
+        ds = data.getDataSet(query);
+        return ds;
+    }
     public string ConvertDDMMYYYY(string d)
     {
         string dat = d;

@@ -3,16 +3,16 @@
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>User Wise Party(STAFP)</title>
+    <title>Employee Wise Party(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
      <asp:ScriptManager ID="scpt1" runat="server"></asp:ScriptManager>
     <section class="content-header" style="height: 2.5em;">
-        <h1>User Wise Party</h1>
+        <h1>Employee Wise Party</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/UserTourPlan.aspx" class="active">User Wise Party</a></li>
+            <li><a href="/Soft/UserTourPlan.aspx" class="active">Employee Wise Party</a></li>
         </ol>
     </section>
     <section class="content">
@@ -27,7 +27,7 @@
                                     <%--   <asp:UpdatePanel ID="upd" runat="server">
                     <ContentTemplate>--%>
                                     <div class="col-md-3">
-                                        <label>User</label>
+                                        <label>Employee</label>
                                         <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                         </asp:DropDownList>
                                     </div>
