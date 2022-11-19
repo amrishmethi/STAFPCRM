@@ -21,7 +21,7 @@
     <!-- Theme style -->
     <link href="../content/dist/css/AdminLTE.css" rel="stylesheet" />
     <link href="../content/dist/css/skins/skin-purple.css" rel="stylesheet" />
-    <link href="../content/plugins/select2/select2.css" rel="stylesheet" /> 
+    <link href="../content/plugins/select2/select2.css" rel="stylesheet" />
     <link href="../content/plugins/datepicker/datepicker3.css" rel="stylesheet" />
     <link href="../content/plugins/jQueryUI/jquery-ui.css" rel="stylesheet" />
     <link href="../content/plugins/Toster/jquery.toast.css" rel="stylesheet" />
@@ -122,7 +122,7 @@
         <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
         <script src="../JsP/data-table/tableExport.js"></script>
         <script src="../JsP/data-table/data-table-active.js"></script>
-       <script src="../jsp/data-table/bootstrap-table-editable.js"></script>
+        <script src="../jsp/data-table/bootstrap-table-editable.js"></script>
         <%--<script src="../jsp/data-table/bootstrap-editable.js"></script>--%>
         <script src="../JsP/data-table/bootstrap-table-resizable.js"></script>
         <script src="../JsP/data-table/colResizable-1.5.source.js"></script>
@@ -138,7 +138,7 @@
         <script src="../content/plugins/fastclick/fastclick.js"></script>
         <script src="../content/plugins/select2/select2.full.js"></script>
         <script src="../content/dist/MenuScript.js"></script>
-        <script src="../content/bootstrap/sweetalert.js"></script> 
+        <script src="../content/bootstrap/sweetalert.js"></script>
         <!-- SoftLTE App -->
         <script src="../content/dist/js/app.js"></script>
         <script src="../content/plugins/datepicker/bootstrap-datepicker.js"></script>
@@ -190,7 +190,7 @@
                     scrollTop: 0
                 }, "easeInOutExpo")
             });
-            $('.select2').select2(); 
+            $('.select2').select2();
         </script>
         <asp:ContentPlaceHolder ID="Footer" runat="server">
         </asp:ContentPlaceHolder>
@@ -212,16 +212,17 @@
                 // endDate: new Date(),
             });
         </script>
-           <script type="text/javascript"> 
-               $('.datepicker2').datepicker({
-                   format: 'dd/mm/yyyy',
-                   timePicker: true,
-                   todayHighlight: true,
-                   autoclose: true,
-                   minDate: new Date(),
-                   // endDate: new Date(),
-               });
-           </script>
+        <script type="text/javascript"> 
+            $('.datepicker2').datepicker({
+                format: 'dd/mm/yyyy',
+                timePicker: true,
+                todayHighlight: true,
+                autoclose: true,
+                startDate: '-0d',
+                minDate: new Date(),
+                // endDate: new Date(),
+            });
+        </script>
         <script>
             $(function () {
                 $('.form-control').keyup(function () {
@@ -233,12 +234,12 @@
             function getCookie(key) {
                 var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
                 return keyValue ? keyValue[2] : null;
-            } 
+            }
         </script>
         <script type="text/javascript">  
             var specialKeys = new Array();
             specialKeys.push(8);
-            function IsNumeric(e,i) {
+            function IsNumeric(e, i) {
                 debugger
                 var keyCode = e.which ? e.which : e.keyCode
                 var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
@@ -249,12 +250,12 @@
                 debugger
                 var keyCode = e.which ? e.which : e.keyCode
                 var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1 || keyCode == 46 || keyCode == 8);
-              document.getElementsByClassName('error')[i].style.display = ret ? "none" : "inline";
+                document.getElementsByClassName('error')[i].style.display = ret ? "none" : "inline";
                 return ret;
             }
-        
+
         </script>
-         <script src="../colorbox/jquery.colorbox.js"></script>
+        <script src="../colorbox/jquery.colorbox.js"></script>
         <script type="text/javascript">
             $('.abc').colorbox({ iframe: true, width: '80%', height: '90%' });
         </script>

@@ -28,7 +28,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
     protected void ChksameAddr_CheckedChanged(object sender, EventArgs e)
     {
         txtparmentaddress.Text = (ChksameAddr.Checked) ? txtpresentaddress.Text : "";
-        txtparmentaddress.Enabled = (ChksameAddr.Checked) ? false :true;
+        txtparmentaddress.Enabled = (ChksameAddr.Checked) ? false : true;
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -68,7 +68,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
     {
         txtHRA.Enabled = (chkHRA.Checked);
         txtHRA.Text = (chkHRA.Checked) ? txtHRA.Text : "";
-        
+
     }
 
     protected void ChkWs_CheckedChanged(object sender, EventArgs e)
@@ -86,6 +86,13 @@ public partial class Soft_Payroll : System.Web.UI.Page
     protected void chkConv_CheckedChanged(object sender, EventArgs e)
     {
         txtConveyance.Enabled = (chkConv.Checked);
-        txtConveyance.Text = (chkConv.Checked) ? txtConveyance.Text : ""; 
+        txtConveyance.Text = (chkConv.Checked) ? txtConveyance.Text : "";
     }
+
+    protected void chkDP_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    
 }

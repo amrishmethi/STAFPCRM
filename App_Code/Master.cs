@@ -49,7 +49,8 @@ public class Master
         cmd.Parameters.AddWithValue("@NAME", name);
         ds = data.getDataSet(cmd);
         return ds;
-    } public DataSet saveUserTourPlan(string id, string uid, string hqtr,string dist,string stat,string tdate)
+    }
+    public DataSet saveUserTourPlan(string id, string uid, string hqtr, string dist, string stat, string tdate)
     {
         cmd = new SqlCommand("PROC_SaveUserTourPlan");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -59,10 +60,10 @@ public class Master
         cmd.Parameters.AddWithValue("@Dst", dist);
         cmd.Parameters.AddWithValue("@Sta", stat);
         cmd.Parameters.AddWithValue("@Dt", tdate);
-        ds = data.getDataSet(cmd); 
+        ds = data.getDataSet(cmd);
         return ds;
     }
-    public DataSet getCheckInDetails(string userid,string indate,string intime)
+    public DataSet getCheckInDetails(string userid, string indate, string intime)
     {
         cmd = new SqlCommand("PROC_CHECKINOUT");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -78,7 +79,7 @@ public class Master
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@UserID", userid);
         cmd.Parameters.AddWithValue("@CheckinDateFrom", data.YYYYMMDD(date));
-       
+
         ds = data.getDataSet(cmd);
         return ds;
     }
@@ -98,7 +99,8 @@ public class Master
         cmd.Parameters.AddWithValue("@UserID", userid);
         ds = data.getDataSet(cmd);
         return ds;
-    }public DataSet getUserTourPlan(string userid)
+    }
+    public DataSet getUserTourPlan(string userid)
     {
         cmd = new SqlCommand("PROC_USERTOURPLAN");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -106,7 +108,7 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
-    public DataSet getSeconarySalesDetails(string userid, string party, string station,string indate, string intime)
+    public DataSet getSeconarySalesDetails(string userid, string party, string station, string indate, string intime)
     {
         cmd = new SqlCommand("PROC_SECONDARYSALES");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -129,16 +131,19 @@ public class Master
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
+
+    
+
     public void FillPrimaryStation(DropDownList drp)
     {
         query = "select distinct Station from [STM_AcMast].[dbo].[Station] order by Station ";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "Station";
-         drp.DataValueField = "Station";
+        drp.DataValueField = "Station";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
-    } 
+    }
 
     public void FillPrimaryParty(DropDownList drp)
     {
@@ -170,7 +175,7 @@ public class Master
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
-    
+
 
     public void FillDrop(DropDownList drp, String tbl)
     {
@@ -182,10 +187,11 @@ public class Master
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
+
     public DataSet getHqtrUser()
     {
-        query = "select HQD.HeadQtr,MU.Name, MU.id from[STM_STMAST].[DBO].[HEADQTRDISTRICT]  HQD "+
-"LEFT JOIN[STM_STMAST].[DBO].[MRMAST] M ON M.HEADQTR = HQD.HEADQTR "+
+        query = "select HQD.HeadQtr,MU.Name, MU.id from[STM_STMAST].[DBO].[HEADQTRDISTRICT]  HQD " +
+"LEFT JOIN[STM_STMAST].[DBO].[MRMAST] M ON M.HEADQTR = HQD.HEADQTR " +
 "LEFT JOIN[CSINFO].[DBO].[MOBILEAPPUSER] MU ON MU.MOBILENO = M.MOBILENO ";
         ds = data.getDataSet(query);
         return ds;
@@ -196,5 +202,34 @@ public class Master
         string[] aa = dat.Split('/');
         dat = aa[1] + "/" + aa[0] + "/" + aa[2];
         return dat;
+    }
+//    @
+//    @
+//    @
+//@
+    public DataSet GetSecondarySaleTargetMain(string EMPID, string APP_DATE, string MINVISIT, string TOTALQTY, string ID)
+    {
+        cmd = new SqlCommand("IU_SECONDARYSALESTARGET_MAIN"); 
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@EMPID", EMPID);
+        cmd.Parameters.AddWithValue("@APP_DATE", APP_DATE);
+        cmd.Parameters.AddWithValue("@MINVISIT", MINVISIT);
+        cmd.Parameters.AddWithValue("@TOTALQTY", TOTALQTY);
+        cmd.Parameters.AddWithValue("@ID", ID);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+    public DataSet GetSecondarySaleTargetDetails(string MAINID, string ITEMGROUP, string QTY, string DETAILID, string Delid)
+    {
+        cmd = new SqlCommand("IU_SECONDARYSALESTARGET_DETAILS");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@MAINID", MAINID);
+        cmd.Parameters.AddWithValue("@ITEMGROUP", ITEMGROUP);
+        cmd.Parameters.AddWithValue("@QTY", QTY);
+        cmd.Parameters.AddWithValue("@DETAILID", DETAILID);
+        cmd.Parameters.AddWithValue("@Delid", Delid);
+        ds = data.getDataSet(cmd);
+        return ds;
     }
 }
