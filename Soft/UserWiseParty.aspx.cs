@@ -27,16 +27,17 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
             DataSet dsusr = getdata.getHqtrUser();
-            drpUser.Items.Insert(0, new ListItem("Select", "0"));
-            drpUser.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name","id");
+
+            drpUser.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name", "MId");
             drpUser.DataTextField = "Name";
-            drpUser.DataValueField = "id";
-            drpUser.DataBind(); 
-           drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
+            drpUser.DataValueField = "MId";
+            drpUser.DataBind();
+            drpUser.Items.Insert(0, new ListItem("Select", "0"));
             drpheadQtr.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "HeadQtr");
             drpheadQtr.DataTextField = "HeadQtr";
             drpheadQtr.DataValueField = "HeadQtr";
             drpheadQtr.DataBind();
+            drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
 
         }
     }
@@ -45,10 +46,11 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
     {
         //ds = getdata.getUserTourPlan(drpUser.SelectedValue);
         DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
-        if (drpDistrict.SelectedIndex > 0)
+        if (drpheadQtr.SelectedIndex > 0)
         {
             dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
         }
+
         if (drpDistrict.SelectedIndex > 0)
         {
             dv.RowFilter = "District = '" + drpDistrict.SelectedValue + "'";
@@ -106,7 +108,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         drpheadQtr.DataTextField = "HeadQtr";
         drpheadQtr.DataValueField = "HeadQtr";
         drpheadQtr.DataBind();
-        drpheadQtr.Items.Insert(0, new ListItem("Select", "0")); 
+        drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
         drpDistrict.DataSource = ds.Tables[0].DefaultView.ToTable(true, "District");
         drpDistrict.DataTextField = "District";
         drpDistrict.DataValueField = "District";
@@ -120,13 +122,14 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
     {
         DataSet dsusr = getdata.getHqtrUser();
         DataView dv = dsusr.Tables[0].DefaultView;
-        dv.RowFilter = "HeadQtr = " + drpheadQtr.SelectedValue;
-        drpUser.Items.Insert(0, new ListItem("Select", "0"));
-        drpUser.DataSource = dv.ToTable(true, "Name");
+        dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
+
+        drpUser.DataSource = dv.ToTable(true, "Name", "MId");
         drpUser.DataTextField = "Name";
-        drpUser.DataValueField = "id";
+        drpUser.DataValueField = "MId";
         drpUser.DataBind();
-        fillData();
+        drpUser.Items.Insert(0, new ListItem("Select", "0"));
+        // fillData();
     }
 
     protected void drpDistrict_SelectedIndexChanged(object sender, EventArgs e)

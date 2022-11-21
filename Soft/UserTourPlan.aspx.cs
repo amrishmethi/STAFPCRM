@@ -26,7 +26,18 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserTourPlan.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
-            getdata.FillUser(drpUser);
+            DataSet dsusr = getdata.getHqtrUser();
+
+            drpUser.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name", "MId");
+            drpUser.DataTextField = "Name";
+            drpUser.DataValueField = "MId";
+            drpUser.DataBind();
+            drpUser.Items.Insert(0, new ListItem("Select", "0"));
+            drpheadQtr.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "HeadQtr");
+            drpheadQtr.DataTextField = "HeadQtr";
+            drpheadQtr.DataValueField = "HeadQtr";
+            drpheadQtr.DataBind();
+            drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
             fillData();
         }
     }
@@ -34,9 +45,19 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
     public void fillData()
     {
         ds = getdata.getUserTourPlan(drpUser.SelectedValue);
+               DataView dv = ds.Tables[1].DefaultView;
+        if (drpheadQtr.SelectedIndex > 0)
+        {
+            dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
+        }
 
-        rep.DataSource = ds.Tables[1];
+        if (drpDistrict.SelectedIndex > 0)
+        {
+            dv.RowFilter = "District = '" + drpDistrict.SelectedValue + "'";
+        }
+        rep.DataSource = dv.ToTable();
         rep.DataBind();
+    
     }
 
     //protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -93,6 +114,35 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
     }
 
     protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        fillData();
+        drpheadQtr.DataSource = ds.Tables[1].DefaultView.ToTable(true, "HeadQtr");
+        drpheadQtr.DataTextField = "HeadQtr";
+        drpheadQtr.DataValueField = "HeadQtr";
+        drpheadQtr.DataBind();
+       // drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
+        drpDistrict.DataSource = ds.Tables[1].DefaultView.ToTable(true, "District");
+        drpDistrict.DataTextField = "District";
+        drpDistrict.DataValueField = "District";
+        drpDistrict.DataBind();
+        drpDistrict.Items.Insert(0, new ListItem("Select", "0"));
+        rep.DataSource = ds.Tables[1];
+        rep.DataBind();
+    }
+    protected void drpheadQtr_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DataSet dsusr = getdata.getHqtrUser();
+        DataView dv = dsusr.Tables[0].DefaultView;
+        dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
+
+        drpUser.DataSource = dv.ToTable(true, "Name", "MId");
+        drpUser.DataTextField = "Name";
+        drpUser.DataValueField = "MId";
+        drpUser.DataBind();
+    //    drpUser.Items.Insert(0, new ListItem("Select", "0"));
+        // fillData();
+    }
+    protected void drpDistrict_SelectedIndexChanged(object sender, EventArgs e)
     {
         fillData();
     }
