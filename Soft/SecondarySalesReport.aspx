@@ -22,7 +22,7 @@
                         <div class="form-group">
 
                             <div class="col-md-2">
-                                <label>User</label>
+                                <label>Employee</label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
@@ -67,7 +67,7 @@
                                         <tr>
                                             <th>Sr. No.</th>
 
-                                            <th>User</th>
+                                            <th>Employee</th>
                                             <th>Date</th>
                                             <th>Time</th>
                                             <th>Party</th>

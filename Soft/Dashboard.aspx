@@ -52,8 +52,8 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h4>Today's CheckIn Users : <b id="chkInusr" runat="server">0</b></h4>
-                        <p>Today's CheckOut Users: <b id="chkOutusr" runat="server">0</b></p>
+                        <h4>Today's CheckIn Employees : <b id="chkInusr" runat="server">0</b></h4>
+                        <p>Today's CheckOut Employees: <b id="chkOutusr" runat="server">0</b></p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
@@ -66,7 +66,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h4>Total Users : <b id="TotUsr" runat="server">0</b></h4>
+                        <h4>Total Employees : <b id="TotUsr" runat="server">0</b></h4>
                         <p>Attendance : In - <b id="AttnIn" runat="server">0</b> &nbsp;&nbsp;&nbsp;&nbsp; Out - <b id="AttnOut" runat="server">0</b></p>
                     </div>
                     <div class="icon">
@@ -106,7 +106,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
                                             <thead>
                                                 <tr>
                                                     <th>Sr. No.</th>
-                                                    <th>User</th>
+                                                    <th>Employee</th>
                                                     <th>Group</th>
                                                     <th>Qty</th>
                                                 </tr>

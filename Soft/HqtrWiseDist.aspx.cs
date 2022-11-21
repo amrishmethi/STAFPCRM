@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class Admin_EmployeeTourPlan : System.Web.UI.Page
+public partial class Admin_UserWiseParty : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
@@ -24,28 +24,28 @@ public partial class Admin_EmployeeTourPlan : System.Web.UI.Page
 
             Soft = Request.Cookies["STFP"];
 
-            Session["AccessRigthsSet"] = getdata.AccessRights("EmployeeTourPlan.aspx", Soft["Type"] == "admin" ? "0" : Soft["EmployeeId"]).Tables[0];
+            Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
-            DataSet dsusr = getdata.getHqtrEmployee();
+            DataSet dsusr = getdata.getHqtrUser();
 
-            drpEmployee.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name", "MId");
-            drpEmployee.DataTextField = "Name";
-            drpEmployee.DataValueField = "MId";
-            drpEmployee.DataBind();
-            drpEmployee.Items.Insert(0, new ListItem("Select", "0"));
+            drpUser.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name", "MId");
+            drpUser.DataTextField = "Name";
+            drpUser.DataValueField = "MId";
+            drpUser.DataBind();
+            drpUser.Items.Insert(0, new ListItem("Select", "0"));
             drpheadQtr.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "HeadQtr");
             drpheadQtr.DataTextField = "HeadQtr";
             drpheadQtr.DataValueField = "HeadQtr";
             drpheadQtr.DataBind();
             drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
-            fillData();
+
         }
     }
 
     public void fillData()
     {
-        ds = getdata.getEmployeeTourPlan(drpEmployee.SelectedValue);
-               DataView dv = ds.Tables[1].DefaultView;
+        //ds = getdata.getUserTourPlan(drpUser.SelectedValue);
+        DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
         if (drpheadQtr.SelectedIndex > 0)
         {
             dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
@@ -57,7 +57,6 @@ public partial class Admin_EmployeeTourPlan : System.Web.UI.Page
         }
         rep.DataSource = dv.ToTable();
         rep.DataBind();
-    
     }
 
     //protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -75,6 +74,10 @@ public partial class Admin_EmployeeTourPlan : System.Web.UI.Page
     //    }
     //}
 
+    //protected void btnSearch_Click(object sender, EventArgs e)
+    //{
+    //    fillData();
+    //}
 
     [WebMethod]
     public static string ControlAccess()
@@ -89,59 +92,46 @@ public partial class Admin_EmployeeTourPlan : System.Web.UI.Page
     //    {
     //        HyperLink lnkAssbtn = (e.Item.FindControl("lnkAssbtn") as HyperLink);
     //        HiddenField hddUid = (HiddenField)e.Item.FindControl("hddUid");
-    //        HiddenField hddEmployeeType = (e.Item.FindControl("hddEmployeeType") as HiddenField);
-    //        lnkAssbtn.Visible = hddEmployeeType.Value == "admin"?false:true;
+    //        HiddenField hddUserType = (e.Item.FindControl("hddUserType") as HiddenField);
+    //        lnkAssbtn.Visible = hddUserType.Value == "admin"?false:true;
     //    }
     //}
 
 
 
-    protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
-    {
-        if (e.CommandName == "Save")
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                TextBox txtDate = (e.Item.FindControl("txtDate") as TextBox);
-                Label lblHqtr = (e.Item.FindControl("lblHqtr") as Label);
-                Label lblDist = (e.Item.FindControl("lblDist") as Label);
-                Label lblStat = (e.Item.FindControl("lblStat") as Label);
 
-                ds = getdata.saveEmployeeTourPlan(e.CommandArgument.ToString(), drpEmployee.SelectedValue, lblHqtr.Text, lblDist.Text, lblStat.Text, txtDate.Text == ""?"":data.YYYYMMDD(txtDate.Text.Trim()));
-            }
-            fillData();
-        }
-    }
-
-    protected void drpEmployee_SelectedIndexChanged(object sender, EventArgs e)
+    protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
     {
-        fillData();
-        drpheadQtr.DataSource = ds.Tables[1].DefaultView.ToTable(true, "HeadQtr");
+        ds = getdata.getUserTourPlan(drpUser.SelectedValue);
+        ViewState["tbl"] = ds.Tables[0];
+        drpheadQtr.DataSource = ds.Tables[0].DefaultView.ToTable(true, "HeadQtr");
         drpheadQtr.DataTextField = "HeadQtr";
         drpheadQtr.DataValueField = "HeadQtr";
         drpheadQtr.DataBind();
-       // drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
-        drpDistrict.DataSource = ds.Tables[1].DefaultView.ToTable(true, "District");
+        drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
+        drpDistrict.DataSource = ds.Tables[0].DefaultView.ToTable(true, "District");
         drpDistrict.DataTextField = "District";
         drpDistrict.DataValueField = "District";
         drpDistrict.DataBind();
         drpDistrict.Items.Insert(0, new ListItem("Select", "0"));
-        rep.DataSource = ds.Tables[1];
+        rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
+
     protected void drpheadQtr_SelectedIndexChanged(object sender, EventArgs e)
     {
-        DataSet dsusr = getdata.getHqtrEmployee();
+        DataSet dsusr = getdata.getHqtrUser();
         DataView dv = dsusr.Tables[0].DefaultView;
         dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
 
-        drpEmployee.DataSource = dv.ToTable(true, "Name", "MId");
-        drpEmployee.DataTextField = "Name";
-        drpEmployee.DataValueField = "MId";
-        drpEmployee.DataBind();
-    //    drpEmployee.Items.Insert(0, new ListItem("Select", "0"));
+        drpUser.DataSource = dv.ToTable(true, "Name", "MId");
+        drpUser.DataTextField = "Name";
+        drpUser.DataValueField = "MId";
+        drpUser.DataBind();
+        drpUser.Items.Insert(0, new ListItem("Select", "0"));
         // fillData();
     }
+
     protected void drpDistrict_SelectedIndexChanged(object sender, EventArgs e)
     {
         fillData();
