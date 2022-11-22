@@ -207,7 +207,7 @@ public class Master
 //    @
 //    @
 //@
-    public DataSet GetSecondarySaleTargetMain(string EMPID, string APP_DATE, string MINVISIT, string TOTALQTY, string ID)
+    public DataSet GetSecondarySaleTargetMain(string EMPID, string APP_DATE, string MINVISIT, string TOTALQTY, string ID, string Amount)
     {
         cmd = new SqlCommand("IU_SECONDARYSALESTARGET_MAIN"); 
         cmd.CommandType = CommandType.StoredProcedure;
@@ -216,6 +216,7 @@ public class Master
         cmd.Parameters.AddWithValue("@MINVISIT", MINVISIT);
         cmd.Parameters.AddWithValue("@TOTALQTY", TOTALQTY);
         cmd.Parameters.AddWithValue("@ID", ID);
+        cmd.Parameters.AddWithValue("@Amount", Amount);
         ds = data.getDataSet(cmd);
         return ds;
     }

@@ -43,6 +43,7 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
             drpEmployee.Enabled = false;
             txtDate.Text = dss.Tables[0].Rows[0]["TARGET_DATE"].ToString();
             txtMinVisit.Text = dss.Tables[0].Rows[0]["MINVISIT"].ToString();
+            txtAmount.Text = dss.Tables[0].Rows[0]["AMOUNT"].ToString();
             btnSaveExit.Text = "Update";
 
             if (ViewState["tbl"] == null)
@@ -137,7 +138,7 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
         else
         {
             dtRecord = (DataTable)ViewState["tbl"];
-            DataRow[] foundAuthors = dtRecord.Select("ItemGroup = '" + drpItemGrup.Text + "' and Id!=" + HddRowID.Value);
+            DataRow[] foundAuthors = dtRecord.Select("ItemGroup = '" + drpItemGrup.Text + "' and Id<>" + HddRowID.Value);
             if (foundAuthors.Length == 0)
             {
                 int rowind = Convert.ToInt32(ViewState["rowid"].ToString());
@@ -177,6 +178,8 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
             txtIncentive.Text = lblIncentive.Text;
             HddRowID.Value = hddID.Value;
             btnAdd.Text = "Update";
+
+            ViewState["rowid"] = e.Item.ItemIndex;
         }
 
         if (e.CommandName == "Remove")
@@ -214,7 +217,7 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
             dtRecord = (DataTable)ViewState["tbl"];
             int _TotalQty = Convert.ToInt32(dtRecord.Compute("sum(Qty)", ""));
 
-            DataSet dssTargetMain = master.GetSecondarySaleTargetMain(drpEmployee.SelectedValue.ToString(), data.ConvertToDateTime(txtDate.Text).ToString(), txtMinVisit.Text, _TotalQty.ToString(), hddMainId.Value);
+            DataSet dssTargetMain = master.GetSecondarySaleTargetMain(drpEmployee.SelectedValue.ToString(), data.ConvertToDateTime(txtDate.Text).ToString(), txtMinVisit.Text, _TotalQty.ToString(), hddMainId.Value, txtAmount.Text);
             if (dssTargetMain.Tables[0].Rows.Count > 0)
             {
                 foreach (DataRow drr in dtRecord.Rows)
