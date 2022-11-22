@@ -23,9 +23,18 @@
 
                             <div class="col-md-3">
                                 <label>Employee</label>
-                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged ="drpUser_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
+                              <div class="col-md-2">
+                                        <label>HeadQuarter</label>
+                                        <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
+                                        </asp:DropDownList>
+                                    </div> <div class="col-md-2">
+                                        <label>District</label>
+                                        <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
+                                        </asp:DropDownList>
+                                    </div>
                             <%--<div class="col-md-2">
                                 <label>Date From</label>
                                 <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker">
@@ -38,11 +47,10 @@
                             </div>--%>
 
 
-                          <%--  <div class="col-md-1" style="padding-top: 3px;">
+                            <%--  <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
                             </div>--%>
-
                         </div>
                         <div class="clearfix">&nbsp;</div>
                         <div class="clearfix">&nbsp;</div>
@@ -73,9 +81,12 @@
                                                         <%#Container.ItemIndex+1 %>
                                                       
                                                     </td>
-                                                    <td style="text-align: left;"><asp:Label ID="lblHqtr" runat="server" Text='<%#Eval("HeadQtr") %>'></asp:Label></td>
-                                                    <td style="text-align: left;"><asp:Label ID="lblDist" runat="server" Text='<%#Eval("District") %>'></asp:Label></td>
-                                                    <td style="text-align: left;"><asp:Label ID="lblStat" runat="server" Text='<%#Eval("Station") %>'></asp:Label></td>
+                                                    <td style="text-align: left;">
+                                                        <asp:Label ID="lblHqtr" runat="server" Text='<%#Eval("HeadQtr") %>'></asp:Label></td>
+                                                    <td style="text-align: left;">
+                                                        <asp:Label ID="lblDist" runat="server" Text='<%#Eval("District") %>'></asp:Label></td>
+                                                    <td style="text-align: left;">
+                                                        <asp:Label ID="lblStat" runat="server" Text='<%#Eval("Station") %>'></asp:Label></td>
                                                     <td style="text-align: left;">
                                                         <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker2" Text='<%# Eval("TDate") %>'></asp:TextBox>
                                                     </td>

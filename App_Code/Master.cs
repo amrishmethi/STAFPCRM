@@ -190,7 +190,7 @@ public class Master
 
     public DataSet getHqtrUser()
     {
-        query = "select HQD.HeadQtr,MU.Name, MU.id from[STM_STMAST].[DBO].[HEADQTRDISTRICT]  HQD " +
+        query = "select HQD.HeadQtr,MU.Name, MU.id as MId from[STM_STMAST].[DBO].[HEADQTRDISTRICT]  HQD " +
 "LEFT JOIN[STM_STMAST].[DBO].[MRMAST] M ON M.HEADQTR = HQD.HEADQTR " +
 "LEFT JOIN[CSINFO].[DBO].[MOBILEAPPUSER] MU ON MU.MOBILENO = M.MOBILENO ";
         ds = data.getDataSet(query);

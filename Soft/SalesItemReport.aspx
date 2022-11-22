@@ -24,7 +24,7 @@
                             <div class="clearfix">&nbsp;</div>
 
                             <div class="col-md-2">
-                                <label>User</label>
+                                <label>Employee</label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
@@ -67,7 +67,7 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;" rowspan="2">Sr. No.</th>
-                                            <th style="text-align: left;" rowspan="2">User</th>
+                                            <th style="text-align: left;" rowspan="2">Employee</th>
                                             <th style="text-align: center;" colspan="6">Primary</th>
                                             <th style="text-align: center;" colspan="5">Secondary</th>
                                         </tr>
