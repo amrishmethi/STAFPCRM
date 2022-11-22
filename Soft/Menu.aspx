@@ -33,12 +33,10 @@
 
                     <div class="col-md-2">
                         <label>Position</label>
-                        <asp:TextBox ID="txtPosition" runat="server" CssClass="form-control" onkeypress="return IsNumeric(event);"  ></asp:TextBox>
+                        <asp:TextBox ID="txtPosition" runat="server" CssClass="form-control" onkeypress="return IsNumeric(event,0);"  ></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="*"
                             Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="txtPosition"></asp:RequiredFieldValidator>
-
-                        <span id="error" style="color: Red; display: none">* Input digits (0 - 9)</span>
-
+                        <span id="error" style="color: Red; display: none" class="numerror">* Input digits (0 - 9)</span>
                     </div>
                     <div class="box-body">
                         <div class="">

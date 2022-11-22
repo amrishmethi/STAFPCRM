@@ -94,5 +94,10 @@ public partial class Soft_Payroll : System.Web.UI.Page
 
     }
 
-    
+
+
+    protected void drpMarriedStatus_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        txtDOM.ReadOnly = (drpMarriedStatus.SelectedValue.ToString() == "Married") ? false : true;
+    }
 }

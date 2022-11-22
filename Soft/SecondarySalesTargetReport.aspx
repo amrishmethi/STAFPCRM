@@ -24,11 +24,13 @@
                         <div class="form-group">
 
                             <div class="col-md-4">
-                                <label>Station</label>
-                                <asp:DropDownList ID="drpemp" runat="server" CssClass="form-control select2">
-                                </asp:DropDownList>
+                                <label>Employee</label>
+                                <asp:DropDownList ID="drpEmployee" runat="server" CssClass="form-control select2"></asp:DropDownList>
                             </div>
-
+                            <div class="col-md-4">
+                                <label>Item Group</label>
+                                <asp:DropDownList ID="drpItemGrup" runat="server" CssClass="form-control select2"></asp:DropDownList>
+                            </div>
                             <div class="col-md-4" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
@@ -48,40 +50,39 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
-                                            <th style="text-align: left;">Station</th>
-                                            <th style="text-align: left;">Party</th>
-                                            <th style="text-align: left;">Mobile No</th>
-                                            <th style="text-align: left;">WhatsApp No</th>
+                                            <th style="text-align: left;">Empployee</th>
+                                            <th style="text-align: left;">Item Group</th>
+                                            <th style="text-align: left;">Min Qty</th>
+                                            <th style="text-align: left;">Incentive Per Bag/Case</th>
+                                            <th style="text-align: left;">Min Visit</th>
+                                            <th style="text-align: left;">Target Date</th>
                                             <th>
                                                 <label id="lblAction">Action</label></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="rep" runat="server">
+                                        <asp:Repeater ID="rep" runat="server" OnItemCommand="rep_ItemCommand">
                                             <ItemTemplate>
                                                 <tr class="gradeA">
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
-                                                    <%--     <asp:Label ID="lblItem" runat="server" Text='<%#Eval("StationName") %>'></asp:Label>--%>
-
-                                                    <td style="text-align: left;"><%#Eval("StationName") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Name") %></td>
-                                                    <td style="text-align: left;"><%#Eval("MobileNo") %></td>
-                                                    <td style="text-align: left;"><%#Eval("WhatsUpMobileNo") %></td>
+                                                    <td style="text-align: left;"><%#Eval("EMP_NAME") %></td>
+                                                    <td style="text-align: left;"><%#Eval("ITEMGROUP") %></td>
+                                                    <td style="text-align: left;"><%#Eval("QTY") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Incentive") %></td>
+                                                    <td style="text-align: left;"><%#Eval("MinVisit") %></td>
+                                                    <td style="text-align: left;"><%#Eval("TARGET_DATE") %></td>
 
                                                     <td style="text-align: left;">
                                                         <div class="isEditVisible" style="display: inline;">
-                                                            <a href="SecondarySalesTarget.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                            <a href="SecondarySalesTarget.aspx?DID=<%#Eval("DETAILID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
                                                         </div>
                                                         <div class="isDelVisible" style="display: inline;">
                                                             <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"
-                                                                CommandArgument='<%#Eval("ID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
+                                                                CommandArgument='<%#Eval("DETAILID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
                                                         </div>
-
                                                     </td>
-
-
                                                 </tr>
                                             </ItemTemplate>
 

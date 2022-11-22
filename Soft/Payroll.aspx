@@ -334,7 +334,7 @@
                                     <asp:ListItem Text="Saturday" Value="Saturday"></asp:ListItem>
                                 </asp:ListBox>
                             </div>
-                             <div class="col-md-4">
+                            <div class="col-md-4">
                                 <asp:CheckBox ID="chkOverTime" runat="server" AutoPostBack="true" />
                                 &nbsp; &nbsp;<label class="control-label">Over Time</label>
                                 &nbsp; &nbsp;<asp:RadioButton ID="rbOTFixed" runat="server" Text="Fixed" GroupName="OT" Checked="true" />
@@ -364,155 +364,129 @@
 
             </div>
         </div>
+        <asp:UpdatePanel ID="updtAddress" runat="server">
+            <ContentTemplate>
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="col-md-12" style="border-bottom: .5px solid lightgrey;">
+                            <h4 class="box-title">
+                                <label>PESONAL DETAILS</label>
+                            </h4>
+                            <div class="col-md-3">
+                                <label class="control-label">
+                                    Gender <span style="color: #ff0000">*</span></label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="drpGender"
+                                    ErrorMessage="Select Gender" ValidationGroup="aa" InitialValue="0"></asp:RequiredFieldValidator>
+                                <asp:DropDownList ID="drpGender" runat="server" CssClass="form-control select2" AutoPostBack="true">
+                                    <asp:ListItem Value="0">--Select--</asp:ListItem>
+                                    <asp:ListItem Value="Male">Male</asp:ListItem>
+                                    <asp:ListItem Value="Female">Female</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">
+                                    Date of Birth <span style="color: #ff0000">*</span>
+                                </label>  <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="txtDOB"
+                                    ErrorMessage="Enter DOB" ValidationGroup="aa"  ></asp:RequiredFieldValidator>
+                                <asp:TextBox ID="txtDOB" runat="server" CssClass="form-control datepicker">
+                                </asp:TextBox>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">
+                                    Status <span style="color: #ff0000">*</span>
+                                </label>  <asp:RequiredFieldValidator ID="RequiredFieldValidator15" runat="server" ControlToValidate="drpMarriedStatus"
+                                    ErrorMessage="Select Status" ValidationGroup="aa" InitialValue="0"></asp:RequiredFieldValidator>
+                                <asp:DropDownList ID="drpMarriedStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpMarriedStatus_SelectedIndexChanged">
+                                    <asp:ListItem Value="0">--Select--</asp:ListItem>
+                                    <asp:ListItem Value="Single">Single</asp:ListItem>
+                                    <asp:ListItem Value="Married">Married</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">
+                                    Education
+                                </label>
+                                <asp:TextBox ID="txtEducation" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                             <div class="clearfix">&nbsp;</div>
+                            <div class="col-md-3">
+                                <label class="control-label">
+                                    Date of Marriage
+                                </label>
+                                <asp:TextBox ID="txtDOM" runat="server" CssClass="form-control datepicker" ReadOnly="true"></asp:TextBox>
+                            </div>
+                            <div id="ShowMaternity" runat="server"  class="col-md-3">
+                                <label class="control-label">
+                                    Maternity Leave</label>
+                                <asp:TextBox ID="TxtMaternityLeave" runat="server" CssClass="form-control" Text="0"  ReadOnly="true"></asp:TextBox>
+                            </div>
 
-        <div class="box box-primary">
-            <div class="box-body">
-                <div class="col-md-12" style="border-bottom: .5px solid lightgrey;">
-                    <h4 class="box-title">
-                        <label>PESONAL DETAILS</label>
-                    </h4>
-                    <div class="col-md-4">
-                        <label class="control-label">
-                            Gender <span style="color: #ff0000">*</span></label>
-                        <asp:DropDownList ID="drpGender" runat="server" CssClass="form-control select2" AutoPostBack="true"
-                            OnSelectedIndexChanged="drpGender_SelectedIndexChanged">
-                            <asp:ListItem Value="0">--Select--</asp:ListItem>
-                            <asp:ListItem Value="Male">Male</asp:ListItem>
-                            <asp:ListItem Value="Female">Female</asp:ListItem>
-                        </asp:DropDownList>
-
-                        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                            <ContentTemplate>
-                                <div id="ShowMaternity" runat="server" visible="false" class="control-group">
-                                    <label class="control-label">
-                                        Maternity Leave</label>
-                                    <div class="controls  controls-row">
-                                        <asp:TextBox ID="TxtMaternityLeave" runat="server" CssClass="form-control" Text="0"></asp:TextBox>
-                                    </div>
-                                </div>
-                            </ContentTemplate>
-                            <Triggers>
-                                <asp:AsyncPostBackTrigger ControlID="drpGender" EventName="SelectedIndexChanged" />
-                            </Triggers>
-                        </asp:UpdatePanel>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="control-label">
-                            Date of Birth <span style="color: #ff0000">*</span>
-                        </label>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="txtdat1"
-                            ErrorMessage="Enter Date of Birth" ValidationGroup="aa"></asp:RequiredFieldValidator>
-                        <asp:TextBox ID="txtdat1" runat="server" CssClass="form-control datepicker">
-                        </asp:TextBox>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="control-label">
-                            Status
-                        </label>
-                        <asp:DropDownList ID="drpMarriedStatus" runat="server" CssClass="form-control select2">
-                            <asp:ListItem Value="0">--Select--</asp:ListItem>
-                            <asp:ListItem Value="Single">Single</asp:ListItem>
-                            <asp:ListItem Value="Married">Married</asp:ListItem>
-                        </asp:DropDownList>
-                    </div>
-                    <div class="clearfix">&nbsp;</div>
-                    <div class="col-md-4">
-                        <label class="control-label">
-                            Education
-                        </label>
-                        <asp:TextBox ID="txtEducation" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="control-label">
-                            Date of Marriage
-                        </label>
-                        <asp:TextBox ID="txtdat4" runat="server" CssClass="form-control datepicker"></asp:TextBox>
-
-                    </div>
-                    <div class="col-md-4">
-                        <label class="control-label">
-                            Phone Number
-                        </label>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="txtphoneno"
-                            ValidationExpression="^\d+$" ErrorMessage="Only numbers Allowed"></asp:RegularExpressionValidator>
-
-                        <asp:TextBox ID="txtphoneno" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="clearfix">&nbsp;</div>
-
-                    <div class="col-md-4">
-                        <label class="control-label">
-                            Mobile Number
-                        </label>
-                        <span style="color: #ff0000">*</span>
-
-                        <asp:TextBox ID="txtmobno" runat="server" CssClass="form-control"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtmobno"
-                            ErrorMessage="Enter Mobile Number" ValidationGroup="aa"></asp:RequiredFieldValidator>
-                        <asp:RegularExpressionValidator ID="reg1" runat="server" ControlToValidate="txtmobno"
-                            ValidationExpression="^\d+$" ErrorMessage="Only numbers Allowed"></asp:RegularExpressionValidator>
-                    </div>
-                    <div class="col-md-4">
-                        <label class="control-label">
-                            CUG Mobile Number <span style="color: #ff0000">&nbsp;&nbsp;</span>
-                        </label>
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtCUG"
-                            ValidationExpression="^\d+$" ErrorMessage="Only numbers Allowed"></asp:RegularExpressionValidator>
-
-                        <asp:TextBox ID="txtCUG" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <label class="control-label">
-                            Personal Email ID <span style="color: #ff0000">*</span>
-                        </label>
-
-                        <asp:TextBox ID="txtemail" runat="server" CssClass="form-control"></asp:TextBox>
-
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="txtemail"
-                            ErrorMessage="Enter Email ID" ValidationGroup="aa"></asp:RequiredFieldValidator>
-                        &nbsp;<asp:RegularExpressionValidator ID="Rev1" runat="server" ErrorMessage="Enter Valid Email Id"
-                            ControlToValidate="txtemail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
-
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="control-label">
-                            Office Email ID  <span style="color: #ff0000">*</span>
-                        </label>
-                        &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server"
-                            ErrorMessage="Enter Valid Email Id" ControlToValidate="txtemail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
-                        <asp:TextBox ID="txtOfficEmail" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-
-                    <asp:UpdatePanel ID="updtAddress" runat="server">
-                        <ContentTemplate>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
+                                <label class="control-label">
+                                    Phone Number
+                                </label>
+                                <span id="erro1r" style="color: Red; display: none" class="numerror">* Input digits (0 - 9)</span>
+                                <asp:TextBox ID="txtphoneno" runat="server" CssClass="form-control" onkeypress="return IsNumeric(event,0);"></asp:TextBox>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">
+                                    Mobile Number
+                                </label>
+                                <span style="color: #ff0000">*</span>
+                                <span style="color: Red; display: none" class="numerror">* Input digits (0 - 9)</span>
+                                <asp:TextBox ID="txtmobno" runat="server" CssClass="form-control" onkeypress="return IsNumeric(event,1);"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator14" runat="server" ControlToValidate="txtmobno"
+                                    ErrorMessage="Enter Mobile Number" ValidationGroup="aa"></asp:RequiredFieldValidator>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">
+                                    CUG Mobile Number  <span style="color: Red; display: none" class="numerror">* Input digits (0 - 9)</span>
+                                </label> 
+                                <asp:TextBox ID="txtCUG" runat="server" CssClass="form-control" onkeypress="return IsNumeric(event,2);"></asp:TextBox>
+                            </div>  
+                            <div class="col-md-3">
+                                <label class="control-label">
+                                    Personal Email ID <span style="color: #ff0000">*</span>
+                                </label>                                
+                                <asp:TextBox ID="txtemail" runat="server" CssClass="form-control"></asp:TextBox>
+                                &nbsp;<asp:RegularExpressionValidator ID="Rev1" runat="server" ErrorMessage="Valid Email Id"
+                                    ControlToValidate="txtemail" style="color: #ff0000" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>                                
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="txtemail"
+                                    ErrorMessage="Enter Email ID" ValidationGroup="aa" style="color: #ff0000" ></asp:RequiredFieldValidator>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="control-label">
+                                    Office Email ID  <span style="color: #ff0000">*</span>
+                                </label>
+                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server"
+                                    ErrorMessage="Valid Email Id" ControlToValidate="txtOfficEmail"  style="color: #ff0000"  ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+                                <asp:TextBox ID="txtOfficEmail" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="col-md-6">
                                 <label class="control-label">
                                     Present Address  <span style="color: #ff0000">*</span>
                                 </label>
                                 <asp:CheckBox ID="ChksameAddr" runat="server" AutoPostBack="True" OnCheckedChanged="ChksameAddr_CheckedChanged" Text="If Permanent Address Is Same" Style="font-family: Calibri; font-size: x-small;" />
                                 <asp:TextBox ID="txtpresentaddress" runat="server" CssClass="form-control"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtpresentaddress"
-                                    ErrorMessage="Enter Present Address" ValidationGroup="aa"></asp:RequiredFieldValidator>
+                                    ErrorMessage="Enter Present Address" ValidationGroup="aa" style="color: #ff0000"></asp:RequiredFieldValidator>
                             </div>
-                            <div class="col-md-4">
+
+                            <div class="col-md-6">
                                 <label class="control-label">
                                     Permanent Address <span style="color: #ff0000">*</span>
                                 </label>
                                 <asp:TextBox ID="txtparmentaddress" runat="server" CssClass="form-control"></asp:TextBox>
-
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtparmentaddress"
                                     ErrorMessage="Enter Permanent Address" ValidationGroup="aa"></asp:RequiredFieldValidator>
-
                             </div>
-                        </ContentTemplate>
-                    </asp:UpdatePanel>
-                </div>
-            </div>
-        </div>
 
+                        </div>
+                    </div>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
         <div class="box box-primary">
             <div class="box-body">
                 <div class="col-md-12" style="border-bottom: .5px solid lightgrey;">
