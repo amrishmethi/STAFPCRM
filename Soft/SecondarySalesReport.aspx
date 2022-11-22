@@ -66,7 +66,6 @@
                                     <thead>
                                         <tr>
                                             <th>Sr. No.</th>
-
                                             <th>Employee</th>
                                             <th>Date</th>
                                             <th>Time</th>
@@ -95,7 +94,7 @@
                                                         <a href="SalesItemReport.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-info  rolese" aria-label="View"><i class="fa fa-eye"></i></a>
                                                     </td>
                                                 </tr>
-                                            
+
 
                                             </ItemTemplate>
 
@@ -134,7 +133,7 @@
                     //Array.prototype.forEach.call(elements1, function (element) {
                     //    element.style.display = myArray[2] == "False" ? "none" : "inline";
                     //});
-               
+
                     //if (myArray[1] == 'False' && myArray[2] == 'False') {
                     //    document.getElementById("lblAction").innerHTML = "";
 

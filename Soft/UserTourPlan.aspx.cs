@@ -9,7 +9,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class Admin_EmployeeTourPlan : System.Web.UI.Page
+public partial class Admin_UserTourPlan : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
@@ -26,13 +26,13 @@ public partial class Admin_EmployeeTourPlan : System.Web.UI.Page
 
             Session["AccessRigthsSet"] = getdata.AccessRights("EmployeeTourPlan.aspx", Soft["Type"] == "admin" ? "0" : Soft["EmployeeId"]).Tables[0];
 
-            DataSet dsusr = getdata.getHqtrEmployee();
+            DataSet dsusr = getdata.getHqtrUser();
 
-            drpEmployee.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name", "MId");
-            drpEmployee.DataTextField = "Name";
-            drpEmployee.DataValueField = "MId";
-            drpEmployee.DataBind();
-            drpEmployee.Items.Insert(0, new ListItem("Select", "0"));
+            drpUser.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name", "MId");
+            drpUser.DataTextField = "Name";
+            drpUser.DataValueField = "MId";
+            drpUser.DataBind();
+            drpUser.Items.Insert(0, new ListItem("Select", "0"));
             drpheadQtr.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "HeadQtr");
             drpheadQtr.DataTextField = "HeadQtr";
             drpheadQtr.DataValueField = "HeadQtr";
@@ -44,7 +44,7 @@ public partial class Admin_EmployeeTourPlan : System.Web.UI.Page
 
     public void fillData()
     {
-        ds = getdata.getEmployeeTourPlan(drpEmployee.SelectedValue);
+        ds = getdata.getUserTourPlan(drpUser.SelectedValue);
                DataView dv = ds.Tables[1].DefaultView;
         if (drpheadQtr.SelectedIndex > 0)
         {
@@ -107,13 +107,13 @@ public partial class Admin_EmployeeTourPlan : System.Web.UI.Page
                 Label lblDist = (e.Item.FindControl("lblDist") as Label);
                 Label lblStat = (e.Item.FindControl("lblStat") as Label);
 
-                ds = getdata.saveEmployeeTourPlan(e.CommandArgument.ToString(), drpEmployee.SelectedValue, lblHqtr.Text, lblDist.Text, lblStat.Text, txtDate.Text == ""?"":data.YYYYMMDD(txtDate.Text.Trim()));
+                ds = getdata.saveUserTourPlan(e.CommandArgument.ToString(), drpUser.SelectedValue, lblHqtr.Text, lblDist.Text, lblStat.Text, txtDate.Text == ""?"":data.YYYYMMDD(txtDate.Text.Trim()));
             }
             fillData();
         }
     }
 
-    protected void drpEmployee_SelectedIndexChanged(object sender, EventArgs e)
+    protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
     {
         fillData();
         drpheadQtr.DataSource = ds.Tables[1].DefaultView.ToTable(true, "HeadQtr");
@@ -131,14 +131,14 @@ public partial class Admin_EmployeeTourPlan : System.Web.UI.Page
     }
     protected void drpheadQtr_SelectedIndexChanged(object sender, EventArgs e)
     {
-        DataSet dsusr = getdata.getHqtrEmployee();
+        DataSet dsusr = getdata.getHqtrUser();
         DataView dv = dsusr.Tables[0].DefaultView;
         dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
 
-        drpEmployee.DataSource = dv.ToTable(true, "Name", "MId");
-        drpEmployee.DataTextField = "Name";
-        drpEmployee.DataValueField = "MId";
-        drpEmployee.DataBind();
+        drpUser.DataSource = dv.ToTable(true, "Name", "MId");
+        drpUser.DataTextField = "Name";
+        drpUser.DataValueField = "MId";
+        drpUser.DataBind();
     //    drpEmployee.Items.Insert(0, new ListItem("Select", "0"));
         // fillData();
     }
