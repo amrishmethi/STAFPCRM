@@ -129,7 +129,15 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         drpUser.DataValueField = "MId";
         drpUser.DataBind();
         drpUser.Items.Insert(0, new ListItem("Select", "0"));
-        // fillData();
+        drpUser.SelectedIndex = 1;
+        ds = getdata.getUserTourPlan(drpUser.SelectedValue);
+        drpDistrict.DataSource = ds.Tables[0].DefaultView.ToTable(true, "District");
+        drpDistrict.DataTextField = "District";
+        drpDistrict.DataValueField = "District";
+        drpDistrict.DataBind();
+        drpDistrict.Items.Insert(0, new ListItem("Select", "0"));
+        rep.DataSource = ds.Tables[0];
+        rep.DataBind();
     }
 
     protected void drpDistrict_SelectedIndexChanged(object sender, EventArgs e)

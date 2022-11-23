@@ -139,8 +139,15 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
         drpUser.DataTextField = "Name";
         drpUser.DataValueField = "MId";
         drpUser.DataBind();
-    //    drpEmployee.Items.Insert(0, new ListItem("Select", "0"));
-        // fillData();
+        drpUser.SelectedIndex = 0;
+        ds = getdata.getUserTourPlan(drpUser.SelectedValue);
+        drpDistrict.DataSource = ds.Tables[1].DefaultView.ToTable(true, "District");
+        drpDistrict.DataTextField = "District";
+        drpDistrict.DataValueField = "District";
+        drpDistrict.DataBind();
+        drpDistrict.Items.Insert(0, new ListItem("Select", "0"));
+        rep.DataSource = ds.Tables[1];
+        rep.DataBind();
     }
     protected void drpDistrict_SelectedIndexChanged(object sender, EventArgs e)
     {
