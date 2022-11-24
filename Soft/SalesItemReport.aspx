@@ -116,7 +116,9 @@
                                                                     <th>Group</th>
                                                                     <th>Item</th>
                                                                     <th>Qty</th>
+                                                                    <th>Packing</th>
                                                                     <th>Rate</th>
+                                                                    <th>Amount</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -129,7 +131,9 @@
                                                                             <td style="text-align: left;"><%#Eval("GroupName") %></td>
                                                                             <td style="text-align: left;"><%#Eval("ITName") %></td>
                                                                             <td style="text-align: left;"><%#Eval("OrdQty") %></td>
+                                                                            <td style="text-align: left;"><%#Eval("Packing") %></td>
                                                                             <td style="text-align: left;"><%#Eval("OrdStpRate") %></td>
+                                                                            <td style="text-align: left;"><%#Eval("Amount") %></td>
                                                                         </tr>
                                                                     </ItemTemplate>
 
