@@ -112,7 +112,7 @@
                                 Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtMinVisit" ValidationGroup="txttq"></asp:RequiredFieldValidator>
                             <asp:TextBox ID="txtMinVisit" runat="server" CssClass="form-control" onkeypress="return IsNumeric(event,2);"></asp:TextBox>
                         </div>
-                         <div class="col-md-3">
+                        <div class="col-md-3">
                             <label>Amount</label>
                             <span id="error3" style="color: Red; display: none" class="error">* Input digits (0 - 9)</span>
                             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*"
@@ -128,12 +128,10 @@
                                     Text="Back To List" OnClick="btnCancel_Click" />
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
+        </div> 
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">

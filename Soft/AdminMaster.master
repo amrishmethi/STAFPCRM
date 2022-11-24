@@ -30,6 +30,7 @@
     <script src="../content/plugins/jQueryUI/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="../css/data-table/bootstrap-table.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/data-table/bootstrap-editable.css" />
     <link href="../colorbox/colorbox.css" rel="stylesheet" />
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -143,6 +144,7 @@
         <script src="../content/dist/js/app.js"></script>
         <script src="../content/plugins/datepicker/bootstrap-datepicker.js"></script>
         <script src="../content/plugins/Toster/jquery.toaster.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
         <script>
             $(function () {
                 /* $("#example1").DataTable();*/
@@ -222,7 +224,8 @@
                 minDate: new Date(),
                 // endDate: new Date(),
             });
-        </script>
+        </script> 
+
         <script>
             $(function () {
                 $('.form-control').keyup(function () {
@@ -259,6 +262,8 @@
         <script type="text/javascript">
             $('.abc').colorbox({ iframe: true, width: '80%', height: '90%' });
         </script>
+
+
     </form>
 </body>
 </html>

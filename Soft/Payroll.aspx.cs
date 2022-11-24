@@ -11,7 +11,13 @@ public partial class Soft_Payroll : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-
+            foreach (ListItem size in drpWorkingDay.Items)
+            {
+                if (size.Value.ToString() != "Sunday")
+                {
+                    size.Selected = true;
+                }
+            }
         }
     }
 
