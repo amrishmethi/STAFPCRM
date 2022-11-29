@@ -211,18 +211,16 @@ public sealed class Data
 
         return dtFinaldate;
     }
-   
-    public DateTime newdatetime(string strDateTime)
+
+    public string ConvertDDMMYYYY(string d)
     {
-        DateTime dtFinaldate;
-        string sDateTime;
-        string[] sDate = strDateTime.Split('/');
-        sDateTime = sDate[1] + '/' + sDate[0] + '/' + sDate[2];
-        dtFinaldate = Convert.ToDateTime(sDateTime);
-        return dtFinaldate;
+        string dat = d;
+        string[] aa = dat.Split('/');
+        dat = aa[1] + "/" + aa[0] + "/" + aa[2];
+        return dat;
     }
-    
-    public String YYYYMMDD(string strDateTime)
+
+    public string YYYYMMDD(string strDateTime)
     {   
         string sDateTime;
         string[] sDate = strDateTime.Split('/');

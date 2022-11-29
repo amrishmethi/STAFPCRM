@@ -34,6 +34,7 @@ public class GetData
         drptypeConst.DataValueField = "ID";
         drptypeConst.DataBind();
     } 
+
     public void FillRoomType(ListBox drptypeConst)
     {
         ds = data.getDataSet("select * from Tbl_RoomType where IsDeleted=0 Order by Name");
@@ -42,6 +43,7 @@ public class GetData
         drptypeConst.DataValueField = "ID";
         drptypeConst.DataBind();
     }
+
     public void FillCustomer(DropDownList drptypeConst,string uid)
     {
         ds = data.getDataSet("select * from tbl_Enquiry where IsDeleted=0 and UserId = iif("+uid+"=1,UserId,"+uid+") Order by Name");
@@ -51,6 +53,7 @@ public class GetData
         drptypeConst.DataBind();
         
     }
+
     public void FillProduct(DropDownList drpName,string mid)
     {
         ds = data.getDataSet("select * from tbl_Product where IsDeleted=0 and MaterialID = '"+mid +"' Order by Name");
@@ -61,6 +64,7 @@ public class GetData
         drpName.Items.Insert(0, new ListItem("Select Name", "0")); 
         
     }
+
     public void FillFinish(DropDownList drpFinish)
     {
         ds = data.getDataSet("select * from Tbl_MaterialType where IsDeleted=0  Order by Name");
@@ -70,6 +74,7 @@ public class GetData
         drpFinish.DataBind();
         drpFinish.Items.Insert(0, new ListItem("Select Finish", "0"));
     }
+
     public void FillUnit(DropDownList drp)
     {
         ds = data.getDataSet("select * from tbl_Unit where IsDeleted=0 Order by Name");
@@ -79,6 +84,7 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select Unit", "0"));
     }
+
     public void FillColor(DropDownList drp)
     {
         ds = data.getDataSet("select * from tbl_MaterialColor where IsDeleted=0 Order by Name");

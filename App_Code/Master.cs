@@ -23,9 +23,7 @@ public class Master
         // TODO: Add constructor logic here
         //
     }
-
-
-
+ 
     public DataSet getSecondarySalesParty(string action, string id, string stationid, string station, string name, string mobile, string whatsapp)
     {
         cmd = new SqlCommand("PROC_SECONDARYPARTY");
@@ -40,6 +38,7 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
+
     public DataSet getSecondarySalesStation(string action, string id, string name)
     {
         cmd = new SqlCommand("PROC_SECONDARYSTATION");
@@ -50,6 +49,7 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
+
     public DataSet saveUserTourPlan(string id, string uid, string hqtr, string dist, string stat, string tdate)
     {
         cmd = new SqlCommand("PROC_SaveUserTourPlan");
@@ -63,6 +63,7 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
+
     public DataSet getCheckInDetails(string userid, string indate, string intime)
     {
         cmd = new SqlCommand("PROC_CHECKINOUT");
@@ -73,6 +74,7 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
+
     public DataSet getAttendanceList(string userid, string date)
     {
         cmd = new SqlCommand("PROC_ATTENDANCE");
@@ -83,6 +85,7 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
+
     public DataSet AccessRights(string v, string userid)
     {
         cmd = new SqlCommand("Sp_UserAccess");
@@ -92,6 +95,7 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
+
     public DataSet getUserDetails(string userid)
     {
         cmd = new SqlCommand("PROC_USERDETAILS");
@@ -99,7 +103,9 @@ public class Master
         cmd.Parameters.AddWithValue("@UserID", userid);
         ds = data.getDataSet(cmd);
         return ds;
-    } public DataSet getUserReport(string userid,string mobile)
+    } 
+    
+    public DataSet getUserReport(string userid,string mobile)
     {
         cmd = new SqlCommand("PROC_USERDETAILSREPORT");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -108,6 +114,7 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
+
     public DataSet getUserTourPlan(string userid)
     {
         cmd = new SqlCommand("PROC_USERTOURPLAN");
@@ -116,6 +123,7 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
+
     public DataSet getSeconarySalesDetails(string userid, string party, string station, string indate, string intime)
     {
         cmd = new SqlCommand("PROC_SECONDARYSALES");
@@ -138,9 +146,7 @@ public class Master
         drp.DataValueField = "ID";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
-    
+    } 
 
     public void FillPrimaryStation(DropDownList drp)
     {
@@ -163,6 +169,7 @@ public class Master
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
+
     public void FillStation(DropDownList drp)
     {
         query = "select * from [STM_ACMAST].[DBO].[STATION] order by Station ";
@@ -173,6 +180,7 @@ public class Master
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
+
     public void FillUser(DropDownList drp)
     {
         query = "select * from [CSInfo].[dbo].[MobileAppUser] order by Name ";
@@ -183,7 +191,6 @@ public class Master
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
-
 
     public void FillDrop(DropDownList drp, String tbl)
     {
@@ -204,17 +211,7 @@ public class Master
         ds = data.getDataSet(query);
         return ds;
     }
-    public string ConvertDDMMYYYY(string d)
-    {
-        string dat = d;
-        string[] aa = dat.Split('/');
-        dat = aa[1] + "/" + aa[0] + "/" + aa[2];
-        return dat;
-    }
-//    @
-//    @
-//    @
-//@
+
     public DataSet GetSecondarySaleTargetMain(string EMPID, string APP_DATE, string MINVISIT, string TOTALQTY, string ID, string Amount)
     {
         cmd = new SqlCommand("IU_SECONDARYSALESTARGET_MAIN"); 
