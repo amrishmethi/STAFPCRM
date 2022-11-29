@@ -99,6 +99,14 @@ public class Master
         cmd.Parameters.AddWithValue("@UserID", userid);
         ds = data.getDataSet(cmd);
         return ds;
+    } public DataSet getUserReport(string userid,string mobile)
+    {
+        cmd = new SqlCommand("PROC_USERDETAILSREPORT");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@UserID", userid);
+        cmd.Parameters.AddWithValue("@Mobno", mobile);
+        ds = data.getDataSet(cmd);
+        return ds;
     }
     public DataSet getUserTourPlan(string userid)
     {
@@ -157,11 +165,11 @@ public class Master
     }
     public void FillStation(DropDownList drp)
     {
-        query = "select * from tbl_SecondarySalesStation where IsActive=1 order by Name ";
+        query = "select * from [STM_ACMAST].[DBO].[STATION] order by Station ";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
-        drp.DataTextField = "Name";
-        drp.DataValueField = "ID";
+        drp.DataTextField = "Station";
+        drp.DataValueField = "Station";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
@@ -221,7 +229,7 @@ public class Master
         return ds;
     }
 
-    public DataSet GetSecondarySaleTargetDetails(string MAINID, string ITEMGROUP, string QTY, string DETAILID, string Delid, string Incentive)
+    public DataSet GetSecondarySaleTargetDetails(string MAINID, string ITEMGROUP, string QTY, string DETAILID, string Delid, string Incentive, string AMOUNTFROM, string AMOUNTTO)
     {
         cmd = new SqlCommand("IU_SECONDARYSALESTARGET_DETAILS");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -231,6 +239,8 @@ public class Master
         cmd.Parameters.AddWithValue("@DETAILID", DETAILID);
         cmd.Parameters.AddWithValue("@Delid", Delid);
         cmd.Parameters.AddWithValue("@Incentive", Incentive);
+        cmd.Parameters.AddWithValue("@AMOUNTFROM", AMOUNTFROM);
+        cmd.Parameters.AddWithValue("@AMOUNTTO", AMOUNTTO);
         ds = data.getDataSet(cmd);
         return ds;
     }
