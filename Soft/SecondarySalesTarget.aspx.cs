@@ -27,7 +27,7 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
 
     private void FillData(string Detail_ID)
     {
-        string query = "select EMPID from [GETSECONDARYSALESTARGET_VIEW] Where DETAILID=" + Detail_ID;
+        string query = "select EMPID from [GETSECONDARYSALESTARGET_VIEW] Where MAINID=" + Detail_ID;
         dsResult = data.getDataSet(query);
 
         BinDatat(dsResult.Tables[0].Rows[0]["EMPID"].ToString());
@@ -53,7 +53,9 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
                 dtRecord.Columns.Add("ItemGroup");
                 dtRecord.Columns.Add("ItemGroupId");
                 dtRecord.Columns.Add("Qty", typeof(int));
-                dtRecord.Columns.Add("Incentive", typeof(int));
+                dtRecord.Columns.Add("AmountFrom", typeof(decimal));
+                dtRecord.Columns.Add("AmountTo", typeof(decimal));
+                dtRecord.Columns.Add("Incentive", typeof(decimal));
                 dtRecord.Columns.Add("Delid");
             }
             foreach (DataRow drr in dss.Tables[0].Rows)
@@ -65,6 +67,8 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
                 dtrow["ItemGroupId"] = drr["ITEMGROUP"];
                 dtrow["ItemGroup"] = drr["ITEMGROUP"];
                 dtrow["Qty"] = drr["QTY"];
+                dtrow["AmountFrom"] = drr["AmountFrom"];
+                dtrow["AmountTo"] = drr["AmountTo"];
                 dtrow["Incentive"] = drr["Incentive"];
                 dtrow["Delid"] = "0";
                 dtRecord.Rows.Add(dtrow);
@@ -97,71 +101,92 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        if (btnAdd.Text == "Add")
+        if (Convert.ToDecimal(txtAmountFrom.Text) <= Convert.ToDecimal(txtAmountTo.Text))
         {
-            if (ViewState["tbl"] == null)
+            if (btnAdd.Text == "Add")
             {
-                SNO = 1;
-                dtRecord.Columns.Add("sno");
-                dtRecord.Columns.Add("Id");
-                dtRecord.Columns.Add("ItemGroup");
-                dtRecord.Columns.Add("ItemGroupId");
-                dtRecord.Columns.Add("Qty", typeof(int));
-                dtRecord.Columns.Add("Incentive", typeof(int));
-                dtRecord.Columns.Add("Delid");
+                if (ViewState["tbl"] == null)
+                {
+                    SNO = 1;
+                    dtRecord.Columns.Add("sno");
+                    dtRecord.Columns.Add("Id");
+                    dtRecord.Columns.Add("ItemGroup");
+                    dtRecord.Columns.Add("ItemGroupId");
+                    dtRecord.Columns.Add("Qty", typeof(int));
+                    dtRecord.Columns.Add("AmountFrom", typeof(decimal));
+                    dtRecord.Columns.Add("AmountTo", typeof(decimal));
+                    dtRecord.Columns.Add("Incentive", typeof(decimal));
+                    dtRecord.Columns.Add("Delid");
+                }
+                else
+                {
+                    dtRecord = (DataTable)ViewState["tbl"];
+                    SNO = dtRecord.Rows.Count + 1;
+                }
+
+                DataRow[] foundAuthors = dtRecord.Select("AmountTo >= '" + Convert.ToDecimal(txtAmountFrom.Text) + "'  and Delid=0");
+                if (foundAuthors.Length == 0)
+                {
+                    DataRow dtrow = dtRecord.NewRow();
+                    dtrow["SNO"] = SNO;
+                    dtrow["Id"] = HddRowID.Value;
+                    dtrow["ItemGroupId"] = drpItemGrup.SelectedValue;
+                    dtrow["ItemGroup"] = drpItemGrup.Text;
+                    dtrow["Qty"] = txtQty.Text;
+                    dtrow["AmountFrom"] = txtAmountFrom.Text;
+                    dtrow["AmountTo"] = txtAmountTo.Text;
+                    dtrow["Incentive"] = txtIncentive.Text;
+                    dtrow["Delid"] = "0";
+                    dtRecord.Rows.Add(dtrow);
+                    ViewState["tbl"] = dtRecord;
+                    repData.DataSource = dtRecord;
+                    repData.DataBind();
+                    clear();
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Please Check The Range')", true);
+                }
             }
             else
             {
                 dtRecord = (DataTable)ViewState["tbl"];
-                SNO = dtRecord.Rows.Count + 1;
+                DataRow[] foundAuthors = dtRecord.Select("AmountTo >= '" + Convert.ToDecimal(txtAmountFrom.Text) + "' and Delid=0  and Id<>" + HddRowID.Value);
+                if (foundAuthors.Length == 0)
+                {
+                    int rowind = Convert.ToInt32(ViewState["rowid"].ToString());
+                    dtRecord.Rows[rowind]["Id"] = HddRowID.Value;
+                    dtRecord.Rows[rowind]["ItemGroupId"] = drpItemGrup.SelectedValue;
+                    dtRecord.Rows[rowind]["ItemGroup"] = drpItemGrup.Text;
+                    dtRecord.Rows[rowind]["Incentive"] = txtIncentive.Text;
+                    dtRecord.Rows[rowind]["AmountFrom"] = txtAmountFrom.Text;
+                    dtRecord.Rows[rowind]["AmountTo"] = txtAmountTo.Text;
+                    dtRecord.Rows[rowind]["Qty"] = txtQty.Text;
+                    dtRecord.Rows[rowind]["Delid"] = "0";
+                    repData.DataSource = dtRecord;
+                    repData.DataBind();
+                    clear();
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Please Check The Range')", true);
+                }
             }
-
-            DataRow[] foundAuthors = dtRecord.Select("ItemGroup = '" + drpItemGrup.Text + "'");
-            if (foundAuthors.Length == 0)
-            {
-                DataRow dtrow = dtRecord.NewRow();
-                dtrow["SNO"] = SNO;
-                dtrow["Id"] = HddRowID.Value;
-                dtrow["ItemGroupId"] = drpItemGrup.SelectedValue;
-                dtrow["ItemGroup"] = drpItemGrup.Text;
-                dtrow["Qty"] = txtQty.Text;
-                dtrow["Incentive"] = txtIncentive.Text;
-                dtrow["Delid"] = "0";
-                dtRecord.Rows.Add(dtrow);
-                ViewState["tbl"] = dtRecord;
-                repData.DataSource = dtRecord;
-                repData.DataBind();
-            }
-            else
-                errmsg.InnerText = "* " + drpItemGrup.Text + " Already Exists";
         }
         else
         {
-            dtRecord = (DataTable)ViewState["tbl"];
-            DataRow[] foundAuthors = dtRecord.Select("ItemGroup = '" + drpItemGrup.Text + "' and Id<>" + HddRowID.Value);
-            if (foundAuthors.Length == 0)
-            {
-                int rowind = Convert.ToInt32(ViewState["rowid"].ToString());
-                dtRecord.Rows[rowind]["Id"] = HddRowID.Value;
-                dtRecord.Rows[rowind]["ItemGroupId"] = drpItemGrup.SelectedValue;
-                dtRecord.Rows[rowind]["ItemGroup"] = drpItemGrup.Text;
-                dtRecord.Rows[rowind]["Incentive"] = txtIncentive.Text;
-                dtRecord.Rows[rowind]["Qty"] = txtQty.Text;
-                dtRecord.Rows[rowind]["Delid"] = "0";
-                repData.DataSource = dtRecord;
-                repData.DataBind();
-            }
+            ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Please Check The Value')", true);
         }
-        clear();
     }
 
     private void clear()
     {
         HddRowID.Value = "0";
         drpItemGrup.SelectedIndex = 0;
-        txtQty.Text = "0";
+        txtQty.Text = txtAmountFrom.Text = txtAmountTo.Text = "0";
         txtIncentive.Text = "0";
         btnAdd.Text = "Add";
+        txtAmountFrom.Focus();
     }
 
     protected void repData_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -170,12 +195,16 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
         {
             Label lblQty = (Label)e.Item.FindControl("lblQty");
             Label lblIncentive = (Label)e.Item.FindControl("lblIncentive");
+            Label lblAmountFrom = (Label)e.Item.FindControl("lblAmountFrom");
+            Label lblAmountTo = (Label)e.Item.FindControl("lblAmountTo");
             HiddenField hddID = (HiddenField)e.Item.FindControl("hddID");
             HiddenField HddItemGroup = (HiddenField)e.Item.FindControl("HddItemGroup");
 
             drpItemGrup.SelectedValue = HddItemGroup.Value;
             txtQty.Text = lblQty.Text;
             txtIncentive.Text = lblIncentive.Text;
+            txtAmountTo.Text = lblAmountTo.Text;
+            txtAmountFrom.Text = lblAmountFrom.Text;
             HddRowID.Value = hddID.Value;
             btnAdd.Text = "Update";
 
@@ -202,6 +231,7 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
             ViewState["tbl"] = tbl;
             repData.DataSource = tbl;
             repData.DataBind();
+            clear();
         }
     }
 
@@ -215,23 +245,29 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
         if (ViewState["tbl"] != null)
         {
             dtRecord = (DataTable)ViewState["tbl"];
-            int _TotalQty = Convert.ToInt32(dtRecord.Compute("sum(Qty)", ""));
-
-            DataSet dssTargetMain = master.GetSecondarySaleTargetMain(drpEmployee.SelectedValue.ToString(), data.ConvertToDateTime(txtDate.Text).ToString(), txtMinVisit.Text, _TotalQty.ToString(), hddMainId.Value, txtAmount.Text);
-            if (dssTargetMain.Tables[0].Rows.Count > 0)
+            if (dtRecord.AsEnumerable().Where(x => x.Field<string>("Delid") == "0").Count() != 0)
             {
-                foreach (DataRow drr in dtRecord.Rows)
+                int _TotalQty = Convert.ToInt32(dtRecord.Compute("sum(Qty)", ""));
+                DataSet dssTargetMain = master.GetSecondarySaleTargetMain(drpEmployee.SelectedValue.ToString(), data.ConvertToDateTime(txtDate.Text).ToString(), txtMinVisit.Text, _TotalQty.ToString(), hddMainId.Value, txtAmount.Text);
+                if (dssTargetMain.Tables[0].Rows.Count > 0)
                 {
-                    dsResult = master.GetSecondarySaleTargetDetails(dssTargetMain.Tables[0].Rows[0]["RESULTT"].ToString(), drr["ItemGroup"].ToString(), drr["Qty"].ToString(), drr["Id"].ToString(), drr["Delid"].ToString(), drr["Incentive"].ToString());
+                    foreach (DataRow drr in dtRecord.Rows)
+                    {
+                        dsResult = master.GetSecondarySaleTargetDetails(dssTargetMain.Tables[0].Rows[0]["RESULTT"].ToString(), drr["ItemGroup"].ToString(), drr["Qty"].ToString(), drr["Id"].ToString(), drr["Delid"].ToString(), drr["Incentive"].ToString(), drr["AmountFrom"].ToString(), drr["AmountTo"].ToString());
+                    }
                 }
-            }
-            if (dsResult.Tables[0].Rows[0]["RESULTT"].ToString() != "0")
-            {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Save Successfully');window.location ='SecondarySalesTargetReport.aspx'", true);
+                if (dsResult.Tables[0].Rows[0]["RESULTT"].ToString() != "0")
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Save Successfully');window.location ='SecondarySalesTargetReport.aspx'", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Not Save Successfully')", true);
+                }
             }
             else
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Not Save Successfully')'", true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Insert Atleast 1 Record')", true);
             }
         }
         else

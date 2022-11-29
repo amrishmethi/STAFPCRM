@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -7,6 +8,9 @@ using System.Web.UI.WebControls;
 
 public partial class Soft_Payroll : System.Web.UI.Page
 {
+    DataSet ds = new DataSet();
+    Master getdata = new Master();
+    Data data = new Data();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -18,6 +22,8 @@ public partial class Soft_Payroll : System.Web.UI.Page
                     size.Selected = true;
                 }
             }
+
+            getdata.FillUser(drpProjectManager);
         }
     }
 
@@ -97,13 +103,117 @@ public partial class Soft_Payroll : System.Web.UI.Page
 
     protected void chkDP_CheckedChanged(object sender, EventArgs e)
     {
-
+        txtDPay.Enabled = (chkDP.Checked);
+        txtDPay.Text = (chkDP.Checked) ? txtDPay.Text : "";
     }
-
-
 
     protected void drpMarriedStatus_SelectedIndexChanged(object sender, EventArgs e)
     {
-        txtDOM.ReadOnly = (drpMarriedStatus.SelectedValue.ToString() == "Married") ? false : true;
+        txtDOM.ReadOnly = (drpMarriedStatus.SelectedValue.ToString() == "Married") ? false : true; 
     }
+
+    protected void chkPF_CheckedChanged(object sender, EventArgs e)
+    {
+        txtPFComp.Enabled = txtPFSelf.Enabled = (chkPF.Checked);
+        txtPFComp.Text = (chkPF.Checked) ? txtPFComp.Text : "";
+        txtPFSelf.Text = (chkPF.Checked) ? txtPFSelf.Text : "";
+
+    }
+
+    protected void ChkESIC_CheckedChanged(object sender, EventArgs e)
+    {
+        txtESICSelf.Enabled = txtESICComp.Enabled = ChkESIC.Checked;
+        txtESICSelf.Text = (ChkESIC.Checked) ? txtESICSelf.Text : "";
+        txtESICComp.Text = (ChkESIC.Checked) ? txtESICComp.Text : "";
+    }
+
+    protected void chkDALocal_CheckedChanged(object sender, EventArgs e)
+    {
+        txtDALocal.Enabled = chkDALocal.Checked;
+        txtDALocal.Text = (chkDALocal.Checked) ? txtDALocal.Text : "";
+    }
+
+    protected void chkDAEx_CheckedChanged(object sender, EventArgs e)
+    {
+        txtDAEx.Enabled = chkDAEx.Checked;
+        txtDAEx.Text = (chkDAEx.Checked) ? txtDAEx.Text : "";
+    }
+
+    protected void chkFoodAll_CheckedChanged(object sender, EventArgs e)
+    {
+        txtFoodAll.Enabled = chkFoodAll.Checked;
+        txtFoodAll.Text = (chkFoodAll.Checked) ? txtFoodAll.Text : "";        
+    }
+
+    protected void chkOthers_CheckedChanged(object sender, EventArgs e)
+    {
+        txtOthers.Enabled = chkOthers.Checked;
+        txtOthers.Text = (chkOthers.Checked) ? txtOthers.Text : "";        
+    }
+
+    protected void chkNightAll_CheckedChanged(object sender, EventArgs e)
+    {
+        txtNightAll.Enabled = chkNightAll.Checked;
+        txtNightAll.Text = (chkOthers.Checked) ? txtNightAll.Text : "";
+    }
+
+    protected void chktdsapply_CheckedChanged(object sender, EventArgs e)
+    {
+        txtTDS.Enabled = chktdsapply.Checked;
+        txtTDS.Text = (chktdsapply.Checked) ? txtTDS.Text : "";
+    }
+
+    protected void chkDeductOther_CheckedChanged(object sender, EventArgs e)
+    {
+        txtDeductOther.Enabled = chkDeductOther.Checked;
+        txtDeductOther.Text = (chkDeductOther.Checked) ? txtDeductOther.Text : "";
+    }
+
+    protected void chkPaidLeave_CheckedChanged(object sender, EventArgs e)
+    {
+        txtNoOfPaidLeave.Enabled = chkPaidLeave.Checked;
+        txtNoOfPaidLeave.Text = (chkPaidLeave.Checked) ? txtNoOfPaidLeave.Text : "";
+    }
+
+    protected void ChkCL_CheckedChanged(object sender, EventArgs e)
+    {
+        txtCL.Enabled = ChkCL.Checked;
+        txtCL.Text = (ChkCL.Checked) ? txtCL.Text : ""; 
+    }
+
+    protected void chkLateCheckIn_CheckedChanged(object sender, EventArgs e)
+    {
+        txtLateCheckIn.Enabled = chkLateCheckIn.Checked;
+        txtLateCheckIn.Text = (chkLateCheckIn.Checked) ? txtLateCheckIn.Text : "";
+    }
+
+    protected void chkEarlyCheckOut_CheckedChanged(object sender, EventArgs e)
+    {
+        txtEarlyCheckOut.Enabled = chkEarlyCheckOut.Checked;
+        txtEarlyCheckOut.Text = (chkEarlyCheckOut.Checked) ? txtEarlyCheckOut.Text : ""; 
+    }
+
+    protected void chkBonus_CheckedChanged(object sender, EventArgs e)
+    {
+        txtBonus.Enabled = chkBonus.Checked;
+        txtBonus.Text = (chkBonus.Checked) ? txtBonus.Text : "";
+    }
+
+    protected void chkMinHour_CheckedChanged(object sender, EventArgs e)
+    {
+        txtWorkingHour.Enabled = chkMinHour.Checked;
+        txtWorkingHour.Text = (chkMinHour.Checked) ? txtWorkingHour.Text : "";
+    }
+
+    protected void chkOverTime_CheckedChanged(object sender, EventArgs e)
+    {
+        txtOverTime.Enabled = chkOverTime.Checked;
+        txtOverTime.Text = (chkOverTime.Checked) ? txtOverTime.Text : "";
+    }
+
+    protected void chkCHeckInTime_CheckedChanged(object sender, EventArgs e)
+    {
+        txtCheckIn.Enabled = chkCHeckInTime.Checked;
+        txtCheckIn.Text = (chkCHeckInTime.Checked) ? txtCheckIn.Text : ""; 
+    }      
 }

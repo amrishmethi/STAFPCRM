@@ -47,11 +47,11 @@ public partial class Soft_SecondarySalesTargetReport : System.Web.UI.Page
 
     private void FillRecords()
     {
-        string query = "select * from [GETSECONDARYSALESTARGET_VIEW] Where 0=0";
+        string query = "select * from [GETSECONDARYSALESTARGETREPORT_VIEW] Where 0=0";
         if (drpEmployee.SelectedIndex > 0)
             query += " and EMPID=" + drpEmployee.SelectedValue;
-        if (drpItemGrup.SelectedIndex > 0)
-            query += " and ITEMGROUP='" + drpItemGrup.SelectedValue + "'";
+        //if (drpItemGrup.SelectedIndex > 0)
+        //    query += " and ITEMGROUP='" + drpItemGrup.SelectedValue + "'";
         dsResult = data.getDataSet(query);
         rep.DataSource = dsResult;
         rep.DataBind();
@@ -66,7 +66,8 @@ public partial class Soft_SecondarySalesTargetReport : System.Web.UI.Page
     {
         if (e.CommandName == "Delete")
         {
-            data.executeCommand("Update TBL_SECONDARYSALESTARGETDETAILS Set Delid=1 where DETAILID=" + e.CommandArgument.ToString());
+
+            data.executeCommand("SECONDARYSALESTARGET_DELETE " + e.CommandArgument.ToString());
             ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Delete Successfully');window.location ='SecondarySalesTargetReport.aspx'", true);
         }
     }

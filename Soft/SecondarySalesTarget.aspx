@@ -35,28 +35,38 @@
                         <div class="clearfix">&nbsp;</div>
                         <asp:UpdatePanel ID="updd" runat="server">
                             <ContentTemplate>
-                                <div class="col-md-4">
+                                <div class="col-md-4 hidden">
                                     <label>Item Group</label>
                                     <asp:DropDownList ID="drpItemGrup" runat="server" CssClass="form-control select2"></asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" InitialValue="0" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="drpItemGrup" ValidationGroup="txtt"></asp:RequiredFieldValidator>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Min Qty</label>
-                                    <span id="erro1r" style="color: Red; display: none" class="numerror">* Input digits (0 - 9)</span>
 
-                                    <asp:TextBox ID="txtQty" runat="server" CssClass="form-control" onkeypress="return IsNumeric(event,0);"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="*" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtQty" ValidationGroup="txtt"></asp:RequiredFieldValidator>
+                                </div>
+                                <div class="col-md-3 hidden">
+                                    <label>Min Qty</label>
+                                    <%--<span id="erro1r" style="color: Red; display: none" class="numerror">* Input digits (0 - 9)</span>--%>
+
+                                    <asp:TextBox ID="txtQty" runat="server" CssClass="form-control" Text="0" onkeypress="return IsNumeric(event,0);"></asp:TextBox>
                                 </div>
                                 <div class="col-md-3">
-                                    <label>Incentive Per Bag/Case</label><span id="error1" style="color: Red; display: none" class="numerror">* Input digits (0 - 9)</span>
-                                    <asp:TextBox ID="txtIncentive" runat="server" CssClass="form-control" onkeypress="return IsNumeric(event,1);"></asp:TextBox>
+                                    <label>Amount From</label><span style="color: Red; display: none" class="error">* Input digits (0 - 9)</span>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtAmountFrom" ValidationGroup="txtt"></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="txtAmountFrom" runat="server" CssClass="form-control" onkeypress="return IsDecimal(event,0);"></asp:TextBox>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
+                                    <label>Amount To</label><span style="color: Red; display: none" class="error">* Input digits (0 - 9)</span>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*" InitialValue="0" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtAmountTo" ValidationGroup="txtt"></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="txtAmountTo" runat="server" CssClass="form-control" onkeypress="return IsDecimal(event,1);"></asp:TextBox>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Incentive (%)</label><span style="color: Red; display: none" class="error">* Input digits (0 - 9)</span>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="*" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtIncentive" ValidationGroup="txtt"></asp:RequiredFieldValidator>
+                                    <asp:TextBox ID="txtIncentive" runat="server" CssClass="form-control" onkeypress="return IsDecimal(event,2);"></asp:TextBox>
+                                </div>
+                                <div class="col-md-3">
                                     <asp:HiddenField ID="HddRowID" runat="server" Value="0" />
                                     <br />
                                     <asp:Button ID="btnAdd" runat="server" Text="Add" CssClass="btn btn-success" ValidationGroup="txtt" OnClick="btnAdd_Click" Style="margin-top: 5px;" />
-                                    <span id="errmsg" runat="server" style="color: Red; display: none"></span>
                                 </div>
+                                <div class="clearfix">&nbsp;</div>
                                 <div class="clearfix">&nbsp;</div>
                                 <div class="col-md-12">
 
@@ -65,9 +75,11 @@
                                             <thead>
                                                 <tr class="gradeA" style="background-color: lightslategrey; color: white;">
                                                     <th>S No</th>
-                                                    <th>Item Group</th>
-                                                    <th>Min Qty</th>
-                                                    <th>Incentive Per Bag/Case</th>
+                                                    <th style="display: none">Item Group</th>
+                                                    <th style="display: none">Min Qty</th>
+                                                    <th>Amount From</th>
+                                                    <th>Amount To</th>
+                                                    <th>Incentive (%)</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -78,13 +90,17 @@
                                                             <td><%#Container.ItemIndex+1 %>
                                                                 <asp:HiddenField ID="hddID" runat="server" Value='<%#Eval("Id") %>' />
                                                             </td>
-                                                            <td>
+                                                            <td style="display: none">
                                                                 <asp:Label ID="lblItemGroup" runat="server" Text='<%#Eval("ItemGroup") %>'></asp:Label>
                                                                 <asp:HiddenField ID="HddItemGroup" runat="server" Value=' <%#Eval("ItemGroupId") %>'></asp:HiddenField>
                                                             </td>
-                                                            <td>
+                                                            <td style="display: none">
                                                                 <asp:Label ID="lblQty" runat="server" Text=' <%#Eval("Qty") %>'></asp:Label>
                                                             </td>
+                                                            <td>
+                                                                <asp:Label ID="lblAmountFrom" runat="server" Text='<%#Eval("AmountFrom") %>'></asp:Label></td>
+                                                            <td>
+                                                                <asp:Label ID="lblAmountTo" runat="server" Text='<%#Eval("AmountTo") %>'></asp:Label></td>
                                                             <td>
                                                                 <asp:Label ID="lblIncentive" runat="server" Text=' <%#Eval("Incentive") %>'></asp:Label>
                                                             </td>
@@ -112,12 +128,12 @@
                                 Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtMinVisit" ValidationGroup="txttq"></asp:RequiredFieldValidator>
                             <asp:TextBox ID="txtMinVisit" runat="server" CssClass="form-control" onkeypress="return IsNumeric(event,2);"></asp:TextBox>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 hidden">
                             <label>Amount</label>
                             <span id="error3" style="color: Red; display: none" class="error">* Input digits (0 - 9)</span>
                             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*"
                                 Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtMinVisit" ValidationGroup="txttq"></asp:RequiredFieldValidator>--%>
-                            <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control" onkeypress="return IsDecimal(event,0);"></asp:TextBox>
+                            <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control" Text="0" onkeypress="return IsDecimal(event,0);"></asp:TextBox>
                         </div>
                         <div class="col-md-6" style="text-align: center;">
                             <div class="box-footer">
@@ -131,7 +147,7 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
