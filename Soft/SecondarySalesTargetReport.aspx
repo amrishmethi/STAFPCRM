@@ -27,7 +27,7 @@
                                 <label>Employee</label>
                                 <asp:DropDownList ID="drpEmployee" runat="server" CssClass="form-control select2"></asp:DropDownList>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 hidden">
                                 <label>Item Group</label>
                                 <asp:DropDownList ID="drpItemGrup" runat="server" CssClass="form-control select2"></asp:DropDownList>
                             </div>
@@ -51,9 +51,10 @@
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">Empployee</th>
-                                            <th style="text-align: left;">Item Group</th>
+                                            <%--      <th style="text-align: left;">Item Group</th>
                                             <th style="text-align: left;">Min Qty</th>
-                                            <th style="text-align: left;">Incentive Per Bag/Case</th>
+                                            <th style="text-align: left;">Incentive Per Bag/Case</th>--%>
+                                            <th style="text-align: left;">Incentives</th>
                                             <th style="text-align: left;">Min Visit</th>
                                             <th style="text-align: left;">Target Date</th>
                                             <th>
@@ -68,19 +69,19 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("EMP_NAME") %></td>
-                                                    <td style="text-align: left;"><%#Eval("ITEMGROUP") %></td>
-                                                    <td style="text-align: left;"><%#Eval("QTY") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Incentive") %></td>
+                                                   <%-- <td style="text-align: left;"><%#Eval("ITEMGROUP") %></td>
+                                                    <td style="text-align: left;"><%#Eval("QTY") %></td>--%>
+                                                    <td style="text-align: left;"><%#Eval("INCENTIVE_RANGE") %></td>
                                                     <td style="text-align: left;"><%#Eval("MinVisit") %></td>
                                                     <td style="text-align: left;"><%#Eval("TARGET_DATE") %></td>
 
                                                     <td style="text-align: left;">
                                                         <div class="isEditVisible" style="display: inline;">
-                                                            <a href="SecondarySalesTarget.aspx?DID=<%#Eval("DETAILID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                            <a href="SecondarySalesTarget.aspx?DID=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
                                                         </div>
                                                         <div class="isDelVisible" style="display: inline;">
                                                             <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"
-                                                                CommandArgument='<%#Eval("DETAILID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
+                                                                CommandArgument='<%#Eval("ID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
                                                         </div>
                                                     </td>
                                                 </tr>
