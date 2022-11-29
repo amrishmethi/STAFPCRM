@@ -229,7 +229,7 @@ public class Master
         return ds;
     }
 
-    public DataSet GetSecondarySaleTargetDetails(string MAINID, string ITEMGROUP, string QTY, string DETAILID, string Delid, string Incentive)
+    public DataSet GetSecondarySaleTargetDetails(string MAINID, string ITEMGROUP, string QTY, string DETAILID, string Delid, string Incentive, string AmountFrom, string AmountTo)
     {
         cmd = new SqlCommand("IU_SECONDARYSALESTARGET_DETAILS");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -239,6 +239,8 @@ public class Master
         cmd.Parameters.AddWithValue("@DETAILID", DETAILID);
         cmd.Parameters.AddWithValue("@Delid", Delid);
         cmd.Parameters.AddWithValue("@Incentive", Incentive);
+        cmd.Parameters.AddWithValue("@AmountFrom", AmountFrom);
+        cmd.Parameters.AddWithValue("@AmountTo", AmountTo);
         ds = data.getDataSet(cmd);
         return ds;
     }
