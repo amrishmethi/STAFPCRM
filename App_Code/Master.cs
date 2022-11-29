@@ -211,10 +211,7 @@ public class Master
         dat = aa[1] + "/" + aa[0] + "/" + aa[2];
         return dat;
     }
-//    @
-//    @
-//    @
-//@
+ 
     public DataSet GetSecondarySaleTargetMain(string EMPID, string APP_DATE, string MINVISIT, string TOTALQTY, string ID, string Amount)
     {
         cmd = new SqlCommand("IU_SECONDARYSALESTARGET_MAIN"); 
@@ -229,7 +226,7 @@ public class Master
         return ds;
     }
 
-    public DataSet GetSecondarySaleTargetDetails(string MAINID, string ITEMGROUP, string QTY, string DETAILID, string Delid, string Incentive, string AMOUNTFROM, string AMOUNTTO)
+    public DataSet GetSecondarySaleTargetDetails(string MAINID, string ITEMGROUP, string QTY, string DETAILID, string Delid, string Incentive)
     {
         cmd = new SqlCommand("IU_SECONDARYSALESTARGET_DETAILS");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -239,8 +236,6 @@ public class Master
         cmd.Parameters.AddWithValue("@DETAILID", DETAILID);
         cmd.Parameters.AddWithValue("@Delid", Delid);
         cmd.Parameters.AddWithValue("@Incentive", Incentive);
-        cmd.Parameters.AddWithValue("@AMOUNTFROM", AMOUNTFROM);
-        cmd.Parameters.AddWithValue("@AMOUNTTO", AMOUNTTO);
         ds = data.getDataSet(cmd);
         return ds;
     }
