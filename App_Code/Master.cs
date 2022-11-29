@@ -211,10 +211,7 @@ public class Master
         dat = aa[1] + "/" + aa[0] + "/" + aa[2];
         return dat;
     }
-//    @
-//    @
-//    @
-//@
+
     public DataSet GetSecondarySaleTargetMain(string EMPID, string APP_DATE, string MINVISIT, string TOTALQTY, string ID, string Amount)
     {
         cmd = new SqlCommand("IU_SECONDARYSALESTARGET_MAIN"); 
