@@ -24,8 +24,7 @@
                             InitialValue="0" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="drpStation"></asp:RequiredFieldValidator>
                             <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2"></asp:DropDownList>
                           </div>
-                        
-                          
+                         
                         <div class="col-md-4">
                             <label>Sales Party</label>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*"

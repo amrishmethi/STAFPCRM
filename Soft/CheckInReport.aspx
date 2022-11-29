@@ -3,7 +3,7 @@
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-   <title>Check-In Out Report(STAFP)</title>
+    <title>Check-In Out Report(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
@@ -36,7 +36,7 @@
                                 <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker">
                                 </asp:TextBox>
                             </div>
-                              <div class="col-md-2">
+                            <div class="col-md-2">
                                 <label>IsCheck</label>
                                 <asp:DropDownList ID="drpIsCheck" runat="server" CssClass="form-control">
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
@@ -119,7 +119,6 @@
                                                     </td>--%>
                                                 </tr>
                                             </ItemTemplate>
-
                                         </asp:Repeater>
                                     </tbody>
                                 </table>
@@ -155,7 +154,7 @@
                     //Array.prototype.forEach.call(elements1, function (element) {
                     //    element.style.display = myArray[2] == "False" ? "none" : "inline";
                     //});
-               
+
                     //if (myArray[1] == 'False' && myArray[2] == 'False') {
                     //    document.getElementById("lblAction").innerHTML = "";
 
