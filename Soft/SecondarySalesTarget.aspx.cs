@@ -12,14 +12,14 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
     int SNO;
     Data data = new Data();
     DataTable dtRecord = new DataTable();
-    Master master = new Master();
+    GetData Gd = new GetData();
     DataSet dsResult = new DataSet();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            FillEmployee();
-            FillItemGroup();
+            Gd.FillEmployee(drpEmployee);
+            Gd.FillItemGroup(drpItemGrup);
             if (Request.QueryString["DID"] != null)
                 FillData(Request.QueryString["DID"]);
         }
@@ -79,25 +79,7 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
         }
     }
 
-    private void FillItemGroup()
-    {
-        DataSet dsusr = data.getDataSet("usp_API_ITEMGROUP 930185018");
-        drpItemGrup.DataSource = dsusr;
-        drpItemGrup.DataTextField = "CmsName";
-        drpItemGrup.DataValueField = "CmsName";
-        drpItemGrup.DataBind();
-        drpItemGrup.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
-    public void FillEmployee()
-    {
-        DataSet dsusr = getdata.getHqtrUser();
-        drpEmployee.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name", "Mid");
-        drpEmployee.DataTextField = "Name";
-        drpEmployee.DataValueField = "Mid";
-        drpEmployee.DataBind();
-        drpEmployee.Items.Insert(0, new ListItem("Select", "0"));
-    }
+    
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
@@ -248,12 +230,12 @@ public partial class Soft_SecondarySalesTarget : System.Web.UI.Page
             if (dtRecord.AsEnumerable().Where(x => x.Field<string>("Delid") == "0").Count() != 0)
             {
                 int _TotalQty = Convert.ToInt32(dtRecord.Compute("sum(Qty)", ""));
-                DataSet dssTargetMain = master.GetSecondarySaleTargetMain(drpEmployee.SelectedValue.ToString(), data.ConvertToDateTime(txtDate.Text).ToString(), txtMinVisit.Text, _TotalQty.ToString(), hddMainId.Value, txtAmount.Text);
+                DataSet dssTargetMain = getdata.GetSecondarySaleTargetMain(drpEmployee.SelectedValue.ToString(), data.ConvertToDateTime(txtDate.Text).ToString(), txtMinVisit.Text, _TotalQty.ToString(), hddMainId.Value, txtAmount.Text);
                 if (dssTargetMain.Tables[0].Rows.Count > 0)
                 {
                     foreach (DataRow drr in dtRecord.Rows)
                     {
-                        dsResult = master.GetSecondarySaleTargetDetails(dssTargetMain.Tables[0].Rows[0]["RESULTT"].ToString(), drr["ItemGroup"].ToString(), drr["Qty"].ToString(), drr["Id"].ToString(), drr["Delid"].ToString(), drr["Incentive"].ToString(), drr["AmountFrom"].ToString(), drr["AmountTo"].ToString());
+                        dsResult = getdata.GetSecondarySaleTargetDetails(dssTargetMain.Tables[0].Rows[0]["RESULTT"].ToString(), drr["ItemGroup"].ToString(), drr["Qty"].ToString(), drr["Id"].ToString(), drr["Delid"].ToString(), drr["Incentive"].ToString(), drr["AmountFrom"].ToString(), drr["AmountTo"].ToString());
                     }
                 }
                 if (dsResult.Tables[0].Rows[0]["RESULTT"].ToString() != "0")

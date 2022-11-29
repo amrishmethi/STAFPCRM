@@ -13,6 +13,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
     DataSet ds = new DataSet();
     Master getdata = new Master();
     Data data = new Data();
+    GetData Gd = new GetData();
     private HttpCookie Soft;
 
     protected void Page_Load(object sender, EventArgs e)
@@ -24,8 +25,8 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
              Soft = Request.Cookies["STFP"];
 
             Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-            getdata.FillParty(drpParty);
-            getdata.FillStation(drpStation);
+            Gd.FillParty(drpParty);
+            Gd.FillStation(drpStation);
             fillData();
         }
     }

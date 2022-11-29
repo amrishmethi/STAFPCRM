@@ -10,7 +10,9 @@ public partial class Soft_Payroll : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
+    GetData Gd = new GetData();
     Data data = new Data();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -23,7 +25,8 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 }
             }
 
-            getdata.FillUser(drpProjectManager);
+            Gd.FillCompany(DrpCompanies);
+            Gd.FillUser(drpProjectManager);
         }
     }
 
@@ -109,7 +112,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
 
     protected void drpMarriedStatus_SelectedIndexChanged(object sender, EventArgs e)
     {
-        txtDOM.ReadOnly = (drpMarriedStatus.SelectedValue.ToString() == "Married") ? false : true; 
+        txtDOM.ReadOnly = (drpMarriedStatus.SelectedValue.ToString() == "Married") ? false : true;
     }
 
     protected void chkPF_CheckedChanged(object sender, EventArgs e)
@@ -142,13 +145,13 @@ public partial class Soft_Payroll : System.Web.UI.Page
     protected void chkFoodAll_CheckedChanged(object sender, EventArgs e)
     {
         txtFoodAll.Enabled = chkFoodAll.Checked;
-        txtFoodAll.Text = (chkFoodAll.Checked) ? txtFoodAll.Text : "";        
+        txtFoodAll.Text = (chkFoodAll.Checked) ? txtFoodAll.Text : "";
     }
 
     protected void chkOthers_CheckedChanged(object sender, EventArgs e)
     {
         txtOthers.Enabled = chkOthers.Checked;
-        txtOthers.Text = (chkOthers.Checked) ? txtOthers.Text : "";        
+        txtOthers.Text = (chkOthers.Checked) ? txtOthers.Text : "";
     }
 
     protected void chkNightAll_CheckedChanged(object sender, EventArgs e)
@@ -178,7 +181,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
     protected void ChkCL_CheckedChanged(object sender, EventArgs e)
     {
         txtCL.Enabled = ChkCL.Checked;
-        txtCL.Text = (ChkCL.Checked) ? txtCL.Text : ""; 
+        txtCL.Text = (ChkCL.Checked) ? txtCL.Text : "";
     }
 
     protected void chkLateCheckIn_CheckedChanged(object sender, EventArgs e)
@@ -190,7 +193,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
     protected void chkEarlyCheckOut_CheckedChanged(object sender, EventArgs e)
     {
         txtEarlyCheckOut.Enabled = chkEarlyCheckOut.Checked;
-        txtEarlyCheckOut.Text = (chkEarlyCheckOut.Checked) ? txtEarlyCheckOut.Text : ""; 
+        txtEarlyCheckOut.Text = (chkEarlyCheckOut.Checked) ? txtEarlyCheckOut.Text : "";
     }
 
     protected void chkBonus_CheckedChanged(object sender, EventArgs e)
@@ -214,6 +217,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
     protected void chkCHeckInTime_CheckedChanged(object sender, EventArgs e)
     {
         txtCheckIn.Enabled = chkCHeckInTime.Checked;
-        txtCheckIn.Text = (chkCHeckInTime.Checked) ? txtCheckIn.Text : ""; 
-    }      
+        txtCheckIn.Text = (chkCHeckInTime.Checked) ? txtCheckIn.Text : "";
+    }
+
 }

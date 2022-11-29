@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 public partial class Admin_SecondarySalesStation : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
+    GetData Gd = new GetData();
     Master getdata = new Master();
     Data data = new Data();
     private HttpCookie Soft;
@@ -24,7 +25,7 @@ public partial class Admin_SecondarySalesStation : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
 
             Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesStation.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-           getdata.FillStation(drpStation);
+            Gd.FillStation(drpStation);
             fillData();
         }
     }

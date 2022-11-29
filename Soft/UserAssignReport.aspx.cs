@@ -13,6 +13,7 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
+    GetData Gd = new GetData();
     Data data = new Data();
     private HttpCookie Soft;
 
@@ -26,7 +27,7 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserAssignReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
-            getdata.FillUser(drpUser);
+            Gd.FillUser(drpUser);
             fillData();
         }
     }
@@ -34,7 +35,7 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
     public void fillData()
     {
         ds = getdata.getUserDetails(drpUser.SelectedValue);
-    
+
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
@@ -74,7 +75,7 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
             //HyperLink lnkHrbtn = (e.Item.FindControl("lnkHrbtn") as HyperLink);
             HiddenField hddUid = (HiddenField)e.Item.FindControl("hddUid");
             HiddenField hddUserType = (e.Item.FindControl("hddUserType") as HiddenField);
-            lnkAssbtn.Visible = hddUserType.Value == "admin"?false:true;
+            lnkAssbtn.Visible = hddUserType.Value == "admin" ? false : true;
             //lnkHrbtn.Visible = hddUserType.Value == "admin"?false:true;
         }
     }
@@ -89,12 +90,13 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
         }
 
         CheckBox chk = (CheckBox)rep.Items[ItemC].FindControl("IsChkLogin");
-       HiddenField hddUid = (HiddenField)rep.Items[ItemC].FindControl("hddUid");
+        HiddenField hddUid = (HiddenField)rep.Items[ItemC].FindControl("hddUid");
         if (hddUid.Value != "")
-        { data.getDataSet("Update [CSInfo].[dbo].[MobileAppUser]  set Deactivate = (case when Deactivate=1 then 0 else 1 end)  where id = " + hddUid.Value);
+        {
+            data.getDataSet("Update [CSInfo].[dbo].[MobileAppUser]  set Deactivate = (case when Deactivate=1 then 0 else 1 end)  where id = " + hddUid.Value);
             fillData();
         }
-        
-        
+
+
     }
 }

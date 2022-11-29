@@ -12,6 +12,7 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
+    GetData Gd = new GetData();
     Data data = new Data();
     private HttpCookie Soft;
 
@@ -26,9 +27,9 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
             Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            getdata.FillUser(drpUser);
-            getdata.FillPrimaryParty(drpParty);
-            getdata.FillPrimaryStation(drpStation);
+            Gd.FillUser(drpUser);
+            Gd.FillPrimaryParty(drpParty);
+            Gd.FillPrimaryStation(drpStation);
             fillData();
         }
     }

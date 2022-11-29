@@ -13,6 +13,7 @@ public partial class Admin_CheckInReport : System.Web.UI.Page
     DataSet ds = new DataSet();
     Master getdata = new Master();
     Data data = new Data();
+    GetData Gd = new GetData();
     private HttpCookie Soft;
 
     protected void Page_Load(object sender, EventArgs e)
@@ -26,7 +27,7 @@ public partial class Admin_CheckInReport : System.Web.UI.Page
             Session["AccessRigthsSet"] = getdata.AccessRights("CheckInReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            getdata.FillUser(drpUser);
+            Gd.FillUser(drpUser);
             fillData();
         }
     }

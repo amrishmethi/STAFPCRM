@@ -14,6 +14,7 @@ public partial class Admin_UserReport : System.Web.UI.Page
     DataSet ds = new DataSet();
     Master getdata = new Master();
     Data data = new Data();
+    GetData Gd = new GetData();
     private HttpCookie Soft;
 
     protected void Page_Load(object sender, EventArgs e)
@@ -23,10 +24,8 @@ public partial class Admin_UserReport : System.Web.UI.Page
             if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
 
             Soft = Request.Cookies["STFP"];
-
             Session["AccessRigthsSet"] = getdata.AccessRights("UserReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-
-            getdata.FillUser(drpUser);
+            Gd.FillUser(drpUser);
             fillData();
         }
     }

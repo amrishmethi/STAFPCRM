@@ -12,6 +12,7 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
+    GetData Gd = new GetData();
     HttpCookie Soft;
     Data data = new Data();
     protected void Page_Load(object sender, EventArgs e)
@@ -20,7 +21,7 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
         {
             if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
 
-            getdata.FillStation(drpStation);
+            Gd.FillStation(drpStation);
             if (Request.QueryString["id"] != null)
             {
                 fillData(Request.QueryString["id"].ToString());

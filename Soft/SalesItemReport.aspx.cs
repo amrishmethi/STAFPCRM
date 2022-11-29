@@ -13,6 +13,7 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
     string query;
     SqlCommand cmd = new SqlCommand();
     Master getdata = new Master();
+    GetData Gd = new GetData();
     private HttpCookie Soft;
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -25,9 +26,9 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
             Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            getdata.FillUser(drpUser);
-            getdata.FillPrimaryParty(drpParty);
-            getdata.FillPrimaryStation(drpStation);
+            Gd.FillUser(drpUser);
+            Gd.FillPrimaryParty(drpParty);
+            Gd.FillPrimaryStation(drpStation);
             Filldata();
         }
     }

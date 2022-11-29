@@ -19,6 +19,8 @@ public class GetData
     DataSet ds = new DataSet();
     SqlCommand cmd = new SqlCommand();
     string query = "";
+    Master getdata = new Master();
+
     public GetData()
     {
         //
@@ -93,5 +95,102 @@ public class GetData
         drp.DataValueField = "ID";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select Color", "0"));
+    }
+
+    public void FillCompany(DropDownList DrpCompanies)
+    {
+        string query = "Select *   FROM [stm_company].[dbo].[Company]";
+        ds = data.getDataSet(query);
+        DrpCompanies.DataSource = ds;
+        DrpCompanies.DataTextField = "COname";
+        DrpCompanies.DataValueField = "COCode";
+        DrpCompanies.DataBind();
+        DrpCompanies.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillEmployee(DropDownList drpEmployee)
+    {
+        DataSet dsusr = getdata.getHqtrUser();
+        drpEmployee.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name", "Mid");
+        drpEmployee.DataTextField = "Name";
+        drpEmployee.DataValueField = "Mid";
+        drpEmployee.DataBind();
+        drpEmployee.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillItemGroup(DropDownList drpItemGrup)
+    {
+        DataSet dsusr = data.getDataSet("usp_API_ITEMGROUP 930185018");
+        drpItemGrup.DataSource = dsusr;
+        drpItemGrup.DataTextField = "CmsName";
+        drpItemGrup.DataValueField = "CmsName";
+        drpItemGrup.DataBind();
+        drpItemGrup.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillParty(DropDownList drp)
+    {
+        query = "select * from tbl_SecondarySalesParty where IsActive=1 order by Name ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "Name";
+        drp.DataValueField = "ID";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillPrimaryStation(DropDownList drp)
+    {
+        query = "select distinct Station from [STM_AcMast].[dbo].[Station] order by Station ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "Station";
+        drp.DataValueField = "Station";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillPrimaryParty(DropDownList drp)
+    {
+        query = "select * from STM_ACMAST.DBO.ACCOUNT order by ACNAME ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "ACNAME";
+        drp.DataValueField = "ACCOde";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillStation(DropDownList drp)
+    {
+        query = "select * from [STM_ACMAST].[DBO].[STATION] order by Station ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "Station";
+        drp.DataValueField = "Station";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillUser(DropDownList drp)
+    {
+        query = "select * from [CSInfo].[dbo].[MobileAppUser] order by Name ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "Name";
+        drp.DataValueField = "ID";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillDrop(DropDownList drp, String tbl)
+    {
+        query = "select * from " + tbl + " where IsDeleted=0 order by Name ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "Name";
+        drp.DataValueField = "ID";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
     }
 }

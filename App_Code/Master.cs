@@ -23,7 +23,7 @@ public class Master
         // TODO: Add constructor logic here
         //
     }
- 
+
     public DataSet getSecondarySalesParty(string action, string id, string stationid, string station, string name, string mobile, string whatsapp)
     {
         cmd = new SqlCommand("PROC_SECONDARYPARTY");
@@ -103,9 +103,9 @@ public class Master
         cmd.Parameters.AddWithValue("@UserID", userid);
         ds = data.getDataSet(cmd);
         return ds;
-    } 
-    
-    public DataSet getUserReport(string userid,string mobile)
+    }
+
+    public DataSet getUserReport(string userid, string mobile)
     {
         cmd = new SqlCommand("PROC_USERDETAILSREPORT");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -137,84 +137,14 @@ public class Master
         return ds;
     }
 
-    public void FillParty(DropDownList drp)
-    {
-        query = "select * from tbl_SecondarySalesParty where IsActive=1 order by Name ";
-        ds = data.getDataSet(query);
-        drp.DataSource = ds;
-        drp.DataTextField = "Name";
-        drp.DataValueField = "ID";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select", "0"));
-    } 
-
-    public void FillPrimaryStation(DropDownList drp)
-    {
-        query = "select distinct Station from [STM_AcMast].[dbo].[Station] order by Station ";
-        ds = data.getDataSet(query);
-        drp.DataSource = ds;
-        drp.DataTextField = "Station";
-        drp.DataValueField = "Station";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
-    public void FillPrimaryParty(DropDownList drp)
-    {
-        query = "select * from STM_ACMAST.DBO.ACCOUNT order by ACNAME ";
-        ds = data.getDataSet(query);
-        drp.DataSource = ds;
-        drp.DataTextField = "ACNAME";
-        drp.DataValueField = "ACCOde";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
-    public void FillStation(DropDownList drp)
-    {
-        query = "select * from [STM_ACMAST].[DBO].[STATION] order by Station ";
-        ds = data.getDataSet(query);
-        drp.DataSource = ds;
-        drp.DataTextField = "Station";
-        drp.DataValueField = "Station";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
-    public void FillUser(DropDownList drp)
-    {
-        query = "select * from [CSInfo].[dbo].[MobileAppUser] order by Name ";
-        ds = data.getDataSet(query);
-        drp.DataSource = ds;
-        drp.DataTextField = "Name";
-        drp.DataValueField = "ID";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
-    public void FillDrop(DropDownList drp, String tbl)
-    {
-        query = "select * from " + tbl + " where IsDeleted=0 order by Name ";
-        ds = data.getDataSet(query);
-        drp.DataSource = ds;
-        drp.DataTextField = "Name";
-        drp.DataValueField = "ID";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
     public DataSet getHqtrUser()
     {
-        query = "select HQD.HeadQtr,MU.Name, MU.id as MId from[STM_STMAST].[DBO].[HEADQTRDISTRICT]  HQD " +
-"LEFT JOIN[STM_STMAST].[DBO].[MRMAST] M ON M.HEADQTR = HQD.HEADQTR " +
-"LEFT JOIN[CSINFO].[DBO].[MOBILEAPPUSER] MU ON MU.MOBILENO = M.MOBILENO ";
-        ds = data.getDataSet(query);
-        return ds;
+        return ds = data.getDataSet("select * from [stm_acmast].[dbo].GETHEADQUARTER");
     }
 
     public DataSet GetSecondarySaleTargetMain(string EMPID, string APP_DATE, string MINVISIT, string TOTALQTY, string ID, string Amount)
     {
-        cmd = new SqlCommand("IU_SECONDARYSALESTARGET_MAIN"); 
+        cmd = new SqlCommand("IU_SECONDARYSALESTARGET_MAIN");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@EMPID", EMPID);
         cmd.Parameters.AddWithValue("@APP_DATE", APP_DATE);
