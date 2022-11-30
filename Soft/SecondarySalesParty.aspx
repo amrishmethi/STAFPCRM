@@ -26,13 +26,14 @@
                                 <label>Station</label>
                                 <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
-                            </div><div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
                                 <label>Party</label>
                                 <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
 
-                            
+
 
                             <div class="col-md-4" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
@@ -57,7 +58,7 @@
                                             <th style="text-align: left;">Party</th>
                                             <th style="text-align: left;">Mobile No</th>
                                             <th style="text-align: left;">WhatsApp No</th>
-                                         <th>
+                                            <th>
                                                 <label id="lblAction">Action</label></th>
                                         </tr>
                                     </thead>
@@ -68,15 +69,15 @@
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
-                                                       <%--     <asp:Label ID="lblItem" runat="server" Text='<%#Eval("StationName") %>'></asp:Label>--%>
-                                                    
+                                                    <%--     <asp:Label ID="lblItem" runat="server" Text='<%#Eval("StationName") %>'></asp:Label>--%>
+
                                                     <td style="text-align: left;"><%#Eval("StationName") %></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
                                                     <td style="text-align: left;"><%#Eval("WhatsUpMobileNo") %></td>
-                                              
+
                                                     <td style="text-align: left;">
-                                                                                                               <div class="isEditVisible" style="display: inline;">
+                                                        <div class="isEditVisible" style="display: inline;">
                                                             <a href="SecondarySalesPartyMaster.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
                                                         </div>
                                                         <div class="isDelVisible" style="display: inline;">
@@ -125,7 +126,7 @@
                     Array.prototype.forEach.call(elements1, function (element) {
                         element.style.display = myArray[2] == "False" ? "none" : "inline";
                     });
-               
+
                     if (myArray[1] == 'False' && myArray[2] == 'False') {
                         document.getElementById("lblAction").innerHTML = "";
 

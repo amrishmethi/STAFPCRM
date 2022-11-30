@@ -35,6 +35,27 @@
                                 <asp:HiddenField ID="hddprodid" runat="server" />
                             </div>
                             <div class="col-md-4">
+                                <label class="control-label">
+                                    Department<span style="color: #ff0000">*</span>
+                                </label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="drpDepartment"
+                                    ErrorMessage="Please Select" ValidationGroup="aa" InitialValue="0"></asp:RequiredFieldValidator>
+                                <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" AutoPostBack="true" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged"></asp:DropDownList>
+                                <asp:HiddenField ID="hdddeptCode" runat="server" />
+                                <asp:HiddenField ID="hddEmpNo" runat="server" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="control-label">
+                                    Designation<span style="color: #ff0000">*</span>
+                                </label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="drpDesignation"
+                                    ErrorMessage="Please Select" ValidationGroup="aa" InitialValue="0"></asp:RequiredFieldValidator>
+                                <asp:DropDownList ID="drpDesignation" runat="server" CssClass="form-control select2"></asp:DropDownList>
+                            </div>
+
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="col-md-4">
                                 <label class="control-label">Employee Code<span style="color: #ff0000">*</span></label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtAssociatecode"
                                     ErrorMessage=" Please Enter" ValidationGroup="aa"></asp:RequiredFieldValidator>
@@ -47,38 +68,20 @@
                                 <asp:TextBox ID="txtemployeename" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
                             <div class="col-md-4">
-                                <label class="control-label">
-                                    Department<span style="color: #ff0000">*</span>
-                                </label>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="drpCategory"
-                                    ErrorMessage="Please Select" ValidationGroup="aa" InitialValue="0"></asp:RequiredFieldValidator>
-                                <asp:DropDownList ID="drpCategory" runat="server" CssClass="form-control select2">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="control-label">
-                                    Designation<span style="color: #ff0000">*</span>
-                                </label>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="drpSubCategory"
-                                    ErrorMessage="Please Select" ValidationGroup="aa" InitialValue="0"></asp:RequiredFieldValidator>
-                                <asp:DropDownList ID="drpSubCategory" runat="server" CssClass="form-control select2" AutoPostBack="true"
-                                    OnSelectedIndexChanged="drpSubCategory_SelectedIndexChanged">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-4">
                                 <label class="control-label">Reporting Manager<span style="color: #ff0000">*</span></label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator18" runat="server" ControlToValidate="drpProjectManager"
                                     ErrorMessage="Please Select" ValidationGroup="aa" InitialValue="0"></asp:RequiredFieldValidator>
                                 <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
+                            <div class="clearfix">&nbsp;</div>
                             <div class="col-md-4">
                                 <label class="control-label">
                                     Date of Joining    <span style="color: #ff0000">*</span>
                                 </label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ForeColor="Red"
-                                    ErrorMessage=" Please Enter" ControlToValidate="txtdat2" InitialValue="0"></asp:RequiredFieldValidator>
-                                <asp:TextBox ID="txtdat2" runat="server" CssClass="form-control datepicker">
+                                    ErrorMessage=" Please Enter" ControlToValidate="txtDOJ"></asp:RequiredFieldValidator>
+                                <asp:TextBox ID="txtDOJ" runat="server" CssClass="form-control datepicker">
                                 </asp:TextBox>
                             </div>
                             <div class="col-md-4">
@@ -113,11 +116,10 @@
                             </div>
                         </ContentTemplate>
                         <Triggers>
+                            <asp:PostBackTrigger ControlID="chkDOL" />
                             <asp:AsyncPostBackTrigger ControlID="ChkEsi" EventName="CheckedChanged" />
                             <asp:AsyncPostBackTrigger ControlID="chkBasic" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkDOL" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="drpSubCategory" EventName="SelectedIndexChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="drpSubCategory" EventName="SelectedIndexChanged" />
+                            <asp:PostBackTrigger ControlID="drpDepartment" />
                         </Triggers>
                     </asp:UpdatePanel>
                     <div class="col-md-4">
@@ -206,8 +208,17 @@
                         <ContentTemplate>
                             <div class="col-md-4">
                                 <label class="control-label">
-                                    Basic Salary</label>
-                                <asp:TextBox ID="txtsalary" runat="server" CssClass="form-control" Text="0"></asp:TextBox>
+                                    Net Salary</label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator16" runat="server" ForeColor="Red"
+                                    ErrorMessage=" Please Enter" ControlToValidate="txtNetSalary" InitialValue="0"></asp:RequiredFieldValidator>
+                                <asp:TextBox ID="txtNetSalary" runat="server" CssClass="form-control" Text="0"></asp:TextBox>
+                            </div>
+                            <div class="col-md-4">
+                                <asp:CheckBox ID="chkBS" runat="server" OnCheckedChanged="chkBS_CheckedChanged" AutoPostBack="true" />
+                                &nbsp; &nbsp;<label class="control-label">Basic Salary</label>
+                                &nbsp; &nbsp;<asp:RadioButton ID="RBBS" runat="server" Text="Fixed" GroupName="BS" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="RBPER" runat="server" Text="Per(%)" GroupName="BS" />
+                                <asp:TextBox ID="txtBasicsalary" runat="server" CssClass="form-control" Enabled="false" Text="0"></asp:TextBox>
                             </div>
                             <div class="col-md-4">
                                 <asp:CheckBox ID="chkPF" runat="server" OnCheckedChanged="chkPF_CheckedChanged" AutoPostBack="true" />
@@ -354,6 +365,7 @@
                             </div>
                         </ContentTemplate>
                         <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="chkBS" EventName="CheckedChanged" />
                             <asp:AsyncPostBackTrigger ControlID="chkPF" EventName="CheckedChanged" />
                             <asp:AsyncPostBackTrigger ControlID="ChkESIC" EventName="CheckedChanged" />
                             <asp:AsyncPostBackTrigger ControlID="chkDALocal" EventName="CheckedChanged" />

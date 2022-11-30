@@ -35,7 +35,7 @@ public class GetData
         drptypeConst.DataTextField = "TypeName";
         drptypeConst.DataValueField = "ID";
         drptypeConst.DataBind();
-    } 
+    }
 
     public void FillRoomType(ListBox drptypeConst)
     {
@@ -46,25 +46,25 @@ public class GetData
         drptypeConst.DataBind();
     }
 
-    public void FillCustomer(DropDownList drptypeConst,string uid)
+    public void FillCustomer(DropDownList drptypeConst, string uid)
     {
-        ds = data.getDataSet("select * from tbl_Enquiry where IsDeleted=0 and UserId = iif("+uid+"=1,UserId,"+uid+") Order by Name");
+        ds = data.getDataSet("select * from tbl_Enquiry where IsDeleted=0 and UserId = iif(" + uid + "=1,UserId," + uid + ") Order by Name");
         drptypeConst.DataSource = ds;
         drptypeConst.DataTextField = "Name";
         drptypeConst.DataValueField = "ID";
         drptypeConst.DataBind();
-        
+
     }
 
-    public void FillProduct(DropDownList drpName,string mid)
+    public void FillProduct(DropDownList drpName, string mid)
     {
-        ds = data.getDataSet("select * from tbl_Product where IsDeleted=0 and MaterialID = '"+mid +"' Order by Name");
+        ds = data.getDataSet("select * from tbl_Product where IsDeleted=0 and MaterialID = '" + mid + "' Order by Name");
         drpName.DataSource = ds;
         drpName.DataTextField = "Name";
         drpName.DataValueField = "ID";
         drpName.DataBind();
-        drpName.Items.Insert(0, new ListItem("Select Name", "0")); 
-        
+        drpName.Items.Insert(0, new ListItem("Select Name", "0"));
+
     }
 
     public void FillFinish(DropDownList drpFinish)
@@ -192,5 +192,25 @@ public class GetData
         drp.DataValueField = "ID";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void fillDepartment(DropDownList drpDepartment)
+    {
+        ds = getdata.GetDepartment("Select", "0", "", "", "");
+        drpDepartment.DataSource = ds;
+        drpDepartment.DataTextField = "Dept_Name";
+        drpDepartment.DataValueField = "dept_Id";
+        drpDepartment.DataBind();
+        drpDepartment.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void fillDesignation(DropDownList drpDesignation, string Dept_Id)
+    {
+        ds = getdata.GetDesignation("Select", "0", Dept_Id, "", "");
+        drpDesignation.DataSource = ds;
+        drpDesignation.DataTextField = "DESG_NAME";
+        drpDesignation.DataValueField = "DESG_ID";
+        drpDesignation.DataBind();
+        drpDesignation.Items.Insert(0, new ListItem("Select", "0"));
     }
 }

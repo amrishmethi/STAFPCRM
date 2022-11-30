@@ -171,4 +171,42 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
+
+    public DataSet GetDepartment(string ACTION, string DEPT_ID, string DEPT_NAME, string DELID, string DEPT_CODE)
+    { 
+        cmd = new SqlCommand("GETDEPARTMENT");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@ACTION", ACTION);
+        cmd.Parameters.AddWithValue("@DEPT_ID", DEPT_ID);
+        cmd.Parameters.AddWithValue("@DEPT_NAME", DEPT_NAME);
+        cmd.Parameters.AddWithValue("@DELID", DELID); 
+        cmd.Parameters.AddWithValue("@DEPT_CODE", DEPT_CODE); 
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+    public DataSet GetDocument(string ACTION, string DOCU_ID, string DOCU_NAME, string DELID)
+    {
+        cmd = new SqlCommand("GETDOCUMENT");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@ACTION", ACTION);
+        cmd.Parameters.AddWithValue("@DOCU_ID", DOCU_ID);
+        cmd.Parameters.AddWithValue("@DOCU_NAME", DOCU_NAME);
+        cmd.Parameters.AddWithValue("@DELID", DELID);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+    public DataSet GetDesignation(string ACTION, string DESG_ID, string DEPT_ID, string DESG_NAME, string DELID)
+    { 
+        cmd = new SqlCommand("GETDESIGNATION");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@ACTION", ACTION);
+        cmd.Parameters.AddWithValue("@DESG_ID", DESG_ID);
+        cmd.Parameters.AddWithValue("@DEPT_ID", DEPT_ID);
+        cmd.Parameters.AddWithValue("@DESG_NAME", DESG_NAME);
+        cmd.Parameters.AddWithValue("@DELID", DELID);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
 }
