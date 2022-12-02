@@ -30,7 +30,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
             Gd.FillUser(drpProjectManager);
         }
     }
-
+     
     protected void drpGender_SelectedIndexChanged(object sender, EventArgs e)
     {
 
@@ -221,10 +221,38 @@ public partial class Soft_Payroll : System.Web.UI.Page
         Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue.ToString());
     }
 
-    protected void chkBS_CheckedChanged(object sender, EventArgs e)
-    {
+    //protected void chkBS_CheckedChanged(object sender, EventArgs e)
+    //{
+        
+    //    txtBasicsalary.Enabled = chkBS.Checked;
+    //    txtBasicsalary.Text = (chkBS.Checked) ? txtBasicsalary.Text : "";
+    //}
 
-        txtBasicsalary.Enabled = chkBS.Checked;
-        txtBasicsalary.Text = (chkBS.Checked) ? txtBasicsalary.Text : "";
+    protected void txtBasicsalary_TextChanged(object sender, EventArgs e)
+    {
+        //GetBasicSalary();
     }
+
+    protected void RBBS_CheckedChanged(object sender, EventArgs e)
+    {
+        GetBasicSalary();
+    }
+
+    protected void RBPER_CheckedChanged(object sender, EventArgs e)
+    {
+        GetBasicSalary();
+    }
+
+    private void GetBasicSalary()
+    {
+        if (chkBS.Checked)
+        {
+            decimal BS = Convert.ToDecimal(txtBasicsalary.Text);
+            if (RBBSFixed.Checked)
+                txtBasicsalaryValue.Text = BS.ToString();
+            else
+                txtBasicsalaryValue.Text = ((Convert.ToDecimal(txtNetSalary.Text) * BS) / 100).ToString("0.00");
+        }
+    }
+
 }
