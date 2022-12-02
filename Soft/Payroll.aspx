@@ -196,216 +196,340 @@
             </div>
         </div>
 
+
         <div class="box box-primary">
             <div class="box-body">
-
-
                 <div class="col-md-12" style="border-bottom: .5px solid lightgrey;">
                     <h4 class="box-title">
                         <label>SALARY  DETAILS</label>
                     </h4>
-                    <asp:UpdatePanel ID="updt" runat="server">
-                        <ContentTemplate>
-                            <div class="col-md-4">
-                                <label class="control-label">
-                                    Net Salary</label>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator16" runat="server" ForeColor="Red"
-                                    ErrorMessage=" Please Enter" ControlToValidate="txtNetSalary" InitialValue="0"></asp:RequiredFieldValidator>
-                                <asp:TextBox ID="txtNetSalary" runat="server" CssClass="form-control" Text="0"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkBS" runat="server" OnCheckedChanged="chkBS_CheckedChanged" AutoPostBack="true" />
-                                &nbsp; &nbsp;<label class="control-label">Basic Salary</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="RBBS" runat="server" Text="Fixed" GroupName="BS" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="RBPER" runat="server" Text="Per(%)" GroupName="BS" />
-                                <asp:TextBox ID="txtBasicsalary" runat="server" CssClass="form-control" Enabled="false" Text="0"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkPF" runat="server" OnCheckedChanged="chkPF_CheckedChanged" AutoPostBack="true" />
-                                &nbsp; &nbsp;<label class="control-label">PF</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbPFFixed" runat="server" Text="Fixed" GroupName="PF" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbPFPer" runat="server" Text="Per(%)" GroupName="PF" />
-                                <div class="col-md-6" style="margin-left: -9px;">
-                                    <asp:TextBox ID="txtPFSelf" runat="server" CssClass="form-control" placeholder="Employee" Enabled="false"></asp:TextBox>
-                                </div>
-                                <div class="col-md-6">
-                                    <asp:TextBox ID="txtPFComp" runat="server" CssClass="form-control" placeholder="Employer" Enabled="false"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="ChkESIC" runat="server" OnCheckedChanged="ChkESIC_CheckedChanged" AutoPostBack="true" />
-                                &nbsp; &nbsp;<label class="control-label">ESIC</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbESICFixed" runat="server" Text="Fixed" GroupName="ESIC" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbESICPer" runat="server" Text="Per(%)" GroupName="ESIC" />
-                                <div class="col-md-6" style="margin-left: -9px;">
-                                    <asp:TextBox ID="txtESICSelf" runat="server" CssClass="form-control" placeholder="Employee" Enabled="false"></asp:TextBox>
-                                </div>
-                                <div class="col-md-6">
-                                    <asp:TextBox ID="txtESICComp" runat="server" CssClass="form-control" placeholder="Employer" Enabled="false"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkHRA" runat="server" OnCheckedChanged="chkHRA_CheckedChanged" AutoPostBack="true" />
-                                &nbsp; &nbsp;<label class="control-label">House Rent Allowance</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbHRAFixed" runat="server" Text="Fixed" GroupName="HRA" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbHRAPer" runat="server" Text="Per(%)" GroupName="HRA" />
-                                <asp:TextBox ID="txtHRA" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="ChkWs" runat="server" OnCheckedChanged="ChkWs_CheckedChanged" AutoPostBack="true" />
-                                &nbsp; &nbsp;<label class="control-label">Washing Allowance</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="RbWAFixed" runat="server" Text="Fixed" GroupName="WA" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="RbWAPer" runat="server" Text="Per(%)" GroupName="WA" />
-                                <asp:TextBox ID="TxtwashingAllowance" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkMA" runat="server" AutoPostBack="true" OnCheckedChanged="chkMA_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Medical Allowance</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbMAFixed" runat="server" Text="Fixed" GroupName="MA" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbMAPer" runat="server" Text="Per(%)" GroupName="MA" />
-                                <asp:TextBox ID="txtMediacl" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkConv" runat="server" AutoPostBack="true" OnCheckedChanged="chkConv_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Conveyance Allowance</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="RbTAFixed" runat="server" Text="Fixed" GroupName="TA" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="RbTAPerKM" runat="server" Text="Per KM" GroupName="TA" />
-                                <asp:TextBox ID="txtConveyance" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkDALocal" runat="server" AutoPostBack="true" OnCheckedChanged="chkDALocal_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Daily Allowance Local</label>
-                                <asp:TextBox ID="txtDALocal" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkDAEx" runat="server" AutoPostBack="true" OnCheckedChanged="chkDAEx_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Daily Allowance Ex</label>
-                                <asp:TextBox ID="txtDAEx" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkDP" runat="server" AutoPostBack="true" OnCheckedChanged="chkDP_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Laptop Allowance</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbDPFixed" runat="server" Text="Fixed" GroupName="DP" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbDPPer" runat="server" Text="Per(%)" GroupName="DP" />
-                                <asp:TextBox ID="txtDPay" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkFoodAll" runat="server" AutoPostBack="true" OnCheckedChanged="chkFoodAll_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Food Allowance</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbFAFixed" runat="server" Text="Fixed" GroupName="FA" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbFAPer" runat="server" Text="Per(%)" GroupName="FA" />
-                                <asp:TextBox ID="txtFoodAll" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkOthers" runat="server" AutoPostBack="true" OnCheckedChanged="chkOthers_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Other Allowance</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="RBOAFixed" runat="server" Text="Fixed" GroupName="OA" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="RBOArPer" runat="server" Text="Per(%)" GroupName="OA" />
-                                <asp:TextBox ID="txtOthers" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkNightAll" runat="server" AutoPostBack="true" OnCheckedChanged="chkNightAll_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Night Stay Allowance</label>
-                                <asp:TextBox ID="txtNightAll" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chktdsapply" runat="server" AutoPostBack="true" OnCheckedChanged="chktdsapply_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">T.D.S.</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbTDSFixed" runat="server" Text="Fixed" GroupName="TDS" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbTDSPer" runat="server" Text="Per(%)" GroupName="TDS" />
-                                <asp:TextBox ID="txtTDS" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkDeductOther" runat="server" AutoPostBack="true" OnCheckedChanged="chkDeductOther_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Other Deductions</label>
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbDFixed" runat="server" Text="Fixed" GroupName="OD" Checked="true" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="rbODPer" runat="server" Text="Per(%)" GroupName="OD" />
-                                <asp:TextBox ID="txtDeductOther" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkPaidLeave" runat="server" AutoPostBack="true" OnCheckedChanged="chkPaidLeave_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Paid Leave (In Months)</label>
-                                <asp:TextBox ID="txtNoOfPaidLeave" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="ChkCL" runat="server" AutoPostBack="true" OnCheckedChanged="ChkCL_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">CL (In Yearly)</label>
-                                <asp:TextBox ID="txtCL" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkLateCheckIn" runat="server" AutoPostBack="true" OnCheckedChanged="chkLateCheckIn_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Late Check-In (In Minutes)</label>
-                                <asp:TextBox ID="txtLateCheckIn" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkEarlyCheckOut" runat="server" AutoPostBack="true" OnCheckedChanged="chkEarlyCheckOut_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Early Check-Out (In Minutes)</label>
-                                <asp:TextBox ID="txtEarlyCheckOut" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkBonus" runat="server" AutoPostBack="true" OnCheckedChanged="chkBonus_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Yearly Bonus (%)</label>
-                                <asp:TextBox ID="txtBonus" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkMinHour" runat="server" AutoPostBack="true" OnCheckedChanged="chkMinHour_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Working Hours</label>
-                                <asp:TextBox ID="txtWorkingHour" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
 
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkOverTime" runat="server" AutoPostBack="true" OnCheckedChanged="chkOverTime_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Over Time ( % Per Day Salary)</label>
-                                <asp:TextBox ID="txtOverTime" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:CheckBox ID="chkCHeckInTime" runat="server" AutoPostBack="true" OnCheckedChanged="chkCHeckInTime_CheckedChanged" />
-                                &nbsp; &nbsp;<label class="control-label">Check In Time</label>
-                                <asp:TextBox ID="txtCheckIn" runat="server" Enabled="false" CssClass="form-control timepicker"></asp:TextBox>
-                            </div>
-                        </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="chkBS" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkPF" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="ChkESIC" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkDALocal" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkDAEx" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkHRA" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkConv" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="ChkWs" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkMA" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkDP" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkFoodAll" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkOthers" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chktdsapply" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkDeductOther" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkPaidLeave" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkLateCheckIn" EventName="CheckedChanged" />
-                            <asp:AsyncPostBackTrigger ControlID="chkEarlyCheckOut" EventName="CheckedChanged" />
-                        </Triggers>
-                    </asp:UpdatePanel>
-                    <div class="col-md-2">
-                        &nbsp; &nbsp;<label class="control-label">Working Time From</label>
-                        <asp:TextBox ID="txtWorkingTimeFRom" runat="server" CssClass="form-control timepicker"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2">
-                        &nbsp; &nbsp;<label class="control-label">Working Time To</label>
-                        <asp:TextBox ID="txtWorkingTimeTo" runat="server" CssClass="form-control timepicker"></asp:TextBox>
-                    </div>
-                    <div class="clearfix">&nbsp;</div>
-                    <div class="col-md-4">
-                        <label class="control-label">Working Days</label>
-                        <br />
-                        <asp:ListBox ID="drpWorkingDay" runat="server" SelectionMode="Multiple" CssClass="form-control select2">
-                            <asp:ListItem Text="Sunday" Value="Sunday"></asp:ListItem>
-                            <asp:ListItem Text="Monday" Value="Monday"></asp:ListItem>
-                            <asp:ListItem Text="Tuesday" Value="Tuesday"></asp:ListItem>
-                            <asp:ListItem Text="Wednesday" Value="Wednesday"></asp:ListItem>
-                            <asp:ListItem Text="Thursday" Value="Thursday"></asp:ListItem>
-                            <asp:ListItem Text="Friday" Value="Friday"></asp:ListItem>
-                            <asp:ListItem Text="Saturday" Value="Saturday"></asp:ListItem>
-                        </asp:ListBox>
-                    </div>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="5px" class="table table-bordered table-striped">
+                        <tr class="gradeA">
+                            <td>&nbsp;</td>
+                            <td>
+                                <label class="control-label">
+                                    NET SALARY
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator17" runat="server" ForeColor="Red"
+                                        ErrorMessage=" Please Enter" ControlToValidate="txtNetSalary" InitialValue="0"></asp:RequiredFieldValidator>
+                                </label>
+                            </td>
+                            <td>&nbsp;</td>
+                            <td>
+
+                                <asp:TextBox ID="txtNetSalary" runat="server" CssClass="form-control" Text="0"></asp:TextBox>
+
+                            </td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkBS" runat="server" OnCheckedChanged="chkBS_CheckedChanged" AutoPostBack="true" /></td>
+                            <td>
+                                <label class="control-label">Basic Salary</label></td>
+                            <td>
+                                <asp:RadioButton ID="RBBS" runat="server" Text="Fixed" GroupName="BS" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="RBPER" runat="server" Text="Per(%)" GroupName="BS" /></td>
+                            <td>
+                                <asp:TextBox ID="txtBasicsalary" runat="server" CssClass="form-control" Enabled="false" Text="0"></asp:TextBox></td>
+                            <td>
+                                <asp:TextBox ID="txtBasicsalaryValue" runat="server" CssClass="form-control" Enabled="false" Text="0"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkPF" runat="server" OnCheckedChanged="chkPF_CheckedChanged" AutoPostBack="true" /></td>
+                            <td>
+                                <label class="control-label">PF</label></td>
+                            <td>
+                                <asp:RadioButton ID="rbPFFixed" runat="server" Text="Fixed" GroupName="PF" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="rbPFPer" runat="server" Text="Per(%)" GroupName="PF" /></td>
+                            <td>
+                                <asp:TextBox ID="txtPFSelf" runat="server" CssClass="form-control" placeholder="Employee" Enabled="false"></asp:TextBox>
+                                <br />
+                                <asp:TextBox ID="txtPFComp" runat="server" CssClass="form-control" placeholder="Employer" Enabled="false"></asp:TextBox>
+
+                            </td>
+                            <td>
+                                <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Employee" Enabled="false"></asp:TextBox>
+                                <br />
+                                <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control" placeholder="Employer" Enabled="false"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="ChkESIC" runat="server" OnCheckedChanged="ChkESIC_CheckedChanged" AutoPostBack="true" /></td>
+                            <td>
+                                <label class="control-label">ESIC</label></td>
+                            <td>
+                                <asp:RadioButton ID="rbESICFixed" runat="server" Text="Fixed" GroupName="ESIC" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="rbESICPer" runat="server" Text="Per(%)" GroupName="ESIC" /></td>
+                            <td>
+                                <asp:TextBox ID="txtESICSelf" runat="server" CssClass="form-control" placeholder="Employee" Enabled="false"></asp:TextBox>
+                                <br />
+                                <asp:TextBox ID="txtESICComp" runat="server" CssClass="form-control" placeholder="Employer" Enabled="false"></asp:TextBox>
+                            </td>
+                            <td>
+                                <asp:TextBox ID="TextBox3" runat="server" CssClass="form-control" placeholder="Employee" Enabled="false"></asp:TextBox>
+                                <br />
+                                <asp:TextBox ID="TextBox4" runat="server" CssClass="form-control" placeholder="Employer" Enabled="false"></asp:TextBox>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkHRA" runat="server" OnCheckedChanged="chkHRA_CheckedChanged" AutoPostBack="true" /></td>
+                            <td>
+                                <label class="control-label">House Rent Allowance</label></td>
+                            <td>
+                                <asp:RadioButton ID="rbHRAFixed" runat="server" Text="Fixed" GroupName="HRA" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="rbHRAPer" runat="server" Text="Per(%)" GroupName="HRA" /></td>
+                            <td>
+                                <asp:TextBox ID="txtHRA" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>
+                                <asp:TextBox ID="TextBox5" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="ChkWs" runat="server" OnCheckedChanged="ChkWs_CheckedChanged" AutoPostBack="true" /></td>
+                            <td>
+                                <label class="control-label">Washing Allowance</label></td>
+                            <td>
+                                <asp:RadioButton ID="RbWAFixed" runat="server" Text="Fixed" GroupName="WA" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="RbWAPer" runat="server" Text="Per(%)" GroupName="WA" /></td>
+                            <td>
+                                <asp:TextBox ID="TxtwashingAllowance" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>
+                                <asp:TextBox ID="TextBox6" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkMA" runat="server" AutoPostBack="true" OnCheckedChanged="chkMA_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Medical Allowance</label></td>
+                            <td>
+                                <asp:RadioButton ID="rbMAFixed" runat="server" Text="Fixed" GroupName="MA" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="rbMAPer" runat="server" Text="Per(%)" GroupName="MA" /></td>
+                            <td>
+                                <asp:TextBox ID="txtMediacl" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>
+                                <asp:TextBox ID="TextBox7" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkConv" runat="server" AutoPostBack="true" OnCheckedChanged="chkConv_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Conveyance Allowance</label></td>
+                            <td>
+                                <asp:RadioButton ID="RbTAFixed" runat="server" Text="Fixed" GroupName="TA" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="RbTAPerKM" runat="server" Text="Per KM" GroupName="TA" /></td>
+                            <td>
+                                <asp:TextBox ID="txtConveyance" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>
+                                <asp:TextBox ID="TextBox8" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkDALocal" runat="server" AutoPostBack="true" OnCheckedChanged="chkDALocal_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Daily Allowance Local</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtDALocal" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkDAEx" runat="server" AutoPostBack="true" OnCheckedChanged="chkDAEx_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Daily Allowance Ex</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtDAEx" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkDP" runat="server" AutoPostBack="true" OnCheckedChanged="chkDP_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Laptop Allowance</label></td>
+                            <td>
+                                <asp:RadioButton ID="rbDPFixed" runat="server" Text="Fixed" GroupName="DP" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="rbDPPer" runat="server" Text="Per(%)" GroupName="DP" /></td>
+                            <td>
+                                <asp:TextBox ID="txtDPay" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>
+                                <asp:TextBox ID="TextBox9" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkFoodAll" runat="server" AutoPostBack="true" OnCheckedChanged="chkFoodAll_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Food Allowance</label></td>
+                            <td>
+                                <asp:RadioButton ID="rbFAFixed" runat="server" Text="Fixed" GroupName="FA" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="rbFAPer" runat="server" Text="Per(%)" GroupName="FA" /></td>
+                            <td>
+                                <asp:TextBox ID="txtFoodAll" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>
+                                <asp:TextBox ID="TextBox10" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkOthers" runat="server" AutoPostBack="true" OnCheckedChanged="chkOthers_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Other Allowance</label></td>
+                            <td>
+                                <asp:RadioButton ID="RBOAFixed" runat="server" Text="Fixed" GroupName="OA" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="RBOArPer" runat="server" Text="Per(%)" GroupName="OA" /></td>
+                            <td>
+                                <asp:TextBox ID="txtOthers" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>
+                                <asp:TextBox ID="TextBox11" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkNightAll" runat="server" AutoPostBack="true" OnCheckedChanged="chkNightAll_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Night Stay Allowance</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtNightAll" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chktdsapply" runat="server" AutoPostBack="true" OnCheckedChanged="chktdsapply_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">T.D.S.</label></td>
+                            <td>
+                                <asp:RadioButton ID="rbTDSFixed" runat="server" Text="Fixed" GroupName="TDS" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="rbTDSPer" runat="server" Text="Per(%)" GroupName="TDS" /></td>
+                            <td>
+                                <asp:TextBox ID="txtTDS" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>
+                                <asp:TextBox ID="TextBox12" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkDeductOther" runat="server" AutoPostBack="true" OnCheckedChanged="chkDeductOther_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Other Deductions</label></td>
+                            <td>
+                                <asp:RadioButton ID="rbDFixed" runat="server" Text="Fixed" GroupName="OD" Checked="true" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="rbODPer" runat="server" Text="Per(%)" GroupName="OD" /></td>
+                            <td>
+                                <asp:TextBox ID="txtDeductOther" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>
+                                <asp:TextBox ID="TextBox13" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkPaidLeave" runat="server" AutoPostBack="true" OnCheckedChanged="chkPaidLeave_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Paid Leave (In Months)</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtNoOfPaidLeave" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="ChkCL" runat="server" AutoPostBack="true" OnCheckedChanged="ChkCL_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">CL (In Yearly)</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtCL" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkLateCheckIn" runat="server" AutoPostBack="true" OnCheckedChanged="chkLateCheckIn_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Late Check-In (In Minutes)</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtLateCheckIn" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkEarlyCheckOut" runat="server" AutoPostBack="true" OnCheckedChanged="chkEarlyCheckOut_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Early Check-Out (In Minutes)</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtEarlyCheckOut" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkBonus" runat="server" AutoPostBack="true" OnCheckedChanged="chkBonus_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Yearly Bonus (%)</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtBonus" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkMinHour" runat="server" AutoPostBack="true" OnCheckedChanged="chkMinHour_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Working Hours</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtWorkingHour" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkOverTime" runat="server" AutoPostBack="true" OnCheckedChanged="chkOverTime_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Over Time ( % Per Day Salary)</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtOverTime" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:CheckBox ID="chkCHeckInTime" runat="server" AutoPostBack="true" OnCheckedChanged="chkCHeckInTime_CheckedChanged" /></td>
+                            <td>
+                                <label class="control-label">Check In Time</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtCheckIn" runat="server" Enabled="false" CssClass="form-control timepicker"></asp:TextBox></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                                <label class="control-label">Working Time</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtWorkingTimeFRom" runat="server" CssClass="form-control timepicker"></asp:TextBox></td>
+                            <td>
+                                <asp:TextBox ID="txtWorkingTimeTo" runat="server" CssClass="form-control timepicker"></asp:TextBox></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                                <label class="control-label">Working Days</label></td>
+                            <td>&nbsp;</td>
+                            <td colspan="2">
+                                <asp:ListBox ID="drpWorkingDay" runat="server" SelectionMode="Multiple" CssClass="form-control select2">
+                                    <asp:ListItem Text="Sunday" Value="Sunday"></asp:ListItem>
+                                    <asp:ListItem Text="Monday" Value="Monday"></asp:ListItem>
+                                    <asp:ListItem Text="Tuesday" Value="Tuesday"></asp:ListItem>
+                                    <asp:ListItem Text="Wednesday" Value="Wednesday"></asp:ListItem>
+                                    <asp:ListItem Text="Thursday" Value="Thursday"></asp:ListItem>
+                                    <asp:ListItem Text="Friday" Value="Friday"></asp:ListItem>
+                                    <asp:ListItem Text="Saturday" Value="Saturday"></asp:ListItem>
+                                </asp:ListBox> 
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -549,6 +673,7 @@
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>
+
         <div class="box box-primary">
             <div class="box-body">
                 <div class="col-md-12" style="border-bottom: .5px solid lightgrey;">

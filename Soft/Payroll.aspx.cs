@@ -30,7 +30,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
             Gd.FillUser(drpProjectManager);
         }
     }
-     
+
     protected void drpGender_SelectedIndexChanged(object sender, EventArgs e)
     {
 
@@ -215,7 +215,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
         txtCheckIn.Enabled = chkCHeckInTime.Checked;
         txtCheckIn.Text = (chkCHeckInTime.Checked) ? txtCheckIn.Text : "";
     }
-     
+
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
         Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue.ToString());
@@ -223,7 +223,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
 
     protected void chkBS_CheckedChanged(object sender, EventArgs e)
     {
-        
+
         txtBasicsalary.Enabled = chkBS.Checked;
         txtBasicsalary.Text = (chkBS.Checked) ? txtBasicsalary.Text : "";
     }
