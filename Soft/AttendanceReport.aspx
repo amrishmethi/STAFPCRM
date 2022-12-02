@@ -3,7 +3,7 @@
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-   <title>Attendance Report(STAFP)</title>
+    <title>Attendance Report(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
@@ -63,7 +63,7 @@
                                             <th style="text-align: left;" rowspan="2">MobileNo</th>
                                             <th style="text-align: center;" colspan="5">In</th>
                                             <th style="text-align: center;" colspan="5">Out</th>
-                                            <th style="text-align: center;"  rowspan="2">Leave</th>
+                                            <th style="text-align: center;" rowspan="2">Leave</th>
 
                                             <%--<th style="text-align: left;" rowspan="2">WhatsApp No</th>--%>
                                             <%--<th>--%>
@@ -95,14 +95,16 @@
                                                     <td style="text-align: left;"><%#Eval("UserName") %></td>
 
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
-                                                    <td><asp:Image runat="server" ImageUrl='<%# "https://mandiapp.indiahostbiz.com/CameraPhotos/Attendance/" + Eval("SelfieIN") %>' width="50" height="50" Visible='<%# (Eval("SelfieIN").ToString()=="")?false:true %>'/></td>
+                                                    <td>
+                                                        <asp:Image runat="server" ImageUrl='<%# "https://mandiapp.indiahostbiz.com/CameraPhotos/Attendance/" + Eval("SelfieIN") %>' Width="50" Height="50" Visible='<%# (Eval("SelfieIN").ToString()=="")?false:true %>' /></td>
                                                     <td style="text-align: left;"><%#Eval("StationIN") %></td>
                                                     <td style="text-align: left;"><%#Eval("DesscriptionIN") %></td>
                                                     <td style="text-align: left;"><%#Eval("DateIN") %></td>
                                                     <td style="text-align: left;"><%#Eval("TimeIN") %></td>
                                                     <td style="text-align: left;"><%#Eval("PlaceIN") %></td>
-                                                     <td><asp:Image runat="server" ImageUrl='<%# "https://mandiapp.indiahostbiz.com/CameraPhotos/Attendance/" + Eval("SelfieOUT") %>' width="50" height="50" Visible='<%# (Eval("SelfieOUT").ToString()=="")?false:true %>'/></td>
-                                                   <td style="text-align: left;"><%#Eval("StationOUT") %></td>
+                                                    <td>
+                                                        <asp:Image runat="server" ImageUrl='<%# "https://mandiapp.indiahostbiz.com/CameraPhotos/Attendance/" + Eval("SelfieOUT") %>' Width="50" Height="50" Visible='<%# (Eval("SelfieOUT").ToString()=="")?false:true %>' /></td>
+                                                    <td style="text-align: left;"><%#Eval("StationOUT") %></td>
                                                     <td style="text-align: left;"><%#Eval("DesscriptionOUT") %></td>
                                                     <td style="text-align: left;"><%#Eval("DateOUT") %></td>
                                                     <td style="text-align: left;"><%#Eval("TimeOUT") %></td>
@@ -157,7 +159,7 @@
                     //Array.prototype.forEach.call(elements1, function (element) {
                     //    element.style.display = myArray[2] == "False" ? "none" : "inline";
                     //});
-               
+
                     //if (myArray[1] == 'False' && myArray[2] == 'False') {
                     //    document.getElementById("lblAction").innerHTML = "";
 
@@ -171,7 +173,17 @@
                 }
             });
         })
+        //document.addEventListener('contextmenu', function (e) {
+        //    e.preventDefault();
+        //});
 
+        //$(document).keydown(function (event) {
+        //    if (event.keyCode == 123) { // Prevent F12
+        //        return false;
+        //    } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
+        //        return false;
+        //    }
+        //});
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>

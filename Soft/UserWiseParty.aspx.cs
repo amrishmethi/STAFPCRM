@@ -48,12 +48,16 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
         if (drpheadQtr.SelectedIndex > 0)
         {
-            dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
+            dv.RowFilter = " HeadQtr = '" + drpheadQtr.SelectedValue + "'";
         }
 
         if (drpDistrict.SelectedIndex > 0)
         {
-            dv.RowFilter = "District = '" + drpDistrict.SelectedValue + "'";
+            dv.RowFilter = " District = '" + drpDistrict.SelectedValue + "'";
+        }
+        if (drpStation.SelectedIndex > 0)
+        {
+            dv.RowFilter = " Station = '" + drpStation.SelectedValue + "'";
         }
         rep.DataSource = dv.ToTable();
         rep.DataBind();
@@ -114,6 +118,11 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         drpDistrict.DataValueField = "District";
         drpDistrict.DataBind();
         drpDistrict.Items.Insert(0, new ListItem("Select", "0"));
+        drpStation.DataSource = ds.Tables[0].DefaultView.ToTable(true, "Station");
+        drpStation.DataTextField = "Station";
+        drpStation.DataValueField = "Station";
+        drpStation.DataBind();
+        drpStation.Items.Insert(0, new ListItem("Select", "0"));
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
@@ -136,11 +145,29 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         drpDistrict.DataValueField = "District";
         drpDistrict.DataBind();
         drpDistrict.Items.Insert(0, new ListItem("Select", "0"));
+        drpStation.DataSource = ds.Tables[0].DefaultView.ToTable(true, "Station");
+        drpStation.DataTextField = "Station";
+        drpStation.DataValueField = "Station";
+        drpStation.DataBind();
+        drpStation.Items.Insert(0, new ListItem("Select", "0"));
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
 
     protected void drpDistrict_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        fillData();
+         DataTable dt = (DataTable)ViewState["tbl"];
+        DataView dv = dt.DefaultView;
+        dv.RowFilter = "District = '" + drpDistrict.SelectedValue +"'";
+        drpStation.DataSource = dv.ToTable(true, "Station");
+        drpStation.DataTextField = "Station";
+        drpStation.DataValueField = "Station";
+        drpStation.DataBind();
+        drpStation.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    protected void drpStation_SelectedIndexChanged(object sender, EventArgs e)
     {
         fillData();
     }

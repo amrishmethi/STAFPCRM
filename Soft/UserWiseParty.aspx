@@ -17,10 +17,8 @@
     </section>
     <section class="content">
         <div class="row">
-           
-            <div class="col-md-12">
-             
-                        <div class="box box-primary">
+           <div class="col-md-12">
+             <div class="box box-primary">
                             <div class="box-body">
                                 <div class="form-group">
 
@@ -35,9 +33,15 @@
                                         <label>HeadQuarter</label>
                                         <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
                                         </asp:DropDownList>
-                                    </div> <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-2">
                                         <label>District</label>
                                         <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label>Station</label>
+                                        <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true">
                                         </asp:DropDownList>
                                     </div>
                                  <%--   <div class="col-md-1" style="padding-top: 3px;">

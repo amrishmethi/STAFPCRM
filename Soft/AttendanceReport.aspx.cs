@@ -20,7 +20,7 @@ public partial class Admin_AttendanceReport : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-              if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
+            if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
 
             Soft = Request.Cookies["STFP"];
 
@@ -36,9 +36,9 @@ public partial class Admin_AttendanceReport : System.Web.UI.Page
     {
         ds = getdata.getAttendanceList(drpUser.SelectedValue, txtDate.Text.Trim());
         DataView dv = ds.Tables[0].DefaultView;
-        if(drpIsAttend.SelectedValue == "0") { dv.RowFilter = " DateIN is null"; }
-        else if(drpIsAttend.SelectedValue == "1") { dv.RowFilter = "DateIN <> ''"; }
-        
+        if (drpIsAttend.SelectedValue == "0") { dv.RowFilter = " DateIN is null"; }
+        else if (drpIsAttend.SelectedValue == "1") { dv.RowFilter = "DateIN <> ''"; }
+
         rep.DataSource = dv.ToTable();
         rep.DataBind();
     }
@@ -55,4 +55,37 @@ public partial class Admin_AttendanceReport : System.Web.UI.Page
         DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
         return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
     }
+    //private string ShrinkURL(string strURL)
+    //{
+    //    string URL;
+    //    URL = "http://tinyurl.com/api-create.php?url=" +
+    //       strURL.ToLower();
+
+    //    System.Net.HttpWebRequest objWebRequest;
+    //    System.Net.HttpWebResponse objWebResponse;
+
+    //    System.IO.StreamReader srReader;
+
+    //    string strHTML;
+
+    //    objWebRequest = (System.Net.HttpWebRequest)System.Net
+    //       .WebRequest.Create(URL);
+    //    objWebRequest.Method = "GET";
+
+    //    objWebResponse = (System.Net.HttpWebResponse)objWebRequest
+    //       .GetResponse();
+    //    srReader = new System.IO.StreamReader(objWebResponse
+    //       .GetResponseStream());
+
+    //    strHTML = srReader.ReadToEnd();
+
+    //    srReader.Close();
+    //    objWebResponse.Close();
+    //    objWebRequest.Abort();
+
+    //    return (strHTML);
+
+    //}
+
+     
 }

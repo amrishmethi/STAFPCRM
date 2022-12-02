@@ -44,9 +44,7 @@ public partial class login : System.Web.UI.Page
                 Admin.Values.Add("Type", ds.Tables[0].Rows[0]["UserType"].ToString());
                 Response.Cookies.Add(Admin);
 
-
                 Response.Redirect("~/Soft/Dashboard.aspx");
-
             }
             else
             {
@@ -133,6 +131,6 @@ public partial class login : System.Web.UI.Page
 
     protected void lnkFgetPwd_Click(object sender, EventArgs e)
     {
-      //  ForgorPwdMail("", "", "", "");
+        //  ForgorPwdMail("", "", "", "");
     }
 }
