@@ -10,7 +10,10 @@
 
     <section class="content-header" style="height: 2.5em;">
         <h1>Secondary Sales Report</h1>
+
         <ol class="breadcrumb">
+           <button onclick="history.go(-1);
+        return false;" class="btn btn-sm btn-success">Go Back</button>  
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/SalesItemReport.aspx" class="active">Secondary Sales Report</a></li>
         </ol>
@@ -18,7 +21,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-             <%--   <div class="box box-primary">
+                <%--   <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
                             <div class="clearfix">&nbsp;</div>
@@ -60,6 +63,7 @@
                 </div>--%>
                 <div class="box box-primary">
                     <div class="box-body">
+
                         <div class="widget-content nopadding" style="overflow: auto;">
                             <div class="table-responsive">
                                 <table id="ExportTbl" class="table table-bordered display" style="width: 100%">
@@ -105,6 +109,7 @@
                                                                     <th>Packing</th>
                                                                     <th>RATE PER KG</th>
                                                                     <th>Amount</th>
+                                                                    <th>Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -120,11 +125,22 @@
                                                                             <td style="text-align: left;"><%#Eval("Packing") %></td>
                                                                             <td style="text-align: left;"><%#Eval("OrdStpRate") %></td>
                                                                             <td style="text-align: left;"><%#Eval("Amount") %></td>
+                                                                            <td style="text-align: center;">
+                                                                                <a href="UpdateSecondaryItems.aspx?id=<%#Eval("Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                                            </td>
                                                                         </tr>
                                                                     </ItemTemplate>
 
                                                                 </asp:Repeater>
                                                             </tbody>
+                                                            <tfoot style="background-color: floralwhite;">
+                                                                <tr>
+                                                                    <td colspan="6" runat="server">Remark : </td>
+                                                                    <td><strong>
+                                                                        <asp:Label ID="lblTotal" runat="server"></asp:Label></strong></td>
+                                                                    <td>&nbsp;</td>
+                                                                </tr>
+                                                            </tfoot>
                                                         </table>
                                                     </td>
                                                 </tr>
@@ -133,7 +149,12 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="col-sm-12" style="text-align: right;">
+                                <label>Grand Total</label>
+                                <asp:TextBox ID="txtGrandTot" runat="server" Style="font-weight: bold; text-align: right;" ReadOnly="true" Text="0.00"></asp:TextBox>
+                            </div>
                         </div>
+                     
                     </div>
                 </div>
             </div>

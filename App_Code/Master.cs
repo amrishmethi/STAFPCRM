@@ -227,5 +227,17 @@ public class Master
         cmd.Parameters.AddWithValue("@DELID", DELID);
         ds = data.getDataSet(cmd);
         return ds;
+    } public DataSet get_UpdateSecondaryItems(string ACTION, string ID, string Group, string Itm, string Qty,string Rate)
+    { 
+        cmd = new SqlCommand("PROC_UPDATESECONDARYITEMS");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@ACTION", ACTION);
+        cmd.Parameters.AddWithValue("@ID", ID);
+        cmd.Parameters.AddWithValue("@grp", Group);
+        cmd.Parameters.AddWithValue("@item", Itm);
+        cmd.Parameters.AddWithValue("@qty", Qty);
+        cmd.Parameters.AddWithValue("@Rate", Rate);
+        ds = data.getDataSet(cmd);
+        return ds;
     }
 }

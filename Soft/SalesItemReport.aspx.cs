@@ -31,6 +31,7 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
             //Gd.FillPrimaryStation(drpStation);
             if (Request.QueryString["id"] != null)
             {
+                Session["CheckID"] = Request.QueryString["id"];
                 Filldata();
             }
         }
@@ -57,11 +58,14 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
         {
             HiddenField hddid = (HiddenField)e.Item.FindControl("hddid");
             Repeater rep1 = (Repeater)e.Item.FindControl("rep1");
-
+            Label lblTotal = (Label)e.Item.FindControl("lblTotal");
             DataSet dsrep1 = data.getDataSet("PROC_SECONDARYITEMSDETAILS '" + hddid.Value + "'");
+            if (dsrep1.Tables[0].Rows.Count > 0) { 
+            lblTotal.Text = Convert.ToDecimal(dsrep1.Tables[0].Compute("Sum(Amount)", ""))+"";
+                txtGrandTot.Text = String.Format("{0:0.00}",Convert.ToDecimal(txtGrandTot.Text)+Convert.ToDecimal(lblTotal.Text));
             rep1.DataSource = dsrep1;
             rep1.DataBind();
-
+            }
         }
     }
 }

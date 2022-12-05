@@ -93,7 +93,7 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
         HiddenField hddUid = (HiddenField)rep.Items[ItemC].FindControl("hddUid");
         if (hddUid.Value != "")
         {
-            data.getDataSet("Update [CSInfo].[dbo].[MobileAppUser]  set Deactivate = (case when Deactivate=1 then 0 else 1 end)  where id = " + hddUid.Value);
+            data.getDataSet("Update [CSInfo].[dbo].[MobileAppUser]  set isCrmLogin = (case when isCrmLogin=1 then 0 else 1 end)  where id = " + hddUid.Value);
             fillData();
         }
 

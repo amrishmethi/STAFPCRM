@@ -77,7 +77,7 @@
                                                     <asp:HiddenField ID="hddUserType" Value='<%#Eval("UserType") %>' runat="server"/>
                                                     <asp:HiddenField ID="hddUid" Value='<%#Eval("id") %>' runat="server"/>
                                                     </td>
-                                                    <td style="text-align: center;" class="isLoginVisible"><asp:CheckBox  ID="IsChkLogin" runat="server" Checked='<%# Convert.ToBoolean(Eval("Deactivate"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLogin_CheckedChanged"  /></td>
+                                                    <td style="text-align: center;" class="isLoginVisible"><asp:CheckBox  ID="IsChkLogin" runat="server" Checked='<%# Convert.ToBoolean(Eval("isCrmLogin"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLogin_CheckedChanged"  /></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
 
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
