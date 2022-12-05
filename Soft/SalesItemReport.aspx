@@ -18,7 +18,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <div class="box box-primary">
+             <%--   <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
                             <div class="clearfix">&nbsp;</div>
@@ -55,10 +55,9 @@
                             </div>
                             <div class="clearfix">&nbsp;</div>
                         </div>
-
+                        </div>
                     </div>
-                </div>
-
+                </div>--%>
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="widget-content nopadding" style="overflow: auto;">
@@ -66,23 +65,15 @@
                                 <table id="ExportTbl" class="table table-bordered display" style="width: 100%">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: left;" rowspan="2">Sr. No.</th>
-                                            <th style="text-align: left;" rowspan="2">Employee</th>
-                                            <th style="text-align: center;" colspan="6">Primary</th>
-                                            <th style="text-align: center;" colspan="5">Secondary</th>
-                                        </tr>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Party</th>
-                                            <th>Station</th>
-                                            <th>Mobile No</th>
-                                            <th>WhatsApp No</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Party</th>
-                                            <th>Station</th>
-                                            <th>MobileNo</th>
+                                            <th style="text-align: left;">Sr. No.</th>
+                                            <th style="text-align: left;">Date<br />
+                                                Time</th>
+                                            <th style="text-align: left;">Employee</th>
+                                            <th style="text-align: left;">Primary Party</th>
+                                            <th style="text-align: left;">Primary Station</th>
+                                            <th style="text-align: left;">Secondary Party</th>
+                                            <th style="text-align: left;">Secondary Station</th>
+                                            <th style="text-align: left;">Mobile No</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -93,19 +84,14 @@
                                                         <%#Container.ItemIndex+1 %>
                                                         <asp:HiddenField ID="hddid" runat="server" Value='<%#Eval("ChkOutID") %>' />
                                                     </td>
-                                                    <td><%#Eval("UserName") %></td>
-                                                    <td><%#Eval("CheckInDate") %></td>
-                                                    <td><%#Eval("CheckInTime") %></td>
-                                                    <td><%#Eval("PRIMARYPARTY") %></td>
-                                                    <td><%#Eval("PRIMARYSTATION") %></td>
-                                                    <td><%#Eval("MobileNoIN") %></td>
-                                                    <td><%#Eval("WHATSAPPNO") %></td>
-                                                    <td><%#Eval("CheckOutDate") %></td>
-                                                    <td><%#Eval("CheckOutTime") %></td>
-                                                    <td><%#Eval("SecondaryParty") %></td>
-                                                    <td><%#Eval("SecondaryStation") %></td>
-                                                    <td><%#Eval("MobileNoIN") %></td>
-
+                                                    <td><%#Eval("CHECKDATE") %><br />
+                                                        <%#Eval("CHECKTIME") %></td>
+                                                    <td><%#Eval("Employees") %></td>
+                                                    <td><%#Eval("PrimaryParty") %></td>
+                                                    <td><%#Eval("PrimaryStation") %></td>
+                                                    <td><%#Eval("SECONDARYPARTY") %></td>
+                                                    <td><%#Eval("SECONDARYSTATION") %></td>
+                                                    <td><%#Eval("MobileNo") %></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="13" style="background-color: lightgray;">
@@ -115,9 +101,9 @@
                                                                     <th>Sr. No.</th>
                                                                     <th>Group</th>
                                                                     <th>Item</th>
-                                                                    <th>Qty</th>
+                                                                    <th>BAG/CASE</th>
                                                                     <th>Packing</th>
-                                                                    <th>Rate</th>
+                                                                    <th>RATE PER KG</th>
                                                                     <th>Amount</th>
                                                                 </tr>
                                                             </thead>

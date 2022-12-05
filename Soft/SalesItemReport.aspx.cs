@@ -23,21 +23,24 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
 
             Soft = Request.Cookies["STFP"];
 
-            Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-            dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            Gd.FillUser(drpUser);
-            Gd.FillPrimaryParty(drpParty);
-            Gd.FillPrimaryStation(drpStation);
-            Filldata();
+            Session["AccessRigthsSet"] = getdata.AccessRights("SalesItemReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
+            //dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
+            //dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
+            //Gd.FillUser(drpUser);
+            //Gd.FillPrimaryParty(drpParty);
+            //Gd.FillPrimaryStation(drpStation);
+            if (Request.QueryString["id"] != null)
+            {
+                Filldata();
+            }
         }
     }
 
 
     private void Filldata()
     {
-        ds = getdata.getSeconarySalesDetails(drpUser.SelectedValue, drpParty.SelectedValue, drpStation.SelectedItem.Text, dpFrom.Text.Trim(), dpTo.Text.Trim());
-      
+        ds = getdata.getSecondarySalesItem(Request.QueryString["id"].ToString());
+
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }

@@ -37,7 +37,10 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
     public void fillData()
     {
         ds = getdata.getSeconarySalesDetails(drpUser.SelectedValue, drpParty.SelectedValue, drpStation.SelectedItem.Text, dpFrom.Text.Trim(), dpTo.Text.Trim());
-        rep.DataSource = ds.Tables[0];
+        DataView dv = ds.Tables[0].DefaultView;
+        if (drpIsCheck.SelectedValue == "0") { dv.RowFilter = " AddedDate is null"; }
+        else if (drpIsCheck.SelectedValue == "1") { dv.RowFilter = " AddedDate is not null"; }
+        rep.DataSource = dv.ToTable();
         rep.DataBind();
     }
 

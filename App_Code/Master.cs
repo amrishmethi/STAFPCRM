@@ -126,13 +126,20 @@ public class Master
 
     public DataSet getSeconarySalesDetails(string userid, string party, string station, string indate, string intime)
     {
-        cmd = new SqlCommand("PROC_SECONDARYSALES");
+        cmd = new SqlCommand("PROC_SecondarySalesReport");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@USERID", userid);
         cmd.Parameters.AddWithValue("@PARTY", party);
         cmd.Parameters.AddWithValue("@STATION", station);
         cmd.Parameters.AddWithValue("@DATEFROM", data.YYYYMMDD(indate));
         cmd.Parameters.AddWithValue("@DATETO", data.YYYYMMDD(intime));
+        ds = data.getDataSet(cmd);
+        return ds;
+    }public DataSet getSecondarySalesItem(string id)
+    {
+        cmd = new SqlCommand("PROC_SECONDARYITEMS1");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@ID", id);
         ds = data.getDataSet(cmd);
         return ds;
     }
@@ -185,6 +192,18 @@ public class Master
         return ds;
     }
 
+    public DataSet GetAdminPolicy(string ACTION, string POLICY_ID, string POLICY, string DELID, string POLICY_DATE)
+    {
+        cmd = new SqlCommand("GETADMINPOLICY");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@ACTION", ACTION);
+        cmd.Parameters.AddWithValue("@POLICY_ID", POLICY_ID);
+        cmd.Parameters.AddWithValue("@POLICY", POLICY);
+        cmd.Parameters.AddWithValue("@DELID", DELID);
+        cmd.Parameters.AddWithValue("@POLICY_DATE", (POLICY_DATE!="")?data.YYYYMMDD(POLICY_DATE): POLICY_DATE);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
     public DataSet GetDocument(string ACTION, string DOCU_ID, string DOCU_NAME, string DELID)
     {
         cmd = new SqlCommand("GETDOCUMENT");
