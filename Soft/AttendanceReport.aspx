@@ -74,14 +74,12 @@
                                             <th style="text-align: left;">Image</th>
                                             <th style="text-align: left;">Station</th>
                                             <th style="text-align: left;">Desciption</th>
-                                            <th style="text-align: left;">Date</th>
-                                            <th style="text-align: left;">Time</th>
+                                            <th style="text-align: left;">Date<br/>Time</th>
                                             <th style="text-align: left;">Location</th>
                                             <th style="text-align: left;">Image</th>
                                             <th style="text-align: left;">Station</th>
                                             <th style="text-align: left;">Desciption</th>
-                                            <th style="text-align: left;">Date</th>
-                                            <th style="text-align: left;">Time</th>
+                                            <th style="text-align: left;">Date<br/>Time</th>
                                             <th style="text-align: left;">Location</th>
                                         </tr>
                                     </thead>
@@ -99,15 +97,13 @@
                                                         <asp:Image runat="server" ImageUrl='<%# "https://mandiapp.indiahostbiz.com/CameraPhotos/Attendance/" + Eval("SelfieIN") %>' Width="50" Height="50" Visible='<%# (Eval("SelfieIN").ToString()=="")?false:true %>' /></td>
                                                     <td style="text-align: left;"><%#Eval("StationIN") %></td>
                                                     <td style="text-align: left;"><%#Eval("DesscriptionIN") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DateIN") %></td>
-                                                    <td style="text-align: left;"><%#Eval("TimeIN") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DateIN") %><br/><%#Eval("TimeIN") %></td>
                                                     <td style="text-align: left;"><%#Eval("PlaceIN") %></td>
                                                     <td>
                                                         <asp:Image runat="server" ImageUrl='<%# "https://mandiapp.indiahostbiz.com/CameraPhotos/Attendance/" + Eval("SelfieOUT") %>' Width="50" Height="50" Visible='<%# (Eval("SelfieOUT").ToString()=="")?false:true %>' /></td>
                                                     <td style="text-align: left;"><%#Eval("StationOUT") %></td>
                                                     <td style="text-align: left;"><%#Eval("DesscriptionOUT") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DateOUT") %></td>
-                                                    <td style="text-align: left;"><%#Eval("TimeOUT") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DateOUT") %><br/><%#Eval("TimeOUT") %></td>
                                                     <td style="text-align: left;"><%#Eval("PlaceOUT") %></td>
                                                     <td style="text-align: left;"><%#Eval("Leave") %></td>
                                                     <%--<td style="text-align: left;"><%#Eval("WhatsAppNo") %></td>--%>
