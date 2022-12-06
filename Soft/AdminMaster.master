@@ -262,6 +262,12 @@
                     return false;
                 return true;
             }
+            function IsNumericKey(e) {
+                var charCode = (e.which) ? e.which : e.keyCode;
+                if ((charCode < 46 || charCode > 57))
+                    return false;
+                return true;
+            }
         </script>
         <script src="../colorbox/jquery.colorbox.js"></script>
         <script type="text/javascript">
