@@ -55,18 +55,14 @@
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: left;">Sr. No.</th>
-                                            <th style="text-align: center;" class="isLoginVisible">IsLogin CRM</th>
-                                            <th style="text-align: left;">Employee Name</th>
-                                            <th>Mobile</th>
-                                            <th style="text-align: center;" class="isAssVisible">Assign</th>
-                                            <%--<th style="text-align: center;">Reset Password</th>--%>
-
-                                            <%--<th style="text-align: left;" rowspan="2">WhatsApp No</th>--%>
-                                            <%--<th>--%>
-                                            <%--<label id="lblAction">Action</label></th>--%>
-                                        </tr>
-
+                                            <th style="text-align: left;" >Sr. No.</th>
+                                            <th style="text-align: center;" class="isLoginVisible" >IsLogin CRM</th>
+                                            <th style="text-align: center;" class="isLoginVisible" >IsLogin APP</th>
+                                            <th style="text-align: left;" >Employee Name</th>
+                                            <th >Mobile</th>
+                                            <th style="text-align: center;" class="isAssVisible" >Assign</th>
+                                          </tr>
+                                      
                                     </thead>
                                     <tbody>
                                         <asp:Repeater ID="rep" runat="server" OnItemDataBound="rep_ItemDataBound">
@@ -78,6 +74,7 @@
                                                     <asp:HiddenField ID="hddUid" Value='<%#Eval("id") %>' runat="server"/>
                                                     </td>
                                                     <td style="text-align: center;" class="isLoginVisible"><asp:CheckBox  ID="IsChkLogin" runat="server" Checked='<%# Convert.ToBoolean(Eval("isCrmLogin"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLogin_CheckedChanged"  /></td>
+                                                    <td style="text-align: center;" class="isLoginVisible"><asp:CheckBox  ID="IsChkLoginApp" runat="server" Checked='<%# Convert.ToBoolean(Eval("Deactivate"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLoginApp_CheckedChanged"  /></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
 
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>

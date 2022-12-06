@@ -99,4 +99,22 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
 
 
     }
+
+    protected void IsChkLoginApp_CheckedChanged(object sender, EventArgs e)
+    {
+        int ItemC = 0;
+        string[] ClientID = ((CheckBox)sender).ClientID.Split('_');
+        if (ClientID.Length == 4)
+        {
+            ItemC = Convert.ToInt32(ClientID[3]);
+        }
+
+        CheckBox chk = (CheckBox)rep.Items[ItemC].FindControl("IsChkLoginApp");
+        HiddenField hddUid = (HiddenField)rep.Items[ItemC].FindControl("hddUid");
+        if (hddUid.Value != "")
+        {
+            data.getDataSet("Update [CSInfo].[dbo].[MobileAppUser]  set Deactivate = (case when Deactivate=1 then 0 else 1 end)  where id = " + hddUid.Value);
+            fillData();
+        }
+    }
 }
