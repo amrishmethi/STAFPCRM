@@ -28,12 +28,16 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
 
             DataSet dsusr = getdata.getHqtrUser();
 
-            drpUser.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name", "MId");
+            DataView dv = dsusr.Tables[0].DefaultView;
+            dv.Sort = "Name";
+            drpUser.DataSource = dv.ToTable(true, "Name", "MId");
             drpUser.DataTextField = "Name";
             drpUser.DataValueField = "MId";
             drpUser.DataBind();
             drpUser.Items.Insert(0, new ListItem("Select", "0"));
-            drpheadQtr.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "HeadQtr");
+
+            dv.Sort = "HeadQtr";
+            drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr");
             drpheadQtr.DataTextField = "HeadQtr";
             drpheadQtr.DataValueField = "HeadQtr";
             drpheadQtr.DataBind();

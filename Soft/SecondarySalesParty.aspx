@@ -104,6 +104,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <script type="text/javascript">
+
         $(document).ready(function () {
 
             $.ajax({
@@ -140,7 +141,22 @@
                 }
             });
         })
+        //$('#ExportTbl').dataTable({
+        //    pageLength: ALL
+        //    //pageLength: 10, paging: false, info: false,
+        //    //"drawCallback": function (settings) {
+        //    //    debugger
+        //    //    var api = this.api();
 
+        //    //    // Output the data for the visible rows to the browser's console
+        //    //    alert(api.rows({ page: 'current' }).data());
+        //    //}
+        //});
+        //$('#').dataTable({
+        //    "drawCallback": function (settings) {
+        //        alert('DataTables has redrawn the table');
+        //    }
+        //});
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>

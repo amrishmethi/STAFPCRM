@@ -64,8 +64,8 @@
                                         <tr>
                                             <th style="text-align: left;" rowspan="2">Sr. No.</th>
                                             <th style="text-align: left;" rowspan="2">Employee</th>
-                                            <th style="text-align: center;" colspan="6">CheckIn</th>
-                                            <th style="text-align: center;" colspan="5">CheckOut</th>
+                                            <th style="text-align: center;" colspan="5">CheckIn</th>
+                                            <th style="text-align: center;" colspan="4">CheckOut</th>
 
                                             <%--<th style="text-align: left;" rowspan="2">WhatsApp No</th>--%>
                                             <%--<th>--%>
@@ -76,11 +76,9 @@
                                             <th style="text-align: left;">Primary party</th>
                                             <th style="text-align: left;">Station</th>
                                             <th style="text-align: left;">Mobile No</th>
-                                            <th style="text-align: left;">Date</th>
-                                            <th style="text-align: left;">Time</th>
+                                            <th style="text-align: left;">Date<br />Time</th>
                                             <th style="text-align: left;">Location</th>
-                                            <th style="text-align: left;">Date</th>
-                                            <th style="text-align: left;">Time</th>
+                                            <th style="text-align: left;">Date<br />Time</th>
                                             <th style="text-align: left;">Location</th>
                                             <th style="text-align: left;">Next Party</th>
                                             <th style="text-align: left;">Next Station</th>
@@ -100,11 +98,9 @@
                                                     <td style="text-align: left;"><%#Eval("Party") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;"><%#Eval("LoginMobile") %></td>
-                                                    <td style="text-align: left;"><%#Eval("CheckDate") %></td>
-                                                    <td style="text-align: left;"><%#Eval("CheckTime") %></td>
+                                                    <td style="text-align: left;"><%#Eval("CheckDate") %><br /><%#Eval("CheckTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("Place") %></td>
-                                                    <td style="text-align: left;"><%#Eval("OutDate") %></td>
-                                                    <td style="text-align: left;"><%#Eval("OutTime") %></td>
+                                                    <td style="text-align: left;"><%#Eval("OutDate") %><br /><%#Eval("OutTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("ChkOutPlace") %></td>
                                                     <td style="text-align: left;"><%#Eval("NextParty") %></td>
                                                     <td style="text-align: left;"><%#Eval("NextStation") %></td>

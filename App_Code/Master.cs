@@ -146,7 +146,7 @@ public class Master
 
     public DataSet getHqtrUser()
     {
-        return ds = data.getDataSet("select * from [stm_acmast].[dbo].GETHEADQUARTER");
+        return ds = data.getDataSet("select * from [stm_acmast].[dbo].GETHEADQUARTER order by Name,HEADQTR");
     }
 
     public DataSet GetSecondarySaleTargetMain(string EMPID, string APP_DATE, string MINVISIT, string TOTALQTY, string ID, string Amount)
@@ -192,12 +192,13 @@ public class Master
         return ds;
     }
 
-    public DataSet GetAdminPolicy(string ACTION, string POLICY_ID, string POLICY, string DELID, string POLICY_DATE)
+    public DataSet GetAdminPolicy(string ACTION, string POLICY_ID,string Head, string POLICY, string DELID, string POLICY_DATE)
     {
         cmd = new SqlCommand("GETADMINPOLICY");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ACTION", ACTION);
         cmd.Parameters.AddWithValue("@POLICY_ID", POLICY_ID);
+        cmd.Parameters.AddWithValue("@HEAD", Head);
         cmd.Parameters.AddWithValue("@POLICY", POLICY);
         cmd.Parameters.AddWithValue("@DELID", DELID);
         cmd.Parameters.AddWithValue("@POLICY_DATE", (POLICY_DATE!="")?data.YYYYMMDD(POLICY_DATE): POLICY_DATE);

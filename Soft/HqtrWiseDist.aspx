@@ -24,18 +24,20 @@
                     <div class="box-body">
                         <div class="form-group">
 
-                            <%--   <asp:UpdatePanel ID="upd" runat="server">
+<%--                               <asp:UpdatePanel ID="upd" runat="server">
                     <ContentTemplate>--%>
+                              
                             <div class="col-md-3">
-                                <label>Employee</label>
+                                 <asp:RadioButton ID="RadioButton1" runat="server" Text="&nbsp;Employee" GroupName="Filter" Checked="true" OnCheckedChanged="RadioButton1_CheckedChanged" AutoPostBack="true"/> 
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <label>HeadQuarter</label>
-                                <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
+                                 <asp:RadioButton ID="RadioButton2" runat="server" Text="&nbsp;HeadQuarter" GroupName="Filter" OnCheckedChanged="RadioButton1_CheckedChanged" AutoPostBack="true"/> 
+                               <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
+                           
                             <%--<div class="col-md-2">
                                         <label>District</label>
                                         <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
@@ -45,11 +47,11 @@
                                         <div class="clearfix">&nbsp;</div>
                                         <asp:button id="btnsearch" runat="server" cssclass="btn btn-primary" text="search" onclick="btnsearch_click" />
                                     </div>--%>
-                            <%-- </ContentTemplate>
+                             <%--</ContentTemplate>
                     <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="drpUser" EventName="SelectedIndexChanged" />
-                        <asp:AsyncPostBackTrigger ControlID="drpheadQtr" EventName="SelectedIndexChanged" />
-                        <asp:AsyncPostBackTrigger ControlID="drpDistrict" EventName="SelectedIndexChanged" />
+                        <asp:AsyncPostBackTrigger ControlID="RadioButton1" EventName="CheckedChanged" />
+                        <asp:AsyncPostBackTrigger ControlID="RadioButton2" EventName="CheckedChanged" />
+                      
                     </Triggers>
                 </asp:UpdatePanel>--%>
                         </div>
