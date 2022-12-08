@@ -43,4 +43,9 @@ public partial class Soft_Add_AdminPolicy : System.Web.UI.Page
         ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('" + ds.Tables[0].Rows[0]["RESULTMSG"].ToString() + "');" + _Path, true);
     }
 
+
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("AdminPolicy.aspx");
+    }
 }

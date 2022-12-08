@@ -35,10 +35,13 @@
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*"
                                 Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="txtPolicyDesc"></asp:RequiredFieldValidator>
                         </div>
+                        <div class="clearfix">&nbsp;</div>
                         <div class="col-md-1 ">
                             <br />
                             <asp:Button ID="btnSaveExit" runat="server" CssClass="btn btn-primary" ValidationGroup="MM" Text="Save"
                                 OnClick="btnSaveExit_Click" />
+                              <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-success" CausesValidation="false"
+                                        Text="Back To List" OnClick="btnCancel_Click" />
                         </div>
                     </div>
                     </div>

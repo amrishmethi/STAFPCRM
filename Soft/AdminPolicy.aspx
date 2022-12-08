@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="AdminPolicy.aspx.cs" Inherits="Soft_AdminPolicy" %>
+
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -21,7 +22,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="widget-content nopadding" style="overflow: auto;">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="ExportTbl" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th style="text-align: left;">S No
@@ -30,7 +31,7 @@
                                         </th>
                                         <th style="text-align: left;">Admin Policy
                                         </th>
-                                        <th>Action</th>
+                                        <th id="lblAction">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,12 +46,15 @@
                                                 <td style="text-align: left;">
                                                     <%#Eval("Policy_Head") %>
                                                 </td>
-                                                <td style="text-align: left;">
-
+                                                <td id="lblAction" style="text-align: left;">
+                                                      <div class="isEditVisible" style="display: inline;">
                                                     <a href="AddAdminPolicy.aspx?id=<%#Eval("Policy_Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
-
+                                                          </div>
+                                                    <div class="isDelVisible" style="display: inline;">
                                                     <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"
                                                         CommandArgument='<%#Eval("Policy_Id") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
+
+                                                        </div>
                                                 </td>
                                             </tr>
                                         </ItemTemplate>
@@ -66,5 +70,45 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
-    <uc1:DTJS runat="server" ID="DTJS" />
+        <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $.ajax({
+                url: 'AdminPolicy.aspx/ControlAccess',
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    debugger
+                    let text = data.d;
+                    const myArray = text.split(",");
+
+                    document.getElementById("Body_lnkAdd").style.display = myArray[0] == "False" ? "none" : "";
+
+                    var elements = document.getElementsByClassName("isEditVisible");
+                    Array.prototype.forEach.call(elements, function (element) {
+                        element.style.display = myArray[1] == "False" ? "none" : "inline";
+                    });
+                    var elements1 = document.getElementsByClassName("isDelVisible");
+                    Array.prototype.forEach.call(elements1, function (element) {
+                        element.style.display = myArray[2] == "False" ? "none" : "inline";
+                    });
+
+                    if (myArray[1] == 'False' && myArray[2] == 'False') {
+                        document.getElementById("lblAction").innerHTML = "";
+
+                    }
+                    document.getElementsByClassName("buttons-excel")[0].style.display = myArray[3] == "False" ? "none" : "";
+                    document.getElementsByClassName("buttons-pdf")[0].style.display = myArray[3] == "False" ? "none" : "";
+                },
+                error: function (response) {
+                },
+                failure: function (response) {
+                }
+            });
+        })
+ 
+        </script>
+      <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
