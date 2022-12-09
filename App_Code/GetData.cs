@@ -204,6 +204,16 @@ public class GetData
         drpDepartment.Items.Insert(0, new ListItem("Select", "0"));
     }
 
+    public void fillDocument(DropDownList drpDocument)
+    {
+        ds = getdata.GetDocument("Select", "0", "", "");
+        drpDocument.DataSource = ds;
+        drpDocument.DataTextField = "Docu_Name";
+        drpDocument.DataValueField = "Docu_Id";
+        drpDocument.DataBind();
+        drpDocument.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
     public void fillDesignation(DropDownList drpDesignation, string Dept_Id)
     {
         ds = getdata.GetDesignation("Select", "0", Dept_Id, "", "");

@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMaster.master.cs" Inherits="Admin_MasterPage" %>
-
+ 
 <%@ Register Src="~/Soft/UserControls/TopMenu.ascx" TagPrefix="uc1" TagName="TopMenu" %>
 <%@ Register Src="~/Soft/UserControls/SideMenu.ascx" TagPrefix="uc1" TagName="SideMenu" %>
 <%@ Register Src="~/Soft/UserControls/FooterMenu.ascx" TagPrefix="uc1" TagName="FooterMenu" %>

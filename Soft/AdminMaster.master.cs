@@ -9,17 +9,17 @@ public partial class Admin_MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        if (Request.Cookies["STFP"] != null)
         {
-            if (Request.Cookies["STFP"] != null)
+            if (!IsPostBack)
             {
                 string sRet = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
                 Session["Page"] = sRet;
             }
-            else
-            {
-                Response.Redirect("../login.aspx");
-            }
+        }
+        else
+        {
+            Response.Redirect("../login.aspx");
         }
     }
 }
