@@ -79,7 +79,11 @@
 
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
                                                     <td style="text-align: center;" class="isAssVisible">
-                                                        <asp:HyperLink id="lnkAssbtn" runat="server" NavigateUrl='<%# "AddUserRoles.aspx?id=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">Assign Roles</asp:HyperLink> </td>
+                                                        <asp:HyperLink id="lnkAssbtn" runat="server" NavigateUrl='<%# "AddUserRoles.aspx?id=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">Assign Roles</asp:HyperLink>
+
+                                                           <asp:HyperLink id="lnkHrbtn" runat="server" NavigateUrl='<%# "Payroll.aspx?uid=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">HR</asp:HyperLink>
+
+                                                    </td>
                                                     <%--<td style="text-align: center;" class="isAssVisible">
                                                         <a href="ResetPassword.aspx" class="btn btn-small btn-success"><i class="fa fa-key" aria-hidden="true"></i></a>
                                                     </td>--%>

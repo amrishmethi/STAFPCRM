@@ -30,7 +30,7 @@
                         <asp:DropDownList ID="DrpCompanies" runat="server" CssClass="form-control select2">
                         </asp:DropDownList>
 
-                        <asp:HiddenField ID="hddprodid" runat="server" />
+                        <asp:HiddenField ID="hddCrmUserId" runat="server" Value="0" />
                     </div>
                     <asp:UpdatePanel ID="updept" runat="server">
                         <ContentTemplate>
@@ -106,7 +106,7 @@
                         <label class="control-label">Current Status</label>
                         <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2">
                             <asp:ListItem Value="0">--Select--</asp:ListItem>
-                            <asp:ListItem Value="1">Active</asp:ListItem>
+                            <asp:ListItem Value="1" Selected="True">Active</asp:ListItem>
                             <asp:ListItem Value="2">Non-Active</asp:ListItem>
                         </asp:DropDownList>
                     </div>
@@ -199,7 +199,8 @@
                                 <asp:TextBox ID="txtBasicsalary" runat="server" CssClass="form-control" Enabled="false" onchange="getValue('RBBS','txtBasicsalary','','txtNetSalary','')" onkeypress="return IsDecimalKey(event)" ClientIDMode="Static"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtBasicsalaryValue" runat="server" CssClass="form-control" ReadOnly="true" ClientIDMode="Static"></asp:TextBox>
+                                <input id="txtBasicsalaryValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly />
+                                <%--<asp:TextBox ID="txtBasicsalaryValue" runat="server" CssClass="form-control" ReadOnly="true" ClientIDMode="Static"></asp:TextBox>--%>
                             </td>
                         </tr>
                         <tr>
@@ -216,9 +217,9 @@
                                 <asp:TextBox ID="txtPFComp" runat="server" CssClass="form-control" placeholder="Employer" Enabled="false" onchange="getValue('rbPF','txtPFSelf','txtPFComp','txtBasicsalaryValue','')" ClientIDMode="Static"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtPFSelfValue" runat="server" CssClass="form-control" ClientIDMode="Static" placeholder="Employee" ReadOnly="true"></asp:TextBox>
+                                <input id="txtPFSelfValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly placeholder="Employee" />
                                 <br />
-                                <asp:TextBox ID="txtPFCompValue" runat="server" CssClass="form-control" ClientIDMode="Static" placeholder="Employer" ReadOnly="true"></asp:TextBox>
+                                <input id="txtPFCompValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly placeholder="Employer" />
                             </td>
                         </tr>
                         <tr>
@@ -239,10 +240,9 @@
                                 <asp:TextBox ID="txtESICComp" runat="server" CssClass="form-control" placeholder="Employer" Enabled="false" onchange="getValue('rbESIC','txtESICSelf','txtESICComp','txtNetSalary','txtESICApplicable')" ClientIDMode="Static"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtESICSelfValue" runat="server" CssClass="form-control" ClientIDMode="Static" placeholder="Employee" ReadOnly="true"></asp:TextBox>
+                                <input id="txtESICSelfValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly placeholder="Employee" />
                                 <br />
-                                <asp:TextBox ID="txtESICCompValue" runat="server" CssClass="form-control" ClientIDMode="Static" placeholder="Employer" ReadOnly="true"></asp:TextBox>
-
+                                <input id="txtESICCompValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly placeholder="Employer" />
                             </td>
                         </tr>
                         <tr>
@@ -256,7 +256,7 @@
                             <td>
                                 <asp:TextBox ID="txtHRA" runat="server" CssClass="form-control" Enabled="false" onchange="getValue('rbHRA','txtHRA','','txtNetSalary','')" ClientIDMode="Static"></asp:TextBox></td>
                             <td>
-                                <asp:TextBox ID="txtHRAValue" runat="server" CssClass="form-control" ClientIDMode="Static" ReadOnly="true"></asp:TextBox></td>
+                                <input id="txtHRAValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly /></td>
                         </tr>
                         <tr>
                             <td>
@@ -269,7 +269,8 @@
                             <td>
                                 <asp:TextBox ID="TxtwashingAllowance" runat="server" CssClass="form-control" Enabled="false" onchange="getValue('RbWA','TxtwashingAllowance','','txtNetSalary','')" ClientIDMode="Static"></asp:TextBox></td>
                             <td>
-                                <asp:TextBox ID="TxtwashingAllowanceValue" ClientIDMode="Static" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox></td>
+                                <input id="TxtwashingAllowanceValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly />
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -282,7 +283,8 @@
                             <td>
                                 <asp:TextBox ID="txtMediacl" runat="server" CssClass="form-control" Enabled="false" onchange="getValue('rbMA','txtMediacl','','txtNetSalary','')" ClientIDMode="Static"></asp:TextBox></td>
                             <td>
-                                <asp:TextBox ID="txtMediaclValue" ClientIDMode="Static" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox></td>
+                                <input id="txtMediaclValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly />
+                            </td>
                         </tr>
 
                         <tr>
@@ -296,7 +298,8 @@
                             <td>
                                 <asp:TextBox ID="txtLAPay" runat="server" CssClass="form-control" Enabled="false" onchange="getValue('rbLA','txtLAPay','','txtNetSalary','')" ClientIDMode="Static"></asp:TextBox></td>
                             <td>
-                                <asp:TextBox ID="txtLAPayValue" ClientIDMode="Static" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox></td>
+                                <input id="txtLAPayValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly />
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -309,7 +312,8 @@
                             <td>
                                 <asp:TextBox ID="txtFoodAll" runat="server" CssClass="form-control" Enabled="false" onchange="getValue('rbFA','txtFoodAll','','txtNetSalary','')" ClientIDMode="Static"></asp:TextBox></td>
                             <td>
-                                <asp:TextBox ID="txtFoodAllValue" ClientIDMode="Static" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox></td>
+                                <input id="txtFoodAllValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly />
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -322,7 +326,8 @@
                             <td>
                                 <asp:TextBox ID="txtOthers" runat="server" CssClass="form-control" Enabled="false" onchange="getValue('RBOA','txtOthers','','txtNetSalary','')" ClientIDMode="Static"></asp:TextBox></td>
                             <td>
-                                <asp:TextBox ID="txtOthersValue" runat="server" ClientIDMode="Static" CssClass="form-control" ReadOnly="true"></asp:TextBox></td>
+                                <input id="txtOthersValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly />
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -335,7 +340,8 @@
                             <td>
                                 <asp:TextBox ID="txtTDS" runat="server" CssClass="form-control" Enabled="false" onchange="getValue('rbTDS','txtTDS','','txtNetSalary','')" ClientIDMode="Static"></asp:TextBox></td>
                             <td>
-                                <asp:TextBox ID="txtTDSValue" runat="server" ClientIDMode="Static" CssClass="form-control" ReadOnly="true"></asp:TextBox></td>
+                                <input id="txtTDSValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly />
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -348,7 +354,8 @@
                             <td>
                                 <asp:TextBox ID="txtDeductOther" runat="server" CssClass="form-control" Enabled="false" onchange="getValue('rbD','txtDeductOther','','txtNetSalary','')" ClientIDMode="Static"></asp:TextBox></td>
                             <td>
-                                <asp:TextBox ID="txtDeductOtherValue" runat="server" ClientIDMode="Static" CssClass="form-control" ReadOnly="true"></asp:TextBox></td>
+                                <input id="txtDeductOtherValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly />
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -361,7 +368,8 @@
                             <td>
                                 <asp:TextBox ID="txtConveyance" runat="server" CssClass="form-control" Enabled="false" ClientIDMode="Static"></asp:TextBox></td>
                             <td>
-                                <asp:TextBox ID="txtConveyanceValue" ClientIDMode="Static" runat="server" CssClass="form-control hidden" ReadOnly="true"></asp:TextBox></td>
+                                <input id="txtConveyanceValue" runat="server" type="text" clientidmode="Static" class="form-control hidden" readonly />
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -523,7 +531,8 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>
-                                <asp:TextBox ID="txtCTC" runat="server" CssClass="form-control" ClientIDMode="Static" Enabled="false"></asp:TextBox></td>
+                                <input id="txtCTC" runat="server" type="text" clientidmode="Static" class="form-control" readonly />
+                            </td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
@@ -537,7 +546,8 @@
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>
-                                <asp:TextBox ID="txtInHand" runat="server" CssClass="form-control" ClientIDMode="Static" Enabled="false"></asp:TextBox></td>
+                                <input id="txtInHand" runat="server" type="text" clientidmode="Static" class="form-control" readonly />
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -956,7 +966,7 @@
             var txtTDSValue = document.getElementById("txtTDSValue").value == '' ? '0' : document.getElementById("txtTDSValue").value;
             var txtDeductOtherValue = document.getElementById("txtDeductOtherValue").value == '' ? '0' : document.getElementById("txtDeductOtherValue").value;
 
-            var total = parseFloat(txtBasicsalaryValue)  + parseFloat(txtPFCompValue)  + parseFloat(txtESICCompValue) + parseFloat(txtHRAValue) + parseFloat(TxtwashingAllowanceValue) + parseFloat(txtMediaclValue) + parseFloat(txtLAPayValue) + parseFloat(txtFoodAllValue) + parseFloat(txtOthersValue) + parseFloat(txtTDSValue) + parseFloat(txtDeductOtherValue);
+            var total = parseFloat(txtBasicsalaryValue) + parseFloat(txtPFCompValue) + parseFloat(txtESICCompValue) + parseFloat(txtHRAValue) + parseFloat(TxtwashingAllowanceValue) + parseFloat(txtMediaclValue) + parseFloat(txtLAPayValue) + parseFloat(txtFoodAllValue) + parseFloat(txtOthersValue) + parseFloat(txtTDSValue) + parseFloat(txtDeductOtherValue);
 
 
             var Ntotal = parseFloat(txtBasicsalaryValue) + parseFloat(txtHRAValue) + parseFloat(TxtwashingAllowanceValue) + parseFloat(txtMediaclValue) + parseFloat(txtLAPayValue) + parseFloat(txtFoodAllValue) + parseFloat(txtOthersValue) + parseFloat(txtTDSValue) + parseFloat(txtDeductOtherValue) - parseFloat(txtPFSelfValue) - parseFloat(txtESICSelfValue);

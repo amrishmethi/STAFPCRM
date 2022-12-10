@@ -28,6 +28,24 @@ public partial class Soft_Payroll : System.Web.UI.Page
             {
                 FillEmp_Data(Request.QueryString["EmpId"]);
             }
+            else if (Request.QueryString["uid"] != null)
+            {
+                DataSet dsemp = data.getDataSet("select * from tbl_EMpmaster where CRMUserId=" + Request.QueryString["uid"]);
+                if (dsemp.Tables[0].Rows.Count > 0)
+                {
+                    FillEmp_Data(dsemp.Tables[0].Rows[0]["EmpId"].ToString());
+                }
+                else
+                {
+                    DataSet CrmUser= getdata.getUserDetails(Request.QueryString["uid"]);
+                    if (CrmUser.Tables[0].Rows.Count > 0)
+                    {
+                        txtemployeename.Text = CrmUser.Tables[0].Rows[0]["Name"].ToString();
+                        txtmobno.Text = CrmUser.Tables[0].Rows[0]["MobileNo"].ToString();
+                        hddCrmUserId.Value = CrmUser.Tables[0].Rows[0]["Id"].ToString();
+                    }
+                }
+            }
             else
             {
                 foreach (ListItem size in drpWorkingDay.Items)
@@ -61,6 +79,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
             txtESICode.Text = dsGet.Tables[0].Rows[0]["ESI_AcNO"].ToString();
             drpStatus.SelectedItem.Text = dsGet.Tables[0].Rows[0]["Status"].ToString();
             hddEmpNo.Value = dsGet.Tables[0].Rows[0]["EmpNo"].ToString();
+            hddCrmUserId.Value = dsGet.Tables[0].Rows[0]["CRMUserId"].ToString();
         }
         #endregion
 
@@ -88,8 +107,8 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 RBBSFixed.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_BasicFixed"]);
                 RBBSPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_BasicPer"]);
                 txtBasicsalary.Text = dsGet.Tables[2].Rows[0]["Basic_Salary"].ToString();
-                txtBasicsalary.Enabled = true; 
-                txtBasicsalaryValue.Text = dsGet.Tables[2].Rows[0]["Basic_SalaryValue"].ToString();
+                txtBasicsalary.Enabled = true;
+                txtBasicsalaryValue.Value = dsGet.Tables[2].Rows[0]["Basic_SalaryValue"].ToString();
             }
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_PF"]))
             {
@@ -97,11 +116,11 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 rbPFFixed.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_PFFixed"]);
                 rbPFPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_PFPer"]);
                 txtPFSelf.Text = dsGet.Tables[2].Rows[0]["PF_Employee"].ToString();
-                txtPFSelfValue.Text = dsGet.Tables[2].Rows[0]["PF_EmployeeValue"].ToString();
+                txtPFSelfValue.Value = dsGet.Tables[2].Rows[0]["PF_EmployeeValue"].ToString();
                 txtPFComp.Text = dsGet.Tables[2].Rows[0]["PF_Employer"].ToString();
                 txtPFSelf.Enabled = true;
                 txtPFComp.Enabled = true;
-                txtPFCompValue.Text = dsGet.Tables[2].Rows[0]["PF_EmployerValue"].ToString();
+                txtPFCompValue.Value = dsGet.Tables[2].Rows[0]["PF_EmployerValue"].ToString();
             }
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_ESIC"]))
             {
@@ -110,10 +129,10 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 rbESICPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_ESICPer"]);
                 txtESICSelf.Text = dsGet.Tables[2].Rows[0]["ESIC_Employee"].ToString();
                 txtESICSelf.Enabled = true;
-                txtESICSelfValue.Text = dsGet.Tables[2].Rows[0]["ESIC_EmployeeValue"].ToString();
+                txtESICSelfValue.Value = dsGet.Tables[2].Rows[0]["ESIC_EmployeeValue"].ToString();
                 txtESICComp.Text = dsGet.Tables[2].Rows[0]["ESIC_Employer"].ToString();
                 txtESICComp.Enabled = true;
-                txtESICCompValue.Text = dsGet.Tables[2].Rows[0]["ESIC_EmployerValue"].ToString();
+                txtESICCompValue.Value = dsGet.Tables[2].Rows[0]["ESIC_EmployerValue"].ToString();
             }
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_HRA"]))
             {
@@ -122,7 +141,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 rbHRAPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_HRAPer"]);
                 txtHRA.Text = dsGet.Tables[2].Rows[0]["HRA"].ToString();
                 txtHRA.Enabled = true;
-                txtHRAValue.Text = dsGet.Tables[2].Rows[0]["HRAValue"].ToString();
+                txtHRAValue.Value = dsGet.Tables[2].Rows[0]["HRAValue"].ToString();
             }
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_WA"]))
             {
@@ -131,7 +150,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 RbWAPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_WAPer"]);
                 TxtwashingAllowance.Text = dsGet.Tables[2].Rows[0]["WA"].ToString();
                 TxtwashingAllowance.Enabled = true;
-                TxtwashingAllowanceValue.Text = dsGet.Tables[2].Rows[0]["WAValue"].ToString();
+                TxtwashingAllowanceValue.Value = dsGet.Tables[2].Rows[0]["WAValue"].ToString();
             }
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["IS_MA"]))
             {
@@ -140,7 +159,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 rbMAPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["IS_MAPer"]);
                 txtMediacl.Text = dsGet.Tables[2].Rows[0]["MA"].ToString();
                 txtMediacl.Enabled = true;
-                txtMediaclValue.Text = dsGet.Tables[2].Rows[0]["MAValue"].ToString();
+                txtMediaclValue.Value = dsGet.Tables[2].Rows[0]["MAValue"].ToString();
             }
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["IS_CA"]))
             {
@@ -149,7 +168,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 RbTAPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["IS_CAPer"]);
                 txtConveyance.Text = dsGet.Tables[2].Rows[0]["CA"].ToString();
                 txtConveyance.Enabled = true;
-                txtConveyanceValue.Text = dsGet.Tables[2].Rows[0]["CAValue"].ToString();
+                txtConveyanceValue.Value = dsGet.Tables[2].Rows[0]["CAValue"].ToString();
             }
 
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["IS_LA"]))
@@ -159,7 +178,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 rbLAPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_LAPer"]);
                 txtLAPay.Text = dsGet.Tables[2].Rows[0]["LA"].ToString();
                 txtLAPay.Enabled = true;
-                txtLAPayValue.Text = dsGet.Tables[2].Rows[0]["LAValue"].ToString();
+                txtLAPayValue.Value = dsGet.Tables[2].Rows[0]["LAValue"].ToString();
             }
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["IS_FA"]))
             {
@@ -168,7 +187,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 rbFAPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_FAPer"]);
                 txtFoodAll.Text = dsGet.Tables[2].Rows[0]["FA"].ToString();
                 txtFoodAll.Enabled = true;
-                txtFoodAllValue.Text = dsGet.Tables[2].Rows[0]["FAValue"].ToString();
+                txtFoodAllValue.Value = dsGet.Tables[2].Rows[0]["FAValue"].ToString();
             }
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["IS_OA"]))
             {
@@ -177,7 +196,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 RBOAPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_OAPer"]);
                 txtOthers.Text = dsGet.Tables[2].Rows[0]["OA"].ToString();
                 txtOthers.Enabled = true;
-                txtOthersValue.Text = dsGet.Tables[2].Rows[0]["OAValue"].ToString();
+                txtOthersValue.Value = dsGet.Tables[2].Rows[0]["OAValue"].ToString();
             }
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["IS_TDS"]))
             {
@@ -186,7 +205,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 rbTDSPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_TDSPer"]);
                 txtTDS.Text = dsGet.Tables[2].Rows[0]["TDS"].ToString();
                 txtTDS.Enabled = true;
-                txtTDSValue.Text = dsGet.Tables[2].Rows[0]["TDSValue"].ToString();
+                txtTDSValue.Value = dsGet.Tables[2].Rows[0]["TDSValue"].ToString();
             }
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["IS_OD"]))
             {
@@ -195,7 +214,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 rbDPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_ODPer"]);
                 txtDeductOther.Text = dsGet.Tables[2].Rows[0]["OD"].ToString();
                 txtDeductOther.Enabled = true;
-                txtDeductOtherValue.Text = dsGet.Tables[2].Rows[0]["ODValue"].ToString();
+                txtDeductOtherValue.Value = dsGet.Tables[2].Rows[0]["ODValue"].ToString();
             }
             if (Convert.ToBoolean(dsGet.Tables[2].Rows[0]["IS_DAL"]))
             {
@@ -281,8 +300,8 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 }
             }
 
-            txtCTC.Text = dsGet.Tables[2].Rows[0]["CTC"].ToString();
-            txtInHand.Text = dsGet.Tables[2].Rows[0]["In_Hand"].ToString();
+            txtCTC.Value = dsGet.Tables[2].Rows[0]["CTC"].ToString();
+            txtInHand.Value = dsGet.Tables[2].Rows[0]["In_Hand"].ToString();
         }
         #endregion
 
@@ -340,11 +359,11 @@ public partial class Soft_Payroll : System.Web.UI.Page
 
     private void SaveEmpMain()
     {
-        string _Action = Request.QueryString["EmpId"] == "" ? "SAVE" : "UPDATE";
-        string _EmpId = Request.QueryString["EmpId"] == "" ? "0" : Request.QueryString["EmpId"];
+        string _Action = Request.QueryString["EmpId"] == null ? "SAVE" : "UPDATE";
+        string _EmpId = Request.QueryString["EmpId"] == null ? "0" : Request.QueryString["EmpId"];
 
         string _UserId = Soft["UserId"];
-        DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), txtDOJ.Text, txtDateOfLeaving.Text, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, "0", _UserId);
+        DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), txtDOJ.Text, txtDateOfLeaving.Text, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, hddCrmUserId.Value, _UserId);
         if (DsMain.Tables[0].Rows.Count > 0)
         {
             //Bank Details
@@ -376,7 +395,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 }
             }
 
-            payroll.Emp_Salary(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtNetSalary.Text, chkBS.Checked.ToString(), RBBSFixed.Checked.ToString(), RBBSPer.Checked.ToString(), txtBasicsalary.Text, txtBasicsalaryValue.Text, chkPF.Checked.ToString(), rbPFFixed.Checked.ToString(), rbPFPer.Checked.ToString(), txtPFSelf.Text, txtPFSelfValue.Text, txtPFComp.Text, txtPFCompValue.Text, ChkESIC.Checked.ToString(), rbESICFixed.Checked.ToString(), rbESICPer.Checked.ToString(), txtESICSelf.Text, txtESICSelfValue.Text, txtESICComp.Text, txtESICCompValue.Text, chkHRA.Checked.ToString(), rbHRAFixed.Checked.ToString(), rbHRAPer.Checked.ToString(), txtHRA.Text, txtHRAValue.Text, ChkWA.Checked.ToString(), RbWAFixed.Checked.ToString(), RbWAPer.Checked.ToString(), TxtwashingAllowance.Text, TxtwashingAllowanceValue.Text, chkMA.Checked.ToString(), rbMAFixed.Checked.ToString(), rbMAPer.Checked.ToString(), txtMediacl.Text, txtMediaclValue.Text, chkConv.Checked.ToString(), RbTAFixed.Checked.ToString(), RbTAPer.Checked.ToString(), txtConveyance.Text, txtConveyanceValue.Text, chkDALocal.Checked.ToString(), txtDALocal.Text, chkDAEx.Checked.ToString(), txtDAEx.Text, chkLA.Checked.ToString(), rbLAFixed.Checked.ToString(), rbLAPer.Checked.ToString(), txtLAPay.Text, txtLAPayValue.Text, chkFoodAll.Checked.ToString(), rbFAFixed.Checked.ToString(), rbFAPer.Checked.ToString(), txtFoodAll.Text, txtFoodAllValue.Text, chkOthers.Checked.ToString(), RBOAFixed.Checked.ToString(), RBOAPer.Checked.ToString(), txtOthers.Text, txtOthersValue.Text, chkNightAll.Checked.ToString(), txtNightAll.Text, chktdsapply.Checked.ToString(), rbTDSFixed.Checked.ToString(), rbTDSPer.Checked.ToString(), txtTDS.Text, txtTDSValue.Text, chkDeductOther.Checked.ToString(), rbDFixed.Checked.ToString(), rbDPer.Checked.ToString(), txtDeductOther.Text, txtDeductOtherValue.Text, chkPaidLeave.Checked.ToString(), txtNoOfPaidLeave.Text, ChkCL.Checked.ToString(), txtCL.Text, chkLateCheckIn.Checked.ToString(), txtLateCheckIn.Text, chkEarlyCheckOut.Checked.ToString(), txtEarlyCheckOut.Text, chkBonus.Checked.ToString(), txtBonus.Text, chkMinHour.Checked.ToString(), txtWorkingHour.Text, chkOverTime.Checked.ToString(), txtOverTime.Text, chkOverTimePH.Checked.ToString(), txtOverTimePH.Text, chkCHeckInTime.Checked.ToString(), txtCheckIn.Text, txtWorkingTimeFRom.Text, txtWorkingTimeTo.Text, _WorkingDays, txtCTC.Text, txtInHand.Text);
+            payroll.Emp_Salary(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtNetSalary.Text, chkBS.Checked.ToString(), RBBSFixed.Checked.ToString(), RBBSPer.Checked.ToString(), txtBasicsalary.Text, txtBasicsalaryValue.Value, chkPF.Checked.ToString(), rbPFFixed.Checked.ToString(), rbPFPer.Checked.ToString(), txtPFSelf.Text, txtPFSelfValue.Value, txtPFComp.Text, txtPFCompValue.Value, ChkESIC.Checked.ToString(), rbESICFixed.Checked.ToString(), rbESICPer.Checked.ToString(), txtESICSelf.Text, txtESICSelfValue.Value, txtESICComp.Text, txtESICCompValue.Value, chkHRA.Checked.ToString(), rbHRAFixed.Checked.ToString(), rbHRAPer.Checked.ToString(), txtHRA.Text, txtHRAValue.Value, ChkWA.Checked.ToString(), RbWAFixed.Checked.ToString(), RbWAPer.Checked.ToString(), TxtwashingAllowance.Text, TxtwashingAllowanceValue.Value, chkMA.Checked.ToString(), rbMAFixed.Checked.ToString(), rbMAPer.Checked.ToString(), txtMediacl.Text, txtMediaclValue.Value, chkConv.Checked.ToString(), RbTAFixed.Checked.ToString(), RbTAPer.Checked.ToString(), txtConveyance.Text, txtConveyanceValue.Value, chkDALocal.Checked.ToString(), txtDALocal.Text, chkDAEx.Checked.ToString(), txtDAEx.Text, chkLA.Checked.ToString(), rbLAFixed.Checked.ToString(), rbLAPer.Checked.ToString(), txtLAPay.Text, txtLAPayValue.Value, chkFoodAll.Checked.ToString(), rbFAFixed.Checked.ToString(), rbFAPer.Checked.ToString(), txtFoodAll.Text, txtFoodAllValue.Value, chkOthers.Checked.ToString(), RBOAFixed.Checked.ToString(), RBOAPer.Checked.ToString(), txtOthers.Text, txtOthersValue.Value, chkNightAll.Checked.ToString(), txtNightAll.Text, chktdsapply.Checked.ToString(), rbTDSFixed.Checked.ToString(), rbTDSPer.Checked.ToString(), txtTDS.Text, txtTDSValue.Value, chkDeductOther.Checked.ToString(), rbDFixed.Checked.ToString(), rbDPer.Checked.ToString(), txtDeductOther.Text, txtDeductOtherValue.Value, chkPaidLeave.Checked.ToString(), txtNoOfPaidLeave.Text, ChkCL.Checked.ToString(), txtCL.Text, chkLateCheckIn.Checked.ToString(), txtLateCheckIn.Text, chkEarlyCheckOut.Checked.ToString(), txtEarlyCheckOut.Text, chkBonus.Checked.ToString(), txtBonus.Text, chkMinHour.Checked.ToString(), txtWorkingHour.Text, chkOverTime.Checked.ToString(), txtOverTime.Text, chkOverTimePH.Checked.ToString(), txtOverTimePH.Text, chkCHeckInTime.Checked.ToString(), txtCheckIn.Text, txtWorkingTimeFRom.Text, txtWorkingTimeTo.Text, _WorkingDays, txtCTC.Value, txtInHand.Value);
 
             //Document Details
             if (ViewState["tbl"] != null)

@@ -72,11 +72,11 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
             HyperLink lnkAssbtn = (e.Item.FindControl("lnkAssbtn") as HyperLink);
-            //HyperLink lnkHrbtn = (e.Item.FindControl("lnkHrbtn") as HyperLink);
+            HyperLink lnkHrbtn = (e.Item.FindControl("lnkHrbtn") as HyperLink);
             HiddenField hddUid = (HiddenField)e.Item.FindControl("hddUid");
             HiddenField hddUserType = (e.Item.FindControl("hddUserType") as HiddenField);
             lnkAssbtn.Visible = hddUserType.Value == "admin" ? false : true;
-            //lnkHrbtn.Visible = hddUserType.Value == "admin"?false:true;
+            lnkHrbtn.Visible = hddUserType.Value == "admin" ? false : true;
         }
     }
 
