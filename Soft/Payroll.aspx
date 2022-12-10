@@ -54,7 +54,8 @@
                     </asp:UpdatePanel>
                     <div class="clearfix">&nbsp;</div>
                     <div class="col-md-4">
-                        <label class="control-label">Employee Code<span style="color: #ff0000">*</span></label>
+                        <label class="control-label">Emp Code</label>
+                        &nbsp; &nbsp; &nbsp; &nbsp;<asp:CheckBox ID="chkAttandance" runat="server" ClientIDMode="Static" Text="Attandance By Self" />
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtEmpCode"
                             ErrorMessage=" Please Enter" ValidationGroup="aa"></asp:RequiredFieldValidator>
                         <asp:TextBox ID="txtEmpCode" runat="server" CssClass="form-control" ReadOnly="true"></asp:TextBox>

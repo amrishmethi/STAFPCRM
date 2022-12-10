@@ -37,7 +37,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 }
                 else
                 {
-                    DataSet CrmUser= getdata.getUserDetails(Request.QueryString["uid"]);
+                    DataSet CrmUser = getdata.getUserDetails(Request.QueryString["uid"]);
                     if (CrmUser.Tables[0].Rows.Count > 0)
                     {
                         txtemployeename.Text = CrmUser.Tables[0].Rows[0]["Name"].ToString();
@@ -65,6 +65,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
         #region Employee Basic
         if (dsGet.Tables[0].Rows.Count > 0)
         {
+            chkAttandance.Checked = Convert.ToBoolean(dsGet.Tables[0].Rows[0]["ATTANDANCEBY"]);
             DrpCompanies.SelectedValue = dsGet.Tables[0].Rows[0]["Comp_Id"].ToString();
             txtEmpCode.Text = dsGet.Tables[0].Rows[0]["Emp_Code"].ToString();
             txtemployeename.Text = dsGet.Tables[0].Rows[0]["Emp_Name"].ToString();
@@ -363,7 +364,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
         string _EmpId = Request.QueryString["EmpId"] == null ? "0" : Request.QueryString["EmpId"];
 
         string _UserId = Soft["UserId"];
-        DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), txtDOJ.Text, txtDateOfLeaving.Text, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, hddCrmUserId.Value, _UserId);
+        DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), txtDOJ.Text, txtDateOfLeaving.Text, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, hddCrmUserId.Value, _UserId, chkAttandance.Checked.ToString());
         if (DsMain.Tables[0].Rows.Count > 0)
         {
             //Bank Details
