@@ -184,7 +184,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:CheckBox ID="chkBS" runat="server" ClientIDMode="Static" onclick="return OptionsSelected(this,'Body_txtBasicsalary','')" /></td>
+                                <asp:CheckBox ID="chkBS" runat="server" ClientIDMode="Static" onclick="return OptionsSelected(this,'txtBasicsalary','')" /></td>
                             <td>
                                 <label class="control-label">
                                     Basic Salary   <span style="color: #ff0000">*</span>
@@ -193,13 +193,13 @@
                                     ErrorMessage=" Please Enter" ValidationGroup="aa" ControlToValidate="txtBasicsalaryValue" InitialValue="0"></asp:RequiredFieldValidator>
                             </td>
                             <td>
-                                <asp:RadioButton ID="RBBSFixed" runat="server" Text="Fixed" GroupName="BS" Checked="true" ClientIDMode="Static" onchange="getValue('RBBS','Body_txtBasicsalary','','txtNetSalary','')" />
-                                &nbsp; &nbsp;<asp:RadioButton ID="RBBSPer" runat="server" Text="Per(%)" GroupName="BS" ClientIDMode="Static" onchange="getValue('RBBS','Body_txtBasicsalary','','txtNetSalary','')" /></td>
+                                <asp:RadioButton ID="RBBSFixed" runat="server" Text="Fixed" GroupName="BS" Checked="true" ClientIDMode="Static" onchange="getValue('RBBS','txtBasicsalary','','txtNetSalary','')" />
+                                &nbsp; &nbsp;<asp:RadioButton ID="RBBSPer" runat="server" Text="Per(%)" GroupName="BS" ClientIDMode="Static" onchange="getValue('RBBS','txtBasicsalary','','txtNetSalary','')" /></td>
                             <td>
-                                <asp:TextBox ID="txtBasicsalary" runat="server" CssClass="form-control" Enabled="false" onchange="getValue('RBBS','Body_txtBasicsalary','','txtNetSalary','')" onkeypress="return IsDecimalKey(event)"></asp:TextBox>
+                                <asp:TextBox ID="txtBasicsalary" runat="server" CssClass="form-control" Enabled="false" onchange="getValue('RBBS','txtBasicsalary','','txtNetSalary','')" onkeypress="return IsDecimalKey(event)" ClientIDMode="Static"></asp:TextBox>
                             </td>
                             <td>
-                                <asp:TextBox ID="txtBasicsalaryValue" runat="server" CssClass="form-control"  ReadOnly="true" ></asp:TextBox>
+                                <asp:TextBox ID="txtBasicsalaryValue" runat="server" CssClass="form-control" ReadOnly="true" ClientIDMode="Static"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -226,7 +226,7 @@
                                 <asp:CheckBox ID="ChkESIC" runat="server" ClientIDMode="Static" onclick="return OptionsSelected(this,'txtESICSelf','txtESICComp')" /></td>
                             <td>
                                 <label class="control-label">ESIC (Applicable Amount)</label>
-                                <asp:TextBox ID="txtESICApplicable" runat="server" Text="0" CssClass="form-control" ClientIDMode="Static" onchange="AllCal()"></asp:TextBox>
+                                <asp:TextBox ID="txtESICApplicable" runat="server" Text="21000" CssClass="form-control" ClientIDMode="Static" onchange="AllCal()"></asp:TextBox>
                             </td>
                             <td>
                                 <asp:RadioButton ID="rbESICFixed" runat="server" Text="Fixed" GroupName="ESIC" Checked="true" ClientIDMode="Static" onchange="getValue('rbESIC','txtESICSelf','txtESICComp','txtNetSalary','txtESICApplicable')" />
@@ -903,13 +903,13 @@
         function OptionsSelected(me, valuee, valuee2) {
             if (document.getElementById(me.id).checked) {
                 document.getElementById(valuee).disabled = false;
-                //if (valuee2 != '')
-                //    document.getElementById(valuee2).disabled = false;
+                if (valuee2 != '')
+                    document.getElementById(valuee2).disabled = false;
             }
             else {
                 document.getElementById(valuee).disabled = true;
-                //if (valuee2 != '')
-                //    document.getElementById(valuee2).disabled = true;
+                if (valuee2 != '')
+                    document.getElementById(valuee2).disabled = true;
             }
             document.getElementById(valuee).value = "";
             if (valuee2 != '')
@@ -956,7 +956,7 @@
             var txtTDSValue = document.getElementById("txtTDSValue").value == '' ? '0' : document.getElementById("txtTDSValue").value;
             var txtDeductOtherValue = document.getElementById("txtDeductOtherValue").value == '' ? '0' : document.getElementById("txtDeductOtherValue").value;
 
-            var total = parseFloat(txtBasicsalaryValue) + parseFloat(txtPFSelfValue) + parseFloat(txtPFCompValue) + parseFloat(txtESICSelfValue) + parseFloat(txtESICCompValue) + parseFloat(txtHRAValue) + parseFloat(TxtwashingAllowanceValue) + parseFloat(txtMediaclValue) + parseFloat(txtLAPayValue) + parseFloat(txtFoodAllValue) + parseFloat(txtOthersValue) + parseFloat(txtTDSValue) + parseFloat(txtDeductOtherValue);
+            var total = parseFloat(txtBasicsalaryValue)  + parseFloat(txtPFCompValue)  + parseFloat(txtESICCompValue) + parseFloat(txtHRAValue) + parseFloat(TxtwashingAllowanceValue) + parseFloat(txtMediaclValue) + parseFloat(txtLAPayValue) + parseFloat(txtFoodAllValue) + parseFloat(txtOthersValue) + parseFloat(txtTDSValue) + parseFloat(txtDeductOtherValue);
 
 
             var Ntotal = parseFloat(txtBasicsalaryValue) + parseFloat(txtHRAValue) + parseFloat(TxtwashingAllowanceValue) + parseFloat(txtMediaclValue) + parseFloat(txtLAPayValue) + parseFloat(txtFoodAllValue) + parseFloat(txtOthersValue) + parseFloat(txtTDSValue) + parseFloat(txtDeductOtherValue) - parseFloat(txtPFSelfValue) - parseFloat(txtESICSelfValue);
