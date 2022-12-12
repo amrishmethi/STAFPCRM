@@ -41,8 +41,16 @@ public partial class Soft_Payroll : System.Web.UI.Page
                     if (CrmUser.Tables[0].Rows.Count > 0)
                     {
                         txtemployeename.Text = CrmUser.Tables[0].Rows[0]["Name"].ToString();
-                        txtmobno.Text = CrmUser.Tables[0].Rows[0]["MobileNo"].ToString();
+                        txtCUG.Text = CrmUser.Tables[0].Rows[0]["MobileNo"].ToString();
                         hddCrmUserId.Value = CrmUser.Tables[0].Rows[0]["Id"].ToString();
+                    }
+
+                    foreach (ListItem size in drpWorkingDay.Items)
+                    {
+                        if (size.Value.ToString() != "Sunday")
+                        {
+                            size.Selected = true;
+                        }
                     }
                 }
             }
@@ -367,47 +375,53 @@ public partial class Soft_Payroll : System.Web.UI.Page
         DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), txtDOJ.Text, txtDateOfLeaving.Text, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, hddCrmUserId.Value, _UserId, chkAttandance.Checked.ToString());
         if (DsMain.Tables[0].Rows.Count > 0)
         {
-            //Bank Details
-            payroll.Emp_Bank(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtBankName.Text, txtBankAccno.Text, txtbankaddress.Text, txtBankIFSC.Text, txtBankName2.Text, txtBankAccno2.Text, txtbankaddress2.Text, txtBankIFSC2.Text);
-
-            //Personal Details
-            payroll.Emp_PERSONAL(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, drpGender.SelectedItem.Text, txtDOB.Text, drpMarriedStatus.SelectedValue, txtEducation.Text, txtDOM.Text, TxtMaternityLeave.Text, txtphoneno.Text, txtmobno.Text, txtCUG.Text, txtemail.Text, txtOfficEmail.Text, txtpresentaddress.Text, txtparmentaddress.Text, ChksameAddr.Checked.ToString());
-
-            //Family Details
-            payroll.Emp_Family(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtfathername.Text, txtMotherName.Text, drpSpouse.SelectedValue.ToString(), txtSpouse.Text, TxtChild.Text, txtFatherCntctNo.Text);
-
-            //Previous Company Details
-            payroll.Emp_PrevComp(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtLastCompanyName.Text, TxtLastCompanyAdd.Text, TxtLastCtc.Text, TxtLastPfNo.Text, txtrefname.Text, txtrefcontactno.Text, TxtSecRefName.Text, TxtSecRefContactNo.Text);
-
-            //Salary Details
-            string _WorkingDays = "";
-            foreach (ListItem item in drpWorkingDay.Items)
+            if (DsMain.Tables[0].Rows[0]["Result"].ToString() != "")
             {
-                if (item.Selected)
+                //Bank Details
+                payroll.Emp_Bank(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtBankName.Text, txtBankAccno.Text, txtbankaddress.Text, txtBankIFSC.Text, txtBankName2.Text, txtBankAccno2.Text, txtbankaddress2.Text, txtBankIFSC2.Text);
+
+                //Personal Details
+                payroll.Emp_PERSONAL(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, drpGender.SelectedItem.Text, txtDOB.Text, drpMarriedStatus.SelectedValue, txtEducation.Text, txtDOM.Text, TxtMaternityLeave.Text, txtphoneno.Text, txtmobno.Text, txtCUG.Text, txtemail.Text, txtOfficEmail.Text, txtpresentaddress.Text, txtparmentaddress.Text, ChksameAddr.Checked.ToString());
+
+                //Family Details
+                payroll.Emp_Family(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtfathername.Text, txtMotherName.Text, drpSpouse.SelectedValue.ToString(), txtSpouse.Text, TxtChild.Text, txtFatherCntctNo.Text);
+
+                //Previous Company Details
+                payroll.Emp_PrevComp(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtLastCompanyName.Text, TxtLastCompanyAdd.Text, TxtLastCtc.Text, TxtLastPfNo.Text, txtrefname.Text, txtrefcontactno.Text, TxtSecRefName.Text, TxtSecRefContactNo.Text);
+
+                //Salary Details
+                string _WorkingDays = "";
+                foreach (ListItem item in drpWorkingDay.Items)
                 {
-                    if (_WorkingDays != "")
+                    if (item.Selected)
                     {
-                        _WorkingDays += " ," + item.Value;
-                    }
-                    else
-                    {
-                        _WorkingDays = item.Value;
+                        if (_WorkingDays != "")
+                        {
+                            _WorkingDays += " ," + item.Value;
+                        }
+                        else
+                        {
+                            _WorkingDays = item.Value;
+                        }
                     }
                 }
-            }
 
-            payroll.Emp_Salary(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtNetSalary.Text, chkBS.Checked.ToString(), RBBSFixed.Checked.ToString(), RBBSPer.Checked.ToString(), txtBasicsalary.Text, txtBasicsalaryValue.Value, chkPF.Checked.ToString(), rbPFFixed.Checked.ToString(), rbPFPer.Checked.ToString(), txtPFSelf.Text, txtPFSelfValue.Value, txtPFComp.Text, txtPFCompValue.Value, ChkESIC.Checked.ToString(), rbESICFixed.Checked.ToString(), rbESICPer.Checked.ToString(), txtESICSelf.Text, txtESICSelfValue.Value, txtESICComp.Text, txtESICCompValue.Value, chkHRA.Checked.ToString(), rbHRAFixed.Checked.ToString(), rbHRAPer.Checked.ToString(), txtHRA.Text, txtHRAValue.Value, ChkWA.Checked.ToString(), RbWAFixed.Checked.ToString(), RbWAPer.Checked.ToString(), TxtwashingAllowance.Text, TxtwashingAllowanceValue.Value, chkMA.Checked.ToString(), rbMAFixed.Checked.ToString(), rbMAPer.Checked.ToString(), txtMediacl.Text, txtMediaclValue.Value, chkConv.Checked.ToString(), RbTAFixed.Checked.ToString(), RbTAPer.Checked.ToString(), txtConveyance.Text, txtConveyanceValue.Value, chkDALocal.Checked.ToString(), txtDALocal.Text, chkDAEx.Checked.ToString(), txtDAEx.Text, chkLA.Checked.ToString(), rbLAFixed.Checked.ToString(), rbLAPer.Checked.ToString(), txtLAPay.Text, txtLAPayValue.Value, chkFoodAll.Checked.ToString(), rbFAFixed.Checked.ToString(), rbFAPer.Checked.ToString(), txtFoodAll.Text, txtFoodAllValue.Value, chkOthers.Checked.ToString(), RBOAFixed.Checked.ToString(), RBOAPer.Checked.ToString(), txtOthers.Text, txtOthersValue.Value, chkNightAll.Checked.ToString(), txtNightAll.Text, chktdsapply.Checked.ToString(), rbTDSFixed.Checked.ToString(), rbTDSPer.Checked.ToString(), txtTDS.Text, txtTDSValue.Value, chkDeductOther.Checked.ToString(), rbDFixed.Checked.ToString(), rbDPer.Checked.ToString(), txtDeductOther.Text, txtDeductOtherValue.Value, chkPaidLeave.Checked.ToString(), txtNoOfPaidLeave.Text, ChkCL.Checked.ToString(), txtCL.Text, chkLateCheckIn.Checked.ToString(), txtLateCheckIn.Text, chkEarlyCheckOut.Checked.ToString(), txtEarlyCheckOut.Text, chkBonus.Checked.ToString(), txtBonus.Text, chkMinHour.Checked.ToString(), txtWorkingHour.Text, chkOverTime.Checked.ToString(), txtOverTime.Text, chkOverTimePH.Checked.ToString(), txtOverTimePH.Text, chkCHeckInTime.Checked.ToString(), txtCheckIn.Text, txtWorkingTimeFRom.Text, txtWorkingTimeTo.Text, _WorkingDays, txtCTC.Value, txtInHand.Value);
+                payroll.Emp_Salary(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtNetSalary.Text, chkBS.Checked.ToString(), RBBSFixed.Checked.ToString(), RBBSPer.Checked.ToString(), txtBasicsalary.Text, txtBasicsalaryValue.Value, chkPF.Checked.ToString(), rbPFFixed.Checked.ToString(), rbPFPer.Checked.ToString(), txtPFSelf.Text, txtPFSelfValue.Value, txtPFComp.Text, txtPFCompValue.Value, ChkESIC.Checked.ToString(), rbESICFixed.Checked.ToString(), rbESICPer.Checked.ToString(), txtESICSelf.Text, txtESICSelfValue.Value, txtESICComp.Text, txtESICCompValue.Value, chkHRA.Checked.ToString(), rbHRAFixed.Checked.ToString(), rbHRAPer.Checked.ToString(), txtHRA.Text, txtHRAValue.Value, ChkWA.Checked.ToString(), RbWAFixed.Checked.ToString(), RbWAPer.Checked.ToString(), TxtwashingAllowance.Text, TxtwashingAllowanceValue.Value, chkMA.Checked.ToString(), rbMAFixed.Checked.ToString(), rbMAPer.Checked.ToString(), txtMediacl.Text, txtMediaclValue.Value, chkConv.Checked.ToString(), RbTAFixed.Checked.ToString(), RbTAPer.Checked.ToString(), txtConveyance.Text, txtConveyanceValue.Value, chkDALocal.Checked.ToString(), txtDALocal.Text, chkDAEx.Checked.ToString(), txtDAEx.Text, chkLA.Checked.ToString(), rbLAFixed.Checked.ToString(), rbLAPer.Checked.ToString(), txtLAPay.Text, txtLAPayValue.Value, chkFoodAll.Checked.ToString(), rbFAFixed.Checked.ToString(), rbFAPer.Checked.ToString(), txtFoodAll.Text, txtFoodAllValue.Value, chkOthers.Checked.ToString(), RBOAFixed.Checked.ToString(), RBOAPer.Checked.ToString(), txtOthers.Text, txtOthersValue.Value, chkNightAll.Checked.ToString(), txtNightAll.Text, chktdsapply.Checked.ToString(), rbTDSFixed.Checked.ToString(), rbTDSPer.Checked.ToString(), txtTDS.Text, txtTDSValue.Value, chkDeductOther.Checked.ToString(), rbDFixed.Checked.ToString(), rbDPer.Checked.ToString(), txtDeductOther.Text, txtDeductOtherValue.Value, chkPaidLeave.Checked.ToString(), txtNoOfPaidLeave.Text, ChkCL.Checked.ToString(), txtCL.Text, chkLateCheckIn.Checked.ToString(), txtLateCheckIn.Text, chkEarlyCheckOut.Checked.ToString(), txtEarlyCheckOut.Text, chkBonus.Checked.ToString(), txtBonus.Text, chkMinHour.Checked.ToString(), txtWorkingHour.Text, chkOverTime.Checked.ToString(), txtOverTime.Text, chkOverTimePH.Checked.ToString(), txtOverTimePH.Text, chkCHeckInTime.Checked.ToString(), txtCheckIn.Text, txtWorkingTimeFRom.Text, txtWorkingTimeTo.Text, _WorkingDays, txtCTC.Value, txtInHand.Value);
 
-            //Document Details
-            if (ViewState["tbl"] != null)
-            {
-                dtRecord = (DataTable)ViewState["tbl"];
-                foreach (DataRow drr in dtRecord.Rows)
+                //Document Details
+                if (ViewState["tbl"] != null)
                 {
-                    payroll.Emp_Document(DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, drr["Docu_Id"].ToString(), drr["File_Name"].ToString(), drr["Id"].ToString(), drr["Delid"].ToString());
+                    dtRecord = (DataTable)ViewState["tbl"];
+                    foreach (DataRow drr in dtRecord.Rows)
+                    {
+                        payroll.Emp_Document(DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, drr["Docu_Id"].ToString(), drr["File_Name"].ToString(), drr["Id"].ToString(), drr["Delid"].ToString());
+                    }
                 }
+                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record " + _Action + " Successfully');window.location ='PayrollRep.aspx'", true);
             }
-            ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record " + _Action + " Successfully');window.location ='PayrollRep.aspx'", true);
+            else
+                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('"+ DsMain.Tables[0].Rows[0]["Result"].ToString() + "');window.location ='PayrollRep.aspx'", true);
+
         }
     }
 
