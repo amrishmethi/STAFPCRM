@@ -89,6 +89,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                         CheckBox chkDelete = (CheckBox)GRDInner.Rows[j].FindControl("chkDelete");
                         CheckBox chkAssign = (CheckBox)GRDInner.Rows[j].FindControl("chkAssign");
                         CheckBox chkLogin = (CheckBox)GRDInner.Rows[j].FindControl("chkLogin");
+                        CheckBox chkHr = (CheckBox)GRDInner.Rows[j].FindControl("chkHr");
                         if (!data.Exist("Select PageID from tbl_EmpRoles where UserId=" + userid + " and PageID=" + lblPID1.Text + ""))
                         {
                             chk1.Checked = false;
@@ -101,6 +102,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                         ds = data.getDataSet("select * from tbl_EmpRoles where UserId=" + userid + " and PageID=" + lblPID1.Text + " ");
                         if (ds.Tables[0].Rows.Count > 0)
                         {
+                            chkHr.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["HrStatus"].ToString());
                             chkAdd.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["AddStatus"].ToString());
                             chkView.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["ViewP"].ToString());
                             chkEdit.Checked = Convert.ToBoolean(ds.Tables[0].Rows[0]["EditStatus"].ToString());
@@ -110,6 +112,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                         }
                         else
                         {
+                            chkHr.Checked = false;
                             chkAdd.Checked = false;
                             chkView.Checked = false;
                             chkEdit.Checked = false;
@@ -155,7 +158,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
             }
         }
     }
-    bool p = false; bool a = false; bool e = false; bool d = false; bool v = false; bool r = false; bool l = false;
+    bool p = false; bool a = false; bool e = false; bool d = false; bool v = false; bool r = false; bool l = false,h=false;
     public void insertRoles(string userid)
     {
         data.executeCommand("delete from tbl_EmpRoles where UserId=" + userid + "");
@@ -167,7 +170,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                 if (chk.Checked == true)
                 {
                     Label lblPID = (Label)GRD.Rows[i].FindControl("lblPID");
-                    data.executeCommand("insert into tbl_EmpRoles (UserId, PageID, AddStatus, EditStatus, DeleteStatus,ViewP,AssignStatus,LoginStatus) values(" + userid + "," + lblPID.Text + ",'1','1','1','1','1','1')");
+                    data.executeCommand("insert into tbl_EmpRoles (UserId, PageID, AddStatus, EditStatus, DeleteStatus,ViewP,AssignStatus,LoginStatus,HrStatus) values(" + userid + "," + lblPID.Text + ",'1','1','1','1','1','1','1')");
                     GridView GRDInner = (GridView)GRD.Rows[i].FindControl("GRDInner");
                     if (GRDInner.Rows.Count > 0)
                     {
@@ -180,6 +183,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                             CheckBox chkDelete = (CheckBox)GRDInner.Rows[j].FindControl("chkDelete");
                             CheckBox chkAssign = (CheckBox)GRDInner.Rows[j].FindControl("chkAssign");
                             CheckBox chkLogin = (CheckBox)GRDInner.Rows[j].FindControl("chkLogin");
+                            CheckBox chkHr = (CheckBox)GRDInner.Rows[j].FindControl("chkHr");
                             p = Convert.ToBoolean(chk1.Checked);
                             a = Convert.ToBoolean(chkAdd.Checked);
                             e = Convert.ToBoolean(chkEdit.Checked);
@@ -187,10 +191,11 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
                             v = Convert.ToBoolean(chkView.Checked);
                             r = Convert.ToBoolean(chkAssign.Checked);
                             l = Convert.ToBoolean(chkLogin.Checked);
+                            h = Convert.ToBoolean(chkHr.Checked);
                             Label lblPID1 = (Label)GRDInner.Rows[j].FindControl("lblPID1");
                             if (p == true)
                             {
-                                data.executeCommand("insert into tbl_EmpRoles (UserId, PageID, AddStatus, EditStatus, DeleteStatus,ViewP,AssignStatus,LoginStatus) values(" + userid + "," + lblPID1.Text + ",'" + a + "','" + e + "','" + d + "','" + v + "','" + r + "','" + l + "')");
+                                data.executeCommand("insert into tbl_EmpRoles (UserId, PageID, AddStatus, EditStatus, DeleteStatus,ViewP,AssignStatus,LoginStatus,hrStatus) values(" + userid + "," + lblPID1.Text + ",'" + a + "','" + e + "','" + d + "','" + v + "','" + r + "','" + l + "','" + h + "')");
                             }
 
                         }
@@ -230,6 +235,8 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
         CheckBox chkEdit = (CheckBox)e.Row.FindControl("chkEdit");
         Label lblPIDDel = (Label)e.Row.FindControl("lblPIDDel");
         CheckBox chkDelete = (CheckBox)e.Row.FindControl("chkDelete");
+        Label lblPIHr = (Label)e.Row.FindControl("lblPIHr");
+        CheckBox chkHr = (CheckBox)e.Row.FindControl("chkHr");
 
         if (hddmenupage != null)
         {
@@ -247,7 +254,8 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
             lblPIDEdit.Visible = Convert.ToBoolean(dtble.Rows[0]["IsEdit"]);
             chkDelete.Visible = Convert.ToBoolean(dtble.Rows[0]["IsDel"]);
             lblPIDDel.Visible = Convert.ToBoolean(dtble.Rows[0]["IsDel"]);
-
+            chkHr.Visible = Convert.ToBoolean(dtble.Rows[0]["IsHr"]);
+            lblPIHr.Visible = Convert.ToBoolean(dtble.Rows[0]["IsHr"]); 
         }
     }
 }

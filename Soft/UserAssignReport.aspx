@@ -55,14 +55,14 @@
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: left;" >Sr. No.</th>
-                                            <th style="text-align: center;" class="isLoginVisible" >IsLogin CRM</th>
-                                            <th style="text-align: center;" class="isLoginVisible" >IsLogin APP</th>
-                                            <th style="text-align: left;" >Employee Name</th>
-                                            <th >Mobile</th>
-                                            <th style="text-align: center;" class="isAssVisible" >Assign</th>
-                                          </tr>
-                                      
+                                            <th style="text-align: left;">Sr. No.</th>
+                                            <th style="text-align: center;" class="isLoginVisible">IsLogin CRM</th>
+                                            <th style="text-align: center;" class="isLoginVisible">IsLogin APP</th>
+                                            <th style="text-align: left;">Employee Name</th>
+                                            <th>Mobile</th>
+                                            <th style="text-align: center;">Assign</th>
+                                        </tr>
+
                                     </thead>
                                     <tbody>
                                         <asp:Repeater ID="rep" runat="server" OnItemDataBound="rep_ItemDataBound">
@@ -70,19 +70,23 @@
                                                 <tr class="gradeA">
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
-                                                    <asp:HiddenField ID="hddUserType" Value='<%#Eval("UserType") %>' runat="server"/>
-                                                    <asp:HiddenField ID="hddUid" Value='<%#Eval("id") %>' runat="server"/>
+                                                        <asp:HiddenField ID="hddUserType" Value='<%#Eval("UserType") %>' runat="server" />
+                                                        <asp:HiddenField ID="hddUid" Value='<%#Eval("id") %>' runat="server" />
                                                     </td>
-                                                    <td style="text-align: center;" class="isLoginVisible"><asp:CheckBox  ID="IsChkLogin" runat="server" Checked='<%# Convert.ToBoolean(Eval("isCrmLogin"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLogin_CheckedChanged"  /></td>
-                                                    <td style="text-align: center;" class="isLoginVisible"><asp:CheckBox  ID="IsChkLoginApp" runat="server" Checked='<%# Convert.ToBoolean(Eval("Deactivate"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLoginApp_CheckedChanged"  /></td>
+                                                    <td style="text-align: center;" class="isLoginVisible">
+                                                        <asp:CheckBox ID="IsChkLogin" runat="server" Checked='<%# Convert.ToBoolean(Eval("isCrmLogin"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLogin_CheckedChanged" /></td>
+                                                    <td style="text-align: center;" class="isLoginVisible">
+                                                        <asp:CheckBox ID="IsChkLoginApp" runat="server" Checked='<%# Convert.ToBoolean(Eval("Deactivate"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLoginApp_CheckedChanged" /></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
 
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
-                                                    <td style="text-align: center;" class="isAssVisible">
-                                                        <asp:HyperLink id="lnkAssbtn" runat="server" NavigateUrl='<%# "AddUserRoles.aspx?id=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">Assign Roles</asp:HyperLink>
-
-                                                           <asp:HyperLink id="lnkHrbtn" runat="server" NavigateUrl='<%# "Payroll.aspx?uid=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">HR</asp:HyperLink>
-
+                                                    <td style="text-align: center; display: inline">
+                                                        <div class="isAssVisible" style="display: inline">
+                                                            <asp:HyperLink ID="lnkAssbtn" runat="server" NavigateUrl='<%# "AddUserRoles.aspx?id=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">Assign Roles</asp:HyperLink>
+                                                        </div>
+                                                        <div class="isHrVisible">
+                                                            <asp:HyperLink ID="lnkHrbtn" runat="server" NavigateUrl='<%# "Payroll.aspx?uid=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">HR</asp:HyperLink>
+                                                        </div>
                                                     </td>
                                                     <%--<td style="text-align: center;" class="isAssVisible">
                                                         <a href="ResetPassword.aspx" class="btn btn-small btn-success"><i class="fa fa-key" aria-hidden="true"></i></a>
@@ -133,7 +137,11 @@
                     Array.prototype.forEach.call(elements3, function (element) {
                         element.style.display = myArray[5] == "False" ? "none" : "";
                     });
-               
+                    var elements4 = document.getElementsByClassName("isHrVisible");
+                    Array.prototype.forEach.call(elements4, function (element) {
+                        element.style.display = myArray[6] == "False" ? "none" : "";
+                    });
+
                     //if (myArray[1] == 'False' && myArray[2] == 'False') {
                     //    document.getElementById("lblAction").innerHTML = "";
 

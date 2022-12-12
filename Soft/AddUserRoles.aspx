@@ -12,7 +12,8 @@
                         <div class="sparkline13-list shadow-reset">
                             <div class="sparkline13-hd">
                                 <div class="main-sparkline13-hd">
-                                    <h1><span class="table-project-n">Assign Role to </span><asp:Label ID ="lbluser" runat="server"></asp:Label></h1>
+                                    <h1><span class="table-project-n">Assign Role to </span>
+                                        <asp:Label ID="lbluser" runat="server"></asp:Label></h1>
                                 </div>
                             </div>
                             <div class="login-bg">
@@ -85,10 +86,17 @@
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="left" Width="5%" VerticalAlign="Top" />
                                                                 </asp:TemplateField>
-                                                                    <asp:TemplateField>
+                                                                <asp:TemplateField>
                                                                     <ItemTemplate>
                                                                         <asp:CheckBox ID="chkLogin" runat="server" />
                                                                         <asp:Label ID="lblPIDLgn" runat="server" Text="CRM Login"></asp:Label>
+                                                                    </ItemTemplate>
+                                                                    <ItemStyle HorizontalAlign="left" Width="5%" VerticalAlign="Top" />
+                                                                </asp:TemplateField>
+                                                                 <asp:TemplateField>
+                                                                    <ItemTemplate>
+                                                                        <asp:CheckBox ID="chkHr" runat="server" />
+                                                                        <asp:Label ID="lblPIHr" runat="server" Text="HR"></asp:Label>
                                                                     </ItemTemplate>
                                                                     <ItemStyle HorizontalAlign="left" Width="5%" VerticalAlign="Top" />
                                                                 </asp:TemplateField>
