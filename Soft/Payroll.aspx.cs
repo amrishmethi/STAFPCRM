@@ -375,7 +375,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
         DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), txtDOJ.Text, txtDateOfLeaving.Text, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, hddCrmUserId.Value, _UserId, chkAttandance.Checked.ToString());
         if (DsMain.Tables[0].Rows.Count > 0)
         {
-            if (DsMain.Tables[0].Rows[0]["Result"].ToString() != "")
+            if (DsMain.Tables[0].Rows[0]["Result"].ToString() == "")
             {
                 //Bank Details
                 payroll.Emp_Bank(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtBankName.Text, txtBankAccno.Text, txtbankaddress.Text, txtBankIFSC.Text, txtBankName2.Text, txtBankAccno2.Text, txtbankaddress2.Text, txtBankIFSC2.Text);
