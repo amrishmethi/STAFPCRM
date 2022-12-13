@@ -22,6 +22,7 @@
         //    ]
         //}); 
     });
+
     $(document).ready(function () {
         $('#ExportTbl').DataTable({
             //  dom: '<"dt-top-container"<l><"dt-center-in-div"B><f>r>t<"dt-filter-spacer"f><ip>',

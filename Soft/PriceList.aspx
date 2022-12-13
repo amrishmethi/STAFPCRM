@@ -62,21 +62,22 @@
                                             <th style="text-align: left;">Packing</th>
                                         </tr>
                                     </thead>
-                                    <%--<tbody>
+                                    <tbody>
                                         <asp:Repeater ID="rep" runat="server">
                                             <ItemTemplate>
                                                 <tr class="gradeA">
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
-                                                    <td style="text-align: left;"><%#Eval("Name") %></td>
-                                                    <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
-                                                    <td style="text-align: left;"><%#Eval("MobileNo") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Password") %></td>
+                                                    <td style="text-align: left;"><%#Eval("itname") %></td>
+                                                    <td style="text-align: left;"><%#Eval("SalesOrderRate") %></td>
+                                                    <td style="text-align: left;"><%#Eval("tRate") %></td>
+                                                    <td style="text-align: left;"><%#Eval("BagRate") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Packing") %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                    </tbody>--%>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

@@ -113,6 +113,13 @@ public class Master
         cmd.Parameters.AddWithValue("@Mobno", mobile);
         ds = data.getDataSet(cmd);
         return ds;
+    } 
+    public DataSet getPriceList()
+    {
+        cmd = new SqlCommand("PROC_PriceList");
+        cmd.CommandType = CommandType.StoredProcedure;
+        ds = data.getDataSet(cmd);
+        return ds;
     }
 
     public DataSet getUserTourPlan(string userid)
