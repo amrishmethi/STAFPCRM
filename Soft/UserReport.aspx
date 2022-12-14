@@ -16,6 +16,7 @@
     </section>
     <section class="content">
         <div class="row">
+            <asp:ScriptManager ID="scriptMgr" runat="server"></asp:ScriptManager>
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-body">
@@ -25,17 +26,28 @@
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
+                            <asp:UpdatePanel ID="updt1" runat="server">
+                                <ContentTemplate>
+                                    <div class="col-md-3">
+                                        <label>Department</label>
+                                        <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" AutoPostBack="true" OnSelectedIndexChanged="drpDept_SelectedIndexChanged">
+                                        </asp:DropDownList>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Designation</label>
+                                        <asp:DropDownList ID="drpDesg" runat="server" CssClass="form-control select2">
+                                        </asp:DropDownList>
+                                    </div>
+                                </ContentTemplate>
+                                <Triggers>
+                                    <asp:AsyncPostBackTrigger ControlID="drpDept" EventName="SelectedIndexChanged" />
+                                </Triggers>
+                            </asp:UpdatePanel>
                             <div class="col-md-2">
                                 <label>Mobile No</label>
                                 <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control">
                                 </asp:TextBox>
                             </div>
-                            <%--    <div class="col-md-2">
-                                <label>Date To</label>
-                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker">
-                                </asp:TextBox>
-                            </div>--%>
-
 
                             <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
@@ -56,8 +68,11 @@
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">Employee Name</th>
-                                            <th style="text-align: left;">HeadQuarter</th>
+                                            <th style="text-align: left;">Department</th>
+                                            <th style="text-align: left;">Designation</th>
                                             <th style="text-align: left;">Mobile No</th>
+                                            <th style="text-align: left;">CUG Mobile No</th>
+                                            <th style="text-align: left;">Official Email</th>
                                             <th style="text-align: left;">Password</th>
                                         </tr>
                                     </thead>
@@ -69,8 +84,11 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
-                                                    <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Department") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Designation") %></td>
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
+                                                    <td style="text-align: left;"><%#Eval("CUG_MobileNO") %></td>
+                                                    <td style="text-align: left;"><%#Eval("O_mail") %></td>
                                                     <td style="text-align: left;"><%#Eval("Password") %></td>
                                                 </tr>
                                             </ItemTemplate>
@@ -131,7 +149,7 @@
                 }
             });
         })
-      
+
 
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />

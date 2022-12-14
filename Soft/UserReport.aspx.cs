@@ -25,14 +25,18 @@ public partial class Admin_UserReport : System.Web.UI.Page
 
             Soft = Request.Cookies["STFP"];
             Session["AccessRigthsSet"] = getdata.AccessRights("UserReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-            Gd.FillUser(drpUser);
+            Gd.FillEmp(drpUser);
+            Gd.fillDepartment(drpDept);
+            Gd.fillDesignation(drpDesg,"0");
+            
             fillData();
         }
     }
 
+
     public void fillData()
     {
-        ds = getdata.getUserReport(drpUser.SelectedValue,txtMobile.Text.Trim());
+        ds = getdata.getUserReport(drpUser.SelectedValue,txtMobile.Text.Trim(),drpDept.SelectedValue,drpDesg.SelectedValue);
 
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
@@ -64,5 +68,10 @@ public partial class Admin_UserReport : System.Web.UI.Page
         DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
         return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString() + "," + tbl1.Rows[0]["AssignStatus"].ToString() + "," + tbl1.Rows[0]["LoginStatus"].ToString();
     }
- 
+
+
+    protected void drpDept_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Gd.fillDesignation(drpDesg, drpDept.SelectedValue);
+    }
 }

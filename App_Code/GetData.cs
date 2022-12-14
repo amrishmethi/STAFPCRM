@@ -174,7 +174,7 @@ public class GetData
 
     public void FillUser(DropDownList drp)
     {
-        query = "select * from [CSInfo].[dbo].[MobileAppUser] order by Name ";
+        query = "select * from [CSInfo].[dbo].[MobileAppUser] where Deactivate=0 order by Name ";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "Name";
@@ -183,6 +183,27 @@ public class GetData
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
 
+
+    public void FillEmp(DropDownList drp)
+    {
+        query = "select * from [stm_acmast].[dbo].[tbl_EmpMaster] where Delid=0 order by Emp_Name ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "Emp_Name";
+        drp.DataValueField = "EmpId";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+    public void FillGroup(DropDownList drp)
+    {
+        query = "SELECT [CMsCode], [CMsName]   FROM [stm_stmast].[dbo].[CMaster] Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "CMsName";
+        drp.DataValueField = "CMsCode";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
     public void FillDrop(DropDownList drp, String tbl)
     {
         query = "select * from " + tbl + " where IsDeleted=0 order by Name ";

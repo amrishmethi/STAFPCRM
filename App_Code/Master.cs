@@ -64,6 +64,14 @@ public class Master
         return ds;
     }
 
+    public DataSet getSubGrpString(string selectedValuee)
+    {
+        cmd = new SqlCommand("Select CMsCode from [stm_stmast].[dbo].[CMaster] Where CMsSr='I' and MCMSCode='" + selectedValuee + "'");
+        cmd.CommandType = CommandType.Text;
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
     public DataSet getCheckInDetails(string userid, string indate, string intime)
     {
         cmd = new SqlCommand("PROC_CHECKINOUT");
@@ -105,19 +113,23 @@ public class Master
         return ds;
     }
 
-    public DataSet getUserReport(string userid, string mobile)
+    public DataSet getUserReport(string userid, string mobile,string dept,string desg)
     {
         cmd = new SqlCommand("PROC_USERDETAILSREPORT");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@UserID", userid);
         cmd.Parameters.AddWithValue("@Mobno", mobile);
+        cmd.Parameters.AddWithValue("@deptid", dept);
+        cmd.Parameters.AddWithValue("@desgid", desg);
         ds = data.getDataSet(cmd);
         return ds;
     } 
-    public DataSet getPriceList()
+    public DataSet getPriceList(string sgrp)
     {
         cmd = new SqlCommand("PROC_PriceList");
         cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@Grp", sgrp);
         ds = data.getDataSet(cmd);
         return ds;
     }

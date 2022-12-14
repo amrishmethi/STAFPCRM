@@ -26,47 +26,35 @@ public partial class Admin_PriceList : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
             Session["AccessRigthsSet"] = getdata.AccessRights("PriceList.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             //   Gd.FillUser(drpUser);
-            ds = getdata.getPriceList();
+            ds = getdata.getPriceList("");
+         //   ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert(" + ds.Tables[0].Rows[0][0].ToString() + ")", true);
             ViewState["Tbl"] = ds;
-            BindDrp();
-            fillData(ds);
+            Gd.FillGroup(drpGroup);
+            fillData();
         }
     }
 
-    private void BindDrp()
-    {
-        DataView dv = ((DataSet)ViewState["Tbl"]).Tables[0].DefaultView;
-        dv.Sort = "GPCode1";
-        drpGroup.DataSource = dv.ToTable(true, "GPCode1");
-        drpGroup.DataTextField = "GPCode1";
-        drpGroup.DataValueField = "GPCode1";
-        drpGroup.DataBind();
-        drpGroup.Items.Insert(0, new ListItem("Select", "0"));
+   
 
-        dv.Sort = "OutOfState";
-        drpStateOut.DataSource = dv.ToTable(true, "OutOfState");
-        drpStateOut.DataTextField = "OutOfState";
-        drpStateOut.DataValueField = "OutOfState";
-        drpStateOut.DataBind();
-        drpStateOut.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
-    public void fillData(DataSet dss)
+    public void fillData()
     {
+        
         DataView dv = ((DataSet)ViewState["Tbl"]).Tables[0].DefaultView;
         StringBuilder str = new StringBuilder();
-
-        if (drpGroup.SelectedIndex > 0)
+        if (drpState.SelectedIndex == 0)
         {
-            str.Append(" GPCode1 = '" + drpGroup.SelectedValue + "' ");
-        }
-        if (drpStateOut.SelectedIndex > 0)
-        {
-            if (str != null)
+            if (str.Length>0)
             {
                 str.Append("and");
             }
-            str.Append(" OutOfState = '" + drpStateOut.SelectedValue + "' ");
+            str.Append(" OutOfState = 0 ");
+        }else
+        {
+            if (str.Length>0)
+            {
+                str.Append("and");
+            }
+            str.Append(" OutOfState <> 0 ");
         }
         dv.RowFilter = str.ToString();
         rep.DataSource = dv.ToTable();
@@ -75,10 +63,27 @@ public partial class Admin_PriceList : System.Web.UI.Page
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        fillData((DataSet)ViewState["Tbl"]);
+        string strrr = "";
+        if (drpGroup.SelectedIndex > 0)
+        {
+           DataSet dss = getdata.getSubGrpString(drpGroup.SelectedValue);
+            
+            if (dss.Tables[0].Rows.Count > 0)
+            {   
+                foreach(DataRow dr in dss.Tables[0].Rows)
+                {
+                  strrr += "'"+ dr["CMsCode"] + "',";
+                }
+            }
+        }
+        if (strrr.Length > 0)
+        {
+            ds = getdata.getPriceList(strrr.Substring(0, strrr.Length - 1));
+            ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert("+ds.Tables[0].Rows[0][0].ToString()+")", true);
+            ViewState["Tbl"] = ds;
+        }
+        fillData();
     }
-
-
 
     [WebMethod]
     public static string ControlAccess()
@@ -86,5 +91,6 @@ public partial class Admin_PriceList : System.Web.UI.Page
         DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
         return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
     }
+
 
 }

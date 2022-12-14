@@ -26,8 +26,10 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <label>Out of State</label>
-                                <asp:DropDownList ID="drpStateOut" runat="server" CssClass="form-control select2">
+                                <label>State</label>
+                                <asp:DropDownList ID="drpState" runat="server" CssClass="form-control select2">
+                                    <asp:ListItem Text="Local State" Value="0"/>
+                                    <asp:ListItem Text="Out of State" Value="1"/>
                                 </asp:DropDownList>
                             </div>
                             <%--    <div class="col-md-2">
