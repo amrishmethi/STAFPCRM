@@ -124,12 +124,13 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     } 
-    public DataSet getPriceList(string sgrp)
+    public DataSet getPriceList(string sgrp,string isout)
     {
         cmd = new SqlCommand("PROC_PriceList");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.Clear();
         cmd.Parameters.AddWithValue("@Grp", sgrp);
+        cmd.Parameters.AddWithValue("@Isout", isout);
         ds = data.getDataSet(cmd);
         return ds;
     }

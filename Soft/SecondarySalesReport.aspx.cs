@@ -44,6 +44,7 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
         rep.DataBind();
     }
 
+
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         fillData();
@@ -54,5 +55,10 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
     {
         DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
         return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
+    }
+
+    protected void drpIsCheck_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        fillData();
     }
 }

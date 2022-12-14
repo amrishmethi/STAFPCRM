@@ -46,23 +46,23 @@
                                 <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker">
                                 </asp:TextBox>
                             </div>
-                             <div class="col-md-2">
-                                <label>IsSales</label>
-                                <asp:DropDownList ID="drpIsCheck" runat="server" CssClass="form-control">
-                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
-                                    <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
-                                    <asp:ListItem Value="0" Text="No"></asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
 
                             <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
                             </div>
+                            <div class="col-md-1">
+                                <label>IsSales</label>
+                                <asp:DropDownList ID="drpIsCheck" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpIsCheck_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Value="" Text="All"></asp:ListItem>
+                                    <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
+                                    <asp:ListItem Value="0" Text="No"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
 
                         </div>
                         <div class="clearfix">&nbsp;</div>
-                        <div class="clearfix">&nbsp;</div>
+                      
                     </div>
                 </div>
                 <div class="box box-primary">
@@ -73,12 +73,13 @@
                                     <thead>
                                         <tr>
                                             <th rowspan="2">Sr. No.</th>
-                                            <th rowspan="2">Date<br />Time</th>
+                                            <th rowspan="2">Date<br />
+                                                Time</th>
                                             <th rowspan="2">Employee</th>
                                             <th rowspan="2">Secondary Sale Total</th>
                                             <th rowspan="2">Target Visits</th>
                                             <th rowspan="2">No of Visits</th>
-                                            <th colspan="3" style="text-align:center;">Primary</th>
+                                            <th colspan="3" style="text-align: center;">Primary</th>
                                             <th rowspan="2">View</th>
                                         </tr>
                                         <tr>
@@ -94,8 +95,9 @@
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
-                                                    
-                                                    <td style="text-align: left;"><%#Eval("CheckDate") %><br/><%#Eval("CheckTime") %></td>
+
+                                                    <td style="text-align: left;"><%#Eval("CheckDate") %><br />
+                                                        <%#Eval("CheckTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("Employees") %></td>
                                                     <td style="text-align: left;"><%#Eval("TotalSale") %></td>
                                                     <td style="text-align: left;"><%#Eval("TargetVisit") %></td>

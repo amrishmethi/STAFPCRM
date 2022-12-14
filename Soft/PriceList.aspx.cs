@@ -26,10 +26,11 @@ public partial class Admin_PriceList : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
             Session["AccessRigthsSet"] = getdata.AccessRights("PriceList.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             //   Gd.FillUser(drpUser);
-            ds = getdata.getPriceList("");
-         //   ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert(" + ds.Tables[0].Rows[0][0].ToString() + ")", true);
-            ViewState["Tbl"] = ds;
+
             Gd.FillGroup(drpGroup);
+           
+         //   ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert(" + ds.Tables[0].Rows[0][0].ToString() + ")", true);
+         //   ViewState["Tbl"] = ds;
             fillData();
         }
     }
@@ -38,50 +39,14 @@ public partial class Admin_PriceList : System.Web.UI.Page
 
     public void fillData()
     {
+        ds = getdata.getPriceList(drpGroup.SelectedValue,drpState.SelectedValue);
         
-        DataView dv = ((DataSet)ViewState["Tbl"]).Tables[0].DefaultView;
-        StringBuilder str = new StringBuilder();
-        if (drpState.SelectedIndex == 0)
-        {
-            if (str.Length>0)
-            {
-                str.Append("and");
-            }
-            str.Append(" OutOfState = 0 ");
-        }else
-        {
-            if (str.Length>0)
-            {
-                str.Append("and");
-            }
-            str.Append(" OutOfState <> 0 ");
-        }
-        dv.RowFilter = str.ToString();
-        rep.DataSource = dv.ToTable();
+        rep.DataSource = ds;
         rep.DataBind();
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        string strrr = "";
-        if (drpGroup.SelectedIndex > 0)
-        {
-           DataSet dss = getdata.getSubGrpString(drpGroup.SelectedValue);
-            
-            if (dss.Tables[0].Rows.Count > 0)
-            {   
-                foreach(DataRow dr in dss.Tables[0].Rows)
-                {
-                  strrr += "'"+ dr["CMsCode"] + "',";
-                }
-            }
-        }
-        if (strrr.Length > 0)
-        {
-            ds = getdata.getPriceList(strrr.Substring(0, strrr.Length - 1));
-            ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert("+ds.Tables[0].Rows[0][0].ToString()+")", true);
-            ViewState["Tbl"] = ds;
-        }
         fillData();
     }
 
