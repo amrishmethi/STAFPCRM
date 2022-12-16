@@ -23,17 +23,22 @@
 
                             <div class="col-md-3">
                                 <label>Employee</label>
-                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2">
+                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Department</label>
+                                <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
                                 <label>Date</label>
-                                <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker">
+                                <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker" OnTextChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:TextBox>
                             </div>
                             <div class="col-md-2">
                                 <label>IsAttend</label>
-                                <asp:DropDownList ID="drpIsAttend" runat="server" CssClass="form-control">
+                                <asp:DropDownList ID="drpIsAttend" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
                                     <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
                                     <asp:ListItem Value="0" Text="No"></asp:ListItem>
@@ -41,10 +46,10 @@
                             </div>
 
 
-                            <div class="col-md-1" style="padding-top: 3px;">
+                           <%-- <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>
+                            </div>--%>
 
                         </div>
                         <div class="clearfix">&nbsp;</div>

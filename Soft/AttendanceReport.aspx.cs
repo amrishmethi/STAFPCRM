@@ -28,13 +28,14 @@ public partial class Admin_AttendanceReport : System.Web.UI.Page
             txtDate.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             //dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             Gd.FillUser(drpUser);
+            Gd.fillDepartment(drpDept);
             fillData();
         }
     }
 
     public void fillData()
     {
-        ds = getdata.getAttendanceList(drpUser.SelectedValue, txtDate.Text.Trim());
+        ds = getdata.getAttendanceList(drpUser.SelectedValue, drpDept.SelectedValue, txtDate.Text.Trim());
         DataView dv = ds.Tables[0].DefaultView;
         if (drpIsAttend.SelectedValue == "0") { dv.RowFilter = " DateIN is null"; }
         else if (drpIsAttend.SelectedValue == "1") { dv.RowFilter = "DateIN <> ''"; }
@@ -44,10 +45,10 @@ public partial class Admin_AttendanceReport : System.Web.UI.Page
     }
 
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        fillData();
-    }
+    //protected void btnSearch_Click(object sender, EventArgs e)
+    //{
+    //    fillData();
+    //}
 
     [WebMethod]
     public static string ControlAccess()
@@ -87,5 +88,10 @@ public partial class Admin_AttendanceReport : System.Web.UI.Page
 
     //}
 
-     
+
+
+    protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        fillData();
+    }
 }

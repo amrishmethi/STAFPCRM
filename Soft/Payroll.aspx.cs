@@ -37,7 +37,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 }
                 else
                 {
-                    DataSet CrmUser = getdata.getUserDetails(Request.QueryString["uid"]);
+                    DataSet CrmUser = getdata.getUserDetails(Request.QueryString["uid"],"0");
                     if (CrmUser.Tables[0].Rows.Count > 0)
                     {
                         txtemployeename.Text = CrmUser.Tables[0].Rows[0]["Name"].ToString();
@@ -86,7 +86,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
             txtpanno.Text = dsGet.Tables[0].Rows[0]["PanNo"].ToString();
             txtPFCode.Text = dsGet.Tables[0].Rows[0]["PF_AcNo"].ToString();
             txtESICode.Text = dsGet.Tables[0].Rows[0]["ESI_AcNO"].ToString();
-            drpStatus.SelectedItem.Text = dsGet.Tables[0].Rows[0]["Status"].ToString();
+            drpStatus.SelectedValue = dsGet.Tables[0].Rows[0]["Status"].ToString();
             hddEmpNo.Value = dsGet.Tables[0].Rows[0]["EmpNo"].ToString();
             hddCrmUserId.Value = dsGet.Tables[0].Rows[0]["CRMUserId"].ToString();
         }
@@ -135,7 +135,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
             {
                 ChkESIC.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_ESIC"]);
                 rbESICFixed.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_ESICFixed"]);
-                rbESICPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_ESICPer"]);
+                rbESICPer.Checked = Convert.ToBoolean(dsGet.Tables[2].Rows[0]["Is_ESICPPer"]);
                 txtESICSelf.Text = dsGet.Tables[2].Rows[0]["ESIC_Employee"].ToString();
                 txtESICSelf.Enabled = true;
                 txtESICSelfValue.Value = dsGet.Tables[2].Rows[0]["ESIC_EmployeeValue"].ToString();

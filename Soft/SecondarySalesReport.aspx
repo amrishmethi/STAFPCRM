@@ -73,8 +73,7 @@
                                     <thead>
                                         <tr>
                                             <th rowspan="2">Sr. No.</th>
-                                            <th rowspan="2">Date<br />
-                                                Time</th>
+                                            <th rowspan="2">Date<br />Time</th>
                                             <th rowspan="2">Employee</th>
                                             <th rowspan="2">Secondary Sale Total</th>
                                             <th rowspan="2">Target Visits</th>

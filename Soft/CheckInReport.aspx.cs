@@ -28,13 +28,14 @@ public partial class Admin_CheckInReport : System.Web.UI.Page
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             Gd.FillUser(drpUser);
+            Gd.fillDepartment(drpDept);
             fillData();
         }
     }
 
     public void fillData()
     {
-        ds = getdata.getCheckInDetails(drpUser.SelectedValue, dpFrom.Text.Trim(), dpTo.Text.Trim());
+        ds = getdata.getCheckInDetails(drpUser.SelectedValue,drpDept.SelectedValue, dpFrom.Text.Trim(), dpTo.Text.Trim());
         DataView dv = ds.Tables[0].DefaultView;
         if (drpIsCheck.SelectedValue == "0") { dv.RowFilter = " AddedDate is null"; }
         else if (drpIsCheck.SelectedValue == "1") { dv.RowFilter = " AddedDate is not null"; }
@@ -44,15 +45,20 @@ public partial class Admin_CheckInReport : System.Web.UI.Page
     }
 
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        fillData();
-    }
+    //protected void btnSearch_Click(object sender, EventArgs e)
+    //{
+    //    fillData();
+    //}
 
     [WebMethod]
     public static string ControlAccess()
     {
         DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
         return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
+    }
+
+    protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        fillData();
     }
 }

@@ -13,6 +13,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
+    GetData gd = new GetData();
     Data data = new Data();
     private HttpCookie Soft;
 
@@ -27,7 +28,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
             DataSet dsusr = getdata.getHqtrUser();
-
+            gd.FillPartyCategory(drpCatg);
             DataView dv = dsusr.Tables[0].DefaultView;
             dv.Sort = "Name";
             drpUser.DataSource = dv.ToTable(true, "Name", "MId");
@@ -48,7 +49,6 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
 
     public void fillData()
     {
-        //ds = getdata.getUserTourPlan(drpUser.SelectedValue);
         DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
         if (drpheadQtr.SelectedIndex > 0)
         {
@@ -62,30 +62,16 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         if (drpStation.SelectedIndex > 0)
         {
             dv.RowFilter = " Station = '" + drpStation.SelectedValue + "'";
+        } 
+        if (drpCatg.SelectedIndex > 0)
+        {
+            dv.RowFilter = " PTCMsNo = '" + drpCatg.SelectedValue + "'";
         }
         rep.DataSource = dv.ToTable();
         rep.DataBind();
     }
 
-    //protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
-    //{
-    //    if (e.CommandName == "Edit")
-    //    {
-    //        Response.Redirect("SecondarySalesPartyMaster.aspx?id=" + e.CommandArgument + "");
-    //    }
-    //    if (e.CommandName == "Delete")
-    //    {
-    //        string query = "update tbl_SecondarySalesParty set IsActive = 0  where ID=" + e.CommandArgument + "";
-    //        data.executeCommand(query);
-    //        ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Deleted Successfully......')", true);
-    //        fillData();
-    //    }
-    //}
 
-    //protected void btnSearch_Click(object sender, EventArgs e)
-    //{
-    //    fillData();
-    //}
 
     [WebMethod]
     public static string ControlAccess()
@@ -93,19 +79,6 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
         return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
     }
-
-    //protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)
-    //{
-    //    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-    //    {
-    //        HyperLink lnkAssbtn = (e.Item.FindControl("lnkAssbtn") as HyperLink);
-    //        HiddenField hddUid = (HiddenField)e.Item.FindControl("hddUid");
-    //        HiddenField hddUserType = (e.Item.FindControl("hddUserType") as HiddenField);
-    //        lnkAssbtn.Visible = hddUserType.Value == "admin"?false:true;
-    //    }
-    //}
-
-
 
 
     protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
@@ -174,5 +147,12 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
     protected void drpStation_SelectedIndexChanged(object sender, EventArgs e)
     {
         fillData();
+    }
+
+    protected void drpCatg_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (rep.DataSource != null) {
+        fillData();
+        }
     }
 }

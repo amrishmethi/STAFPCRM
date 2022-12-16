@@ -6,8 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <asp:ScriptManager ID="eee" runat="server"></asp:ScriptManager>
     <section class="content-header">
-        <h1>ADD Secondary Sales Target
-        </h1>
+        <h1>ADD Secondary Sales Target</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/SecondarySalesPartyMaster.aspx" class="active">Secondary Sales Target</a></li>

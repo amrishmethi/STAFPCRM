@@ -48,12 +48,16 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <div class="col-lg-6 col-xs-6">
+            <div class="col-lg-4 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h4>Today's CheckIn Employees : <b id="chkInusr" runat="server">0</b></h4>
-                        <p>Today's CheckOut Employees: <b id="chkOutusr" runat="server">0</b></p>
+                        <h4>Total Employees : <b id="TotUsr" runat="server">0</b></h4>
+                        <p>
+                            Today's CheckIn : <b id="chkInusr" runat="server">0</b>
+                            <br />
+                            Today's CheckOut : <b id="chkOutusr" runat="server">0</b>
+                        </p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-person-add"></i>
@@ -62,12 +66,14 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-6 col-xs-6">
+            <div class="col-lg-8 col-xs-6">
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h4>Total Employees : <b id="TotUsr" runat="server">0</b></h4>
-                        <p>Attendance : In - <b id="AttnIn" runat="server">0</b> &nbsp;&nbsp;&nbsp;&nbsp; Out - <b id="AttnOut" runat="server">0</b></p>
+                        <h4>Total Employees : <b id="TotUsr1" runat="server">0</b></h4>
+                        <div id="deptBlock" runat="server" class="col-md-12"></div>
+                        <div id="AttnInBlock" runat="server" class="col-md-12"></div>
+                        <div id="AttnOutBlock" runat="server" class="col-md-12"></div>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
@@ -100,34 +106,34 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
                         <h4>Item Summary : <b id="todayDate" runat="server"></b></h4>
                         <div class="box box-primary">
                             <div class="box-body">
-                                <div class="widget-content nopadding" style="overflow: auto;">
-                                    <div class="table-responsive">
-                                        <table id="ExportTbl" class="table table-bordered display table-striped" style="color:black;">
-                                            <thead>
-                                                <tr>
-                                                    <th>Sr. No.</th>
-                                                    <th>Employee</th>
-                                                    <th>Group</th>
-                                                    <th>Qty</th>
-                                                </tr>
-                                            </thead>
-                                               <tbody>
-                                                            <asp:Repeater ID="rep" runat="server">
-                                                                <ItemTemplate>
-                                                                    <tr class="gradeA">
-                                                                        <td>
-                                                                            <%#Container.ItemIndex+1 %>
-                                                                        </td>
-                                                                        <td style="text-align: left;"><%#Eval("UserName") %></td>
-                                                                        <td style="text-align: left;"><%#Eval("GroupName") %></td>
-                                                                        <td style="text-align: left;"><%#Eval("Qty") %></td>
-                                                                      </tr>
-                                                                </ItemTemplate>
+                                <div class="widget-content">
+                                    <%--<div class="table-responsive">--%>
+                                    <table id="ExportTbl" class="table table-bordered display table-striped" style="color: black;">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr. No.</th>
+                                                <th>Employee</th>
+                                                <th>Group</th>
+                                                <th>Qty</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <asp:Repeater ID="rep" runat="server">
+                                                <ItemTemplate>
+                                                    <tr class="gradeA">
+                                                        <td>
+                                                            <%#Container.ItemIndex+1 %>
+                                                        </td>
+                                                        <td style="text-align: left;"><%#Eval("UserName") %></td>
+                                                        <td style="text-align: left;"><%#Eval("GroupName") %></td>
+                                                        <td style="text-align: left;"><%#Eval("Qty") %></td>
+                                                    </tr>
+                                                </ItemTemplate>
 
-                                                            </asp:Repeater>
-                                                        </tbody>
-                                        </table>
-                                    </div>
+                                            </asp:Repeater>
+                                        </tbody>
+                                    </table>
+                                    <%--</div>--%>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +142,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
                     <%--   <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                     </div>--%>
-                  <%--  <a href="SecondarySalesReport.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>--%>
+                    <%--  <a href="SecondarySalesReport.aspx" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>--%>
                 </div>
             </div>
             <!-- ./col -->

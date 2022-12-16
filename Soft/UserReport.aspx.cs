@@ -25,7 +25,7 @@ public partial class Admin_UserReport : System.Web.UI.Page
 
             Soft = Request.Cookies["STFP"];
             Session["AccessRigthsSet"] = getdata.AccessRights("UserReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-            Gd.FillEmp(drpUser);
+            Gd.FillUser(drpUser);
             Gd.fillDepartment(drpDept);
             Gd.fillDesignation(drpDesg,"0");
             
@@ -42,25 +42,7 @@ public partial class Admin_UserReport : System.Web.UI.Page
         rep.DataBind();
     }
 
-    //protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
-    //{
-    //    if (e.CommandName == "Edit")
-    //    {
-    //        Response.Redirect("SecondarySalesPartyMaster.aspx?id=" + e.CommandArgument + "");
-    //    }
-    //    if (e.CommandName == "Delete")
-    //    {
-    //        string query = "update tbl_SecondarySalesParty set IsActive = 0  where ID=" + e.CommandArgument + "";
-    //        data.executeCommand(query);
-    //        ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Deleted Successfully......')", true);
-    //        fillData();
-    //    }
-    //}
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        fillData();
-    }
 
     [WebMethod]
     public static string ControlAccess()
@@ -72,6 +54,13 @@ public partial class Admin_UserReport : System.Web.UI.Page
 
     protected void drpDept_SelectedIndexChanged(object sender, EventArgs e)
     {
+        fillData();
         Gd.fillDesignation(drpDesg, drpDept.SelectedValue);
+        
+    }
+
+    protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        fillData();
     }
 }

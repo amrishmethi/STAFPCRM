@@ -23,11 +23,11 @@
                         <div class="form-group">
                             <div class="col-md-3">
                                 <label>Employee</label>
-                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2">
+                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                            <asp:UpdatePanel ID="updt1" runat="server">
-                                <ContentTemplate>
+                            <%--<asp:UpdatePanel ID="updt1" runat="server">
+                                <ContentTemplate>--%>
                                     <div class="col-md-3">
                                         <label>Department</label>
                                         <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" AutoPostBack="true" OnSelectedIndexChanged="drpDept_SelectedIndexChanged">
@@ -35,24 +35,24 @@
                                     </div>
                                     <div class="col-md-3">
                                         <label>Designation</label>
-                                        <asp:DropDownList ID="drpDesg" runat="server" CssClass="form-control select2">
+                                        <asp:DropDownList ID="drpDesg" runat="server" CssClass="form-control select2"  OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                         </asp:DropDownList>
                                     </div>
-                                </ContentTemplate>
+                                <%--</ContentTemplate>
                                 <Triggers>
                                     <asp:AsyncPostBackTrigger ControlID="drpDept" EventName="SelectedIndexChanged" />
                                 </Triggers>
-                            </asp:UpdatePanel>
+                            </asp:UpdatePanel>--%>
                             <div class="col-md-2">
                                 <label>Mobile No</label>
-                                <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control">
+                                <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control"  OnTextChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:TextBox>
                             </div>
 
-                            <div class="col-md-1" style="padding-top: 3px;">
+                            <%--<div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>
+                            </div>--%>
 
                         </div>
                         <div class="clearfix">&nbsp;</div>
@@ -73,7 +73,7 @@
                                             <th style="text-align: left;">Mobile No</th>
                                             <th style="text-align: left;">CUG Mobile No</th>
                                             <th style="text-align: left;">Official Email</th>
-                                            <th style="text-align: left;">Password</th>
+                                        <%-- <th style="text-align: left;">Password</th>--%>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -89,7 +89,7 @@
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
                                                     <td style="text-align: left;"><%#Eval("CUG_MobileNO") %></td>
                                                     <td style="text-align: left;"><%#Eval("O_mail") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Password") %></td>
+                                                    <%--<td style="text-align: left;"><%#Eval("Password") %></td>--%>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>

@@ -138,6 +138,16 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
+    public void FillPartyCategory(DropDownList drp)
+    {
+        query = "Select MsNo,MsName from MastByNo Where MsSr='PTC' Order By Msname ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "MsName";
+        drp.DataValueField = "MsNo";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
 
     public void FillPrimaryStation(DropDownList drp)
     {
@@ -172,7 +182,7 @@ public class GetData
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
 
-    public void FillUser(DropDownList drp)
+    public void FillUser1(DropDownList drp)
     {
         query = "select * from [CSInfo].[dbo].[MobileAppUser] where Deactivate=0 order by Name ";
         ds = data.getDataSet(query);
@@ -184,7 +194,7 @@ public class GetData
     }
 
 
-    public void FillEmp(DropDownList drp)
+    public void FillUser(DropDownList drp)
     {
         query = "select * from [stm_acmast].[dbo].[tbl_EmpMaster] where Delid=0 order by Emp_Name ";
         ds = data.getDataSet(query);

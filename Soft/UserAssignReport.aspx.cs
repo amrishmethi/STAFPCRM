@@ -27,38 +27,23 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserAssignReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
-            Gd.FillUser(drpUser);
+            Gd.FillUser1(drpUser);
+            Gd.fillDepartment(drpDept);
             fillData();
         }
     }
 
     public void fillData()
     {
-        ds = getdata.getUserDetails(drpUser.SelectedValue);
-
+        ds = getdata.getUserDetails(drpUser.SelectedValue,drpDept.SelectedValue);
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
 
-    //protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
+    //protected void btnSearch_Click(object sender, EventArgs e)
     //{
-    //    if (e.CommandName == "Edit")
-    //    {
-    //        Response.Redirect("SecondarySalesPartyMaster.aspx?id=" + e.CommandArgument + "");
-    //    }
-    //    if (e.CommandName == "Delete")
-    //    {
-    //        string query = "update tbl_SecondarySalesParty set IsActive = 0  where ID=" + e.CommandArgument + "";
-    //        data.executeCommand(query);
-    //        ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Deleted Successfully......')", true);
-    //        fillData();
-    //    }
+    //    fillData();
     //}
-
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        fillData();
-    }
 
     [WebMethod]
     public static string ControlAccess()
@@ -116,5 +101,10 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
             data.getDataSet("Update [CSInfo].[dbo].[MobileAppUser]  set Deactivate = (case when Deactivate=1 then 0 else 1 end)  where id = " + hddUid.Value);
             fillData();
         }
+    }
+
+    protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        fillData();
     }
 }

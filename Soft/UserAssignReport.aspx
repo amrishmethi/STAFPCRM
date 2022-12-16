@@ -23,25 +23,21 @@
 
                             <div class="col-md-3">
                                 <label>Employee</label>
-                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2">
+                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                            <%--<div class="col-md-2">
-                                <label>Date From</label>
-                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker">
-                                </asp:TextBox>
+                            <div class="col-md-3">
+                                <label>Department</label>
+                                <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2"  OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
                             </div>
-                            <div class="col-md-2">
-                                <label>Date To</label>
-                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker">
-                                </asp:TextBox>
-                            </div>--%>
+                        
 
-
+<%--
                             <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>
+                            </div>--%>
 
                         </div>
                         <div class="clearfix">&nbsp;</div>
@@ -59,7 +55,9 @@
                                             <th style="text-align: center;" class="isLoginVisible">IsLogin CRM</th>
                                             <th style="text-align: center;" class="isLoginVisible">IsLogin APP</th>
                                             <th style="text-align: left;">Employee Name</th>
+                                            <th style="text-align: left;">Department</th>
                                             <th>Mobile</th>
+                                            <th>Password</th>
                                             <th style="text-align: center;">Assign</th>
                                         </tr>
 
@@ -78,13 +76,15 @@
                                                     <td style="text-align: center;" class="isLoginVisible">
                                                         <asp:CheckBox ID="IsChkLoginApp" runat="server" Checked='<%# Convert.ToBoolean(Eval("Deactivate"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLoginApp_CheckedChanged" /></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Department") %></td>
 
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
-                                                    <td style="text-align: center; display: inline">
-                                                        <div class="isAssVisible" style="display: inline">
+                                                    <td style="text-align: left;"><%#Eval("Password") %></td>
+                                                    <td style="text-align: center;">
+                                                        <div class="isAssVisible" style="display: inline;">
                                                             <asp:HyperLink ID="lnkAssbtn" runat="server" NavigateUrl='<%# "AddUserRoles.aspx?id=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">Assign Roles</asp:HyperLink>
                                                         </div>
-                                                        <div class="isHrVisible">
+                                                        <div class="isHrVisible" style="display: inline;">
                                                             <asp:HyperLink ID="lnkHrbtn" runat="server" NavigateUrl='<%# "Payroll.aspx?uid=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">HR</asp:HyperLink>
                                                         </div>
                                                     </td>
@@ -131,7 +131,7 @@
                     //});
                     var elements2 = document.getElementsByClassName("isAssVisible");
                     Array.prototype.forEach.call(elements2, function (element) {
-                        element.style.display = myArray[4] == "False" ? "none" : "";
+                        element.style.display = myArray[4] == "False" ? "none" : "nline";
                     });
                     var elements3 = document.getElementsByClassName("isLoginVisible");
                     Array.prototype.forEach.call(elements3, function (element) {
@@ -139,7 +139,7 @@
                     });
                     var elements4 = document.getElementsByClassName("isHrVisible");
                     Array.prototype.forEach.call(elements4, function (element) {
-                        element.style.display = myArray[6] == "False" ? "none" : "";
+                        element.style.display = myArray[6] == "False" ? "none" : "inline";
                     });
 
                     //if (myArray[1] == 'False' && myArray[2] == 'False') {

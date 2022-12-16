@@ -72,22 +72,24 @@ public class Master
         return ds;
     }
 
-    public DataSet getCheckInDetails(string userid, string indate, string intime)
+    public DataSet getCheckInDetails(string userid,string deptid, string indate, string intime)
     {
         cmd = new SqlCommand("PROC_CHECKINOUT");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@UserID", userid);
+        cmd.Parameters.AddWithValue("@DeptID", deptid);
         cmd.Parameters.AddWithValue("@CheckinDateFrom", data.YYYYMMDD(indate));
         cmd.Parameters.AddWithValue("@CheckinDateTo", data.YYYYMMDD(intime));
         ds = data.getDataSet(cmd);
         return ds;
     }
 
-    public DataSet getAttendanceList(string userid, string date)
+    public DataSet getAttendanceList(string userid,string deptid, string date)
     {
         cmd = new SqlCommand("PROC_ATTENDANCE");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@UserID", userid);
+        cmd.Parameters.AddWithValue("@DeptID", deptid);
         cmd.Parameters.AddWithValue("@CheckinDateFrom", data.YYYYMMDD(date));
 
         ds = data.getDataSet(cmd);
@@ -104,11 +106,12 @@ public class Master
         return ds;
     }
 
-    public DataSet getUserDetails(string userid)
+    public DataSet getUserDetails(string userid,string dptid)
     {
         cmd = new SqlCommand("PROC_USERDETAILS");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@UserID", userid);
+        cmd.Parameters.AddWithValue("@DeptID", dptid);
         ds = data.getDataSet(cmd);
         return ds;
     }
