@@ -27,13 +27,21 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
             Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             Gd.FillParty(drpParty);
             Gd.FillStation(drpStation);
+            DataSet dsusr = getdata.getHqtrUser();
+            DataView dv = dsusr.Tables[0].DefaultView;
+            dv.Sort = "HeadQtr";
+            drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr");
+            drpheadQtr.DataTextField = "HeadQtr";
+            drpheadQtr.DataValueField = "HeadQtr";
+            drpheadQtr.DataBind();
+            drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
             fillData();
         }
     }
 
     public void fillData()
     {
-        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue,"", drpStation.SelectedValue, "","","");
+        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue,"", drpStation.SelectedValue, "","","",drpheadQtr.SelectedValue);
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
@@ -46,7 +54,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
         }
         if (e.CommandName == "Delete")
         {
-            ds = getdata.getSecondarySalesParty("DELETE", e.CommandArgument.ToString(), "", "", "", "", "");
+            ds = getdata.getSecondarySalesParty("DELETE", e.CommandArgument.ToString(), "", "", "", "", "","");
             if (ds.Tables[0].Rows[0]["STATUS"].ToString() == "1") { 
             ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Deleted Successfully......')", true);
             fillData();
@@ -54,10 +62,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
         }
     }
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        fillData();
-    }
+ 
     [WebMethod]
     public static string ControlAccess()
     {
@@ -65,4 +70,10 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
         return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
     }
 
+
+    protected void drpStation_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        fillData();
+
+    }
 }

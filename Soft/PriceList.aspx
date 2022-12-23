@@ -22,12 +22,12 @@
                         <div class="form-group">
                             <div class="col-md-3">
                                 <label>Group</label>
-                                <asp:DropDownList ID="drpGroup" runat="server" CssClass="form-control select2">
+                                <asp:DropDownList ID="drpGroup" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpGroup_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
                                 <label>State</label>
-                                <asp:DropDownList ID="drpState" runat="server" CssClass="form-control select2">
+                                <asp:DropDownList ID="drpState" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpGroup_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Text="Local State" Value="0"/>
                                     <asp:ListItem Text="Out of State" Value="1"/>
                                 </asp:DropDownList>
@@ -39,10 +39,10 @@
                             </div>--%>
 
 
-                            <div class="col-md-1" style="padding-top: 3px;">
+<%--                            <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>
+                            </div>--%>
 
                         </div>
                         <div class="clearfix">&nbsp;</div>
@@ -53,7 +53,7 @@
                     <div class="box-body">
                         <div class="widget-content">
                             <div class="table-responsive">
-                                <table id="ExportTbl" class="table table-bordered display table-striped">
+                                <table id="ExportTbl" border="1" class="table display table-striped">
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
@@ -61,7 +61,8 @@
                                             <th style="text-align: left;">Rate Per Kg</th>
                                             <th style="text-align: left;">Rate Per Pc</th>
                                             <th style="text-align: left;">Per Case/Bag</th>
-                                            <th style="text-align: left;">Packing</th>
+                                            <th style="text-align: left;">Packing(In KG)</th>
+                                            <th style="text-align: left;">Packing(In pc)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -76,6 +77,7 @@
                                                     <td style="text-align: left;"><%#Eval("tRate") %></td>
                                                     <td style="text-align: left;"><%#Eval("BagRate") %></td>
                                                     <td style="text-align: left;"><%#Eval("Packing") %></td>
+                                                    <td style="text-align: left;"><%#Eval("itpacking") %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>

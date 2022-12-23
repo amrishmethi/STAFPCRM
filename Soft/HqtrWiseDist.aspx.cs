@@ -44,7 +44,7 @@ public partial class Admin_HqtrWiseDist : System.Web.UI.Page
                 ////drpheadQtr.DataBind();
                 drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
             }
-            ds = getdata.getUserTourPlan(drpUser.SelectedValue);
+            ds = getdata.getUserTourPlan(drpUser.SelectedValue,"");
             ViewState["tbl"] = ds.Tables[2];
             fillData();
         }
@@ -99,7 +99,7 @@ public partial class Admin_HqtrWiseDist : System.Web.UI.Page
     {
         if (RadioButton1.Checked)
         {
-            ds = getdata.getUserTourPlan(drpUser.SelectedValue);
+            ds = getdata.getUserTourPlan(drpUser.SelectedValue,"");
             ViewState["tbl"] = ds.Tables[2];
             drpheadQtr.DataSource = ds.Tables[0].DefaultView.ToTable(true, "HeadQtr");
             drpheadQtr.DataTextField = "HeadQtr";

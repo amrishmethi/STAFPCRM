@@ -33,7 +33,7 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
 
     public void fillData(string id)
     {
-        ds = getdata.getSecondarySalesParty("SELECT",id,"0","","","","");
+        ds = getdata.getSecondarySalesParty("SELECT",id,"0","0","","","","0");
         if (ds.Tables[0].Rows.Count > 0) { 
         drpStation.SelectedValue = ds.Tables[0].Rows[0]["StationName"].ToString();
         txtParty.Text = ds.Tables[0].Rows[0]["Name"].ToString();
@@ -50,7 +50,7 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
             action = "UPDATE";
             SecondarySalesPartyid = Request.QueryString["id"].ToString();
         }
-        getdata.getSecondarySalesParty(action, SecondarySalesPartyid,"0",drpStation.SelectedItem.Text,txtParty.Text.Trim(),txtMobile.Text.Trim(),txtWhatsApp.Text.Trim());
+        getdata.getSecondarySalesParty(action, SecondarySalesPartyid,"0",drpStation.SelectedItem.Text,txtParty.Text.Trim(),txtMobile.Text.Trim(),txtWhatsApp.Text.Trim(),"");
         Response.Redirect("SecondarySalesParty.aspx");
     }
 

@@ -31,17 +31,15 @@ public partial class Soft_PayrollRep : System.Web.UI.Page
         if (drpDepartment.SelectedIndex > 0)
             query += " and DEPT_ID=" + drpDepartment.SelectedValue;
         if (drpDesignation.SelectedIndex > 0)
-            query += " and DESIG_ID='" + drpDesignation.SelectedValue + "'";
+            query += " and DESIG_ID='" + drpDesignation.SelectedValue + "'";  
+        if (drpProjectManager.SelectedIndex > 0)
+            query += " and Rep_Manager='" + drpProjectManager.SelectedValue + "'";
         dsResult = data.getDataSet(query);
         rep.DataSource = dsResult;
         rep.DataBind();
     }
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        FillRecords();
-    }
-
+  
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         if (e.CommandName == "Delete")
@@ -49,5 +47,10 @@ public partial class Soft_PayrollRep : System.Web.UI.Page
             data.executeCommand("EMPDETAIL_DELETE " + e.CommandArgument.ToString() + "," + Soft["UserId"]);
             ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Delete Successfully');window.location ='PayrollRep.aspx'", true);
         }
+    }
+
+    protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FillRecords();
     }
 }

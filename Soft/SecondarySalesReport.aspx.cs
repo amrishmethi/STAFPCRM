@@ -23,20 +23,20 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
             if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
 
             Soft = Request.Cookies["STFP"];
-
             Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             Gd.FillUser(drpUser);
             Gd.FillPrimaryParty(drpParty);
             Gd.FillPrimaryStation(drpStation);
+            Gd.fillDepartment(drpDept);
             fillData();
         }
     }
 
     public void fillData()
     {
-        ds = getdata.getSeconarySalesDetails(drpUser.SelectedValue, drpParty.SelectedValue, drpStation.SelectedItem.Text, dpFrom.Text.Trim(), dpTo.Text.Trim());
+        ds = getdata.getSeconarySalesDetails(drpUser.SelectedValue, drpParty.SelectedValue, drpStation.SelectedItem.Text, dpFrom.Text.Trim(), dpTo.Text.Trim(),drpDept.SelectedValue);
         DataView dv = ds.Tables[0].DefaultView;
         if (drpIsCheck.SelectedValue == "0") { dv.RowFilter = " AddedDate is null"; }
         else if (drpIsCheck.SelectedValue == "1") { dv.RowFilter = " AddedDate is not null"; }
@@ -45,10 +45,7 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
     }
 
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        fillData();
-    }
+
 
     [WebMethod]
     public static string ControlAccess()

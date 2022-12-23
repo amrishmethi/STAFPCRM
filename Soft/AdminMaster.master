@@ -274,7 +274,9 @@
             $('.abc').colorbox({ iframe: true, width: '80%', height: '90%' });
         </script>
 
-
+        <script type="text/javascript">
+            $('.abc1').colorbox({ iframe: true, width: '50%', height: '80%' });
+        </script>
     </form>
 </body>
 </html>

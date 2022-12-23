@@ -24,25 +24,22 @@
 
                             <div class="col-md-4">
                                 <label>Station</label>
-                                <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2">
+                                <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-4">
                                 <label>Party</label>
-                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
+                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-4">
+                                <label>HeadQuarter</label>
+                                <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
 
-
-
-                            <div class="col-md-4" style="padding-top: 3px;">
-                                <div class="clearfix">&nbsp;</div>
-                                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>
-
                         </div>
-                        <div class="clearfix">&nbsp;</div>
-
+                        
                         <div class="clearfix">&nbsp;</div>
                     </div>
                 </div>
@@ -50,7 +47,7 @@
                     <div class="box-body">
                         <div class="widget-content">
                             <div class="table-responsive">
-                                <table id="ExportTbl" class="table table-bordered display table-striped">
+                                <table id="ExportTbl" border="1" class="table display table-striped">
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
@@ -58,6 +55,7 @@
                                             <th style="text-align: left;">Party</th>
                                             <th style="text-align: left;">Mobile No</th>
                                             <th style="text-align: left;">WhatsApp No</th>
+                                          
                                             <th>
                                                 <label id="lblAction">Action</label></th>
                                         </tr>
@@ -141,7 +139,7 @@
                 }
             });
         })
- 
+
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>

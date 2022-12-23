@@ -57,7 +57,7 @@
 
                         </div>
                         <div class="clearfix">&nbsp;</div>
-                        <div class="clearfix">&nbsp;</div>
+                       
                     </div>
                 </div>
                 <div class="box box-primary">
@@ -101,15 +101,16 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("UserName") %></td>
-                                                           <td>
-                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("InImage") %>' Width="50" Height="50" Visible='<%# (Eval("InImage").ToString()=="")?false:true %>' /></td>
+                                                           <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("InImage") %>" class="abc1">
+                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("InImage") %>' Width="50" Height="50" Visible='<%# (Eval("InImage").ToString()=="")?false:true %>' /></a></td>
                                                     <td style="text-align: left;"><%#Eval("Party") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;"><%#Eval("LoginMobile") %></td>
                                                     <td style="text-align: left;"><%#Eval("CheckDate") %><br /><%#Eval("CheckTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("Place") %></td>
                                                        <td>
-                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("OutImage") %>' Width="50" Height="50" Visible='<%# (Eval("OutImage").ToString()=="")?false:true %>' /></td>
+                                                           <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("OutImage") %>" class="abc1">
+                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("OutImage") %>' Width="50" Height="50" Visible='<%# (Eval("OutImage").ToString()=="")?false:true %>' /></a></td>
                                                     <td style="text-align: left;"><%#Eval("OutDate") %><br /><%#Eval("OutTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("ChkOutPlace") %></td>
                                                     <td style="text-align: left;"><%#Eval("NextParty") %></td>

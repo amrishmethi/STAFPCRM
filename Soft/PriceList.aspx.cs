@@ -45,10 +45,10 @@ public partial class Admin_PriceList : System.Web.UI.Page
         rep.DataBind();
     }
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        fillData();
-    }
+    //protected void btnSearch_Click(object sender, EventArgs e)
+    //{
+    //    fillData();
+    //}
 
     [WebMethod]
     public static string ControlAccess()
@@ -58,4 +58,9 @@ public partial class Admin_PriceList : System.Web.UI.Page
     }
 
 
+
+    protected void drpGroup_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        fillData();
+    }
 }

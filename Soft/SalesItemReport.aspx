@@ -5,15 +5,29 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <title>Secondary Sales Report(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
+    <style type="text/css">
+        #slateGrey {
+            background-color: lightslategrey;
+            color: white;
+        }
+
+        #backcolor {
+            background-color: lightgray;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
 
     <section class="content-header" style="height: 2.5em;">
         <h1>Secondary Sales Report</h1>
-
         <ol class="breadcrumb">
-           <button onclick="history.go(-1);
-        return false;" class="btn btn-sm btn-success">Go Back</button>  
+            <li>
+                <button onclick="history.go(-1);
+        return false;"
+                    class="btn btn-sm btn-success">
+                    Go Back</button>
+                <button id="print" onclick="Print_Div()" class="btn btn-sm btn-info">PDF</button>
+            </li>
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/SalesItemReport.aspx" class="active">Secondary Sales Report</a></li>
         </ol>
@@ -21,58 +35,20 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
-                <%--   <div class="box box-primary">
-                    <div class="box-body">
-                        <div class="form-group">
-                            <div class="clearfix">&nbsp;</div>
 
-                            <div class="col-md-2">
-                                <label>Employee</label>
-                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Station</label>
-                                <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Primary Party</label>
-                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Date From</label>
-                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker">
-                                </asp:TextBox>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Date To</label>
-                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker">
-                                </asp:TextBox>
-                            </div>
-
-                            <div class="col-md-1" style="padding-top: 3px;">
-                                <div class="clearfix">&nbsp;</div>
-                                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>
-                            <div class="clearfix">&nbsp;</div>
-                        </div>
-                        </div>
-                    </div>
-                </div>--%>
                 <div class="box box-primary">
                     <div class="box-body">
 
                         <div class="widget-content nopadding" style="overflow: auto;">
-                            <div class="table-responsive">
-                                <table id="ExportTbl" class="table table-bordered display" style="width: 100%">
+                            <div id="tblBlock" runat="server" class="table-responsive">
+                                <table id="example" class="table table-bordered display" style="width: 100%">
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">Date<br />
                                                 Time</th>
                                             <th style="text-align: left;">Employee</th>
+                                            <th style="text-align: left;">Image</th>
                                             <th style="text-align: left;">Primary Party</th>
                                             <th style="text-align: left;">Primary Station</th>
                                             <th style="text-align: left;">Secondary Party</th>
@@ -81,9 +57,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="rep" runat="server" OnItemDataBound="rep_ItemDataBound">
+                                        <asp:Repeater ID="rep" runat="server" OnItemDataBound="rep_ItemDataBound" OnItemCommand="rep_ItemCommand" >
                                             <ItemTemplate>
-                                                <tr class="gradeA" style="background-color: lightslategrey; color: white;">
+                                                <tr id="slateGrey" class="gradeA" style="">
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                         <asp:HiddenField ID="hddid" runat="server" Value='<%#Eval("ChkOutID") %>' />
@@ -91,6 +67,8 @@
                                                     <td><%#Eval("CHECKDATE") %><br />
                                                         <%#Eval("CHECKTIME") %></td>
                                                     <td><%#Eval("Employees") %></td>
+                                                    <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/CameraPhotos/SecondarySales/" + Eval("Image") %>" class="abc1">
+                                                             <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/SecondarySales/" + Eval("Image") %>' Width="50" Height="50" Visible='<%# (Eval("Image").ToString()=="")?false:true %>' /></a></td>
                                                     <td><%#Eval("PrimaryParty") %></td>
                                                     <td><%#Eval("PrimaryStation") %></td>
                                                     <td><%#Eval("SECONDARYPARTY") %></td>
@@ -98,7 +76,8 @@
                                                     <td><%#Eval("MobileNo") %></td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="13" style="background-color: lightgray;">
+                                                    <td id="backcolor" colspan="13" style="">
+
                                                         <table class="table table-bordered display table-striped">
                                                             <thead>
                                                                 <tr>
@@ -142,6 +121,7 @@
                                                                 </tr>
                                                             </tfoot>
                                                         </table>
+
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
@@ -154,7 +134,7 @@
                                 <asp:TextBox ID="txtGrandTot" runat="server" Style="font-weight: bold; text-align: right;" ReadOnly="true" Text="0.00"></asp:TextBox>
                             </div>
                         </div>
-                     
+
                     </div>
                 </div>
             </div>
@@ -200,6 +180,34 @@
             });
         })
 
+    </script>
+    <script>
+        function Print_Div() {
+            debugger
+            var restorepage = $('body').html();
+            var divContents = document.getElementById("Body_tblBlock").innerHTML;
+            var a = window.open('', '', 'height=500, width=500');
+            a.document.write('<html>');
+            a.document.write('<head> <style>');
+            a.document.write('@media print {#slateGrey{ background-color: lightslategrey; color: white; }');
+            a.document.write('#backcolor{ background-color: lightgray; }}');
+            a.document.write('</style></head>');
+            a.document.write('<body>');
+            a.document.write(divContents);
+            a.document.write('</body></html>');
+            a.document.close();
+            a.print();
+            $('body').html(restorepage);
+        }
+        //function Print_Div() {
+        //    debugger
+        //    var restorepage = $('body').html();
+        //    var printcontent = $('#Body_tblBlock').clone();
+        //    $('body').empty().html(printcontent);
+        //    window.print();
+        //    $('body').html(restorepage);
+        //};
+    
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>

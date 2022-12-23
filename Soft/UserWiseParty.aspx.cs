@@ -62,7 +62,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         if (drpStation.SelectedIndex > 0)
         {
             dv.RowFilter = " Station = '" + drpStation.SelectedValue + "'";
-        } 
+        }
         if (drpCatg.SelectedIndex > 0)
         {
             dv.RowFilter = " PTCMsNo = '" + drpCatg.SelectedValue + "'";
@@ -83,7 +83,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
 
     protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ds = getdata.getUserTourPlan(drpUser.SelectedValue);
+        ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
         ViewState["tbl"] = ds.Tables[0];
         drpheadQtr.DataSource = ds.Tables[0].DefaultView.ToTable(true, "HeadQtr");
         drpheadQtr.DataTextField = "HeadQtr";
@@ -116,7 +116,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         drpUser.DataBind();
         drpUser.Items.Insert(0, new ListItem("Select", "0"));
         drpUser.SelectedIndex = 1;
-        ds = getdata.getUserTourPlan(drpUser.SelectedValue);
+        ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
         drpDistrict.DataSource = ds.Tables[0].DefaultView.ToTable(true, "District");
         drpDistrict.DataTextField = "District";
         drpDistrict.DataValueField = "District";
@@ -134,9 +134,9 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
     protected void drpDistrict_SelectedIndexChanged(object sender, EventArgs e)
     {
         fillData();
-         DataTable dt = (DataTable)ViewState["tbl"];
+        DataTable dt = (DataTable)ViewState["tbl"];
         DataView dv = dt.DefaultView;
-        dv.RowFilter = "District = '" + drpDistrict.SelectedValue +"'";
+        dv.RowFilter = "District = '" + drpDistrict.SelectedValue + "'";
         drpStation.DataSource = dv.ToTable(true, "Station");
         drpStation.DataTextField = "Station";
         drpStation.DataValueField = "Station";
@@ -151,8 +151,20 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
 
     protected void drpCatg_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (rep.DataSource != null) {
-        fillData();
+        if (drpUser.SelectedIndex > 0)
+        {
+            fillData();
         }
+    }
+
+    protected void drpType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (drpType.SelectedValue == "1")
+            drpCatg.Enabled = false;
+        else
+            drpCatg.Enabled = true;
+        ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
+        ViewState["tbl"] = ds.Tables[0];
+        fillData();
     }
 }

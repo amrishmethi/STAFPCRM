@@ -33,10 +33,11 @@
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="clearfix">&nbsp;</div>
+                    
                  <div class="col-sm-1"><label>Group</label></div>
-                 <div class="col-sm-4"><asp:TextBox ID="txtGroup" runat="server" CssClass="form-control"></asp:TextBox></div>
+                 <div class="col-sm-4"><asp:DropDownList ID="drpGroup" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpGroup_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList></div>
                  <div class="col-sm-1"><label>Item</label></div>
-                 <div class="col-sm-4"><asp:TextBox ID="txtItem" runat="server"  CssClass="form-control"></asp:TextBox></div>
+                 <div class="col-sm-4"><asp:DropDownList ID="drpItem" runat="server"  CssClass="form-control select2"></asp:DropDownList></div>
                     <div class="clearfix">&nbsp;</div>
                     <div class="clearfix">&nbsp;</div>
                     <div class="col-sm-1"><label>Bag/Case</label></div>

@@ -7,8 +7,8 @@
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIrlPtnZgEk&sensor=false">
 </script>--%>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7DfAXDji_OMVHi0-vwlWTI5csEXXwCgE"
-        type="text/javascript"></script>
+    <%--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7DfAXDji_OMVHi0-vwlWTI5csEXXwCgE"
+        type="text/javascript"></script>--%>
     <title>Dashboard(STAFP)</title>
     <style>
         #Body_linkloc {
@@ -52,7 +52,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h4>Total Employees : <b id="TotUsr" runat="server">0</b></h4>
+                        <h4>Total Employees (SAles): <b id="TotUsr" runat="server">0</b></h4>
                         <p>
                             Today's CheckIn : <b id="chkInusr" runat="server">0</b>
                             <br />
@@ -71,9 +71,9 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
                 <div class="small-box bg-green">
                     <div class="inner">
                         <h4>Total Employees : <b id="TotUsr1" runat="server">0</b></h4>
-                        <div id="deptBlock" runat="server" class="col-md-12"></div>
-                        <div id="AttnInBlock" runat="server" class="col-md-12"></div>
-                        <div id="AttnOutBlock" runat="server" class="col-md-12"></div>
+                        <div id="deptBlock" runat="server" class="col-md-12" style="font-weight:bold;text-align:center;"></div>
+                        <div id="AttnInBlock" runat="server" class="col-md-12" style="font-weight:bold;text-align:center;"></div>
+                        <div id="AttnOutBlock" runat="server" class="col-md-12" style="font-weight:bold;text-align:center;"></div>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>
@@ -101,7 +101,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
             <!-- ./col -->
             <div class="col-lg-12 col-xs-6">
                 <!-- smalls box -->
-                <div class="small-box bg-red">
+                <div class="bg-red" style="padding:10px;">
                     <div class="inner">
                         <h4>Item Summary : <b id="todayDate" runat="server"></b></h4>
                         <div class="box box-primary">

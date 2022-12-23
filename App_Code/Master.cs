@@ -24,7 +24,7 @@ public class Master
         //
     }
 
-    public DataSet getSecondarySalesParty(string action, string id, string stationid, string station, string name, string mobile, string whatsapp)
+    public DataSet getSecondarySalesParty(string action, string id, string stationid, string station, string name, string mobile, string whatsapp,string hqtr)
     {
         cmd = new SqlCommand("PROC_SECONDARYPARTY");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -35,6 +35,7 @@ public class Master
         cmd.Parameters.AddWithValue("@NAME", name);
         cmd.Parameters.AddWithValue("@MOBILENO", mobile);
         cmd.Parameters.AddWithValue("@WHATSUPMOBILENO", whatsapp);
+        cmd.Parameters.AddWithValue("@HQD", hqtr);
         ds = data.getDataSet(cmd);
         return ds;
     }
@@ -138,16 +139,32 @@ public class Master
         return ds;
     }
 
-    public DataSet getUserTourPlan(string userid)
+    public DataSet getClientMeet(string emp, string party, string type, string dt_from,string dt_to, string deptid)
     {
-        cmd = new SqlCommand("PROC_USERTOURPLAN");
+        cmd = new SqlCommand("PROC_ClientMeet");
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("@UserID", userid);
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@empid", emp);
+        cmd.Parameters.AddWithValue("@Hqtr", party);
+        cmd.Parameters.AddWithValue("@type", type);
+        cmd.Parameters.AddWithValue("@dt", data.YYYYMMDD(dt_from));
+        cmd.Parameters.AddWithValue("@dt1", data.YYYYMMDD(dt_to));
+        cmd.Parameters.AddWithValue("@dpt", deptid);
         ds = data.getDataSet(cmd);
         return ds;
     }
 
-    public DataSet getSeconarySalesDetails(string userid, string party, string station, string indate, string intime)
+    public DataSet getUserTourPlan(string userid,string type)
+    {
+        cmd = new SqlCommand("PROC_USERTOURPLAN");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@UserID", userid);
+        cmd.Parameters.AddWithValue("@type", type);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+    public DataSet getSeconarySalesDetails(string userid, string party, string station, string indate, string intime,string dept)
     {
         cmd = new SqlCommand("PROC_SecondarySalesReport");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -156,6 +173,7 @@ public class Master
         cmd.Parameters.AddWithValue("@STATION", station);
         cmd.Parameters.AddWithValue("@DATEFROM", data.YYYYMMDD(indate));
         cmd.Parameters.AddWithValue("@DATETO", data.YYYYMMDD(intime));
+        cmd.Parameters.AddWithValue("@Deptid", dept);
         ds = data.getDataSet(cmd);
         return ds;
     }public DataSet getSecondarySalesItem(string id)

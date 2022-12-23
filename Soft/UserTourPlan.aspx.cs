@@ -48,7 +48,7 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
 
     public void fillData()
     {
-        ds = getdata.getUserTourPlan(drpUser.SelectedValue);
+        ds = getdata.getUserTourPlan(drpUser.SelectedValue,"");
                DataView dv = ds.Tables[1].DefaultView;
         if (drpheadQtr.SelectedIndex > 0)
         {
@@ -144,7 +144,7 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
         drpUser.DataValueField = "MId";
         drpUser.DataBind();
         drpUser.SelectedIndex = 0;
-        ds = getdata.getUserTourPlan(drpUser.SelectedValue);
+        ds = getdata.getUserTourPlan(drpUser.SelectedValue,"");
         drpDistrict.DataSource = ds.Tables[1].DefaultView.ToTable(true, "District");
         drpDistrict.DataTextField = "District";
         drpDistrict.DataValueField = "District";

@@ -37,6 +37,7 @@ public class GetData
         drptypeConst.DataBind();
     }
 
+    
     public void FillRoomType(ListBox drptypeConst)
     {
         ds = data.getDataSet("select * from Tbl_RoomType where IsDeleted=0 Order by Name");
@@ -214,6 +215,17 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
+    public void FillItem(DropDownList drp)
+    {
+        query = "SELECT ITName  FROM [stm_stmast].[dbo].[ITEM] Order By ITName";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "ITName";
+        drp.DataValueField = "ITName";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
     public void FillDrop(DropDownList drp, String tbl)
     {
         query = "select * from " + tbl + " where IsDeleted=0 order by Name ";

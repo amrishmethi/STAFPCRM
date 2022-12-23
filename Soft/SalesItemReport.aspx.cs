@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -47,10 +48,7 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
     }
 
 
-    protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        Filldata();
-    }
+  
 
     protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
@@ -68,4 +66,24 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
             }
         }
     }
+
+
+
+    protected void btnPDF_Click(object sender, EventArgs e)
+    {
+        string sb = tblBlock.InnerHtml;
+       
+        StringReader sr = new StringReader(sb);
+        Session["InvPrint"] = sb;
+        Response.Write("<script>window.open('SecondarySalePrint.aspx','_blank');</script>");
+    }
+
+    protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        if(e.CommandName == "ResizeImg")
+        {
+            Response.Redirect("ResizeImage.aspx?imgurl=" + e.CommandArgument.ToString());
+        }
+    }
+
 }

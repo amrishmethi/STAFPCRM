@@ -24,7 +24,7 @@
 
                             <%--   <asp:UpdatePanel ID="upd" runat="server">
                     <ContentTemplate>--%>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>Employee</label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
@@ -49,6 +49,13 @@
                                 <asp:DropDownList ID="drpCatg" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpCatg_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
+                             <div class="col-md-2">
+                                <label>Party Type</label>
+                                <asp:DropDownList ID="drpType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:ListItem Value="0" Selected="True">Primary</asp:ListItem>
+                                <asp:ListItem Value="1">Secondary</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
                             <%--   <div class="col-md-1" style="padding-top: 3px;">
                                         <div class="clearfix">&nbsp;</div>
                                         <asp:button id="btnsearch" runat="server" cssclass="btn btn-primary" text="search" onclick="btnsearch_click" />
@@ -61,7 +68,7 @@
                     </Triggers>
                 </asp:UpdatePanel>--%>
                         </div>
-                        <div class="clearfix">&nbsp;</div>
+                      
                         <div class="clearfix">&nbsp;</div>
                     </div>
                 </div>

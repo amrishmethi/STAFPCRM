@@ -107,8 +107,8 @@
                         <label class="control-label">Current Status</label>
                         <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2">
                             <asp:ListItem Value="0">--Select--</asp:ListItem>
-                            <asp:ListItem Value="1" Selected="True">Active</asp:ListItem>
-                            <asp:ListItem Value="2">Non-Active</asp:ListItem>
+                            <asp:ListItem Value="Active" Selected="True">Active</asp:ListItem>
+                            <asp:ListItem Value="Non-Active">Non-Active</asp:ListItem>
                         </asp:DropDownList>
                     </div>
                     <div class="clearfix">&nbsp;</div>

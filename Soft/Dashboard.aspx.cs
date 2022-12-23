@@ -58,7 +58,7 @@ public partial class Admin_Dashboard : System.Web.UI.Page
         foreach (DataRow rw in ds.Tables[2].Rows)
         {
             str += "<div class='col-md-2'>";
-            str += rw["Dept"]+" ("+rw["TotAttendant"] +")";
+            str += rw["Dept"]+"("+rw["TotAttendant"] +")";
             str += "</div>";
             str1 += "<div class='col-md-2'>";
             str1 += rw["AttendIn"];
@@ -72,11 +72,11 @@ public partial class Admin_Dashboard : System.Web.UI.Page
         {
             chkInusr.InnerHtml = ds.Tables[0].Rows[0]["CheckInUsers"].ToString();
             chkOutusr.InnerHtml = ds.Tables[0].Rows[0]["CheckOutUsers"].ToString();
-                 
             deptBlock.InnerHtml = str;
             AttnInBlock.InnerHtml = str1;
             AttnOutBlock.InnerHtml = str2;
-            TotUsr.InnerHtml = ds.Tables[0].Rows[0]["Users"].ToString();TotUsr1.InnerHtml = ds.Tables[0].Rows[0]["Users"].ToString();
+            TotUsr.InnerHtml = ds.Tables[0].Rows[0]["SalesUsers"].ToString(); 
+            TotUsr1.InnerHtml = ds.Tables[0].Rows[0]["Users"].ToString();
         //    AttnIn.InnerHtml = ds.Tables[0].Rows[0]["AttendIn"].ToString();
        //     AttnOut.InnerHtml = ds.Tables[0].Rows[0]["AttendOut"].ToString();
             rep.DataSource = ds.Tables[1];

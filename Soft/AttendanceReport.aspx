@@ -98,14 +98,14 @@
                                                     <td style="text-align: left;"><%#Eval("UserName") %></td>
 
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
-                                                    <td>
-                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/Attendance/" + Eval("SelfieIN") %>' Width="50" Height="50" Visible='<%# (Eval("SelfieIN").ToString()=="")?false:true %>' /></td>
+                                                    <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/CameraPhotos/Attendance/" + Eval("SelfieIN") %>" class="abc1">
+                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/Attendance/" + Eval("SelfieIN") %>' Width="50" Height="50" Visible='<%# (Eval("SelfieIN").ToString()=="")?false:true %>' /></a></td>
                                                     <td style="text-align: left;"><%#Eval("StationIN") %></td>
                                                     <td style="text-align: left;"><%#Eval("DesscriptionIN") %></td>
                                                     <td style="text-align: left;"><%#Eval("DateIN") %><br/><%#Eval("TimeIN") %></td>
                                                     <td style="text-align: left;"><%#Eval("PlaceIN") %></td>
-                                                    <td>
-                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/Attendance/" + Eval("SelfieOUT") %>' Width="50" Height="50" Visible='<%# (Eval("SelfieOUT").ToString()=="")?false:true %>' /></td>
+                                                    <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/CameraPhotos/Attendance/" + Eval("SelfieOUT") %>" class="abc1">
+                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/Attendance/" + Eval("SelfieOUT") %>' Width="50" Height="50" Visible='<%# (Eval("SelfieOUT").ToString()=="")?false:true %>' /></a></td>
                                                     <td style="text-align: left;"><%#Eval("StationOUT") %></td>
                                                     <td style="text-align: left;"><%#Eval("DesscriptionOUT") %></td>
                                                     <td style="text-align: left;"><%#Eval("DateOUT") %><br/><%#Eval("TimeOUT") %></td>

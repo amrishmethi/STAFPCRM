@@ -85,7 +85,7 @@
                                                             <asp:HyperLink ID="lnkAssbtn" runat="server" NavigateUrl='<%# "AddUserRoles.aspx?id=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">Assign Roles</asp:HyperLink>
                                                         </div>
                                                         <div class="isHrVisible" style="display: inline;">
-                                                            <asp:HyperLink ID="lnkHrbtn" runat="server" NavigateUrl='<%# "Payroll.aspx?uid=" + (string)Eval("Id").ToString() %>' class="btn btn-small btn-primary">HR</asp:HyperLink>
+                                                            <asp:HyperLink ID="lnkHrbtn" runat="server" NavigateUrl='<%# "Payroll.aspx?uid=" + (string)Eval("Id").ToString() %>' class='<%# Eval("Department").ToString() == "" ? "btn btn-small btn-danger": "btn btn-small btn-success" %>'>HR</asp:HyperLink>
                                                         </div>
                                                     </td>
                                                     <%--<td style="text-align: center;" class="isAssVisible">
