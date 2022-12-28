@@ -2,6 +2,8 @@
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <title>Create Dealer(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
@@ -20,8 +22,8 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-md-4">
-                                <label>Employee</label>
+                             <%-- <div class="col-md-4">
+                              <label>Employee</label>
                                 <asp:DropDownList ID="drpEmp" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
@@ -34,34 +36,34 @@
                                 <label>Head Quarter</label>
                                 <asp:DropDownList ID="drpHqtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
-                            </div>
+                            </div>--%>
                             <div class="col-md-2">
-                                <label>Client Meet Type</label>
-                                <asp:DropDownList ID="drpType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                                <label>Party Type</label>
+                                <asp:DropDownList ID="drpType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
-                                    <asp:ListItem Value="New" Text="New"></asp:ListItem>
-                                    <asp:ListItem Value="Exist" Text="Exist"></asp:ListItem>
+                                    <asp:ListItem Value="Channel Sales Party" Text="Channel Sales Party"></asp:ListItem>
+                                    <asp:ListItem Value="Direct Sales Party" Text="Direct Sales Party"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                            
-                            <div class="col-md-2">
-                                <label>Date From</label>
-                                <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control datepicker" OnTextChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                           <div class="col-md-2">
+                                <label>Date</label>
+                                <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker" OnTextChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:TextBox>
                             </div>
-                            <div class="col-md-2">
+                          <%--   <div class="col-md-2">
                                 <label>Date To</label>
                                 <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control datepicker" OnTextChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:TextBox>
-                            </div>
-                             <div class="col-md-2">
+                            </div>--%>
+                            <%-- <div class="col-md-2">
                                 <label>IsMeet</label>
                                 <asp:DropDownList ID="drpIsMeet" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
                                     <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
                                     <asp:ListItem Value="0" Text="No"></asp:ListItem>
                                 </asp:DropDownList>
-                            </div>
+                            </div>--%>
                         </div>
                         <div class="clearfix">&nbsp;</div>
                         <div class="clearfix">&nbsp;</div>
@@ -75,18 +77,24 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
+                                            <th style="text-align: left;"></th>
                                             <th style="text-align: left;">Date<br />Time</th>
-                                            <th style="text-align: left;">Employee</th>
-                                            <th style="text-align: left;">Party</th>
-                                            <th style="text-align: left;">Head Quarter</th>
+                                            <th style="text-align: left;">Name</th>
+                                            <th style="text-align: left;">Contact Person</th>
+                                            <th style="text-align: left;">Address</th>
+                                            <th style="text-align: left;">Zip</th>
                                             <th style="text-align: left;">District</th>
                                             <th style="text-align: left;">Station</th>
-                                            <th style="text-align: left;">Mobile No</th>
-                                            <th style="text-align: left;">WhatsApp No</th>
-                                            <th style="text-align: left;">Description</th>
-                                            <th style="text-align: left;">Location</th>
+                                            <th style="text-align: left;">State</th>
+                                            <th style="text-align: left;">Gst No</th>
+                                            <th style="text-align: left;">Gst Type</th>
+                                            <th style="text-align: left;">Mobile</th>
+                                            <th style="text-align: left;">WhatsApp</th>
+                                            <th style="text-align: left;">Transport</th>
+                                            <th style="text-align: left;">Party Type</th>
+                                            <th style="text-align: left;">Party Category</th>
+                                            <th style="text-align: left;">Document</th>
                                             <th style="text-align: left;">Image</th>
-                                            <th style="text-align: left;">Meet Type</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -96,20 +104,28 @@
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
-                                                    <td style="text-align: left;"><%#Eval("AddedDate") %><br /><%#Eval("AddedTime") %></td>
+                                                    <td style="text-align: center;">
+                                                                                <a style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                                            </td>
+                                                    <td style="text-align: left;"><%#Eval("cdDATE") %><br /><%#Eval("cdTIME") %></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
-                                                    <td style="text-align: left;"><%#Eval("PartyName") %></td>
-                                                    <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
+                                                    <td style="text-align: left;"><%#Eval("ContPer") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Address") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PinCode") %></td>
                                                     <td style="text-align: left;"><%#Eval("District") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
-                                                    <td style="text-align: left;"><%#Eval("MobileNo") %></td>
+                                                    <td style="text-align: left;"><%#Eval("State") %></td>
+                                                    <td style="text-align: left;"><%#Eval("GSTNo") %></td>
+                                                    <td style="text-align: left;"><%#Eval("GSTRegType") %></td>
+                                                    <td style="text-align: left;"><%#Eval("SMSMobile") %></td>
                                                     <td style="text-align: left;"><%#Eval("WhatsAppNo") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Description") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Place") %></td>
-                                                    <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>" class="abc1">
-                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>' Width="50" Height="50" Visible='<%# (Eval("Image").ToString()=="")?false:true %>' /></a></td>
-                                                    <td style="text-align: left;"><%#Eval("ClientMeetType") %></td>
-                                                </tr>
+                                                    <td style="text-align: left;"><%#Eval("Transport") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PartyType") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PartyCategory") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DocName") %></td>
+                                                    <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/PartyRequest/" + Eval("DocFileName") %>" class="abc1">
+                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/PartyRequest/" + Eval("DocFileName") %>' Width="50" Height="50" Visible='<%# (Eval("DocFileName").ToString()=="")?false:true %>' /></a></td>
+                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </tbody>

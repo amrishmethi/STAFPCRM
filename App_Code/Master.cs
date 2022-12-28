@@ -154,6 +154,31 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
+    public DataSet getCreateDealer(string action, string id, string name, string contper, string address,string zip, string station, string state, string gst, string gstRegType, string smsMob, string whatsapp, string district, string transport, string partyType, string partyCatg, string webdate)
+    { 
+        cmd = new SqlCommand("PROC_CREATEDEALER");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@ACTION", action);
+        cmd.Parameters.AddWithValue("@ID", id);
+        cmd.Parameters.AddWithValue("@NAME", name);
+        cmd.Parameters.AddWithValue("@CONTACTP", contper);
+        cmd.Parameters.AddWithValue("@ADDRESS", address);
+        cmd.Parameters.AddWithValue("@ZIP", zip);
+        cmd.Parameters.AddWithValue("@STATION", station);
+        cmd.Parameters.AddWithValue("@STATE", state);
+        cmd.Parameters.AddWithValue("@GST", gst);
+        cmd.Parameters.AddWithValue("@GSTTYPE", gstRegType);
+        cmd.Parameters.AddWithValue("@MOBILE", smsMob);
+        cmd.Parameters.AddWithValue("@WHATSAPP", whatsapp);
+        cmd.Parameters.AddWithValue("@DISTRICT", district);
+        cmd.Parameters.AddWithValue("@TRANSPORT", transport);
+        cmd.Parameters.AddWithValue("@PTYPE", partyType);
+        cmd.Parameters.AddWithValue("@PCATG", partyCatg);
+        cmd.Parameters.AddWithValue("@WEBDATE", data.YYYYMMDD(webdate));
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
 
     public DataSet getUserTourPlan(string userid, string type)
     {
