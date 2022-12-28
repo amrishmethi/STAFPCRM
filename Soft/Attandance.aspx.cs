@@ -45,38 +45,44 @@ public partial class Soft_Attandance : System.Web.UI.Page
 
     private void FillRecords()
     {
-        string query = "select * from [EMP_VIEW] Where 0=0";
-        if (drpDepartment.SelectedIndex > 0)
-            query += " and DEPT_ID=" + drpDepartment.SelectedValue;
-        if (drpDesignation.SelectedIndex > 0)
-            query += " and DESIG_ID='" + drpDesignation.SelectedValue + "'";
-        if (drpProjectManager.SelectedIndex > 0)
-            query += " and Rep_Manager='" + drpProjectManager.SelectedValue + "'";
+        //string query = "select * from [EMP_VIEW] Where 0=0";
+        //if (drpDepartment.SelectedIndex > 0)
+        //    query += " and DEPT_ID=" + drpDepartment.SelectedValue;
+        //if (drpDesignation.SelectedIndex > 0)
+        //    query += " and DESIG_ID='" + drpDesignation.SelectedValue + "'";
+        //if (drpProjectManager.SelectedIndex > 0)
+        //    query += " and Rep_Manager='" + drpProjectManager.SelectedValue + "'";
 
-        dsResult = data.getDataSet(query);
-        dtEmp= dsResult.Tables[0];
-        DataTable dttEMp = new DataTable();
-        if (drpProjectManager.SelectedIndex > 0)
-        {
-            foreach (DataRow drr in dtEmp.Rows)
-            {
-                DataSet dsEmp = data.getDataSet("select * from EMP_VIEW where Rep_Manager=" + drr["EMPID"]);
-                dttEMp.Merge(dsEmp.Tables[0]);
-            }
-        }
-        dtEmp.Merge(dttEMp); 
-        rep.DataSource = dtEmp;
+        //dsResult = data.getDataSet(query);
+        //dtEmp= dsResult.Tables[0];
+        //DataTable dttEMp = new DataTable();
+        //if (drpProjectManager.SelectedIndex > 0)
+        //{
+        //    foreach (DataRow drr in dtEmp.Rows)
+        //    {
+        //        DataSet dsEmp = data.getDataSet("select * from EMP_VIEW where Rep_Manager=" + drr["EMPID"]);
+        //        dttEMp.Merge(dsEmp.Tables[0]);
+        //    }
+        //}
+        //dtEmp.Merge(dttEMp); 
+        //rep.DataSource = dtEmp;
+        //rep.DataBind();
+
+
+        DataSet ds = data.getDataSet("PROC_EMPHIERARCHY '" + drpProjectManager.SelectedValue + "','" + drpDepartment.SelectedValue + "'");
+        rep.DataSource = ds;
         rep.DataBind();
-    } 
+    }
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         string _Action = e.CommandName;
         string _EmpId = e.CommandArgument.ToString();
-        string Lat = hddLnL.Value.Split(',')[0].Replace("(","");
+        string Lat = hddLnL.Value.Split(',')[0].Replace("(", "");
         string Lang = hddLnL.Value.Split(',')[1].Replace(")", "");
-        dsResult = master.GetAttandance(_Action, _EmpId, Soft["UserId"], Lat, Lang);
-        Response.Redirect("Attandance.aspx");
+        dsResult = master.GetAttandance(_Action, _EmpId, Soft["UserName"], Lat, Lang);
+        FillRecords();
+        //Response.Redirect("Attandance.aspx");
     }
 
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
@@ -97,7 +103,7 @@ public partial class Soft_Attandance : System.Web.UI.Page
 
         lnkOut.Visible = (dss.Tables[0].Rows.Count > 0) ? Convert.ToBoolean(dss.Tables[0].Rows[0]["IsAttendanceOUT"]) ? false : true : false;
         lnkLeave.Visible = (dss.Tables[0].Rows.Count > 0) ? Convert.ToBoolean(dss.Tables[0].Rows[0]["IsAttendanceOUT"]) ? false : true : false;
-        lnkIN.Visible = (dss.Tables[0].Rows.Count > 0) ? false : true; 
+        lnkIN.Visible = (dss.Tables[0].Rows.Count > 0) ? false : true;
         if (dss.Tables[0].Rows.Count > 0)
         {
             string AttandanceIn = "In: " + dss.Tables[0].Rows[0]["ATTENDANCEDATEIN"].ToString();

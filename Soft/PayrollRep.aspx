@@ -78,8 +78,8 @@
                                                     <td style="text-align: left;"><%#Eval("Emp_Code") %></td>
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("REP_MANAGERNAME") %></td>
-                                                    <td style="text-align: left;"><%#Eval("REP_MANAGERNAME") %></td>
-                                                    <td style="text-align: left;"><%#Eval("REP_MANAGERNAME") %></td>
+                                                    <td style="text-align: left;"><%#Eval("In_Hand") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
                                                     <td style="text-align: left;"><%#Eval("Status") %></td>
 
                                                     <td style="text-align: left;">

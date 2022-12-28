@@ -10,7 +10,7 @@
         type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
-     
+
 
     <section class="content-header" style="height: 2.5em;">
         <h1>Attandance 
@@ -26,7 +26,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-md-3 hidden">
+                            <div class="col-md-3">
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
@@ -83,7 +83,6 @@
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
-
                                         </asp:Repeater>
                                     </tbody>
                                 </table>
