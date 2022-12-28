@@ -159,14 +159,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
         }
 
 
-        function showPosition(position) {
-          <%--  document.getElementById('hddLat').value = position.coords.latitude;
-            document.getElementById('hddLong').value = position.coords.longitude;
-            alert(document.getElementById('hddLat').value);
-            alert(document.getElementById('hddLong').value);
-            //document.getElementById('hdddata').value = position.coords.latitude +
-             //   "," + position.coords.longitude;--%>
-
+        function showPosition(position) { 
             var latvalue = position.coords.latitude;
             var longvalue = position.coords.longitude;
 

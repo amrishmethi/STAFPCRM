@@ -24,7 +24,7 @@ public class Master
         //
     }
 
-    public DataSet getSecondarySalesParty(string action, string id, string stationid, string station, string name, string mobile, string whatsapp,string hqtr)
+    public DataSet getSecondarySalesParty(string action, string id, string stationid, string station, string name, string mobile, string whatsapp, string hqtr)
     {
         cmd = new SqlCommand("PROC_SECONDARYPARTY");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -73,7 +73,7 @@ public class Master
         return ds;
     }
 
-    public DataSet getCheckInDetails(string userid,string deptid, string indate, string intime)
+    public DataSet getCheckInDetails(string userid, string deptid, string indate, string intime)
     {
         cmd = new SqlCommand("PROC_CHECKINOUT");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -85,7 +85,7 @@ public class Master
         return ds;
     }
 
-    public DataSet getAttendanceList(string userid,string deptid, string date)
+    public DataSet getAttendanceList(string userid, string deptid, string date)
     {
         cmd = new SqlCommand("PROC_ATTENDANCE");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -107,7 +107,7 @@ public class Master
         return ds;
     }
 
-    public DataSet getUserDetails(string userid,string dptid)
+    public DataSet getUserDetails(string userid, string dptid)
     {
         cmd = new SqlCommand("PROC_USERDETAILS");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -117,7 +117,7 @@ public class Master
         return ds;
     }
 
-    public DataSet getUserReport(string userid, string mobile,string dept,string desg)
+    public DataSet getUserReport(string userid, string mobile, string dept, string desg)
     {
         cmd = new SqlCommand("PROC_USERDETAILSREPORT");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -127,8 +127,9 @@ public class Master
         cmd.Parameters.AddWithValue("@desgid", desg);
         ds = data.getDataSet(cmd);
         return ds;
-    } 
-    public DataSet getPriceList(string sgrp,string isout)
+    }
+
+    public DataSet getPriceList(string sgrp, string isout)
     {
         cmd = new SqlCommand("PROC_PriceList");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -139,7 +140,7 @@ public class Master
         return ds;
     }
 
-    public DataSet getClientMeet(string emp, string party, string type, string dt_from,string dt_to, string deptid)
+    public DataSet getClientMeet(string emp, string party, string type, string dt_from, string dt_to, string deptid)
     {
         cmd = new SqlCommand("PROC_ClientMeet");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -154,7 +155,7 @@ public class Master
         return ds;
     }
 
-    public DataSet getUserTourPlan(string userid,string type)
+    public DataSet getUserTourPlan(string userid, string type)
     {
         cmd = new SqlCommand("PROC_USERTOURPLAN");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -164,7 +165,7 @@ public class Master
         return ds;
     }
 
-    public DataSet getSeconarySalesDetails(string userid, string party, string station, string indate, string intime,string dept)
+    public DataSet getSeconarySalesDetails(string userid, string party, string station, string indate, string intime, string dept)
     {
         cmd = new SqlCommand("PROC_SecondarySalesReport");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -176,7 +177,9 @@ public class Master
         cmd.Parameters.AddWithValue("@Deptid", dept);
         ds = data.getDataSet(cmd);
         return ds;
-    }public DataSet getSecondarySalesItem(string id)
+    }
+
+    public DataSet getSecondarySalesItem(string id)
     {
         cmd = new SqlCommand("PROC_SECONDARYITEMS1");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -221,19 +224,19 @@ public class Master
     }
 
     public DataSet GetDepartment(string ACTION, string DEPT_ID, string DEPT_NAME, string DELID, string DEPT_CODE)
-    { 
+    {
         cmd = new SqlCommand("GETDEPARTMENT");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ACTION", ACTION);
         cmd.Parameters.AddWithValue("@DEPT_ID", DEPT_ID);
         cmd.Parameters.AddWithValue("@DEPT_NAME", DEPT_NAME);
-        cmd.Parameters.AddWithValue("@DELID", DELID); 
-        cmd.Parameters.AddWithValue("@DEPT_CODE", DEPT_CODE); 
+        cmd.Parameters.AddWithValue("@DELID", DELID);
+        cmd.Parameters.AddWithValue("@DEPT_CODE", DEPT_CODE);
         ds = data.getDataSet(cmd);
         return ds;
     }
 
-    public DataSet GetAdminPolicy(string ACTION, string POLICY_ID,string Head, string POLICY, string DELID, string POLICY_DATE)
+    public DataSet GetAdminPolicy(string ACTION, string POLICY_ID, string Head, string POLICY, string DELID, string POLICY_DATE)
     {
         cmd = new SqlCommand("GETADMINPOLICY");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -242,10 +245,11 @@ public class Master
         cmd.Parameters.AddWithValue("@HEAD", Head);
         cmd.Parameters.AddWithValue("@POLICY", POLICY);
         cmd.Parameters.AddWithValue("@DELID", DELID);
-        cmd.Parameters.AddWithValue("@POLICY_DATE", (POLICY_DATE!="")?data.YYYYMMDD(POLICY_DATE): POLICY_DATE);
+        cmd.Parameters.AddWithValue("@POLICY_DATE", (POLICY_DATE != "") ? data.YYYYMMDD(POLICY_DATE) : POLICY_DATE);
         ds = data.getDataSet(cmd);
         return ds;
     }
+
     public DataSet GetDocument(string ACTION, string DOCU_ID, string DOCU_NAME, string DELID)
     {
         cmd = new SqlCommand("GETDOCUMENT");
@@ -259,7 +263,7 @@ public class Master
     }
 
     public DataSet GetDesignation(string ACTION, string DESG_ID, string DEPT_ID, string DESG_NAME, string DELID)
-    { 
+    {
         cmd = new SqlCommand("GETDESIGNATION");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ACTION", ACTION);
@@ -269,8 +273,10 @@ public class Master
         cmd.Parameters.AddWithValue("@DELID", DELID);
         ds = data.getDataSet(cmd);
         return ds;
-    } public DataSet get_UpdateSecondaryItems(string ACTION, string ID, string Group, string Itm, string Qty,string Rate)
-    { 
+    }
+
+    public DataSet get_UpdateSecondaryItems(string ACTION, string ID, string Group, string Itm, string Qty, string Rate)
+    {
         cmd = new SqlCommand("PROC_UPDATESECONDARYITEMS");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ACTION", ACTION);
@@ -279,6 +285,33 @@ public class Master
         cmd.Parameters.AddWithValue("@item", Itm);
         cmd.Parameters.AddWithValue("@qty", Qty);
         cmd.Parameters.AddWithValue("@Rate", Rate);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+    public DataSet GetHoliday(string ACTION, string HOLIDAY_ID, string HOLIDAY_NAME, string DELID, string DATEFROM, string DATETO)
+    {
+        cmd = new SqlCommand("GETHOLIDAY");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@ACTION", ACTION);
+        cmd.Parameters.AddWithValue("@HOLIDAY_ID", HOLIDAY_ID);
+        cmd.Parameters.AddWithValue("@HOLIDAY_NAME", HOLIDAY_NAME);
+        cmd.Parameters.AddWithValue("@DELID", DELID);
+        cmd.Parameters.AddWithValue("@DATEFROM", DATEFROM);
+        cmd.Parameters.AddWithValue("@DATETO", DATETO);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+    public DataSet GetAttandance(string ACTION, string EMPID, string USERID, string LATITUDEIN, string LONGITUDEIN)
+    {
+        cmd = new SqlCommand("IU_HRATTANDANCE");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@ACTION", ACTION);
+        cmd.Parameters.AddWithValue("@EMPID", EMPID);
+        cmd.Parameters.AddWithValue("@USERID", USERID);
+        cmd.Parameters.AddWithValue("@LATITUDEIN", LATITUDEIN);
+        cmd.Parameters.AddWithValue("@LONGITUDEIN", LONGITUDEIN);
         ds = data.getDataSet(cmd);
         return ds;
     }

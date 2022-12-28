@@ -1,20 +1,24 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="PayrollRep.aspx.cs" Inherits="Soft_PayrollRep" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="Attandance.aspx.cs" Inherits="Soft_Attandance" %>
 
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>Payroll Report(STAFP)</title>
+    <title>Attandance (STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBm1CyOx9FugNOb9K6F349bd6mDWjsuB3k"
+        type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
+     
+
     <section class="content-header" style="height: 2.5em;">
-        <h1><a id="lnkAdd" runat="server" href="/Soft/Payroll.aspx" class="btn btn-primary">Add Payroll</a>
+        <h1>Attandance 
+            <asp:Label ID="lblDate" runat="server" Style="float: right"></asp:Label>
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/PayrollRep.aspx" class="active">Payroll List </a></li>
-        </ol>
+
+        <asp:HiddenField ID="hddLnL" runat="server" />
+        <asp:Literal ID="lits" runat="server"></asp:Literal>
     </section>
     <section class="content">
         <div class="row">
@@ -22,12 +26,11 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-
-                            <div class="col-md-3">
+                            <div class="col-md-3 hidden">
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 hidden">
                                 <label>Designation</label>
                                 <asp:DropDownList ID="drpDesignation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
@@ -35,11 +38,6 @@
                                 <label>Reporting Manager</label>
                                 <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
-                           <%-- <div class="col-md-3" style="padding-top: 3px;">
-                                <div class="clearfix">&nbsp;</div>
-                                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>--%>
-
                         </div>
                         <div class="clearfix">&nbsp;</div>
 
@@ -55,40 +53,32 @@
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">Department</th>
-                                            <th style="text-align: left;">Designation</th>
-                                            <th style="text-align: left;">Emp Code</th>
                                             <th style="text-align: left;">Emp Name</th>
-                                            <th style="text-align: left;">Rep Manager</th>
-                                            <th style="text-align: left;">In Hand Salary</th>
-                                            <th style="text-align: left;">Net Salary</th>
-                                            <th style="text-align: left;">Status</th>
                                             <th>
-                                                <label id="lblAction">Action</label></th>
+                                                <label id="lblAction">Attandance</label></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="rep" runat="server" OnItemCommand="rep_ItemCommand">
+                                        <asp:Repeater ID="rep" runat="server" OnItemCommand="rep_ItemCommand" OnItemDataBound="rep_ItemDataBound">
                                             <ItemTemplate>
                                                 <tr class="gradeA">
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("DEPT_NAME") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DESG_NAME") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Emp_Code") %></td>
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
-                                                    <td style="text-align: left;"><%#Eval("REP_MANAGERNAME") %></td>
-                                                    <td style="text-align: left;"><%#Eval("REP_MANAGERNAME") %></td>
-                                                    <td style="text-align: left;"><%#Eval("REP_MANAGERNAME") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Status") %></td>
 
                                                     <td style="text-align: left;">
                                                         <div class="isEditVisible" style="display: inline;">
-                                                            <a href="Payroll.aspx?EmpId=<%#Eval("EmpId") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                            <asp:LinkButton ID="lnkIN" runat="server" Style="padding: 1px 6px; font-size: 14px;" CommandName="AttandanceIn" CssClass="btn btn-small btn-primary" CommandArgument='<%#Eval("EmpId") %>'> In</asp:LinkButton>
+                                                            <asp:Label ID="lblAttandance" runat="server" Style="font-size: large; color: Highlight;"></asp:Label>
+                                                            &nbsp;&nbsp;
+                                                            <asp:HiddenField ID="HddEmpId" runat="server" Value='<%#Eval("EmpId") %>' />
+                                                            <asp:HiddenField ID="HddCrmUserId" runat="server" Value='<%#Eval("CrmUserId") %>' />
                                                         </div>
                                                         <div class="isDelVisible" style="display: inline;">
-                                                            <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"
-                                                                CommandArgument='<%#Eval("EmpId") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
+                                                            <asp:LinkButton ID="lnkOut" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName="AttandanceOut" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("EmpId") %>'>  Out</asp:LinkButton>
+                                                            <asp:LinkButton ID="lnkLeave" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName="Leave" CssClass="btn btn-small btn-success" CommandArgument='<%#Eval("EmpId") %>'>  Leave</asp:LinkButton>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -146,5 +136,79 @@
 
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
+
+    <script type="text/javascript">  
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            }
+
+        }
+
+
+        function showPosition(position) {
+
+
+            var latvalue = position.coords.latitude;
+            var longvalue = position.coords.longitude;
+
+            getcityname(latvalue, longvalue);
+
+        }
+    </script>
+    <script type="text/javascript">  
+        function getcityname(latvalue, longvalue) {
+            debugger
+            var geocoder;
+            geocoder = new google.maps.Geocoder();
+            var latlng = new google.maps.LatLng(latvalue, longvalue);
+            document.getElementById("Body_hddLnL").value = latlng
+            //  alert(latlng);
+            geocoder.geocode(
+                { 'latLng': latlng },
+                function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
+                            var add = results[0].formatted_address;
+                            var value = add.split(",");
+
+                            count = value.length;
+                            var places = "";
+                            for (var i = 0; i < count; i++) {
+                                places = places + value[i];
+                            }
+                            //alert(places);
+
+
+                            document.getElementById('demo').innerHTML = places;
+                            country = value[count - 1];
+                            state = value[count - 2];
+                            city = value[count - 3];
+                            // alert("city name is: " + add);
+                        }
+                        else {
+                            //alert("address not found");
+                        }
+                    }
+                    else {
+                        //alert("Geocoder failed due to: " + status);
+                    }
+                }
+            );
+        }
+    </script>
+    <script type="text/javascript"> 
+        $("#Body_linkloc").click(function () {
+            debugger
+            if (document.getElementById('demo').innerHTML == "") {
+                alert("This site has been blocked from accessing your location \n Please Turn on!!!");
+                this.removeAttribute("class");
+            } else {
+
+                this.href = 'checkInOut.aspx?loc=' + document.getElementById('demo').innerHTML + '&lnl=' + document.getElementById("Body_hddLnL").value
+
+            }
+        });
+    </script>
 </asp:Content>
 

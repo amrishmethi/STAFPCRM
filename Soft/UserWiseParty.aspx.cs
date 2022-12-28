@@ -77,7 +77,10 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
     public static string ControlAccess()
     {
         DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
-        return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
+        if (tbl1.Rows.Count > 0)
+            return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
+        else
+            return "";
     }
 
 
@@ -107,6 +110,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
     protected void drpheadQtr_SelectedIndexChanged(object sender, EventArgs e)
     {
         DataSet dsusr = getdata.getHqtrUser();
+        
         DataView dv = dsusr.Tables[0].DefaultView;
         dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
 
@@ -117,6 +121,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         drpUser.Items.Insert(0, new ListItem("Select", "0"));
         drpUser.SelectedIndex = 1;
         ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
+        ViewState["tbl"] = ds.Tables[0];
         drpDistrict.DataSource = ds.Tables[0].DefaultView.ToTable(true, "District");
         drpDistrict.DataTextField = "District";
         drpDistrict.DataValueField = "District";

@@ -55,39 +55,7 @@ public partial class Admin_AttendanceReport : System.Web.UI.Page
     {
         DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
         return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
-    }
-    //private string ShrinkURL(string strURL)
-    //{
-    //    string URL;
-    //    URL = "http://tinyurl.com/api-create.php?url=" +
-    //       strURL.ToLower();
-
-    //    System.Net.HttpWebRequest objWebRequest;
-    //    System.Net.HttpWebResponse objWebResponse;
-
-    //    System.IO.StreamReader srReader;
-
-    //    string strHTML;
-
-    //    objWebRequest = (System.Net.HttpWebRequest)System.Net
-    //       .WebRequest.Create(URL);
-    //    objWebRequest.Method = "GET";
-
-    //    objWebResponse = (System.Net.HttpWebResponse)objWebRequest
-    //       .GetResponse();
-    //    srReader = new System.IO.StreamReader(objWebResponse
-    //       .GetResponseStream());
-
-    //    strHTML = srReader.ReadToEnd();
-
-    //    srReader.Close();
-    //    objWebResponse.Close();
-    //    objWebRequest.Abort();
-
-    //    return (strHTML);
-
-    //}
-
+    } 
 
 
     protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)

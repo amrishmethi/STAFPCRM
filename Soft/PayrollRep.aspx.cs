@@ -34,6 +34,8 @@ public partial class Soft_PayrollRep : System.Web.UI.Page
             query += " and DESIG_ID='" + drpDesignation.SelectedValue + "'";  
         if (drpProjectManager.SelectedIndex > 0)
             query += " and Rep_Manager='" + drpProjectManager.SelectedValue + "'";
+
+        //query += " order by EmpNo";
         dsResult = data.getDataSet(query);
         rep.DataSource = dsResult;
         rep.DataBind();

@@ -41,6 +41,7 @@ public partial class login : System.Web.UI.Page
                 Admin.Values.Add("MobileNo", txtuser.Value.Trim());
                 Admin.Values.Add("UserName", ds.Tables[0].Rows[0]["Name"].ToString());
                 Admin.Values.Add("UserId", ds.Tables[0].Rows[0]["ID"].ToString());
+                Admin.Values.Add("EMP_ID", ds.Tables[0].Rows[0]["EMP_ID"].ToString());
                 Admin.Values.Add("Type", ds.Tables[0].Rows[0]["UserType"].ToString());
                 Response.Cookies.Add(Admin);
 

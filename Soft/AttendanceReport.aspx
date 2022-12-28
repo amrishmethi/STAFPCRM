@@ -20,7 +20,6 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-
                             <div class="col-md-3">
                                 <label>Employee</label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
