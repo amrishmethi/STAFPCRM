@@ -221,11 +221,14 @@ public sealed class Data
     }
 
     public string YYYYMMDD(string strDateTime)
-    {   
-        string sDateTime;
-        string[] sDate = strDateTime.Split('/');
-        sDateTime = sDate[2] + '-' + sDate[1] + '-' + sDate[0];
-        return sDateTime;
+    {
+        if (strDateTime != "")
+        {
+            string sDateTime;
+            string[] sDate = strDateTime.Split('/');
+            sDateTime = sDate[2] + '-' + sDate[1] + '-' + sDate[0];
+            return sDateTime;
+        }return "";
     }
 
     public DataSet GetDataSetSP(SqlParameter[] arrParam, string strSPName)

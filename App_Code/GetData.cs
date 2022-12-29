@@ -182,7 +182,6 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
-
     public void FillUser1(DropDownList drp)
     {
         query = "select * from [CSInfo].[dbo].[MobileAppUser] where Deactivate=0 order by Name ";

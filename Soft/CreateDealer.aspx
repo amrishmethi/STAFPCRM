@@ -22,7 +22,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                             <%-- <div class="col-md-4">
+                            <%-- <div class="col-md-4">
                               <label>Employee</label>
                                 <asp:DropDownList ID="drpEmp" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
@@ -45,17 +45,17 @@
                                     <asp:ListItem Value="Direct Sales Party" Text="Direct Sales Party"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
-                           
-                           <div class="col-md-2">
-                                <label>Date</label>
-                                <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker" OnTextChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+
+                            <div class="col-md-2">
+                                <label>Date From</label>
+                                <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control datepicker" OnTextChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:TextBox>
                             </div>
-                          <%--   <div class="col-md-2">
+                               <div class="col-md-2">
                                 <label>Date To</label>
-                                <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control datepicker" OnTextChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control datepicker" OnTextChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:TextBox>
-                            </div>--%>
+                            </div>
                             <%-- <div class="col-md-2">
                                 <label>IsMeet</label>
                                 <asp:DropDownList ID="drpIsMeet" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
@@ -77,15 +77,17 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
-                                            <th style="text-align: left;"></th>
-                                            <th style="text-align: left;">Date<br />Time</th>
+                                            <th style="text-align: left;">Edit</th>
+                                            <th style="text-align: left;">Docu</th>
+                                            <th style="text-align: left;">Date<br />
+                                                Time</th>
                                             <th style="text-align: left;">Name</th>
-                                            <th style="text-align: left;">Contact Person</th>
-                                            <th style="text-align: left;">Address</th>
-                                            <th style="text-align: left;">Zip</th>
-                                            <th style="text-align: left;">District</th>
                                             <th style="text-align: left;">Station</th>
+                                            <th style="text-align: left;">Address</th>
+                                            <th style="text-align: left;">District</th>
+                                            <th style="text-align: left;">Zip</th>
                                             <th style="text-align: left;">State</th>
+                                            <th style="text-align: left;">Contact Person</th>
                                             <th style="text-align: left;">Gst No</th>
                                             <th style="text-align: left;">Gst Type</th>
                                             <th style="text-align: left;">Mobile</th>
@@ -93,8 +95,8 @@
                                             <th style="text-align: left;">Transport</th>
                                             <th style="text-align: left;">Party Type</th>
                                             <th style="text-align: left;">Party Category</th>
-                                            <th style="text-align: left;">Document</th>
-                                            <th style="text-align: left;">Image</th>
+                                            <%--<th style="text-align: left;">Document</th>
+                                            <th style="text-align: left;">Image</th>--%>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -105,27 +107,31 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: center;">
-                                                                                <a style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
-                                                                            </td>
-                                                    <td style="text-align: left;"><%#Eval("cdDATE") %><br /><%#Eval("cdTIME") %></td>
+                                                        <a href='UpdateCreateDealer.aspx?id=<%#Eval("ID") %>' style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        <a href='createDealer_Document.aspx?id=<%#Eval("ID") %>' style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese " aria-label="Edit" rel="lightbox"><i class="fa fa-file"></i></a>
+                                                    </td>
+                                                    <td style="text-align: left;"><%#Eval("cdDATE") %><br />
+                                                        <%#Eval("cdTIME") %></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
-                                                    <td style="text-align: left;"><%#Eval("ContPer") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Address") %></td>
-                                                    <td style="text-align: left;"><%#Eval("PinCode") %></td>
-                                                    <td style="text-align: left;"><%#Eval("District") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Address") %></td>
+                                                    <td style="text-align: left;"><%#Eval("District") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PinCode") %></td>
                                                     <td style="text-align: left;"><%#Eval("State") %></td>
+                                                    <td style="text-align: left;"><%#Eval("ContPer") %></td>
                                                     <td style="text-align: left;"><%#Eval("GSTNo") %></td>
                                                     <td style="text-align: left;"><%#Eval("GSTRegType") %></td>
                                                     <td style="text-align: left;"><%#Eval("SMSMobile") %></td>
                                                     <td style="text-align: left;"><%#Eval("WhatsAppNo") %></td>
                                                     <td style="text-align: left;"><%#Eval("Transport") %></td>
                                                     <td style="text-align: left;"><%#Eval("PartyType") %></td>
-                                                    <td style="text-align: left;"><%#Eval("PartyCategory") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DocName") %></td>
-                                                    <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/PartyRequest/" + Eval("DocFileName") %>" class="abc1">
-                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/PartyRequest/" + Eval("DocFileName") %>' Width="50" Height="50" Visible='<%# (Eval("DocFileName").ToString()=="")?false:true %>' /></a></td>
-                                                 </tr>
+                                                    <td style="text-align: left;"><%#Eval("PartyCatg") %></td>
+                                                    <%--   <td style="text-align: left;"><%#Eval("DocName") %></td>
+                                                    <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/PartyDocument/" + Eval("DocFileName") %>" class="abc1">
+                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/PartyDocument/" + Eval("DocFileName") %>' Width="50" Height="50" Visible='<%# (Eval("DocFileName").ToString()=="")?false:true %>' /></a></td>--%>
+                                                </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </tbody>

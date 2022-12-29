@@ -29,8 +29,8 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
             //Gd.FillUser(drpEmp);
             //Gd.fillDepartment(drpDept);
 
-            txtDate.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            
+            txtDateFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
+            txtDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             
             fillData();
         }
@@ -39,7 +39,7 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
 
     public void fillData()
     {
-        ds = getdata.getCreateDealer("SELECT","0","","","","","","","","","","","","",drpType.SelectedValue,"",txtDate.Text.Trim());
+        ds = getdata.getCreateDealer("SELECT","0","","","","","","","","","","","","",drpType.SelectedValue,"",txtDateFrom.Text.Trim(),txtDateTo.Text.Trim());
         DataView dv = ds.Tables[0].DefaultView;
         //if (drpIsMeet.SelectedValue == "0") { dv.RowFilter = " AddedDate is null"; }
         //else if (drpIsMeet.SelectedValue == "1") { dv.RowFilter = "AddedDate <> ''"; }
