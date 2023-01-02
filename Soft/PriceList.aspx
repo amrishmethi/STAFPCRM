@@ -20,7 +20,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-md-3">
+                            <div class="col-md-8">
                                 <label>Group</label>
                                 <%--<asp:DropDownList ID="drpGroup" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpGroup_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>--%>

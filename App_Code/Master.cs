@@ -217,6 +217,14 @@ public class Master
         return ds;
     }
 
+    public DataSet getSalesOrder(string id)
+    {
+        cmd = new SqlCommand("PROC_SalesOrder");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@ID", id);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
     public DataSet getHqtrUser()
     {
         return ds = data.getDataSet("select * from [stm_acmast].[dbo].GETHEADQUARTER order by Name,HEADQTR");
