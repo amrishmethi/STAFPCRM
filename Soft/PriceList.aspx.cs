@@ -28,20 +28,27 @@ public partial class Admin_PriceList : System.Web.UI.Page
             //   Gd.FillUser(drpUser);
 
             Gd.FillGroup(drpGroup);
-           
-         //   ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert(" + ds.Tables[0].Rows[0][0].ToString() + ")", true);
-         //   ViewState["Tbl"] = ds;
+
+            //   ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert(" + ds.Tables[0].Rows[0][0].ToString() + ")", true);
+            //   ViewState["Tbl"] = ds;
             fillData();
         }
     }
 
-   
+
 
     public void fillData()
     {
-        ds = getdata.getPriceList(drpGroup.SelectedValue,drpState.SelectedValue);
-        
-        rep.DataSource = ds;
+        DataTable dtt = new DataTable();
+        foreach (ListItem item in drpGroup.Items)
+        {
+            if (item.Selected)
+            {
+                ds = getdata.getPriceList(item.Value, drpState.SelectedValue);
+                dtt.Merge(ds.Tables[0]);
+            }
+        } 
+        rep.DataSource = dtt;
         rep.DataBind();
     }
 
