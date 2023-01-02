@@ -214,6 +214,16 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
+    public void FillGroup(ListBox drp)
+    {
+        query = "SELECT [CMsCode], [CMsName]   FROM [stm_stmast].[dbo].[CMaster] Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "CMsName";
+        drp.DataValueField = "CMsCode";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
     public void FillItem(DropDownList drp)
     {
         query = "SELECT ITName  FROM [stm_stmast].[dbo].[ITEM] Order By ITName";

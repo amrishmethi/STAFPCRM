@@ -154,7 +154,7 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
-    public DataSet getCreateDealer(string action, string id, string name, string contper, string address,string zip, string station, string state, string gst, string gstRegType, string smsMob, string whatsapp, string district, string transport, string partyType, string partyCatg, string webdate, string webdate1)
+    public DataSet getCreateDealer(string action, string id, string name, string contper, string address,string zip, string station, string state, string gst, string gstRegType, string smsMob, string whatsapp, string district, string transport, string partyType, string partyCatg, string webdate, string webdate1,string empid, string headQtr)
     { 
         cmd = new SqlCommand("PROC_CREATEDEALER");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -177,6 +177,9 @@ public class Master
         cmd.Parameters.AddWithValue("@PCATG", partyCatg);
         cmd.Parameters.AddWithValue("@WEBDATE", data.YYYYMMDD(webdate));
         cmd.Parameters.AddWithValue("@WEBDATE1", data.YYYYMMDD(webdate1));
+        cmd.Parameters.AddWithValue("@EMPID", empid);
+        cmd.Parameters.AddWithValue("@HQTR", headQtr);
+
         ds = data.getDataSet(cmd);
         return ds;
     }

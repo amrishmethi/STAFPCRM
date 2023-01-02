@@ -22,8 +22,9 @@
                         <div class="form-group">
                             <div class="col-md-3">
                                 <label>Group</label>
-                                <asp:DropDownList ID="drpGroup" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpGroup_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
+                                <%--<asp:DropDownList ID="drpGroup" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpGroup_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>--%>
+                                <asp:ListBox ID="drpGroup" runat="server" CssClass="form-control select2" SelectionMode="Multiple" Width="100%" OnSelectedIndexChanged="drpGroup_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
                             </div>
                             <div class="col-md-2">
                                 <label>State</label>
@@ -58,12 +59,13 @@
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">Item Name</th>
-                                            <th style="text-align: left;">Rate Per Kg</th>
+                                           <th style="text-align: left;">Rate Per Kg</th>
                                             <th style="text-align: left;">Rate Per Pc</th>
                                             <th style="text-align: left;">Per Case/Bag</th>
                                             <th style="text-align: left;">Packing(In KG)</th>
-                                            <th style="text-align: left;">Packing(In pc)</th>
-                                        </tr>
+                                            <th style="text-align: left;">Packing(In pc)</th> 
+                                            <th style="text-align: left;">MRP</th>
+                                         </tr>
                                     </thead>
                                     <tbody>
                                         <asp:Repeater ID="rep" runat="server">
@@ -78,6 +80,7 @@
                                                     <td style="text-align: left;"><%#Eval("BagRate") %></td>
                                                     <td style="text-align: left;"><%#Eval("Packing") %></td>
                                                     <td style="text-align: left;"><%#Eval("itpacking") %></td>
+                                                    <td style="text-align: left;"><%#Eval("MRP") %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>

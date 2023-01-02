@@ -22,21 +22,16 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <%-- <div class="col-md-4">
+                             <div class="col-md-3">
                               <label>Employee</label>
-                                <asp:DropDownList ID="drpEmp" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Department</label>
-                                <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpEmp" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-3">
                                 <label>Head Quarter</label>
-                                <asp:DropDownList ID="drpHqtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpHqtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
-                            </div>--%>
+                            </div>
                             <div class="col-md-2">
                                 <label>Party Type</label>
                                 <asp:DropDownList ID="drpType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
@@ -66,14 +61,13 @@
                             </div>--%>
                         </div>
                         <div class="clearfix">&nbsp;</div>
-                        <div class="clearfix">&nbsp;</div>
                     </div>
                 </div>
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="widget-content">
                             <div class="table-responsive">
-                                <table id="ExportTbl" border="1" class="table display table-striped">
+                                <table id="ExportTbl" class="table display table-striped">
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
@@ -81,6 +75,8 @@
                                             <th style="text-align: left;">Docu</th>
                                             <th style="text-align: left;">Date<br />
                                                 Time</th>
+                                            <th style="text-align: left;">Employee</th>
+                                            <th style="text-align: left;">HeadQuarter</th>
                                             <th style="text-align: left;">Name</th>
                                             <th style="text-align: left;">Station</th>
                                             <th style="text-align: left;">Address</th>
@@ -95,6 +91,7 @@
                                             <th style="text-align: left;">Transport</th>
                                             <th style="text-align: left;">Party Type</th>
                                             <th style="text-align: left;">Party Category</th>
+                                            
                                             <%--<th style="text-align: left;">Document</th>
                                             <th style="text-align: left;">Image</th>--%>
                                         </tr>
@@ -114,6 +111,8 @@
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("cdDATE") %><br />
                                                         <%#Eval("cdTIME") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Employee") %></td>
+                                                    <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;"><%#Eval("Address") %></td>
@@ -122,12 +121,13 @@
                                                     <td style="text-align: left;"><%#Eval("State") %></td>
                                                     <td style="text-align: left;"><%#Eval("ContPer") %></td>
                                                     <td style="text-align: left;"><%#Eval("GSTNo") %></td>
-                                                    <td style="text-align: left;"><%#Eval("GSTRegType") %></td>
+                                                    <td style="text-align: left;"><%#Eval("GstType") %></td>
                                                     <td style="text-align: left;"><%#Eval("SMSMobile") %></td>
                                                     <td style="text-align: left;"><%#Eval("WhatsAppNo") %></td>
                                                     <td style="text-align: left;"><%#Eval("Transport") %></td>
                                                     <td style="text-align: left;"><%#Eval("PartyType") %></td>
                                                     <td style="text-align: left;"><%#Eval("PartyCatg") %></td>
+                                                    
                                                     <%--   <td style="text-align: left;"><%#Eval("DocName") %></td>
                                                     <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/PartyDocument/" + Eval("DocFileName") %>" class="abc1">
                                                         <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/PartyDocument/" + Eval("DocFileName") %>' Width="50" Height="50" Visible='<%# (Eval("DocFileName").ToString()=="")?false:true %>' /></a></td>--%>

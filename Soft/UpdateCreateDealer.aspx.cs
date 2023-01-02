@@ -34,7 +34,7 @@ public partial class Admin_UpdateCreateDealer : System.Web.UI.Page
 
     public void fillData(string id)
     {
-        ds = master.getCreateDealer("SELECT", id, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        ds = master.getCreateDealer("SELECT", id, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "","0","0");
         txtname.Text = ds.Tables[0].Rows[0]["Name"].ToString();
         drpStation.SelectedValue = ds.Tables[0].Rows[0]["Station"].ToString();
         BindDistrict();
@@ -44,7 +44,7 @@ public partial class Admin_UpdateCreateDealer : System.Web.UI.Page
         txtState.Text = ds.Tables[0].Rows[0]["State"].ToString();
         txtContPer.Text = ds.Tables[0].Rows[0]["ContPer"].ToString();
         txtGst.Text = ds.Tables[0].Rows[0]["GSTNo"].ToString();
-        txtGstRegType.Text = ds.Tables[0].Rows[0]["GSTRegType"].ToString();
+        drpGstRegType.SelectedValue = ds.Tables[0].Rows[0]["GSTRegType"].ToString();
         txtMobile.Text = ds.Tables[0].Rows[0]["SMSMobile"].ToString();
         txtWhtsApp.Text = ds.Tables[0].Rows[0]["WhatsAppNo"].ToString();
         txtTransport.Text = ds.Tables[0].Rows[0]["Transport"].ToString();
@@ -59,7 +59,7 @@ public partial class Admin_UpdateCreateDealer : System.Web.UI.Page
 
     private void save()
     {
-        ds = master.getCreateDealer("UPDATE", Request.QueryString["id"].ToString(),txtname.Text.Trim(), txtContPer.Text.Trim(), txtAddress.Text.Trim(), txtZip.Text.Trim(), drpStation.SelectedValue, txtState.Text.Trim(), txtGst.Text.Trim(), txtGstRegType.Text.Trim(), txtMobile.Text.Trim(), txtWhtsApp.Text.Trim(), drpDistrict.SelectedValue, txtTransport.Text.Trim(), drpType.SelectedValue, drpPartyCatg.SelectedValue, "", ""); Page.ClientScript.RegisterStartupScript(typeof(Page), "close", string.Format("<script type='text/javascript'>{0}</script>", "parent.location.href='CreateDealer.aspx'; parent.$.fancybox.close() ;"));
+        ds = master.getCreateDealer("UPDATE", Request.QueryString["id"].ToString(),txtname.Text.Trim(), txtContPer.Text.Trim(), txtAddress.Text.Trim(), txtZip.Text.Trim(), drpStation.SelectedValue, txtState.Text.Trim(), txtGst.Text.Trim(), drpGstRegType.SelectedValue, txtMobile.Text.Trim(), txtWhtsApp.Text.Trim(), drpDistrict.SelectedValue, txtTransport.Text.Trim(), drpType.SelectedValue, drpPartyCatg.SelectedValue, "", "", "", ""); Page.ClientScript.RegisterStartupScript(typeof(Page), "close", string.Format("<script type='text/javascript'>{0}</script>", "parent.location.href='CreateDealer.aspx'; parent.$.fancybox.close() ;"));
     }
 
 

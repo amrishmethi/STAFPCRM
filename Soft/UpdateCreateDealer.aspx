@@ -32,7 +32,7 @@
         <section class="content">
             <div class="box box-primary">
                 <div class="box-body">
-                    
+
                     <div class="clearfix">&nbsp;</div>
                     <asp:ScriptManager ID="scrptmgr" runat="server"></asp:ScriptManager>
                     <div class="col-sm-1">
@@ -43,13 +43,13 @@
                     </div>
                     <asp:UpdatePanel ID="updt" runat="server">
                         <ContentTemplate>
-                    <div class="col-sm-1">
-                        <label>Station</label>
-                    </div>
+                            <div class="col-sm-1">
+                                <label>Station</label>
+                            </div>
                             <div class="col-sm-5">
                                 <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
-                           <div class="clearfix">&nbsp;</div>
+                            <div class="clearfix">&nbsp;</div>
                             <div class="col-sm-1">
                                 <label>Address</label>
                             </div>
@@ -67,49 +67,52 @@
                             <asp:AsyncPostBackTrigger ControlID="drpStation" EventName="SelectedIndexChanged" />
                         </Triggers>
                     </asp:UpdatePanel>
-                 <div class="clearfix">&nbsp;</div>
+                    <div class="clearfix">&nbsp;</div>
                     <div class="col-sm-1">
                         <label>Pin Code</label>
                     </div>
                     <div class="col-sm-2">
                         <asp:TextBox ID="txtZip" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                    <div class="col-sm-1" >
+                    <div class="col-sm-1">
                         <label>State</label>
                     </div>
                     <div class="col-sm-2">
                         <asp:TextBox ID="txtState" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                    
+
                     <div class="col-sm-1">
                         <label>Contact Person</label>
                     </div>
                     <div class="col-sm-5">
                         <asp:TextBox ID="txtContPer" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                  <div class="clearfix">&nbsp;</div>
+                    <div class="clearfix">&nbsp;</div>
                     <div class="col-sm-1">
                         <label>Gst No</label>
                     </div>
                     <div class="col-sm-5">
                         <asp:TextBox ID="txtGst" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                   
+
 
                     <div class="col-sm-1">
                         <label>Gst Reg Type</label>
                     </div>
                     <div class="col-sm-5">
-                        <asp:TextBox ID="txtGstRegType" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:DropDownList ID="drpGstRegType" runat="server" CssClass="form-control">
+                            <asp:ListItem Value="REG">Regular Dealer</asp:ListItem>
+                            <asp:ListItem Value="URD">Unregistered Dealer</asp:ListItem>
+                        </asp:DropDownList>
                     </div>
-                  <div class="clearfix">&nbsp;</div>
+                    <div class="clearfix">&nbsp;</div>
                     <div class="col-sm-1">
                         <label>Mobile No</label>
                     </div>
                     <div class="col-sm-2">
                         <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                    
+
                     <div class="col-sm-1">
                         <label>WhatsApp No</label>
                     </div>
@@ -122,7 +125,7 @@
                     <div class="col-sm-5">
                         <asp:TextBox ID="txtTransport" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                  <div class="clearfix">&nbsp;</div>
+                    <div class="clearfix">&nbsp;</div>
                     <div class="col-sm-1">
                         <label>Party Type</label>
                     </div>

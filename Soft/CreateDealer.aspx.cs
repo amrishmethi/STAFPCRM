@@ -13,7 +13,6 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
-    Data data = new Data();
     GetData Gd = new GetData();
     private HttpCookie Soft;
 
@@ -26,9 +25,8 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
             Session["AccessRigthsSet"] = getdata.AccessRights("CreateDealer.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             
-            //Gd.FillUser(drpEmp);
-            //Gd.fillDepartment(drpDept);
-
+            Gd.FillUser(drpEmp);
+            bindDrp(true, true);
             txtDateFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             txtDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             
@@ -36,10 +34,36 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
         }
     }
 
-
+    private void bindDrp(bool isuser, bool ishqtr)
+    {
+        DataSet dsusr = getdata.getHqtrUser();
+        DataView dv = dsusr.Tables[0].DefaultView;
+        if (isuser)
+        {
+            if (drpHqtr.SelectedIndex > 0)
+                dv.RowFilter = "HeadQtr='" + drpHqtr.SelectedItem.Text + "'";
+            dv.Sort = "Name";
+            drpEmp.DataSource = dv.ToTable(true, "Name", "MId");
+            drpEmp.DataTextField = "Name";
+            drpEmp.DataValueField = "MId";
+            drpEmp.DataBind();
+            drpEmp.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        if (ishqtr)
+        {
+            if (drpEmp.SelectedIndex > 0)
+                dv.RowFilter = "Name='" + drpEmp.SelectedItem.Text + "'";
+            dv.Sort = "HeadQtr";
+            drpHqtr.DataSource = dv.ToTable(true, "HeadQtr");
+            drpHqtr.DataTextField = "HeadQtr";
+            drpHqtr.DataValueField = "HeadQtr";
+            drpHqtr.DataBind();
+            drpHqtr.Items.Insert(0, new ListItem("Select", "0"));
+        }
+    }
     public void fillData()
     {
-        ds = getdata.getCreateDealer("SELECT","0","","","","","","","","","","","","",drpType.SelectedValue,"",txtDateFrom.Text.Trim(),txtDateTo.Text.Trim());
+        ds = getdata.getCreateDealer("SELECT","0","","","","","","","","","","","","",drpType.SelectedValue,"",txtDateFrom.Text.Trim(),txtDateTo.Text.Trim(), drpEmp.SelectedValue, drpHqtr.SelectedValue);
         DataView dv = ds.Tables[0].DefaultView;
         //if (drpIsMeet.SelectedValue == "0") { dv.RowFilter = " AddedDate is null"; }
         //else if (drpIsMeet.SelectedValue == "1") { dv.RowFilter = "AddedDate <> ''"; }
@@ -65,5 +89,14 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
     protected void drpType_SelectedIndexChanged(object sender, EventArgs e)
     {
         fillData();
+        DropDownList ddl = sender as DropDownList;
+        if (ddl == drpEmp)
+        {
+            bindDrp(false, true);
+        }
+        if (ddl == drpHqtr)
+        {
+            bindDrp(true, false);
+        }
     }
 }

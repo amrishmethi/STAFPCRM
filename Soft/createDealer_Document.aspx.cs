@@ -31,7 +31,7 @@ public partial class Admin_createDealer_Document : System.Web.UI.Page
 
     public void fillData(string id)
     {
-        ds = master.getCreateDealer("SELECT", id, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "","");
+        ds = master.getCreateDealer("SELECT", id, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "","","0","0");
         rep.DataSource = ds.Tables[1];
         rep.DataBind();
     }
