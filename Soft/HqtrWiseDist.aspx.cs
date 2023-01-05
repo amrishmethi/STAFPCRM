@@ -101,12 +101,14 @@ public partial class Admin_HqtrWiseDist : System.Web.UI.Page
         {
             ds = getdata.getUserTourPlan(drpUser.SelectedValue,"");
             ViewState["tbl"] = ds.Tables[2];
-            drpheadQtr.DataSource = ds.Tables[0].DefaultView.ToTable(true, "HeadQtr");
+            DataView dv = ds.Tables[2].DefaultView;
+            dv.RowFilter = "id = "+ drpUser.SelectedValue ;
+            drpheadQtr.DataSource =dv.ToTable(true, "HeadQtr");
             drpheadQtr.DataTextField = "HeadQtr";
             drpheadQtr.DataValueField = "HeadQtr";
             drpheadQtr.DataBind();
             drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
-            if (ds.Tables[0].DefaultView.ToTable().Rows.Count > 0)
+            if (ds.Tables[2].Rows.Count > 0)
             {
                 drpheadQtr.SelectedIndex = 1;
             }
