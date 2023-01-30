@@ -349,7 +349,7 @@ public class Master
         return ds;
     }
 
-    public DataSet GetAttandance(string ACTION, string EMPID, string USERID, string LATITUDEIN, string LONGITUDEIN)
+    public DataSet GetAttandance(string ACTION, string EMPID, string USERID, string LATITUDEIN, string LONGITUDEIN, string ATTANDANCEDATE)
     {
         cmd = new SqlCommand("IU_HRATTANDANCE");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -357,6 +357,8 @@ public class Master
         cmd.Parameters.AddWithValue("@EMPID", EMPID);
         cmd.Parameters.AddWithValue("@LATITUDEIN", LATITUDEIN);
         cmd.Parameters.AddWithValue("@LONGITUDEIN", LONGITUDEIN);
+        cmd.Parameters.AddWithValue("@ATTANDANCEDATE", ATTANDANCEDATE);
+        cmd.Parameters.AddWithValue("@USERID", USERID);
         ds = data.getDataSet(cmd);
         return ds;
     }

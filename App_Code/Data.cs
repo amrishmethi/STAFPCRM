@@ -212,6 +212,22 @@ public sealed class Data
         return dtFinaldate;
     }
 
+    public DateTime ConvertToDateTimeNew(string strDateTime, string strTime)
+    {
+        DateTime dtFinaldate;
+        string sDateTime;
+        string sTime;
+        sTime = strTime;
+        string[] sDate = strDateTime.Split('/');
+        sDateTime = sDate[1] + '/' + sDate[0] + '/' + sDate[2] + " " + sTime;
+
+
+
+        dtFinaldate = Convert.ToDateTime(sDateTime);
+
+        return dtFinaldate;
+    }
+
     public string ConvertDDMMYYYY(string d)
     {
         string dat = d;
@@ -228,7 +244,8 @@ public sealed class Data
             string[] sDate = strDateTime.Split('/');
             sDateTime = sDate[2] + '-' + sDate[1] + '-' + sDate[0];
             return sDateTime;
-        }return "";
+        }
+        return "";
     }
 
     public DataSet GetDataSetSP(SqlParameter[] arrParam, string strSPName)

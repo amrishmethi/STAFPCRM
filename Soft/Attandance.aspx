@@ -1,20 +1,23 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="Attandance.aspx.cs" Inherits="Soft_Attandance" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server"> 
     <title>Attandance (STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBm1CyOx9FugNOb9K6F349bd6mDWjsuB3k"
         type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
 
-
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
     <section class="content-header" style="height: 2.5em;">
         <h1>Attandance 
-            <asp:Label ID="lblDate" runat="server" Style="float: right"></asp:Label>
+            <asp:Label ID="lblDate" ClientIDMode="Static" runat="server" Style="float: right"></asp:Label>
         </h1>
 
         <asp:HiddenField ID="hddLnL" runat="server" />
@@ -38,6 +41,10 @@
                                 <label>Reporting Manager</label>
                                 <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
+                            <div class="col-md-3 isEditVisible1">
+                                <label>Date</label>
+                                <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker " placeholder="dd/MM/yyyy" AutoPostBack="true" OnTextChanged="txtDate_TextChanged"></asp:TextBox>
+                            </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
 
@@ -54,7 +61,10 @@
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">Department</th>
                                             <th style="text-align: left;">Emp Name</th>
-                                            <th><label id="lblAction">Attandance</label></th>
+
+                                            <th>
+                                                <label id="lblAction">Attandance</label></th>
+                                            <th  style="text-align: left;">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,6 +78,7 @@
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
 
                                                     <td style="text-align: left;">
+
                                                         <div class="isEditVisible" style="display: inline;">
                                                             <asp:LinkButton ID="lnkIN" runat="server" Style="padding: 1px 6px; font-size: 14px;" CommandName="AttandanceIn" CssClass="btn btn-small btn-primary" CommandArgument='<%#Eval("EmpId") %>'> In</asp:LinkButton>
                                                             <asp:Label ID="lblAttandance" runat="server" Style="font-size: large; color: Highlight;"></asp:Label>
@@ -79,6 +90,10 @@
                                                             <asp:LinkButton ID="lnkOut" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName="AttandanceOut" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("EmpId") %>'>  Out</asp:LinkButton>
                                                             <asp:LinkButton ID="lnkLeave" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName="Leave" CssClass="btn btn-small btn-success" CommandArgument='<%#Eval("EmpId") %>'>  Leave</asp:LinkButton>
                                                         </div>
+
+                                                    </td>
+                                                    <td >
+                                                        <asp:TextBox ID="txtWorkingTimeFRom" placeholder="Select Time" runat="server" CssClass="demo form-control timepicker "></asp:TextBox>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
@@ -94,6 +109,58 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $.ajax({
+                url: 'Attandance.aspx/ControlAccess',
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    debugger
+                    let text = data.d;
+                    const myArray = text.split(",");
+
+                    //document.getElementById("Body_lnkAdd").style.display = myArray[0] == "False" ? "none" : "";
+
+                    var elements = document.getElementsByClassName("isEditVisible1");
+                    Array.prototype.forEach.call(elements, function (element) {
+                        element.style.display = myArray[1] == "False" ? "none" : "inline";
+                    });
+                },
+                error: function (response) {
+                },
+                failure: function (response) {
+                }
+            });
+        })
+    </script> 
+
+       <script>
+           // Set the date we're counting down to 
+           $(document).ready(function () {
+               // Update the count down every 1 second
+               var x = setInterval(function () {
+                   debugger
+                   // Get today's date and time
+
+
+                   var date = new Date();
+                   var current_date = date.getHours() + ":" + (date.getMinutes()) + ":" + date.getSeconds();
+                   document.getElementById("lblDate").innerText = current_date.toString();
+
+                   var elements = document.getElementsByClassName("demo");
+                   Array.prototype.forEach.call(elements, function (element) {
+                       element.innerText = current_date;
+                   });
+
+               }, 1000);
+           })
+       </script>
+
+
+     
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -156,7 +223,7 @@
     </script>
     <script type="text/javascript">  
         function getcityname(latvalue, longvalue) {
-            debugger
+
             var geocoder;
             geocoder = new google.maps.Geocoder();
             var latlng = new google.maps.LatLng(latvalue, longvalue);
@@ -197,7 +264,7 @@
     </script>
     <script type="text/javascript"> 
         $("#Body_linkloc").click(function () {
-            debugger
+
             if (document.getElementById('demo').innerHTML == "") {
                 alert("This site has been blocked from accessing your location \n Please Turn on!!!");
                 this.removeAttribute("class");
@@ -208,5 +275,11 @@
             }
         });
     </script>
+    <script> 
+        $('.timepicker').datetimepicker({
+            format: 'hh mm a'
+        });
+    </script>
+     
 </asp:Content>
 

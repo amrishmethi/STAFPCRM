@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -20,11 +21,13 @@ public partial class Soft_Attandance : System.Web.UI.Page
         Soft = Request.Cookies["STFP"];
         if (!IsPostBack)
         {
-            lblDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            Session["AccessRigthsSet"] = master.AccessRights("Attandance.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
+             
             Gd.fillDepartment(drpDepartment);
             Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue);
             Gd.FillUser(drpProjectManager);
-
+            ViewState["_Date"] = DateTime.Now.ToString("dd/MM/yyyy");
+            txtDate.Text = ViewState["_Date"].ToString();
             if (Soft["Type"].ToUpper() != "ADMIN")
             {
                 drpProjectManager.SelectedValue = Soft["EMP_ID"];
@@ -45,30 +48,7 @@ public partial class Soft_Attandance : System.Web.UI.Page
 
     private void FillRecords()
     {
-        //string query = "select * from [EMP_VIEW] Where 0=0";
-        //if (drpDepartment.SelectedIndex > 0)
-        //    query += " and DEPT_ID=" + drpDepartment.SelectedValue;
-        //if (drpDesignation.SelectedIndex > 0)
-        //    query += " and DESIG_ID='" + drpDesignation.SelectedValue + "'";
-        //if (drpProjectManager.SelectedIndex > 0)
-        //    query += " and Rep_Manager='" + drpProjectManager.SelectedValue + "'";
-
-        //dsResult = data.getDataSet(query);
-        //dtEmp= dsResult.Tables[0];
-        //DataTable dttEMp = new DataTable();
-        //if (drpProjectManager.SelectedIndex > 0)
-        //{
-        //    foreach (DataRow drr in dtEmp.Rows)
-        //    {
-        //        DataSet dsEmp = data.getDataSet("select * from EMP_VIEW where Rep_Manager=" + drr["EMPID"]);
-        //        dttEMp.Merge(dsEmp.Tables[0]);
-        //    }
-        //}
-        //dtEmp.Merge(dttEMp); 
-        //rep.DataSource = dtEmp;
-        //rep.DataBind();
-
-
+        //lblDate.Text = txtDate.Text;
         DataSet ds = data.getDataSet("PROC_EMPHIERARCHY '" + drpProjectManager.SelectedValue + "','" + drpDepartment.SelectedValue + "'");
         rep.DataSource = ds;
         rep.DataBind();
@@ -76,11 +56,12 @@ public partial class Soft_Attandance : System.Web.UI.Page
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
+        TextBox txtWorkingTimeFRom = (TextBox)e.Item.FindControl("txtWorkingTimeFRom");
         string _Action = e.CommandName;
         string _EmpId = e.CommandArgument.ToString();
         string Lat = hddLnL.Value.Split(',')[0].Replace("(", "");
         string Lang = hddLnL.Value.Split(',')[1].Replace(")", "");
-        dsResult = master.GetAttandance(_Action, _EmpId, Soft["UserName"], Lat, Lang);
+        dsResult = master.GetAttandance(_Action, _EmpId, Soft["UserName"], Lat, Lang, data.ConvertToDateTimeNew(txtDate.Text, txtWorkingTimeFRom.Text).ToString());
         FillRecords();
         //Response.Redirect("Attandance.aspx");
     }
@@ -91,7 +72,7 @@ public partial class Soft_Attandance : System.Web.UI.Page
     }
 
     protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)
-    {
+    { 
         LinkButton lnkIN = (LinkButton)e.Item.FindControl("lnkIN");
         LinkButton lnkOut = (LinkButton)e.Item.FindControl("lnkOut");
         LinkButton lnkLeave = (LinkButton)e.Item.FindControl("lnkLeave");
@@ -99,7 +80,8 @@ public partial class Soft_Attandance : System.Web.UI.Page
         HiddenField HddCrmUserId = (HiddenField)e.Item.FindControl("HddCrmUserId");
         Label lblAttandance = (Label)e.Item.FindControl("lblAttandance");
 
-        DataSet dss = data.getDataSet("Select FORMAT(ATTENDANCEDATEIN,'hh:mm tt')ATTENDANCEDATEIN,FORMAT(ATTENDANCEDATEOUT,'hh:mm tt')ATTENDANCEDATEOUT  ,IsAttendanceOUT  from Attendance where IsDeleted=0 And IIF(" + HddCrmUserId.Value + "=0,EMPID,UserId)=IIF(" + HddCrmUserId.Value + "=0," + HddEmpId.Value + "," + HddCrmUserId.Value + ")  and Cast(AttendanceDateIN as date)=Cast(getdate() as date)");
+        
+        DataSet dss = data.getDataSet("Select FORMAT(ATTENDANCEDATEIN,'hh:mm tt')ATTENDANCEDATEIN,FORMAT(ATTENDANCEDATEOUT,'hh:mm tt')ATTENDANCEDATEOUT  ,IsAttendanceOUT  from Attendance where IsDeleted=0 And IIF(" + HddCrmUserId.Value + "=0,EMPID,UserId)=IIF(" + HddCrmUserId.Value + "=0," + HddEmpId.Value + "," + HddCrmUserId.Value + ")  and Cast(AttendanceDateIN as date)=Cast('" + data.ConvertToDateTime(txtDate.Text) + "' as date)");
 
         lnkOut.Visible = (dss.Tables[0].Rows.Count > 0) ? Convert.ToBoolean(dss.Tables[0].Rows[0]["IsAttendanceOUT"]) ? false : true : false;
         lnkLeave.Visible = (dss.Tables[0].Rows.Count > 0) ? Convert.ToBoolean(dss.Tables[0].Rows[0]["IsAttendanceOUT"]) ? false : true : false;
@@ -111,5 +93,17 @@ public partial class Soft_Attandance : System.Web.UI.Page
 
             lblAttandance.Text = AttandanceIn + "" + AttandanceOut + "";
         }
+    }
+
+    protected void txtDate_TextChanged(object sender, EventArgs e)
+    {
+        FillRecords();
+    }
+
+    [WebMethod]
+    public static string ControlAccess()
+    {
+        DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
+        return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString() + "";
     }
 }

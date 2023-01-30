@@ -359,6 +359,38 @@ public partial class Soft_Payroll : System.Web.UI.Page
             TxtSecRefContactNo.Text = dsGet.Tables[5].Rows[0]["Ref_Contact2"].ToString();
         }
         #endregion
+
+        #region Documents
+        foreach (DataRow drDoc in dsGet.Tables[0].Rows)
+        {
+            if (ViewState["tbl"] == null)
+            {
+                SNO = 1;
+                dtRecord.Columns.Add("sno");
+                dtRecord.Columns.Add("Docu_Name");
+                dtRecord.Columns.Add("Docu_Id");
+                dtRecord.Columns.Add("File_Name");
+                dtRecord.Columns.Add("Delid");
+                dtRecord.Columns.Add("Id");
+            }
+            else
+            {
+                dtRecord = (DataTable)ViewState["tbl"];
+                SNO = dtRecord.Rows.Count + 1;
+            }
+            DataRow dtrow = dtRecord.NewRow();
+            dtrow["SNO"] = SNO;
+            dtrow["Id"] = HddRowID.Value;
+            dtrow["Docu_Id"] = drpDocument.SelectedValue;
+            dtrow["Docu_Name"] = drpDocument.SelectedItem.Text;
+            //dtrow["File_Name"] = _FileName;
+            dtrow["Delid"] = "0";
+            dtRecord.Rows.Add(dtrow);
+            ViewState["tbl"] = dtRecord;
+            rep.DataSource = dtRecord;
+            rep.DataBind();
+        }
+        #endregion
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -454,7 +486,6 @@ public partial class Soft_Payroll : System.Web.UI.Page
         txtEmpCode.Text = ds.Tables[0].Rows[0]["EMp_Code"].ToString();
         hddEmpNo.Value = ds.Tables[0].Rows[0]["EMpNO"].ToString();
     }
-
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
