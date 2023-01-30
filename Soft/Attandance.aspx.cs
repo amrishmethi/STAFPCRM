@@ -81,7 +81,7 @@ public partial class Soft_Attandance : System.Web.UI.Page
         Label lblAttandance = (Label)e.Item.FindControl("lblAttandance");
 
         
-        DataSet dss = data.getDataSet("Select FORMAT(ATTENDANCEDATEIN,'hh:mm tt')ATTENDANCEDATEIN,FORMAT(ATTENDANCEDATEOUT,'hh:mm tt')ATTENDANCEDATEOUT  ,IsAttendanceOUT  from Attendance where IsDeleted=0 And IIF(" + HddCrmUserId.Value + "=0,EMPID,UserId)=IIF(" + HddCrmUserId.Value + "=0," + HddEmpId.Value + "," + HddCrmUserId.Value + ")  and Cast(AttendanceDateIN as date)=Cast('" + data.ConvertToDateTime(txtDate.Text) + "' as date)");
+        DataSet dss = data.getDataSet("Select FORMAT(ATTENDANCEDATEIN,'hh:mm tt')ATTENDANCEDATEIN,FORMAT(ATTENDANCEDATEOUT,'hh:mm tt')ATTENDANCEDATEOUT  ,IsAttendanceOUT  from Attendance where IsDeleted=0 And IIF(" + HddCrmUserId.Value + "=0,EMPID,UserId)=IIF(" + HddCrmUserId.Value + "=0," + HddEmpId.Value + "," + HddCrmUserId.Value + ")  and Cast(AttendanceDateIN as date)=Cast('" + data.YYYYMMDD(txtDate.Text) + "' as date)");
 
         lnkOut.Visible = (dss.Tables[0].Rows.Count > 0) ? Convert.ToBoolean(dss.Tables[0].Rows[0]["IsAttendanceOUT"]) ? false : true : false;
         lnkLeave.Visible = (dss.Tables[0].Rows.Count > 0) ? Convert.ToBoolean(dss.Tables[0].Rows[0]["IsAttendanceOUT"]) ? false : true : false;

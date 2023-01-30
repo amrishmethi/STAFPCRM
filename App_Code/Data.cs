@@ -218,7 +218,7 @@ public sealed class Data
         string sDateTime;
         string sTime;
         sTime = strTime;
-        string[] sDate = strDateTime.Split('/');
+        string[] sDate = strDateTime.Replace('-','/').Split('/');
         sDateTime = sDate[1] + '/' + sDate[0] + '/' + sDate[2] + " " + sTime;
 
 

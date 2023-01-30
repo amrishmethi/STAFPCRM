@@ -147,12 +147,12 @@
 
 
                    var date = new Date();
-                   var current_date = date.getHours() + ":" + (date.getMinutes()) + ":" + date.getSeconds();
+                   var current_date = date.getHours() + ":" + (date.getMinutes());
                    document.getElementById("lblDate").innerText = current_date.toString();
 
-                   var elements = document.getElementsByClassName("demo");
-                   Array.prototype.forEach.call(elements, function (element) {
-                       element.innerText = current_date;
+                   var elements1 = document.getElementsByClassName("demo");
+                   Array.prototype.forEach.call(elements1, function (element) {
+                       element.value = current_date.toString();
                    });
 
                }, 1000);
