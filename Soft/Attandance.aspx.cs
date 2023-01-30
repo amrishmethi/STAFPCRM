@@ -48,7 +48,7 @@ public partial class Soft_Attandance : System.Web.UI.Page
 
     private void FillRecords()
     {
-        //lblDate.Text = txtDate.Text;
+        lblDate.Text = txtDate.Text;
         DataSet ds = data.getDataSet("PROC_EMPHIERARCHY '" + drpProjectManager.SelectedValue + "','" + drpDepartment.SelectedValue + "'");
         rep.DataSource = ds;
         rep.DataBind();
@@ -79,8 +79,9 @@ public partial class Soft_Attandance : System.Web.UI.Page
         HiddenField HddEmpId = (HiddenField)e.Item.FindControl("HddEmpId");
         HiddenField HddCrmUserId = (HiddenField)e.Item.FindControl("HddCrmUserId");
         Label lblAttandance = (Label)e.Item.FindControl("lblAttandance");
+        TextBox txtWorkingTimeFRom = (TextBox)e.Item.FindControl("txtWorkingTimeFRom");
 
-        
+        txtWorkingTimeFRom.Text = DateTime.Now.ToString("HH:mm");
         DataSet dss = data.getDataSet("Select FORMAT(ATTENDANCEDATEIN,'hh:mm tt')ATTENDANCEDATEIN,FORMAT(ATTENDANCEDATEOUT,'hh:mm tt')ATTENDANCEDATEOUT  ,IsAttendanceOUT  from Attendance where IsDeleted=0 And IIF(" + HddCrmUserId.Value + "=0,EMPID,UserId)=IIF(" + HddCrmUserId.Value + "=0," + HddEmpId.Value + "," + HddCrmUserId.Value + ")  and Cast(AttendanceDateIN as date)=Cast('" + data.YYYYMMDD(txtDate.Text) + "' as date)");
 
         lnkOut.Visible = (dss.Tables[0].Rows.Count > 0) ? Convert.ToBoolean(dss.Tables[0].Rows[0]["IsAttendanceOUT"]) ? false : true : false;
