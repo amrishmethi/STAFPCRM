@@ -54,8 +54,7 @@
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">Department</th>
                                             <th style="text-align: left;">Emp Name</th>
-                                            <th>
-                                                <label id="lblAction">Attandance</label></th>
+                                            <th><label id="lblAction">Attandance</label></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -204,7 +203,7 @@
                 this.removeAttribute("class");
             } else {
 
-                this.href = 'checkInOut.aspx?loc=' + document.getElementById('demo').innerHTML + '&lnl=' + document.getElementById("Body_hddLnL").value
+                this.href = 'Attendance.aspx?loc=' + document.getElementById('demo').innerHTML + '&lnl=' + document.getElementById("Body_hddLnL").value
 
             }
         });

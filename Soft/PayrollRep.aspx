@@ -35,11 +35,10 @@
                                 <label>Reporting Manager</label>
                                 <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
-                           <%-- <div class="col-md-3" style="padding-top: 3px;">
+                            <%-- <div class="col-md-3" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
                             </div>--%>
-
                         </div>
                         <div class="clearfix">&nbsp;</div>
 
@@ -67,7 +66,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="rep" runat="server" OnItemCommand="rep_ItemCommand">
+                                        <asp:Repeater ID="rep" runat="server" OnItemCommand="rep_ItemCommand" OnItemDataBound="rep_ItemDataBound">
                                             <ItemTemplate>
                                                 <tr class="gradeA">
                                                     <td>
@@ -96,6 +95,15 @@
 
                                         </asp:Repeater>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="6" style="text-align:right;"><strong>Total</strong></td>
+                                            <td><strong><asp:Label ID="lblTotInHand" runat="server"></asp:Label></strong></td>
+                                            <td><strong><asp:Label ID="lblTotNetSal" runat="server"></asp:Label></strong></td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>

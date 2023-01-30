@@ -25,19 +25,47 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
 
             Session["AccessRigthsSet"] = getdata.AccessRights("SalesOrderReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-            //dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            //dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            //Gd.FillUser(drpUser);
-            //Gd.FillPrimaryParty(drpParty);
+            dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
+            dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
+            Gd.FillUser(drpUser);
+            bindDrp(true, true);
+            Gd.FillPrimaryParty(drpParty);
+            Gd.FillGroup(drpGrp);
             //Gd.FillPrimaryStation(drpStation);
             Filldata();
         }
     }
 
-
+    private void bindDrp(bool isuser, bool ishqtr)
+    {
+        DataSet dsusr = getdata.getHqtrUser();
+        DataView dv = dsusr.Tables[0].DefaultView;
+        if (isuser)
+        {
+            if (drpHeadQtr.SelectedIndex > 0)
+                dv.RowFilter = "HeadQtr='" + drpHeadQtr.SelectedItem.Text + "'";
+            dv.Sort = "Name";
+            drpUser.DataSource = dv.ToTable(true, "Name", "MId");
+            drpUser.DataTextField = "Name";
+            drpUser.DataValueField = "MId";
+            drpUser.DataBind();
+            drpUser.Items.Insert(0, new ListItem("Select", "0"));
+        }
+        if (ishqtr)
+        {
+            if (drpUser.SelectedIndex > 0)
+                dv.RowFilter = "Name='" + drpUser.SelectedItem.Text + "'";
+            dv.Sort = "HeadQtr";
+            drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr");
+            drpHeadQtr.DataTextField = "HeadQtr";
+            drpHeadQtr.DataValueField = "HeadQtr";
+            drpHeadQtr.DataBind();
+            drpHeadQtr.Items.Insert(0, new ListItem("Select", "0"));
+        }
+    }
     private void Filldata()
     {
-        ds = getdata.getSalesOrder("");
+        ds = getdata.getSalesOrder("SELECT","",drpUser.SelectedValue,drpHeadQtr.SelectedValue,drpParty.SelectedValue,dpFrom.Text.Trim(),dpTo.Text.Trim(),"","",drpGrp.SelectedValue);
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
@@ -51,12 +79,20 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
         {
             HiddenField hddid = (HiddenField)e.Item.FindControl("hddid");
             Repeater rep1 = (Repeater)e.Item.FindControl("rep1");
-           // Label lblTotal = (Label)e.Item.FindControl("lblTotal");
-            DataSet dsrep1 = getdata.getSalesOrder(hddid.Value);
-            if (dsrep1.Tables[1].Rows.Count > 0) { 
-            //lblTotal.Text = Convert.ToDecimal(dsrep1.Tables[0].Compute("Sum(Amount)", ""))+"";
-            //    txtGrandTot.Text = String.Format("{0:0.00}",Convert.ToDecimal(txtGrandTot.Text)+Convert.ToDecimal(lblTotal.Text));
-            rep1.DataSource = dsrep1.Tables[1];
+            Label lblTotal = (Label)e.Item.FindControl("lblTotal");
+            Label lblQty = (Label)e.Item.FindControl("lblQty");
+          //  Label lblPacking = (Label)e.Item.FindControl("lblPacking");
+            Label lblWeight = (Label)e.Item.FindControl("lblWeight");
+            DataSet dsrep1 = getdata.getSalesOrder("SELECT",hddid.Value,"","","","","","","",drpGrp.SelectedValue);
+            if (dsrep1.Tables[1].Rows.Count > 0) {
+                lblTotal.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(Amount)", ""))).ToString("#0.00");
+                lblQty.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(OrdQty)", ""))).ToString("#0");
+                //    lblPacking.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(Packing)", ""))).ToString("#0.00");
+  
+
+                lblWeight.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("sum(Weight)", ""))).ToString("#0.00");
+                txtGrandTot.Text = String.Format("{0:0.00}", Convert.ToDecimal(txtGrandTot.Text) + Convert.ToDecimal(lblTotal.Text));
+                rep1.DataSource = dsrep1.Tables[1];
             rep1.DataBind();
             }
         }
@@ -66,11 +102,11 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
 
     protected void btnPDF_Click(object sender, EventArgs e)
     {
-     //   string sb = tblBlock.InnerHtml;
-       
-    //    StringReader sr = new StringReader(sb);
-     //   Session["InvPrint"] = sb;
-       // Response.Write("<script>window.open('SecondarySalePrint.aspx','_blank');</script>");
+        string sb = tblBlock.InnerHtml;
+
+        StringReader sr = new StringReader(sb);
+        Session["InvPrint"] = sb;
+        Response.Write("<script>window.open('SalesOrder.aspx','_blank');</script>");
     }
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
@@ -81,4 +117,18 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
         }
     }
 
+
+    protected void drpType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Filldata();
+        DropDownList ddl = sender as DropDownList;
+        if (ddl == drpUser)
+        {
+            bindDrp(false, true);
+        }
+        if (ddl == drpHeadQtr)
+        {
+            bindDrp(true, false);
+        }
+    }
 }

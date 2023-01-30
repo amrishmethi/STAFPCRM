@@ -114,7 +114,7 @@
                                                             </tbody>
                                                             <tfoot style="background-color: floralwhite;">
                                                                 <tr>
-                                                                    <td colspan="6" runat="server">Remark : </td>
+                                                                    <td colspan="6" runat="server">Remark : <%# Eval("Remark") %></td>
                                                                     <td><strong>
                                                                         <asp:Label ID="lblTotal" runat="server"></asp:Label></strong></td>
                                                                     <td>&nbsp;</td>

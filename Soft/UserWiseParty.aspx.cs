@@ -65,7 +65,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         }
         if (drpCatg.SelectedIndex > 0)
         {
-            dv.RowFilter = " PTCMsNo = '" + drpCatg.SelectedValue + "'";
+            dv.RowFilter = " (PTCMsNo = '" + drpCatg.SelectedValue + "' or PTCMsNo is null) ";
         }
         rep.DataSource = dv.ToTable();
         rep.DataBind();
@@ -103,8 +103,8 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         drpStation.DataValueField = "Station";
         drpStation.DataBind();
         drpStation.Items.Insert(0, new ListItem("Select", "0"));
-        rep.DataSource = ds.Tables[0];
-        rep.DataBind();
+        fillData();
+        
     }
 
     protected void drpheadQtr_SelectedIndexChanged(object sender, EventArgs e)

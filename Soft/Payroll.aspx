@@ -78,7 +78,7 @@
                         <label class="control-label">Date of Joining    <span style="color: #ff0000">*</span></label>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ForeColor="Red"
                             ErrorMessage=" Please Enter" ControlToValidate="txtDOJ" ValidationGroup="aa"></asp:RequiredFieldValidator>
-                        <asp:TextBox ID="txtDOJ" runat="server" CssClass="form-control datepicker">
+                        <asp:TextBox ID="txtDOJ" runat="server" CssClass="form-control datepicker1">
                         </asp:TextBox>
                     </div>
                     <div class="col-md-4">

@@ -108,7 +108,7 @@
                                                     <td style="text-align: left;"><%#Eval("LoginMobile") %></td>
                                                     <td style="text-align: left;"><%#Eval("CheckDate") %><br /><%#Eval("CheckTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("Place") %></td>
-                                                       <td>
+                                                    
                                                            <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("OutImage") %>" class="abc1">
                                                         <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("OutImage") %>' Width="50" Height="50" Visible='<%# (Eval("OutImage").ToString()=="")?false:true %>' /></a></td>
                                                     <td style="text-align: left;"><%#Eval("OutDate") %><br /><%#Eval("OutTime") %></td>

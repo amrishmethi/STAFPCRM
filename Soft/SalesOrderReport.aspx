@@ -22,7 +22,7 @@
         <h1>Sales Order Report</h1>
         <ol class="breadcrumb">
             <li>
-               <%-- <button onclick="history.go(-1);
+                <%-- <button onclick="history.go(-1);
         return false;"
                     class="btn btn-sm btn-success">
                     Go Back</button>--%>
@@ -35,7 +35,46 @@
     <section class="content">
         <div class="row">
             <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                        <div class="form-group">
 
+                            <div class="col-md-3">
+                                <label>Employee</label>
+                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-3">
+                                <label>HeadQuarter</label>
+                                <asp:DropDownList ID="drpHeadQtr" runat="server" CssClass="form-control select2"  OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Party</label>
+                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2"  OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Date From</label>
+                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker"  OnTextChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:TextBox>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Date To</label>
+                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker"  OnTextChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:TextBox>
+                            </div>
+                             <div class="col-md-3">
+                                <label>Group</label>
+                                <asp:DropDownList ID="drpGrp" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+                        <div class="clearfix">&nbsp;</div>
+                        <div class="clearfix">&nbsp;</div>
+
+                    </div>
+                </div>
                 <div class="box box-primary">
                     <div class="box-body">
 
@@ -45,16 +84,17 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
-                                            <th style="text-align: left;">Order Date<br />
-                                                Time</th>
-                                            <th style="text-align: left;">Party</th>
+                                            <th style="text-align: left;">Order Date/Time</th>
+                                            <th style="text-align: left;">Employee Name</th>
+                                            <th style="text-align: left;">Party Name</th>
+                                            <th style="text-align: left;">Station</th>
                                             <th style="text-align: left;">Delivery Mode</th>
                                             <th style="text-align: left;">Payment Mode</th>
-                                            <th style="text-align: left;">Remark</th>
-                                        </tr>
+                                            <th style="text-align: left;">Action</th>
+ </tr>
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="rep" runat="server" OnItemDataBound="rep_ItemDataBound" OnItemCommand="rep_ItemCommand" >
+                                        <asp:Repeater ID="rep" runat="server" OnItemDataBound="rep_ItemDataBound" OnItemCommand="rep_ItemCommand">
                                             <ItemTemplate>
                                                 <tr id="slateGrey" class="gradeA" style="">
                                                     <td>
@@ -63,12 +103,16 @@
                                                     </td>
                                                     <td><%#Eval("ODATE") %><br />
                                                         <%#Eval("OTIME") %></td>
+                                                    <td><%#Eval("Employee") %></td>
                                                     <td><%#Eval("Party") %></td>
+                                                    <td><%#Eval("Station") %></td>
+                                                    <td><%#Eval("DeliveryMode") %></td>
+                                                    <td><%#Eval("PaymentMode") %></td>
                                                   
-                                                    <td><%#Eval("DelvMode") %></td>
-                                                    <td><%#Eval("PymtMode") %></td>
-                                                    <td><%#Eval("Remark") %></td>
-                                                    </tr>
+                                                     <td style="text-align: center;">
+                                                                                <a href="UpdateSalesOrder.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                                            </td>
+                                                </tr>
                                                 <tr>
                                                     <td id="backcolor" colspan="13" style="">
 
@@ -76,11 +120,14 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>Sr. No.</th>
+                                                                    <th>Group</th>
                                                                     <th>Item</th>
-                                                                    <th>Qty</th>
-                                                                    <th>RATE</th>
-                                                                    <th>Action</th>
-                                                                </tr>
+                                                                    <th>BAG/CASE</th>
+                                                                    <th>Packing</th>
+                                                                    <th>Weight</th>
+                                                                    <th>RATE PER KG</th>
+                                                                    <th>Amount</th>
+                                                                   </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <asp:Repeater ID="rep1" runat="server">
@@ -89,25 +136,31 @@
                                                                             <td>
                                                                                 <%#Container.ItemIndex+1 %>
                                                                             </td>
+                                                                            <td style="text-align: left;"><%#Eval("Grp") %></td>
                                                                             <td style="text-align: left;"><%#Eval("ITName") %></td>
-                                                                            <td style="text-align: left;"><%#Eval("OrdQty") %></td>
+                                                                            <td style="text-align: left;"><%#Eval("OrdQty","{0:0}") %></td>
+                                                                            <td style="text-align: left;"><%#Eval("Packing") %></td>
+                                                                            <td style="text-align: left;"><%# string.Format("{0:0.00}",Eval("Weight")) %></td>
                                                                             <td style="text-align: left;"><%#Eval("OrdStpRate") %></td>
-                                                                           <td style="text-align: center;">
-                                                                                <a href="#" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
-                                                                            </td>
+                                                                            <td style="text-align: left;"><%#Eval("Amount") %></td>
+                                                                           
                                                                         </tr>
                                                                     </ItemTemplate>
 
                                                                 </asp:Repeater>
                                                             </tbody>
-                                                        <%--    <tfoot style="background-color: floralwhite;">
-                                                                <tr>
-                                                                    <td colspan="6" runat="server">Remark : </td>
-                                                                    <td><strong>
-                                                                        <asp:Label ID="lblTotal" runat="server"></asp:Label></strong></td>
+                                                            <tfoot style="background-color: floralwhite;">
+                                                                <tr> <td colspan="3" runat="server">Remark : <%# Eval("Remark") %></td>
+                                                                    <td><strong><asp:Label ID="lblQty" runat="server"></asp:Label></strong></td>
+                                                                     
                                                                     <td>&nbsp;</td>
-                                                                </tr>
-                                                            </tfoot>--%>
+                                                                    <td><strong><asp:Label ID="lblWeight" runat="server"></asp:Label></strong></td>
+                                                                    <td>&nbsp;</td>
+                                                                    <td><strong><asp:Label ID="lblTotal" runat="server"></asp:Label>
+                                                        </strong></td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                </tfoot>
                                                         </table>
 
                                                     </td>
@@ -117,10 +170,10 @@
                                     </tbody>
                                 </table>
                             </div>
-                          <%--  <div class="col-sm-12" style="text-align: right;">
+                              <div class="col-sm-12" style="text-align: right;">
                                 <label>Grand Total</label>
                                 <asp:TextBox ID="txtGrandTot" runat="server" Style="font-weight: bold; text-align: right;" ReadOnly="true" Text="0.00"></asp:TextBox>
-                            </div>--%>
+                            </div>
                         </div>
 
                     </div>
@@ -170,32 +223,32 @@
 
     </script>
     <script>
-        function Print_Div() {
-            debugger
-            var restorepage = $('body').html();
-            var divContents = document.getElementById("Body_tblBlock").innerHTML;
-            var a = window.open('', '', 'height=500, width=500');
-            a.document.write('<html>');
-            a.document.write('<head> <style>');
-            a.document.write('@media print {#slateGrey{ background-color: lightslategrey; color: white; }');
-            a.document.write('#backcolor{ background-color: lightgray; }}');
-            a.document.write('</style></head>');
-            a.document.write('<body>');
-            a.document.write(divContents);
-            a.document.write('</body></html>');
-            a.document.close();
-            a.print();
-            $('body').html(restorepage);
-        }
         //function Print_Div() {
         //    debugger
         //    var restorepage = $('body').html();
-        //    var printcontent = $('#Body_tblBlock').clone();
-        //    $('body').empty().html(printcontent);
-        //    window.print();
+        //    var divContents = document.getElementById("Body_tblBlock").innerHTML;
+        //    var a = window.open('', '', 'height=500, width=500');
+        //    a.document.write('<html>');
+        //    a.document.write('<head> <style>');
+        //    a.document.write('@media print {#slateGrey{ background-color: lightslategrey; color: white; }');
+        //    a.document.write('#backcolor{ background-color: lightgray; }}');
+        //    a.document.write('</style></head>');
+        //    a.document.write('<body>');
+        //    a.document.write(divContents);
+        //    a.document.write('</body></html>');
+        //    a.document.close();
+        //    a.print();
         //    $('body').html(restorepage);
-        //};
-    
+        //}
+        function Print_Div() {
+            debugger
+            var restorepage = $('body').html();
+            var printcontent = $('#Body_tblBlock').clone();
+            $('body').empty().html(printcontent);
+            window.print();
+            $('body').html(restorepage);
+        };
+
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>

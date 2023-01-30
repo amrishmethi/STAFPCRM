@@ -21,32 +21,92 @@
     <link href="../content/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" />
     <script src="../content/plugins/jQuery/jquery.js"></script>
     <script src="../content/plugins/jQueryUI/jquery-ui.min.js"></script>
+    <style>
+        .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+            padding: 0px;
+            line-height: 1.428571;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+    <script type="text/javascript">
+      //  const { each } = require("jquery");
+
+        function SelectAllCheckboxes(spanChk) {
+
+            // Added as ASPX uses SPAN for checkbox
+
+            var oItem = spanChk.children;
+            var theBox = (spanChk.type == "checkbox") ?
+                spanChk : spanChk.children.item[0];
+            xState = theBox.checked;
+            elm = theBox.form.elements;
+
+            for (i = 0; i < elm.length; i++)
+                if (elm[i].type == "checkbox" &&
+                    elm[i].id != theBox.id) {
+                    //elm[i].click();
+
+                    if (elm[i].checked != xState)
+                        elm[i].click();
+                    //elm[i].checked=xState;
+
+                }
+        }
+
+    </script>
+     <script type="text/javascript">
+         function SelectCheckID() {
+             debugger
+             
+             var str = "";
+             var aa = document.querySelectorAll("input[type=checkbox]");
+             for (var i = 0; i < aa.length; i++) {
+                 if (aa[i].checked) {
+                     var OrderId = aa[i].id.substring(aa[i].id.indexOf('_') + 1);
+                     if (str == "") { str = OrderId; }
+                     else { str += ","+OrderId;}
+                     
+                 }
+             }
+             document.getElementById("HDDID").value = str;
+             
+         }
+     </script>
 </head>
-<body>
+<body runat="server">
     <form id="form1" runat="server">
         <section class="content-header" style="height: 2.5em;">
-            <h1></h1>
+            <div class="col-sm-1">Date</div>
+            <div class="col-sm-1">
+                <asp:TextBox ID="txtdate" runat="server" CssClass="form-control datepicker" OnTextChanged="drpDept_SelectedIndexChanged" AutoPostBack="true" Height="28px"></asp:TextBox>
+            </div>
+            <div class="col-sm-1">Department</div>
+            <div class="col-sm-3">
+                <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDept_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+
+
+            </div>
+
             <ol class="breadcrumb">
                 <li>
-                    <button onclick="history.go(-1);
-        return false;"
-                        class="btn btn-sm btn-success">
-                        Go Back</button>
+
+                    <button onclick="history.go(-1); return false;" class="btn btn-sm btn-success">Go Back</button></li>
+                <li>
+                    <button onclick="location.href='../Soft/Dashboard.aspx'; return false;" class="btn btn-sm btn-success">Go Home</button></li>
+                <li>
+                    <asp:Button runat="server" ID="btnPrint" Text="Print"
+                        class="btn btn-sm btn-success" OnClick="btnPrint_Click" />
+
+
                 </li>
             </ol>
         </section>
         <section class="content">
             <div class="box box-primary">
-                <div class="box-body">
-                    <div class="widget-content">
-                        <div class="table-responsive">
-                            <table id="ExportTbl" border="1" class="table display table-striped">
-                                <thead>
-                                    <tr><th></th></tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
+                <%--<div class="box-body" > <input type="text" id="checkid"  runat="server" value=""  /></div>--%>
+                <asp:HiddenField ID="HDDID" runat="server" Value="0" />
+                <div class="box-body" id="Contentblock" runat="server">
                 </div>
             </div>
         </section>
@@ -94,6 +154,16 @@
                 return hs.htmlExpand(this, { objectType: 'iframe' })
             });
         </script>
+        <script type="text/javascript"> 
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                timePicker: true,
+                todayHighlight: true,
+                autoclose: true,
+                endDate: new Date(),
+            });
+        </script>
+       
     </form>
 </body>
 </html>

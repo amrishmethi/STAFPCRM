@@ -217,11 +217,20 @@ public class Master
         return ds;
     }
 
-    public DataSet getSalesOrder(string id)
+    public DataSet getSalesOrder(string action,string id, string emp, string hqtr, string party, string dt,string dt1,string delv,string pymt,string grp)
     {
-        cmd = new SqlCommand("PROC_SalesOrder");
+          cmd = new SqlCommand("PROC_SalesOrder");
         cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@Action", action);
         cmd.Parameters.AddWithValue("@ID", id);
+        cmd.Parameters.AddWithValue("@Empid", emp);
+        cmd.Parameters.AddWithValue("@hqtr", hqtr);
+        cmd.Parameters.AddWithValue("@party", party);
+        cmd.Parameters.AddWithValue("@dtFrom", data.YYYYMMDD(dt));
+        cmd.Parameters.AddWithValue("@dtTo", data.YYYYMMDD(dt1));
+        cmd.Parameters.AddWithValue("@delv", delv);
+        cmd.Parameters.AddWithValue("@pymtmode", pymt);
+        cmd.Parameters.AddWithValue("@group", grp);
         ds = data.getDataSet(cmd);
         return ds;
     }
@@ -346,7 +355,6 @@ public class Master
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@ACTION", ACTION);
         cmd.Parameters.AddWithValue("@EMPID", EMPID);
-        cmd.Parameters.AddWithValue("@USERID", USERID);
         cmd.Parameters.AddWithValue("@LATITUDEIN", LATITUDEIN);
         cmd.Parameters.AddWithValue("@LONGITUDEIN", LONGITUDEIN);
         ds = data.getDataSet(cmd);

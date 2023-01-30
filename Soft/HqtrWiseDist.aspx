@@ -6,7 +6,7 @@
     <title>HeadQuarter Wise District(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server"> 
     <asp:ScriptManager ID="scpt1" runat="server"></asp:ScriptManager>
     <section class="content-header" style="height: 2.5em;">
         <h1>HeadQuarter Wise District</h1>

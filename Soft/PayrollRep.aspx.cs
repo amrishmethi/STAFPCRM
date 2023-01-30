@@ -17,7 +17,7 @@ public partial class Soft_PayrollRep : System.Web.UI.Page
     {
         Soft = Request.Cookies["STFP"];
         if (!IsPostBack)
-        {            
+        {
             Gd.fillDepartment(drpDepartment);
             Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue);
             Gd.FillUser(drpProjectManager);
@@ -31,7 +31,7 @@ public partial class Soft_PayrollRep : System.Web.UI.Page
         if (drpDepartment.SelectedIndex > 0)
             query += " and DEPT_ID=" + drpDepartment.SelectedValue;
         if (drpDesignation.SelectedIndex > 0)
-            query += " and DESIG_ID='" + drpDesignation.SelectedValue + "'";  
+            query += " and DESIG_ID='" + drpDesignation.SelectedValue + "'";
         if (drpProjectManager.SelectedIndex > 0)
             query += " and Rep_Manager='" + drpProjectManager.SelectedValue + "'";
 
@@ -41,7 +41,7 @@ public partial class Soft_PayrollRep : System.Web.UI.Page
         rep.DataBind();
     }
 
-  
+
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         if (e.CommandName == "Delete")
@@ -54,5 +54,15 @@ public partial class Soft_PayrollRep : System.Web.UI.Page
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
         FillRecords();
+    }
+
+    protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        DataSet dsrep = (DataSet)rep.DataSource;
+        if (dsrep.Tables[0].Rows.Count > 0)
+        {
+            lblTotInHand.Text = (Convert.ToDecimal(dsrep.Tables[0].Compute("Sum(In_Hand)", ""))).ToString("#0.00");
+            lblTotNetSal.Text = (Convert.ToDecimal(dsrep.Tables[0].Compute("Sum(Net_Salary)", ""))).ToString("#0.00");
+        }
     }
 }
