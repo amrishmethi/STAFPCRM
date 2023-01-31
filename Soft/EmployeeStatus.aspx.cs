@@ -116,7 +116,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
             foreach (DataRow dr in dt_Employee.Rows)
             {
                 dv.RowFilter = " ID=" + dr["ID"];
-                DataTable dt_chkin = dv.ToTable();
+                DataTable dt_chkin = dv.ToTable(true, "CHECKIN_DATE", "CHECKIN_TIME", "CHECKIN_PARTY");
                 if (i < Convert.ToInt32(dt_chkin.Rows.Count))
                 {
                     sb.Append("<td>" + dt_chkin.Rows[i]["CHECKIN_DATE"] + "<br/>" + dt_chkin.Rows[i]["CHECKIN_TIME"] + "</td>");
@@ -179,7 +179,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                 DataTable dt_cd = dv.ToTable(true, "Emp_Name", "CD_DATE", "CD_TIME", "CD_PARTY", "CD_STATION");
                 if (i < Convert.ToInt32(dt_cd.Rows.Count))
                 {
-                   
+
                     sb.Append("<td>" + dt_cd.Rows[i]["CD_DATE"] + "<br/>" + dt_cd.Rows[i]["CD_TIME"] + "</td>");
                     if (dt_cd.Rows[0]["CD_PARTY"].ToString() != "")
                     {
@@ -214,9 +214,10 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                 DataTable dt_ord = dv.ToTable(true, "Emp_Name", "ORDER_DATE", "ORDER_TIME", "ORDER_PARTY", "ORDER_AMT", "ORDER_STATION");
                 if (i < Convert.ToInt32(dt_ord.Rows.Count))
                 {
-                    if (dt_ord.Rows[i]["ORDER_DATE"].ToString() != "") { 
-                    sb.Append("<td>" + dt_ord.Rows[i]["ORDER_DATE"] + "<br/>" + dt_ord.Rows[i]["ORDER_TIME"] + " <br/>(Amount : " + dt_ord.Rows[0]["ORDER_AMT"] + ")</td>");
-                    sb.Append("<td>" + dt_ord.Rows[i]["ORDER_PARTY"] + " (" + dt_ord.Rows[i]["ORDER_STATION"] + ")</td>");
+                    if (dt_ord.Rows[i]["ORDER_DATE"].ToString() != "")
+                    {
+                        sb.Append("<td>" + dt_ord.Rows[i]["ORDER_DATE"] + "<br/>" + dt_ord.Rows[i]["ORDER_TIME"] + " <br/>(Amount : " + dt_ord.Rows[0]["ORDER_AMT"] + ")</td>");
+                        sb.Append("<td>" + dt_ord.Rows[i]["ORDER_PARTY"] + " (" + dt_ord.Rows[i]["ORDER_STATION"] + ")</td>");
                     }
                     else
                     {
@@ -246,9 +247,10 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
         {
             dv.RowFilter = " ID=" + dr["ID"];
             DataTable dt_sales = dv.ToTable(true, "Emp_Name", "SALES_VISITED", "SALES_AMT", "CHECKIN_PARTY");
-            if (dt_sales.Rows[0]["CHECKIN_PARTY"].ToString() != "") { 
-            sb.Append("<td>" + txtdate.Text.Trim() + "<br/>(Visits : " + dt_sales.Rows[0]["SALES_VISITED"] + ") <br/>(Amount : " + dt_sales.Rows[0]["SALES_AMT"] + ")</td>");
-            sb.Append("<td>" + dt_sales.Rows[0]["CHECKIN_PARTY"] + " (Primary)</td>");
+            if (dt_sales.Rows[0]["CHECKIN_PARTY"].ToString() != "")
+            {
+                sb.Append("<td>" + txtdate.Text.Trim() + "<br/>(Visits : " + dt_sales.Rows[0]["SALES_VISITED"] + ") <br/>(Amount : " + dt_sales.Rows[0]["SALES_AMT"] + ")</td>");
+                sb.Append("<td>" + dt_sales.Rows[0]["CHECKIN_PARTY"] + " (Primary)</td>");
             }
             else
             {
@@ -335,9 +337,9 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
     {
         dt_Employee = ((DataTable)ViewState["Emp"]).DefaultView.ToTable(true, "Emp_Name", "ID");
 
-        string OrderId = HDDID.Value ;
-       
-         GenratePDF(OrderId, false);
+        string OrderId = HDDID.Value;
+
+        GenratePDF(OrderId, false);
     }
     public void GenratePDF(string OrderId, Boolean isPdf)
     {
@@ -352,16 +354,17 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
             sb.Append("\n @media print {");
             sb.Append("\n footer {page-break-after: always;}");
             sb.Append("\n }</style>");
-          
+
             DataTable dsGet = (DataTable)ViewState["Emp"];
             for (int _Count = 0; _Count < SplitValue.Length; _Count++)
             {
                 //  string ss = "Sp_OrderPrint " + SplitValue[_Count];
                 DataView dv = dsGet.DefaultView;
-                    dv.RowFilter = "ID=" + SplitValue[_Count];
-                   DataTable dt =dv.ToTable();
-                
-                DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = "+dt.Rows[0]["CRMUserId"]).FirstOrDefault();
+
+                dv.RowFilter = "ID=" + SplitValue[_Count];
+                DataTable dt = dv.ToTable();
+
+                DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
 
                 using (StringWriter sw = new StringWriter())
                 {
@@ -374,7 +377,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                         sb.Append("<tr>");
                         sb.Append("<td align='center'><table width='990' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
-sb.Append("<td width='990' align='center'><strong>Employee Daily Report</strong></td>");
+                        sb.Append("<td width='990' align='center'><strong>Employee Daily Report</strong></td>");
                         sb.Append("</tr>");
                         sb.Append("<tr>");
                         sb.Append("<td align='center'>&nbsp;</td>");
@@ -382,26 +385,26 @@ sb.Append("<td width='990' align='center'><strong>Employee Daily Report</strong>
                         sb.Append("<tr>");
                         sb.Append("<td align='center'><table width='100%' border='1px' bordercolor='#CCC' cellspacing='0' cellpadding='5' style='border:1px solid #CCC; border-collapsecollapse;'>");
                         sb.Append("<tr>");
-                        sb.Append("<td>Employee Name: "+dt.Rows[0]["Emp_Name"].ToString() + "</td>");
+                        sb.Append("<td>Employee Name: " + dt.Rows[0]["Emp_Name"].ToString() + "</td>");
                         sb.Append("<td>filter</td>");
-                        sb.Append("<td>Department Name: "+ master.GetDepartment("Select", dt.Rows[0]["Dept_Id"].ToString(), "", "", "").Tables[0].Rows[0]["DEPT_NAME"].ToString() + "</td>");
+                        sb.Append("<td>Department Name: " + master.GetDepartment("Select", dt.Rows[0]["Dept_Id"].ToString(), "", "", "").Tables[0].Rows[0]["DEPT_NAME"].ToString() + "</td>");
                         sb.Append("<td>filter</td>");
                         sb.Append("</tr>");
                         sb.Append("<tr>");
-                        sb.Append("<td>Headquarter: "+ drHqtr["HeadQtr"] + "</td>");
+                        sb.Append("<td>Headquarter: " + drHqtr["HeadQtr"] + "</td>");
                         sb.Append("<td>filter</td>");
-                        sb.Append("<td>Reporting Officer : "+ dt.Rows[0]["Rep_Manager"] + " </td>");
+                        sb.Append("<td>Reporting Officer : " + dt.Rows[0]["Rep_Manager"] + " </td>");
                         sb.Append("<td>name</td>");
                         sb.Append("</tr>");
                         sb.Append("<tr>");
                         sb.Append("<td>&nbsp;</td>");
                         sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>date : "+ dt.Rows[0]["Att_DATEIN"].ToString() + "</td>");
+                        sb.Append("<td>date : " + dt.Rows[0]["Att_DATEIN"].ToString() + "</td>");
                         sb.Append("<td></td>");
                         sb.Append("</tr>");
                         sb.Append("<tr>");
                         sb.Append("<td>Attandance in</td>");
-                        sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["Att_DATEIN"].ToString() + " "+ dt.Rows[0]["Att_TIMEIN"].ToString() + "</td>");
+                        sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["Att_DATEIN"].ToString() + " " + dt.Rows[0]["Att_TIMEIN"].ToString() + "</td>");
                         sb.Append("</tr>");
                         sb.Append("<tr>");
                         sb.Append("<td>Check in</td>");

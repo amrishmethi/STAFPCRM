@@ -52,6 +52,7 @@
                     //elm[i].checked=xState;
 
                 }
+            SelectCheckID();
         }
 
     </script>
@@ -61,7 +62,8 @@
              
              var str = "";
              var aa = document.querySelectorAll("input[type=checkbox]");
-             for (var i = 0; i < aa.length; i++) {
+             for (var i = 1; i < aa.length; i++) {
+                 
                  if (aa[i].checked) {
                      var OrderId = aa[i].id.substring(aa[i].id.indexOf('_') + 1);
                      if (str == "") { str = OrderId; }
