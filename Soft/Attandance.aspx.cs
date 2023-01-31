@@ -56,7 +56,7 @@ public partial class Soft_Attandance : System.Web.UI.Page
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        TextBox txtWorkingTimeFRom = (TextBox)e.Item.FindControl("txtWorkingTimeFRom");
+        TextBox txtWorkingTimeFRom = (TextBox)e.Item.FindControl("txtWorkingTimeFRom"); 
         string _Action = e.CommandName;
         string _EmpId = e.CommandArgument.ToString();
         string Lat = hddLnL.Value.Split(',')[0].Replace("(", "");
