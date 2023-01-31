@@ -5,6 +5,7 @@
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server"> 
+    <meta http-equiv="refresh" content="60">
     <title>Attandance (STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
@@ -150,9 +151,17 @@
                    var current_date = date.getHours() + ":" + (date.getMinutes());
                    document.getElementById("lblDate").innerText = current_date.toString();
 
+<<<<<<< Updated upstream
                    var elements1 = document.getElementsByClassName("demo");
                    Array.prototype.forEach.call(elements1, function (element) {
                        element.value = current_date.toString();
+=======
+                   var elements = document.getElementsByClassName("demo");
+                   Array.prototype.forEach.call(elements, function (element) {
+                       element.innerText = current_date;
+
+                       Body_rep_txtWorkingTimeFRom_64
+>>>>>>> Stashed changes
                    });
 
                }, 1000);

@@ -858,7 +858,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <asp:Repeater ID="rep" runat="server">
+                                            <asp:Repeater ID="rep" runat="server" OnItemCommand="rep_ItemCommand">
                                                 <ItemTemplate>
                                                     <tr runat="server" visible='<%#Eval("Delid").ToString()=="0"?true:false %>'>
                                                         <td>
@@ -872,9 +872,7 @@
                                                             
                                                         </td>
                                                         <td>
-                                                            <asp:LinkButton ID="lnkEdit" runat="server" CommandName="Edit" Text="Edit"></asp:LinkButton>
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;
-                                                                <asp:LinkButton ID="lnkRemove" runat="server" CommandName="Remove" Text="Remove" CommandArgument='<%#Eval("SNo") %>'></asp:LinkButton>
+                                                            <asp:LinkButton ID="lnkRemove" runat="server" CommandName="Remove" Text="Remove" CommandArgument='<%#Eval("SNo") %>'></asp:LinkButton>
                                                         </td>
                                                     </tr>
                                                 </ItemTemplate>

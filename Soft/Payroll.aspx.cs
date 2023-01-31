@@ -37,7 +37,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 }
                 else
                 {
-                    DataSet CrmUser = getdata.getUserDetails(Request.QueryString["uid"],"0");
+                    DataSet CrmUser = getdata.getUserDetails(Request.QueryString["uid"], "0");
                     if (CrmUser.Tables[0].Rows.Count > 0)
                     {
                         txtemployeename.Text = CrmUser.Tables[0].Rows[0]["Name"].ToString();
@@ -452,7 +452,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record " + _Action + " Successfully');window.location ='PayrollRep.aspx'", true);
             }
             else
-                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('"+ DsMain.Tables[0].Rows[0]["Result"].ToString() + "');window.location ='PayrollRep.aspx'", true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('" + DsMain.Tables[0].Rows[0]["Result"].ToString() + "');window.location ='PayrollRep.aspx'", true);
 
         }
     }
@@ -557,5 +557,17 @@ public partial class Soft_Payroll : System.Web.UI.Page
             rep.DataSource = dtRecord;
             rep.DataBind();
         }
+    }
+
+    protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        string _Action = e.CommandName;
+        int _EmpId = Convert.ToInt32(e.CommandArgument)-1;
+        dtRecord = (DataTable)ViewState["tbl"];
+        dtRecord.Rows.RemoveAt(_EmpId);
+        dtRecord.AcceptChanges();
+        ViewState["tbl"] = dtRecord;
+        rep.DataSource = dtRecord;
+        rep.DataBind();
     }
 }
