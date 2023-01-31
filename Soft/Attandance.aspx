@@ -4,7 +4,7 @@
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server"> 
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <meta http-equiv="refresh" content="60">
     <title>Attandance (STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
@@ -56,7 +56,7 @@
                     <div class="box-body">
                         <div class="widget-content">
                             <div class="table-responsive">
-                                <table id="ExportTbl" class="table table-bordered display table-striped">
+                                <table id="ExportTbl" class="table table-bordered display table-striped table-responsive" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
@@ -65,7 +65,7 @@
 
                                             <th>
                                                 <label id="lblAction">Attandance</label></th>
-                                            <th  style="text-align: left;">&nbsp;</th>
+                                            <th style="text-align: left;">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -93,8 +93,8 @@
                                                         </div>
 
                                                     </td>
-                                                    <td >
-                                                        <asp:TextBox ID="txtWorkingTimeFRom" placeholder="Select Time" runat="server" CssClass="demo form-control timepicker "></asp:TextBox>
+                                                    <td>
+                                                        <asp:TextBox ID="txtWorkingTimeFRom" placeholder="Select Time" runat="server" CssClass="demo  timepicker" Style="width: none!important;"></asp:TextBox>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
@@ -119,7 +119,7 @@
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+                     
                     let text = data.d;
                     const myArray = text.split(",");
 
@@ -136,25 +136,25 @@
                 }
             });
         })
-    </script> 
+    </script>
 
-       <script>
-           // Set the date we're counting down to 
-           $(document).ready(function () {
-               // Update the count down every 1 second
-               var x = setInterval(function () {
-                   debugger
-                   // Get today's date and time
+    <script>
+        // Set the date we're counting down to 
+        $(document).ready(function () {
+            // Update the count down every 1 second
+            var x = setInterval(function () {
+                 
+                // Get today's date and time
 
 
-                   var date = new Date();
-                   var current_date = date.getHours() + ":" + (date.getMinutes());
-                   document.getElementById("lblDate").innerText = current_date.toString();
+                var date = new Date();
+                var current_date = date.getHours() + ":" + (date.getMinutes());
+                document.getElementById("lblDate").innerText = current_date.toString();
 
 <<<<<<< Updated upstream
-                   var elements1 = document.getElementsByClassName("demo");
-                   Array.prototype.forEach.call(elements1, function (element) {
-                       element.value = current_date.toString();
+                var elements1 = document.getElementsByClassName("demo");
+                Array.prototype.forEach.call(elements1, function (element) {
+                    element.value = current_date.toString();
 =======
                    var elements = document.getElementsByClassName("demo");
                    Array.prototype.forEach.call(elements, function (element) {
@@ -162,14 +162,14 @@
 
                        Body_rep_txtWorkingTimeFRom_64
 >>>>>>> Stashed changes
-                   });
+                });
 
-               }, 1000);
-           })
-       </script>
+            }, 1000);
+        })
+    </script>
 
 
-     
+
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -179,7 +179,7 @@
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+                     
                     let text = data.d;
                     const myArray = text.split(",");
 
@@ -289,6 +289,6 @@
             format: 'hh mm a'
         });
     </script>
-     
+
 </asp:Content>
 
