@@ -868,8 +868,8 @@
                                                         <td style="text-align: left;"><%#Eval("Docu_Name") %>
                                                             <asp:HiddenField ID="HddDcoumentId" runat="server" Value='<%#Eval("Docu_Id") %>' />
                                                         </td>
-                                                        <td style="text-align: left;"><%#Eval("File_Name") %>
-                                                            
+                                                        <td style="text-align: left;"><a href="../../upload/Document/<%#Eval("File_Name") %>" target="_blank" class=""><%#Eval("File_Name") %></a>
+
                                                         </td>
                                                         <td>
                                                             <asp:LinkButton ID="lnkRemove" runat="server" CommandName="Remove" Text="Remove" CommandArgument='<%#Eval("SNo") %>'></asp:LinkButton>

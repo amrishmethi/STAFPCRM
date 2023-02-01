@@ -62,8 +62,7 @@ public partial class Soft_Attandance : System.Web.UI.Page
         string Lat = hddLnL.Value.Split(',')[0].Replace("(", "");
         string Lang = hddLnL.Value.Split(',')[1].Replace(")", "");
         dsResult = master.GetAttandance(_Action, _EmpId, Soft["UserName"], Lat, Lang, data.ConvertToDateTimeNew(txtDate.Text, txtWorkingTimeFRom.Text).ToString());
-        FillRecords();
-        //Response.Redirect("Attandance.aspx");
+        FillRecords(); 
     }
 
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)

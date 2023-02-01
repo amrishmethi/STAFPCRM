@@ -361,35 +361,33 @@ public partial class Soft_Payroll : System.Web.UI.Page
         #endregion
 
         #region Documents
-        foreach (DataRow drDoc in dsGet.Tables[0].Rows)
-        {
-            if (ViewState["tbl"] == null)
-            {
-                SNO = 1;
-                dtRecord.Columns.Add("sno");
-                dtRecord.Columns.Add("Docu_Name");
-                dtRecord.Columns.Add("Docu_Id");
-                dtRecord.Columns.Add("File_Name");
-                dtRecord.Columns.Add("Delid");
-                dtRecord.Columns.Add("Id");
-            }
-            else
-            {
-                dtRecord = (DataTable)ViewState["tbl"];
-                SNO = dtRecord.Rows.Count + 1;
-            }
+        if (ViewState["tbl"] == null)
+        { 
+            dtRecord.Columns.Add("sno");
+            dtRecord.Columns.Add("Docu_Name");
+            dtRecord.Columns.Add("Docu_Id");
+            dtRecord.Columns.Add("File_Name");
+            dtRecord.Columns.Add("Delid");
+            dtRecord.Columns.Add("Id");
+        }
+       
+         
+        foreach (DataRow drDoc in dsGet.Tables[6].Rows)
+        {  
+            SNO = dtRecord.Rows.Count + 1;
             DataRow dtrow = dtRecord.NewRow();
             dtrow["SNO"] = SNO;
-            dtrow["Id"] = HddRowID.Value;
-            dtrow["Docu_Id"] = drpDocument.SelectedValue;
-            dtrow["Docu_Name"] = drpDocument.SelectedItem.Text;
-            //dtrow["File_Name"] = _FileName;
+            dtrow["Id"] = drDoc["ID"].ToString();
+            dtrow["Docu_Id"] = drDoc["DOC_ID"].ToString();
+            dtrow["Docu_Name"] = drDoc["DOCU_NAME"].ToString();
+            dtrow["File_Name"] = drDoc["DOCFILE_NAME"].ToString();
             dtrow["Delid"] = "0";
             dtRecord.Rows.Add(dtrow);
-            ViewState["tbl"] = dtRecord;
-            rep.DataSource = dtRecord;
-            rep.DataBind();
+
         }
+        ViewState["tbl"] = dtRecord;
+        rep.DataSource = dtRecord;
+        rep.DataBind();
         #endregion
     }
 
@@ -441,6 +439,8 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 payroll.Emp_Salary(_Action, DsMain.Tables[0].Rows[0]["EMPID"].ToString(), _UserId, txtNetSalary.Text, chkBS.Checked.ToString(), RBBSFixed.Checked.ToString(), RBBSPer.Checked.ToString(), txtBasicsalary.Text, txtBasicsalaryValue.Value, chkPF.Checked.ToString(), rbPFFixed.Checked.ToString(), rbPFPer.Checked.ToString(), txtPFSelf.Text, txtPFSelfValue.Value, txtPFComp.Text, txtPFCompValue.Value, ChkESIC.Checked.ToString(), rbESICFixed.Checked.ToString(), rbESICPer.Checked.ToString(), txtESICSelf.Text, txtESICSelfValue.Value, txtESICComp.Text, txtESICCompValue.Value, chkHRA.Checked.ToString(), rbHRAFixed.Checked.ToString(), rbHRAPer.Checked.ToString(), txtHRA.Text, txtHRAValue.Value, ChkWA.Checked.ToString(), RbWAFixed.Checked.ToString(), RbWAPer.Checked.ToString(), TxtwashingAllowance.Text, TxtwashingAllowanceValue.Value, chkMA.Checked.ToString(), rbMAFixed.Checked.ToString(), rbMAPer.Checked.ToString(), txtMediacl.Text, txtMediaclValue.Value, chkConv.Checked.ToString(), RbTAFixed.Checked.ToString(), RbTAPer.Checked.ToString(), txtConveyance.Text, txtConveyanceValue.Value, chkDALocal.Checked.ToString(), txtDALocal.Text, chkDAEx.Checked.ToString(), txtDAEx.Text, chkLA.Checked.ToString(), rbLAFixed.Checked.ToString(), rbLAPer.Checked.ToString(), txtLAPay.Text, txtLAPayValue.Value, chkFoodAll.Checked.ToString(), rbFAFixed.Checked.ToString(), rbFAPer.Checked.ToString(), txtFoodAll.Text, txtFoodAllValue.Value, chkOthers.Checked.ToString(), RBOAFixed.Checked.ToString(), RBOAPer.Checked.ToString(), txtOthers.Text, txtOthersValue.Value, chkNightAll.Checked.ToString(), txtNightAll.Text, chktdsapply.Checked.ToString(), rbTDSFixed.Checked.ToString(), rbTDSPer.Checked.ToString(), txtTDS.Text, txtTDSValue.Value, chkDeductOther.Checked.ToString(), rbDFixed.Checked.ToString(), rbDPer.Checked.ToString(), txtDeductOther.Text, txtDeductOtherValue.Value, chkPaidLeave.Checked.ToString(), txtNoOfPaidLeave.Text, ChkCL.Checked.ToString(), txtCL.Text, chkLateCheckIn.Checked.ToString(), txtLateCheckIn.Text, chkEarlyCheckOut.Checked.ToString(), txtEarlyCheckOut.Text, chkBonus.Checked.ToString(), txtBonus.Text, chkMinHour.Checked.ToString(), txtWorkingHour.Text, chkOverTime.Checked.ToString(), txtOverTime.Text, chkOverTimePH.Checked.ToString(), txtOverTimePH.Text, chkCHeckInTime.Checked.ToString(), txtCheckIn.Text, txtWorkingTimeFRom.Text, txtWorkingTimeTo.Text, _WorkingDays, txtCTC.Value, txtInHand.Value);
 
                 //Document Details
+
+
                 if (ViewState["tbl"] != null)
                 {
                     dtRecord = (DataTable)ViewState["tbl"];
@@ -562,12 +562,15 @@ public partial class Soft_Payroll : System.Web.UI.Page
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         string _Action = e.CommandName;
-        int _EmpId = Convert.ToInt32(e.CommandArgument)-1;
+        int _EmpId = Convert.ToInt32(e.CommandArgument) - 1;
         dtRecord = (DataTable)ViewState["tbl"];
-        dtRecord.Rows.RemoveAt(_EmpId);
+        dtRecord.Rows[_EmpId]["Delid"] = "1";
         dtRecord.AcceptChanges();
         ViewState["tbl"] = dtRecord;
-        rep.DataSource = dtRecord;
+        DataView dvv = dtRecord.DefaultView;
+        dvv.RowFilter = "Delid=0";
+        DataTable dtNeww = dvv.ToTable();
+        rep.DataSource = dtNeww;
         rep.DataBind();
     }
 }
