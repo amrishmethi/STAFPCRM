@@ -227,36 +227,172 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
         datatable.Columns.Add("DateTime");
         datatable.Columns.Add("Employee");
         datatable.Columns.Add("Party");
-        datatable.Columns.Add("Head Quarter");
+        //datatable.Columns.Add("Head Quarter");
         datatable.Columns.Add("District");
         datatable.Columns.Add("Station");
-        datatable.Columns.Add("Mobile No");
+       // datatable.Columns.Add("Mobile No");
         datatable.Columns.Add("WhatsApp No");
         datatable.Columns.Add("Description");
         datatable.Columns.Add("Location");
-        datatable.Columns.Add("Meet Type");
+       // datatable.Columns.Add("Meet Type");
        // datatable.Columns.Add("Image");
 
         foreach (DataRow dr in ((DataTable)ViewState["tbl"]).Rows) { 
         DataRow _row = datatable.NewRow();
-            _row["Sr. No."] = datatable.Rows.Count;
+            _row["Sr. No."] = datatable.Rows.Count+1;
             _row["DateTime"] = dr["AddedDate"] +""+ dr["AddedTime"];
             _row["Employee"] = dr["Name"];
             _row["Party"] = dr["PartyName"];
-            _row["Head Quarter"] = dr["HeadQtr"];
+           // _row["Head Quarter"] = dr["HeadQtr"];
             _row["District"] = dr["District"];
             _row["Station"] = dr["Station"];
-            _row["Mobile No"] = dr["MobileNo"];
+         //   _row["Mobile No"] = dr["MobileNo"];
             _row["WhatsApp No"] = dr["WhatsAppNo"];
             _row["Description"] = dr["Description"];
             _row["Location"] = dr["Place"];
-            _row["Meet Type"] = dr["ClientMeetType"];
+           // _row["Meet Type"] = dr["ClientMeetType"];
         //    _row["Image"] = dr["Image"];
             datatable.Rows.Add(_row);
         }
-        GeneratePDF(datatable, "ClientMeet");
+        GenerateReport(datatable, "ClientMeet");
 
     }
 
-  
+    protected void GenerateReport(DataTable dataTable, string Name)
+    {
+        DataRow dr = dataTable.Rows[0]; ;
+        Document document = new Document(PageSize.A4, 88f, 88f, 10f, 10f);
+        Font NormalFont = FontFactory.GetFont("Arial", 12, Font.NORMAL, Color.BLACK);
+        using (System.IO.MemoryStream memoryStream = new System.IO.MemoryStream())
+        {
+            PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+            Phrase phrase = null;
+            PdfPCell cell = null;
+            PdfPTable table = null;
+            Color color = null;
+
+            document.Open();
+
+            //Header Table
+            table = new PdfPTable(2);
+            table.TotalWidth = 500f;
+            table.LockedWidth = true;
+            table.SetWidths(new float[] { 0.3f, 0.7f });
+
+            //Company Logo
+            cell = ImageCell("~/img/user-img.jpg", 30f, PdfPCell.ALIGN_CENTER);
+            table.AddCell(cell);
+           
+            //Company Name and Address
+            phrase = new Phrase();
+            phrase.Add(new Chunk("Shree Tadkeshwar Agro Food Product \n\n", FontFactory.GetFont("Arial", 16, Font.BOLD, Color.RED)));
+            phrase.Add(new Chunk("H- 1-37- A, Sarna Doongar Industrial Area, Jhotwara Extension,\n", FontFactory.GetFont("Arial", 8, Font.NORMAL, Color.BLACK)));
+            phrase.Add(new Chunk("Jaipur - 302012 Rajasthan, India ,\n", FontFactory.GetFont("Arial", 8, Font.NORMAL, Color.BLACK)));
+            phrase.Add(new Chunk("(Mob) : + 91 - 98290 - 32422, (Tel) : 0141 - 3540250 \n", FontFactory.GetFont("Arial", 8, Font.NORMAL, Color.BLACK)));
+            phrase.Add(new Chunk("(Email) : sales@tadkeshwarfoods.com, (url) : www.tadkeshwarfoods.com", FontFactory.GetFont("Arial", 8, Font.NORMAL, Color.BLACK)));
+            cell = PhraseCell(phrase, PdfPCell.ALIGN_LEFT);
+            cell.VerticalAlignment = PdfCell.ALIGN_TOP;
+            table.AddCell(cell);
+
+            //Separater Line
+            color = new Color(System.Drawing.ColorTranslator.FromHtml("#A9A9A9"));
+            DrawLine(writer, 25f, document.Top - 79f, document.PageSize.Width - 25f, document.Top - 79f, color);
+            DrawLine(writer, 25f, document.Top - 80f, document.PageSize.Width - 25f, document.Top - 80f, color);
+            document.Add(table);
+
+            table = new PdfPTable(2);
+            table.HorizontalAlignment = Element.ALIGN_LEFT;
+            table.SetWidths(new float[] { 0.3f, 1f });
+            table.SpacingBefore = 20f;
+
+            int cols = dataTable.Columns.Count;
+            int rows = dataTable.Rows.Count;
+            iTextSharp.text.Table pdfTable = new iTextSharp.text.Table(cols, rows);
+            pdfTable.BorderWidth = 1; pdfTable.Width = 100;
+            pdfTable.Padding = 1; pdfTable.Spacing = 4;
+            for (int i = 0; i < cols; i++)
+            {
+                Cell cellCols = new Cell();
+                Chunk chunkCols = new Chunk();
+                cellCols.BackgroundColor = new iTextSharp.text.Color(System.Drawing.ColorTranslator.FromHtml("#548B54"));
+                iTextSharp.text.Font ColFont = FontFactory.GetFont(FontFactory.HELVETICA, 14, iTextSharp.text.Font.BOLD, iTextSharp.text.Color.WHITE);
+
+                chunkCols = new Chunk(dataTable.Columns[i].ColumnName, ColFont);
+
+                cellCols.Add(chunkCols);
+                pdfTable.AddCell(cellCols);
+            }
+
+            for (int k = 0; k < rows; k++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    Cell cellRows = new Cell();
+                    if (k % 2 == 0)
+                    {
+                        cellRows.BackgroundColor = new iTextSharp.text.Color(System.Drawing.ColorTranslator.FromHtml("#cccccc")); ;
+                    }
+                    else { cellRows.BackgroundColor = new iTextSharp.text.Color(System.Drawing.ColorTranslator.FromHtml("#ffffff")); }
+                     
+                    iTextSharp.text.Font RowFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                    Chunk chunkRows = new Chunk(dataTable.Rows[k][j].ToString(), RowFont);
+                    cellRows.Add(chunkRows);
+
+                    pdfTable.AddCell(cellRows); 
+                }
+            }
+
+             
+
+            DrawLine(writer, 160f, 80f, 160f, 690f, Color.BLACK);
+            DrawLine(writer, 115f, document.Top - 200f, document.PageSize.Width - 100f, document.Top - 200f, Color.BLACK);
+
+              
+            document.Add(pdfTable);
+            document.Close();
+            byte[] bytes = memoryStream.ToArray();
+            memoryStream.Close();
+            Response.Clear();
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("Content-Disposition", "attachment; filename=Employee.pdf");
+            Response.ContentType = "application/pdf";
+            Response.Buffer = true;
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.BinaryWrite(bytes);
+            Response.End();
+            Response.Close();
+        }
+    }
+
+
+    private static void DrawLine(PdfWriter writer, float x1, float y1, float x2, float y2, Color color)
+    {
+        PdfContentByte contentByte = writer.DirectContent;
+        contentByte.SetColorStroke(color);
+        contentByte.MoveTo(x1, y1);
+        contentByte.LineTo(x2, y2);
+        contentByte.Stroke();
+    }
+    private static PdfPCell PhraseCell(Phrase phrase, int align)
+    {
+        PdfPCell cell = new PdfPCell(phrase);
+        cell.BorderColor = Color.WHITE;
+        cell.VerticalAlignment = PdfCell.ALIGN_TOP;
+        cell.HorizontalAlignment = align;
+        cell.PaddingBottom = 2f;
+        cell.PaddingTop = 0f;
+        return cell;
+    }
+    private static PdfPCell ImageCell(string path, float scale, int align)
+    {
+        iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(HttpContext.Current.Server.MapPath(path));
+        image.ScalePercent(scale);
+        PdfPCell cell = new PdfPCell(image);
+        cell.BorderColor = Color.WHITE;
+        cell.VerticalAlignment = PdfCell.ALIGN_TOP;
+        cell.HorizontalAlignment = align;
+        cell.PaddingBottom = 0f;
+        cell.PaddingTop = 0f;
+        return cell;
+    }
 }
