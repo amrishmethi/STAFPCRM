@@ -176,7 +176,7 @@
                                 <table id="ExportTbl" border="1" class="table display table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: left;">Sr. No.</th>
+                                            <th style="text-align: left;" >Sr. No.</th>
                                             <th style="text-align: left;">Date<br />
                                                 Time</th>
                                             <th style="text-align: left;">Employee</th>

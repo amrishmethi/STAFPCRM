@@ -57,7 +57,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="rep" runat="server" OnItemDataBound="rep_ItemDataBound" OnItemCommand="rep_ItemCommand" >
+                                        <asp:Repeater ID="rep" runat="server" OnItemDataBound="rep_ItemDataBound" OnItemCommand="rep_ItemCommand">
                                             <ItemTemplate>
                                                 <tr id="slateGrey" class="gradeA" style="">
                                                     <td>
@@ -68,7 +68,7 @@
                                                         <%#Eval("CHECKTIME") %></td>
                                                     <td><%#Eval("Employees") %></td>
                                                     <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/CameraPhotos/SecondarySales/" + Eval("Image") %>" class="abc1">
-                                                             <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/SecondarySales/" + Eval("Image") %>' Width="50" Height="50" Visible='<%# (Eval("Image").ToString()=="")?false:true %>' /></a></td>
+                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/SecondarySales/" + Eval("Image") %>' Width="50" Height="50" Visible='<%# (Eval("Image").ToString()=="")?false:true %>' /></a></td>
                                                     <td><%#Eval("PrimaryParty") %></td>
                                                     <td><%#Eval("PrimaryStation") %></td>
                                                     <td><%#Eval("SECONDARYPARTY") %></td>
@@ -92,7 +92,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <asp:Repeater ID="rep1" runat="server">
+                                                                <asp:Repeater ID="rep1" runat="server" OnItemCommand="rep1_ItemCommand">
                                                                     <ItemTemplate>
                                                                         <tr class="gradeA">
                                                                             <td>
@@ -105,7 +105,13 @@
                                                                             <td style="text-align: left;"><%#Eval("OrdStpRate") %></td>
                                                                             <td style="text-align: left;"><%#Eval("Amount") %></td>
                                                                             <td style="text-align: center;">
-                                                                                <a href="UpdateSecondaryItems.aspx?id=<%#Eval("Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                                                <div class="isEditVisible" style="display: inline;">
+                                                                                    <a href="UpdateSecondaryItems.aspx?id=<%#Eval("Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                                                </div>
+                                                                                <div class="isDelVisible" style="display: inline;">
+                                                                                    <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"
+                                                                                        CommandArgument='<%#Eval("Id") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
+                                                                                </div>
                                                                             </td>
                                                                         </tr>
                                                                     </ItemTemplate>
@@ -207,7 +213,7 @@
         //    window.print();
         //    $('body').html(restorepage);
         //};
-    
+
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>

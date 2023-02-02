@@ -48,7 +48,7 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
     }
 
 
-  
+
 
     protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
@@ -58,11 +58,12 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
             Repeater rep1 = (Repeater)e.Item.FindControl("rep1");
             Label lblTotal = (Label)e.Item.FindControl("lblTotal");
             DataSet dsrep1 = data.getDataSet("PROC_SECONDARYITEMSDETAILS '" + hddid.Value + "'");
-            if (dsrep1.Tables[0].Rows.Count > 0) { 
-            lblTotal.Text = Convert.ToDecimal(dsrep1.Tables[0].Compute("Sum(Amount)", ""))+"";
-                txtGrandTot.Text = String.Format("{0:0.00}",Convert.ToDecimal(txtGrandTot.Text)+Convert.ToDecimal(lblTotal.Text));
-            rep1.DataSource = dsrep1;
-            rep1.DataBind();
+            if (dsrep1.Tables[0].Rows.Count > 0)
+            {
+                lblTotal.Text = Convert.ToDecimal(dsrep1.Tables[0].Compute("Sum(Amount)", "")) + "";
+                txtGrandTot.Text = String.Format("{0:0.00}", Convert.ToDecimal(txtGrandTot.Text) + Convert.ToDecimal(lblTotal.Text));
+                rep1.DataSource = dsrep1;
+                rep1.DataBind();
             }
         }
     }
@@ -72,7 +73,7 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
     protected void btnPDF_Click(object sender, EventArgs e)
     {
         string sb = tblBlock.InnerHtml;
-       
+
         StringReader sr = new StringReader(sb);
         Session["InvPrint"] = sb;
         Response.Write("<script>window.open('SecondarySalePrint.aspx','_blank');</script>");
@@ -80,10 +81,20 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        if(e.CommandName == "ResizeImg")
+        if (e.CommandName == "ResizeImg")
         {
             Response.Redirect("ResizeImage.aspx?imgurl=" + e.CommandArgument.ToString());
         }
     }
 
+
+    protected void rep1_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        if (e.CommandName == "Delete")
+        {
+            int Id = Convert.ToInt32(e.CommandArgument.ToString());
+            data.executeCommand("Update [tbl_CheckOutItem] Set ISdeleted=1 where Id=" + Id);
+            Filldata();
+        }
+    }
 }
