@@ -61,10 +61,9 @@
                                             <th style="text-align: left;">Item Name</th>
                                            <th style="text-align: left;">Rate Per Kg</th>
                                             <th style="text-align: left;">Rate Per Pc</th>
-                                            <th style="text-align: left;">Per Case/Bag</th>
-                                            <th style="text-align: left;">Packing(In KG)</th>
-                                            <th style="text-align: left;">Packing(In pc)</th> 
-                                            <th style="text-align: left;">MRP</th>
+                                            <th style="text-align: left;">Carton Pack(Per Pc)</th>
+                                            <th style="text-align: left;">Amount (Per Bag/Case)</th>
+                                            <th style="text-align: left;">MRP(Per Pc)</th>
                                          </tr>
                                     </thead>
                                     <tbody>
@@ -77,9 +76,9 @@
                                                     <td style="text-align: left;"><%#Eval("itname") %></td>
                                                     <td style="text-align: left;"><%#Eval("SalesOrderRate") %></td>
                                                     <td style="text-align: left;"><%#Eval("tRate") %></td>
+                                                     <td style="text-align: left;"><%#Eval("itpacking") %></td>
                                                     <td style="text-align: left;"><%#Eval("BagRate") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Packing") %></td>
-                                                    <td style="text-align: left;"><%#Eval("itpacking") %></td>
+                                                    
                                                     <td style="text-align: left;"><%#Eval("MRP") %></td>
                                                 </tr>
                                             </ItemTemplate>

@@ -260,7 +260,7 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
         {
             DataRow _row = datatable.NewRow();
             _row["Sr. No."] = datatable.Rows.Count + 1;
-            _row["DateTime"] = dr["AddedDate"] + "" + dr["AddedTime"];
+            _row["DateTime"] = dr["AddedDate"] + " " + dr["AddedTime"];
             _row["Employee"] = dr["Name"];
             _row["Party"] = dr["PartyName"];
             // _row["Head Quarter"] = dr["HeadQtr"];
@@ -275,8 +275,11 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
             datatable.Rows.Add(_row);
         }
         //GeneratePDF(datatable, "ClientMeet");
-        Session["ClientMeet"] = datatable;
-        Response.Redirect("Print.aspx");
+        Session["GridData"] = datatable;
+        Session["Title"] = "Client Meet";
+        Session["DateRange"] = "(Date as on "+ txtDateFrom.Text + " - "+ txtDateTo.Text + ")";
+        //Response.Redirect("Print.aspx");
+        Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
     }
 
 }

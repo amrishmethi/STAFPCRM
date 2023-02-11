@@ -22,9 +22,10 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
             txtdate.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             gd.fillDepartment(drpDept);
-
+            drpDept.SelectedValue = "2";
             fillEmp();
 
         }
@@ -146,13 +147,14 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
             foreach (DataRow dr in dt_Employee.Rows)
             {
                 dv.RowFilter = " ID=" + dr["ID"];
-                DataTable dt_meet = dv.ToTable(true, "Emp_Name", "MEET_DATE", "MEET_TIME", "MEET_PARTY");
+                DataTable dt_meet = dv.ToTable(true, "Emp_Name", "MEET_DATE", "MEET_TIME", "MEET_PARTY", "MEET_STATION");
                 if (i < Convert.ToInt32(dt_meet.Rows.Count))
                 {
 
                     sb.Append("<td>" + dt_meet.Rows[i]["MEET_DATE"] + "<br/>" + dt_meet.Rows[i]["MEET_TIME"] + "</td>");
-                    sb.Append("<td>" + dt_meet.Rows[i]["MEET_PARTY"] + "</td>");
-
+                    if (dt_meet.Rows[0]["MEET_PARTY"].ToString() != "")
+                        sb.Append("<td>" + dt_meet.Rows[i]["MEET_PARTY"] + "(" + dt_meet.Rows[i]["MEET_STATION"] + ")</td>");
+                    else sb.Append("<td>&nbsp;</td>");
                 }
                 else
                 {
@@ -343,7 +345,6 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
     }
     public void GenratePDF(string OrderId, Boolean isPdf)
     {
-
         if (OrderId != "")
         {
             //  CreateTable();
@@ -354,223 +355,228 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
             sb.Append("\n @media print {");
             sb.Append("\n footer {page-break-after: always;}");
             sb.Append("\n }</style>");
-
-            DataTable dsGet = (DataTable)ViewState["Emp"];
-            for (int _Count = 0; _Count < SplitValue.Length; _Count++)
+            if (SplitValue.Length > 0)
             {
-                //  string ss = "Sp_OrderPrint " + SplitValue[_Count];
-                DataView dv = dsGet.DefaultView;
-
-                dv.RowFilter = "ID=" + SplitValue[_Count];
-                DataTable dt = dv.ToTable();
-
-                DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
-
-                using (StringWriter sw = new StringWriter())
+                DataTable dsGet = (DataTable)ViewState["Emp"];
+                for (int _Count = 0; _Count < SplitValue.Length; _Count++)
                 {
-                    using (HtmlTextWriter hw = new HtmlTextWriter(sw))
+                    //  string ss = "Sp_OrderPrint " + SplitValue[_Count];
+                    DataView dv = dsGet.DefaultView;
+
+                    dv.RowFilter = "ID=" + SplitValue[_Count];
+                    DataTable dt = dv.ToTable();
+
+                    DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
+
+                    using (StringWriter sw = new StringWriter())
                     {
-                        sb.Append("<table width='100%' border='0' cellspacing='0' cellpadding='0'>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td align='center'><table width='990' border='0' cellspacing='0' cellpadding='0'>");
-                        sb.Append("<tr>");
-                        sb.Append("<td width='990' align='center'><strong>Employee Daily Report</strong></td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td align='center'>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td align='center'><table width='100%' border='1px' bordercolor='#CCC' cellspacing='0' cellpadding='5' style='border:1px solid #CCC; border-collapsecollapse;'>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Employee Name: " + dt.Rows[0]["Emp_Name"].ToString() + "</td>");
-                        sb.Append("<td>filter</td>");
-                        sb.Append("<td>Department Name: " + master.GetDepartment("Select", dt.Rows[0]["Dept_Id"].ToString(), "", "", "").Tables[0].Rows[0]["DEPT_NAME"].ToString() + "</td>");
-                        sb.Append("<td>filter</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Headquarter: " + drHqtr["HeadQtr"] + "</td>");
-                        sb.Append("<td>filter</td>");
-                        sb.Append("<td>Reporting Officer : " + dt.Rows[0]["Rep_Manager"] + " </td>");
-                        sb.Append("<td>name</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>date : " + dt.Rows[0]["Att_DATEIN"].ToString() + "</td>");
-                        sb.Append("<td></td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Attandance in</td>");
-                        sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["Att_DATEIN"].ToString() + " " + dt.Rows[0]["Att_TIMEIN"].ToString() + "</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Check in</td>");
-                        sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["CHECKIN_DATE"].ToString() + " " + dt.Rows[0]["CHECKIN_TIME"].ToString() + "</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Secondary sale(Amount)</td>");
-                        sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["SALES_AMT"].ToString() + "</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Secondary sale (group qty</td>");
-                        sb.Append("<td colspan='3' align='center'>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Total Visit</td>");
-                        sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["SALES_VISITED"].ToString() + "</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Check out</td>");
-                        sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["CHECKOUT_DATE"].ToString() + " " + dt.Rows[0]["CHECKOUT_TIME"].ToString() + "</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Attandence out</td>");
-                        sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["Att_DATEOUT"].ToString() + " " + dt.Rows[0]["Att_TIMEOUT"].ToString() + "</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Sale order(in amount)</td>");
-                        sb.Append("<td colspan='3' align='center'>&nbsp; </td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td rowspan='5'>Sale order group wise summary</td>");
-                        sb.Append("<td>Powder</td>");
-                        sb.Append("<td>Bar &amp; Tub</td>");
-                        sb.Append("<td>Rpo</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td rowspan='5'>New party add (create dealer)</td>");
-                        sb.Append("<td>Party Name</td>");
-                        sb.Append("<td>Station</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>A</td>");
-                        sb.Append("<td colspan='2'>W</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>B</td>");
-                        sb.Append("<td colspan='2'>X</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>C</td>");
-                        sb.Append("<td colspan='2'>Y</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>D</td>");
-                        sb.Append("<td colspan='2'>Z</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td rowspan='10'>Client Meating</td>");
-                        sb.Append("<td colspan='2'>New Party</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Party Name</td>");
-                        sb.Append("<td>Station</td>");
-                        sb.Append("<td>remark</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>1</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>2</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>3</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td colspan='2'>Tadkeshwar Party</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Party Name</td>");
-                        sb.Append("<td>Station</td>");
-                        sb.Append("<td>remark</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>1</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>2</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>3</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Total Travel(in km) today</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>Employee travel expenses</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("</table></td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td align='center'>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("</table></td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("</table>");
-                        sb.Append("<footer></footer>");
+                        using (HtmlTextWriter hw = new HtmlTextWriter(sw))
+                        {
+                            sb.Append("<table style='width: 100%; padding-right: 15px; border-spacing: 0px;'>");
+                            sb.Append("<tr style='padding: 0px; margin-top: -10px; margin-bottom: -10px;'>");
+                            sb.Append("<td style='text-align: left;padding: 0px;'>");
+                            sb.Append("<img src='../../img/logo.jpg' height='80px'><br />");
+                            sb.Append("</td>");
+                            sb.Append("<td style='text-align: right;padding: 0px;'>");
+                            sb.Append("<p style='font-size: 12px;'>");
+                            sb.Append("<strong style='font-size: 18px;'>Shree Tadkeshwar Agro Food Product</strong>");
+                            sb.Append("<br />");
+                            sb.Append("H- 1-37- A, Sarna Doongar Industrial Area, Jhotwara Extension,");
+                            sb.Append("<br />");
+                            sb.Append("Jaipur - 302012 Rajasthan, India");
+                            sb.Append("<br />");
+                            sb.Append("(Mob) : + 91 - 98290 - 32422, (Tel) : 0141 - 3540250");
+                            sb.Append("<br />");
+                            sb.Append("(Email) : sales@tadkeshwarfoods.com, (url) : www.tadkeshwarfoods.com");
+                            sb.Append("</p>");
+                            sb.Append("</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr style='padding: 0px; margin-top: -10px; margin-bottom: -10px;'>");
+                            sb.Append("<td colspan='2' style='padding: 0px;' >");
+                            sb.Append("<asp:Label ID='lblHeading' runat='server' Style='font-size: 20px; color: firebrick;'></asp:Label>");
+                            sb.Append("<asp:Label ID='lblDateRng' runat='server'></asp:Label></td>");
+                            sb.Append("</tr>");
+                            sb.Append("</table>");
+                            sb.Append("<table width='100%' border='0' cellspacing='0' cellpadding='0'>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td align='center'><table width='990' border='0' cellspacing='0' cellpadding='0'>");
+                            sb.Append("<tr>");
+                            sb.Append("<td width='990' align='center'><strong>Employee Daily Report</strong></td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td align='center'>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td align='center'><table width='100%' border='1px' bordercolor='#CCC' cellspacing='0' cellpadding='5' style='border:1px solid #CCC; border-collapsecollapse;'>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Employee Name: " + dt.Rows[0]["Emp_Name"].ToString() + "</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>Department Name: " + master.GetDepartment("Select", dt.Rows[0]["Dept_Id"].ToString(), "", "", "").Tables[0].Rows[0]["DEPT_NAME"].ToString() + "</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Headquarter: " + drHqtr["HeadQtr"] + "</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>Reporting Officer : " + dt.Rows[0]["Rep_Manager"] + " </td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>date : " +txtdate.Text.Trim().ToString() + "</td>");
+                            sb.Append("<td></td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Attandance in</td>");
+                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["Att_DATEIN"].ToString() + " " + dt.Rows[0]["Att_TIMEIN"].ToString() + "</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Check in : "+ dt.Rows[0]["CHECKIN_PARTY"].ToString() + " </td>");
+                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["CHECKIN_DATE"].ToString() + " " + dt.Rows[0]["CHECKIN_TIME"].ToString() + "</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Secondary sale(Amount)</td>");
+                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["SALES_AMT"].ToString() + "</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            DataSet dt_summary = getUserSummary(SplitValue[_Count], txtdate.Text.Trim());
+                            sb.Append("<td rowspan='" + (dt_summary.Tables[0].Rows.Count + 1) + "'>Secondary sale (group qty)</td>");
+                            sb.Append("<td>Group</td>");
+                            sb.Append("<td>Qty</td>");
+                            sb.Append("<td>Amount</td>");
+                            sb.Append("</tr>");
+                            foreach (DataRow rd in dt_summary.Tables[0].Rows)
+                            {
+                                sb.Append("<tr>");
+                                sb.Append("<td>" + rd["GroupName"] + "</td>");
+                                sb.Append("<td>" + rd["Qty"] + "</td>");
+                                sb.Append("<td>" + rd["Amount"] + "</td>");
+                                sb.Append("</tr>");
+                            }
+                            sb.Append("<tr>");
+                            sb.Append("<td>Total Visit</td>");
+                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["SALES_VISITED"].ToString() + "</td>");
+                            sb.Append("</tr>");
+                           
+                            sb.Append("<tr>");
+                            sb.Append("<td>Sale order(in Amount)</td>");
+                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["ORDER_AMT"].ToString() + "</td>");
+                            sb.Append("</tr>");
+
+                            sb.Append("<tr>");
+                            sb.Append("<td rowspan='" + (dt_summary.Tables[1].Rows.Count + 1) + "'>Sale order group wise summary</td>");
+                            sb.Append("<td>Group</td>");
+                            sb.Append("<td>Qty</td>");
+                            sb.Append("<td>Amount</td>");
+                            sb.Append("</tr>");
+                            foreach (DataRow rd in dt_summary.Tables[1].Rows)
+                            {
+                                sb.Append("<tr>");
+                                sb.Append("<td>" + rd["GroupName"] + "</td>");
+                                sb.Append("<td>" + rd["Qty"] + "</td>");
+                                sb.Append("<td>" + rd["Amount"] + "</td>");
+                                sb.Append("</tr>");
+                            }
+                            DataView dv_usr = dt.DefaultView;
+                            DataTable tbl_CD = dv_usr.ToTable(true, "CD_PARTY", "CD_STATION");
+                            sb.Append("<tr>");
+                            sb.Append("<td rowspan='" + (tbl_CD.Rows.Count + 1) + "'>New party add (create dealer)</td>");
+                            sb.Append("<td>Station</td>");
+                            sb.Append("<td>Party Name</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            foreach (DataRow rd in tbl_CD.Rows)
+                            {
+                                sb.Append("<tr>");
+                                sb.Append("<td>" + rd["CD_STATION"] + "</td>");
+                                sb.Append("<td>" + rd["CD_PARTY"] + "</td>");
+                                sb.Append("<td>&nbsp;</td>");
+                                sb.Append("</tr>");
+                            }
+
+                            DataTable tbl_CM = dv_usr.ToTable(true, "MEET_PARTY", "MEET_STATION", "MEET_REMARK");
+                            sb.Append("<td rowspan='" + (tbl_CM.Rows.Count + 1) + "'>Client Meeting</td>");
+                            sb.Append("<td>Station</td>");
+                            sb.Append("<td>Party Name</td>");
+                            sb.Append("<td>Remark</td>");
+                            sb.Append("</tr>");
+
+                            foreach (DataRow rd in tbl_CM.Rows)
+                            {
+                                sb.Append("<tr>");
+                                sb.Append("<td>" + rd["MEET_STATION"] + "</td>");
+                                sb.Append("<td>" + rd["MEET_PARTY"] + "</td>");
+                                sb.Append("<td>" + rd["MEET_REMARK"] + "</td>");
+                                sb.Append("</tr>");
+                            }
+
+
+
+                            sb.Append("<tr>");
+                            sb.Append("<td>Total Travel(in km) today</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Employee travel expenses</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Check out</td>");
+                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["CHECKOUT_DATE"].ToString() + " " + dt.Rows[0]["CHECKOUT_TIME"].ToString() + "</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Attandence out</td>");
+                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["Att_DATEOUT"].ToString() + " " + dt.Rows[0]["Att_TIMEOUT"].ToString() + "</td>");
+                            sb.Append("</tr>");
+                            sb.Append("</table></td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td align='center'>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("</table></td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("</table>");
+                            sb.Append("<footer></footer>");
+                        }
                     }
                 }
+                //if (isPdf)
+                //{
+                //    string  pdfname = ExporttoPDF(sb);
+                //    Response.Write("<script>window.open('../PDF/"+ pdfname + ".pdf','_blank');</script>");
+                //}
+                //else
+                //{
+                //Export HTML String as PDF.
+                StringReader sr = new StringReader(sb.ToString());
+                Session["InvPrint"] = sb.ToString();
+                Response.Write("<script>window.open('UserRptPrint.aspx','_blank');</script>");
+                //}
             }
-            //if (isPdf)
-            //{
-            //    string  pdfname = ExporttoPDF(sb);
-            //    Response.Write("<script>window.open('../PDF/"+ pdfname + ".pdf','_blank');</script>");
-            //}
-            //else
-            //{
-            //Export HTML String as PDF.
-            StringReader sr = new StringReader(sb.ToString());
-            Session["InvPrint"] = sb.ToString();
-            Response.Write("<script>window.open('UserRptPrint.aspx','_blank');</script>");
-            //}
         }
 
+    }
+
+    private DataSet getUserSummary(string id, string date1)
+    {
+        DataSet dsSummary = new DataSet();
+        cmd = new SqlCommand("PROC_USERSUMMARY");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@dt", date1);
+        cmd.Parameters.AddWithValue("@id", id);
+        dsSummary = data.getDataSet(cmd);
+
+
+        return dsSummary;
     }
 }
