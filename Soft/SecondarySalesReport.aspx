@@ -59,7 +59,14 @@
                                     <asp:ListItem Value="0" Text="No"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
-
+                             <div class="col-md-2">
+                                <label>Status</label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpIsCheck_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
+                                    <asp:ListItem Value="Active" Text="Active"></asp:ListItem>
+                                    <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
                         <div class="clearfix">&nbsp;</div>

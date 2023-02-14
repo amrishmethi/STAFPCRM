@@ -35,11 +35,14 @@ public partial class Admin_CheckInReport : System.Web.UI.Page
 
     public void fillData()
     {
+        string str = "1=1";
         ds = getdata.getCheckInDetails(drpUser.SelectedValue,drpDept.SelectedValue, dpFrom.Text.Trim(), dpTo.Text.Trim());
         DataView dv = ds.Tables[0].DefaultView;
-        if (drpIsCheck.SelectedValue == "0") { dv.RowFilter = " AddedDate is null"; }
-        else if (drpIsCheck.SelectedValue == "1") { dv.RowFilter = " AddedDate is not null"; }
-
+        if (drpIsCheck.SelectedValue == "0") { str += " and AddedDate is null"; }
+        else if (drpIsCheck.SelectedValue == "1") { str += " and AddedDate is not null"; }
+        if (drpStatus.SelectedValue == "Active") { str += " and Status = 'Active'"; }
+        else if (drpStatus.SelectedValue == "Non-Active") { str += " and Status = 'Non-Active'"; }
+        dv.RowFilter = str;
         rep.DataSource = dv.ToTable();
         rep.DataBind();
     }
