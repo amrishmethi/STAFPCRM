@@ -28,7 +28,7 @@ public partial class Soft_Print : System.Web.UI.Page
     {
         string strbreak = ""; string brkStr = "";
         StringBuilder strHTML = new StringBuilder();
-        strHTML.Append("<table  border='1' class='table display table-striped' style='border-collapse: collapse; font-size:10px;'>");
+        strHTML.Append("<table  border='1' class='table display table-striped' style='border-collapse: collapse; font-size:10px;width: 100%;'>");
         strHTML.Append("<thead>");
 
         strHTML.Append("<tr>");
@@ -59,7 +59,8 @@ public partial class Soft_Print : System.Web.UI.Page
                 {
                     if (brkStr != tbl.Rows[r + 1][2].ToString())
                     {
-                        strbreak = "page";
+                        if (Request.QueryString["EmpWise"] != null) { strbreak = "page"; }
+                        else { strbreak = "nopage"; }
                         brkStr = tbl.Rows[r + 1][2].ToString();
 
                     }

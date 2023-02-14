@@ -35,7 +35,8 @@
                     </div>
                     
                 </div>
-                 <asp:Button ID="btnPrint" runat="server" Text="Print" OnClick="btnPrint_Click" CssClass="btn btn-success" />
+                 <asp:Button ID="btnPrint" runat="server" Text="Employee Wise Print" OnClick="btnPrint_Click" CssClass="btn btn-success" />
+                 <asp:Button ID="btnPrintSummary" runat="server" Text="Print Summary" OnClick="btnPrint_Click" CssClass="btn btn-success" />
             </div>
             <div class="col-md-6">
                 <div class="box box-primary">

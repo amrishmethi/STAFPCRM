@@ -97,4 +97,9 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
             Filldata();
         }
     }
+
+    protected void print_Click(object sender, EventArgs e)
+    {
+
+    }
 }

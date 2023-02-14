@@ -73,7 +73,7 @@
         </div>
 
 
-        <table>
+        <table style="width:100%;">
 
             <thead>
                 <tr>
@@ -85,7 +85,7 @@
             </thead>
 
             <tbody>
-                <tr>
+                <tr style="align:center;">
                     <td>
                         <div id="bindTable" runat="server"></div>
                     </td>

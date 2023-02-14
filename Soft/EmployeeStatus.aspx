@@ -28,6 +28,7 @@
             vertical-align: top;
             border-top: 1px solid #ddd;
         }
+
     </style>
     <script type="text/javascript">
       //  const { each } = require("jquery");

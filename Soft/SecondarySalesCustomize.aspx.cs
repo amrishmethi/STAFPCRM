@@ -69,7 +69,8 @@ public partial class Admin_SecondarySalesCustomize : System.Web.UI.Page
                     OrderId += "," + hddEmpID.Value;
             }
         }
-        GenratePrint(OrderId, false);
+        
+        GenratePrint(OrderId, ((Button)sender).ID == "btnPrintSummary" ? true:false);
        
     }
 
@@ -120,7 +121,10 @@ public partial class Admin_SecondarySalesCustomize : System.Web.UI.Page
             Session["GridData"] = datatable;
             Session["Title"] = "Secondary Sales";
             Session["DateRange"] = "(Date as on " + dpFrom.Text + " - " + dpTo.Text + ")";
+            if(v)
             Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
+            else
+            Response.Write("<script>window.open ('Print.aspx?EmpWise=1','_blank');</script>");
         }
     }
 }

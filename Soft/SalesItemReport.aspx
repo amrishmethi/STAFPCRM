@@ -26,7 +26,7 @@
         return false;"
                     class="btn btn-sm btn-success">
                     Go Back</button>
-                <button id="print" onclick="Print_Div()" class="btn btn-sm btn-info">PDF</button>
+                <asp:Button id="print" runat="server" OnClick="print_Click" class="btn btn-sm btn-info">PDF</asp:Button>
             </li>
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/SalesItemReport.aspx" class="active">Secondary Sales Report</a></li>
