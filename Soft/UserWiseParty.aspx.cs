@@ -65,8 +65,12 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         }
         if (drpCatg.SelectedIndex > 0)
         {
-            dv.RowFilter = " (PTCMsNo = '" + drpCatg.SelectedValue + "' or PTCMsNo is null) ";
+            dv.RowFilter = " PTCMsNo = '" + drpCatg.SelectedValue + "' or PTCMsNo is null) ";
         }
+        //if (drpStatus.SelectedIndex > 0)
+        //{
+        //    dv.RowFilter = " Status = '"+ drpStatus.SelectedValue +"') ";
+        //}
         rep.DataSource = dv.ToTable();
         rep.DataBind();
     }
@@ -172,4 +176,6 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         ViewState["tbl"] = ds.Tables[0];
         fillData();
     }
+
+   
 }

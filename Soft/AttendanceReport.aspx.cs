@@ -35,11 +35,14 @@ public partial class Admin_AttendanceReport : System.Web.UI.Page
 
     public void fillData()
     {
+         string str = "1=1";
         ds = getdata.getAttendanceList(drpUser.SelectedValue, drpDept.SelectedValue, txtDate.Text.Trim());
         DataView dv = ds.Tables[0].DefaultView;
-        if (drpIsAttend.SelectedValue == "0") { dv.RowFilter = " DateIN is null"; }
-        else if (drpIsAttend.SelectedValue == "1") { dv.RowFilter = "DateIN <> ''"; }
-
+        if (drpIsAttend.SelectedValue == "0") { str += " and  DateIN is null"; }
+        else if (drpIsAttend.SelectedValue == "1") { str += " and DateIN <> ''"; }
+        if (drpStatus.SelectedValue == "Active") { str += " and Status = 'Active'"; }
+        else if (drpStatus.SelectedValue == "Non-Active") { str += " and Status = 'Non-Active'"; }
+        dv.RowFilter = str;
         rep.DataSource = dv.ToTable();
         rep.DataBind();
     }

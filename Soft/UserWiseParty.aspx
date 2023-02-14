@@ -56,10 +56,14 @@
                                 <asp:ListItem Value="1">Secondary</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
-                            <%--   <div class="col-md-1" style="padding-top: 3px;">
-                                        <div class="clearfix">&nbsp;</div>
-                                        <asp:button id="btnsearch" runat="server" cssclass="btn btn-primary" text="search" onclick="btnsearch_click" />
-                                    </div>--%>
+                            <%--<div class="col-md-2">
+                                <label>Status</label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpStatus_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
+                                    <asp:ListItem Value="Active" Text="Active"></asp:ListItem>
+                                    <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>--%>
                             <%-- </ContentTemplate>
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="drpUser" EventName="SelectedIndexChanged" />
@@ -67,6 +71,7 @@
                         <asp:AsyncPostBackTrigger ControlID="drpDistrict" EventName="SelectedIndexChanged" />
                     </Triggers>
                 </asp:UpdatePanel>--%>
+                             
                         </div>
                       
                         <div class="clearfix">&nbsp;</div>

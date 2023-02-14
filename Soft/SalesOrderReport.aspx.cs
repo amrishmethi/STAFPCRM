@@ -65,8 +65,13 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
     }
     private void Filldata()
     {
+        string str = "1=1";
         ds = getdata.getSalesOrder("SELECT","",drpUser.SelectedValue,drpHeadQtr.SelectedValue,drpParty.SelectedValue,dpFrom.Text.Trim(),dpTo.Text.Trim(),"","",drpGrp.SelectedValue);
-        rep.DataSource = ds.Tables[0];
+        DataView dv = ds.Tables[0].DefaultView;
+        if (drpStatus.SelectedValue == "Active") { str += " and Status = 'Active'"; }
+        else if (drpStatus.SelectedValue == "Non-Active") { str += " and Status = 'Non-Active'"; }
+        dv.RowFilter = str;
+        rep.DataSource = dv.ToTable();
         rep.DataBind();
     }
 
