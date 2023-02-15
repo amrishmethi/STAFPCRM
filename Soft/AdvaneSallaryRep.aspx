@@ -51,27 +51,29 @@
                                             <th style="text-align: left;">Voc No</th>
                                             <th style="text-align: left;">Employee</th>
                                             <th style="text-align: left;">Amount</th> 
+                                            <th style="text-align: left;">Remarks</th> 
                                             <th>
                                                 <label id="lblAction">Action</label></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="rep" runat="server" >
+                                        <asp:Repeater ID="rep" runat="server" OnItemCommand="rep_ItemCommand">
                                             <ItemTemplate>
                                                 <tr class="gradeA">
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td> 
-                                                    <td style="text-align: left;"><%#Eval("StationName") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Name") %></td>
-                                                    <td style="text-align: left;"><%#Eval("MobileNo") %></td>
-                                                    <td style="text-align: left;"><%#Eval("WhatsUpMobileNo") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Voc_Date1") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Voc_No") %></td>
+                                                    <td style="text-align: left;"><%#Eval("EMP_NAME") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Amount") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Remarks") %></td>
                                                     <td style="text-align: left;">
                                                   
-                                                           <%-- <a href="SecondarySalesPartyMaster.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                            <a href="AdvanceSallary.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
                                                       
                                                             <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"
-                                                                CommandArgument='<%#Eval("ID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>--%>
+                                                                CommandArgument='<%#Eval("ID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
                                                        
 
                                                     </td>
