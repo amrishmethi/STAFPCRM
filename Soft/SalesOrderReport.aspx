@@ -69,14 +69,14 @@
                                 <asp:DropDownList ID="drpGrp" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                               <div class="col-md-2">
+                          <%--     <div class="col-md-2">
                                 <label>Status</label>
                                 <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
                                     <asp:ListItem Value="Active" Text="Active"></asp:ListItem>
                                     <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
-                            </div>
+                            </div>--%>
                         </div>
                         <div class="clearfix">&nbsp;</div>
                         <div class="clearfix">&nbsp;</div>

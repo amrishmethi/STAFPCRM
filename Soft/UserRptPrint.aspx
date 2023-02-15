@@ -6,7 +6,7 @@
 
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   <title>Employee Report</title>
+   <title>STAFP Report</title>
     <link href="../bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
     <script src="../bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
     <script>

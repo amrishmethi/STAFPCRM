@@ -91,7 +91,6 @@ public partial class Admin_SecondarySalesCustomize : System.Web.UI.Page
         datatable.Columns.Add("Mobile No");
         if (orderId != "")
         {
-
             string _OrderId = orderId;
             StringBuilder sb = new StringBuilder();
             string[] SplitValue = _OrderId.Split(',');
