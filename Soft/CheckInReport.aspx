@@ -53,7 +53,7 @@
                                 <label>Status</label>
                                 <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
-                                    <asp:ListItem Value="Active" Text="Active"></asp:ListItem>
+                                    <asp:ListItem Value="Active" Text="Active" Selected="True"></asp:ListItem>
                                     <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>

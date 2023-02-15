@@ -117,15 +117,15 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
             sb.Append("\n footer {page-break-after: always;}");
             sb.Append("\n }</style>");
            
-                DataTable dsGet = getdata.getSecondarySalesItem(Request.QueryString["id"].ToString()).Tables[0];
-                
-                    //  string ss = "Sp_OrderPrint " + SplitValue[_Count];
-                    
-                   
+            DataTable dsGet = getdata.getSecondarySalesItem(Request.QueryString["id"].ToString()).Tables[0];
+           
+            //  string ss = "Sp_OrderPrint " + SplitValue[_Count];
 
-                //    DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
 
-                    using (StringWriter sw = new StringWriter())
+
+            //    DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
+
+            using (StringWriter sw = new StringWriter())
                     {
                         using (HtmlTextWriter hw = new HtmlTextWriter(sw))
                         {
@@ -154,32 +154,88 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
                             sb.Append("<asp:Label ID='lblDateRng' runat='server'></asp:Label></td>");
                             sb.Append("</tr>");
                             sb.Append("</table>");
-                            sb.Append("<table width='100%' border='0' cellspacing='0' cellpadding='0'>");
+                    sb.Append("<table width='100%' border='0' cellspacing='0' cellpadding='0'>");
+                    sb.Append("<tr>");
+                    sb.Append("<td>&nbsp;</td>");
+                    sb.Append("</tr>");
+                    sb.Append("<tr>");
+                    sb.Append("<td align='center'><table width='990' border='0' cellspacing='0' cellpadding='0'>");
+                    sb.Append("<tr>");
+                    sb.Append("<td width='990' align='center'><strong>Secondary Sales Report</strong></td>");
+                    sb.Append("</tr>");
+                    sb.Append("<tr>");
+                    sb.Append("<td align='center'>&nbsp;</td>");
+                    sb.Append("</tr>");
+                    sb.Append("<tr>");
+                    sb.Append("<td align='center'>" +
+                        "<table width='98%' border='0px' bordercolor='#CCC' cellspacing='0' cellpadding='5'>");//style='border:0px solid #CCC; border-collapsecollapse;'
+                    sb.Append("<tr>");
+                    sb.Append("<td>Employee Name: " + dsGet.Rows[0]["Employees"].ToString() + "</td>");
+                    sb.Append("<td>Date: " + dsGet.Rows[0]["CHECKDATE"].ToString() +"</td>");
+                    sb.Append("</tr>");
+                    sb.Append("<tr>");
+                    sb.Append("<td>Primary Party: " + dsGet.Rows[0]["PrimaryParty"].ToString() + "</td>");
+                    sb.Append("<td>Station: " + dsGet.Rows[0]["PrimaryStation"].ToString() + "</td>");
+                    sb.Append("</tr>");
+                    int row_num = 1;
+                    foreach (DataRow dr in dsGet.Rows)
+                    {
+                        sb.Append("<tr>");
+                        sb.Append("<td align='center' colspan='2'>" +
+                            "<table width='100%' border='1' bordercolor='#CCC' cellspacing='0' cellpadding='5' style='border:1px solid #CCC; border-collapse:collapse;'>");//style='border:0px solid #CCC; border-collapsecollapse;'
+                        sb.Append("<tr>");
+                        sb.Append("<th rowspan='2'>"+(row_num++)+"</th>");
+                        sb.Append("<th colspan='3'>Secondary Party: " + dr["SECONDARYPARTY"].ToString() + "</th>");
+                        sb.Append("<th colspan='2'>Secondary Station: " + dr["SECONDARYSTATION"].ToString() + "</th>");
+                        sb.Append("</tr>");
+                        sb.Append("<tr>");
+                        sb.Append("<th colspan='3'>Date & Time: " + dr["CHECKDATE"].ToString() + " " + dsGet.Rows[0]["CHECKTIME"].ToString() + "</th>");
+                        sb.Append("<th colspan='2'>Mobile No: " + dr["MobileNo"].ToString() + "</th>");
+                        sb.Append("</tr>");
+                        sb.Append("<tr style='background-color:whitesmoke;'>");
+                        sb.Append("<th>&nbsp;</th>");
+                        sb.Append("<th colspan='2'>Item</th>");
+                        sb.Append("<th>Qty</th>");
+                        sb.Append("<th>Rate</th>");
+                        sb.Append("<th>Amount</th>");
+                        sb.Append("</tr>");
+                        DataTable ITbl = data.getDataSet("PROC_SECONDARYITEMSDETAILS '" + dr["ChkOutID"].ToString() + "'").Tables[0];
+                        int ino = 1; int sumQty = 0; decimal sumAmt = 0;
+                        foreach(DataRow rw in ITbl.Rows)
+                        {
                             sb.Append("<tr>");
-                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td style='text-align:center;'>" + (ino++) + "</td>");
+                            sb.Append("<td style='text-align:left;' colspan='2'>" + rw["ITName"] + "</td>");
+                            sb.Append("<td style='text-align:center;'>" + rw["OrdQty"] + "</td>");
+                            sb.Append("<td style='text-align:right;'>" + rw["OrdStpRate"] + "</td>");
+                            sb.Append("<td style='text-align:right;'>" + rw["Amount"] + "</td>");
                             sb.Append("</tr>");
-                            sb.Append("<tr>");
-                            sb.Append("<td align='center'><table width='990' border='0' cellspacing='0' cellpadding='0'>");
-                            sb.Append("<tr>");
-                            sb.Append("<td width='990' align='center'><strong>Secondary Sales Report</strong></td>");
-                            sb.Append("</tr>");
-                            sb.Append("<tr>");
-                            sb.Append("<td align='center'>&nbsp;</td>");
-                            sb.Append("</tr>");
-                            sb.Append("<tr>");
-                            sb.Append("<td align='center'><table width='100%' border='1px' bordercolor='#CCC' cellspacing='0' cellpadding='5' style='border:1px solid #CCC; border-collapsecollapse;'>");
-                            sb.Append("</table></td>");
-                            sb.Append("</tr>");
-                            sb.Append("<tr>");
-                            sb.Append("<td align='center'>&nbsp;</td>");
-                            sb.Append("</tr>");
-                            sb.Append("</table></td>");
-                            sb.Append("</tr>");
-                            sb.Append("<tr>");
-                            sb.Append("<td>&nbsp;</td>");
-                            sb.Append("</tr>");
-                            sb.Append("</table>");
-                            sb.Append("<footer></footer>");
+                            sumAmt += Convert.ToDecimal(rw["Amount"]);
+                            sumQty += Convert.ToInt32(rw["OrdQty"]);
+                        }
+                        sb.Append("<tr style='background-color:floralwhite;'>");
+                        sb.Append("<td>&nbsp;</td>");
+                        sb.Append("<td style='text-align:left;' colspan='2'>Remark: " + dr["Remark"] + "</td>");
+                        sb.Append("<td style='text-align:center;'>" + sumQty + "</td>");
+                        sb.Append("<td>&nbsp;</td>");
+                        sb.Append("<td style='text-align:right;'>" + sumAmt + "</td>");
+                        sb.Append("</tr>");
+                        sb.Append("</table>");
+                        sb.Append("</td>");
+                        sb.Append("</tr>");
+                    }
+                    sb.Append("</table></td>");
+                    sb.Append("</tr>");
+                    sb.Append("<tr>");
+                    sb.Append("<td align='center'>&nbsp;</td>");
+                    sb.Append("</tr>");
+                    sb.Append("</table></td>");
+                    sb.Append("</tr>");
+                    sb.Append("<tr>");
+                    sb.Append("<td>&nbsp;</td>");
+                    sb.Append("</tr>");
+                    sb.Append("</table>");
+                    sb.Append("<footer></footer>");
                         }
                     }
                 
@@ -192,7 +248,7 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
                 //{
                 //Export HTML String as PDF.
                 StringReader sr = new StringReader(sb.ToString());
-                Session["InvPrint"] = sb.ToString();
+               Session["InvPrint"] = sb.ToString();
                 Response.Write("<script>window.open('UserRptPrint.aspx','_blank');</script>");
                 //}
             

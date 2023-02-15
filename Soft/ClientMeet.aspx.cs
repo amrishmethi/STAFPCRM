@@ -70,10 +70,14 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
 
     public void fillData()
     {
+        string str = "1=1";
         ds = getdata.getClientMeet(drpEmp.SelectedValue, drpHqtr.SelectedValue, drpType.SelectedValue, txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), drpDept.SelectedValue);
         DataView dv = ds.Tables[0].DefaultView;
-        if (drpIsMeet.SelectedValue == "0") { dv.RowFilter = " AddedDate is null"; }
-        else if (drpIsMeet.SelectedValue == "1") { dv.RowFilter = "AddedDate <> ''"; }
+        if (drpIsMeet.SelectedValue == "0") { str += " and AddedDate is null"; }
+        else if (drpIsMeet.SelectedValue == "1") { str += " and AddedDate <> ''"; }
+        if (drpStatus.SelectedValue == "Active") { str += " and Status = 'Active'"; }
+        else if (drpStatus.SelectedValue == "Non-Active") { str += " and Status = 'Non-Active'"; }
+        dv.RowFilter = str;
         ViewState["tbl"] = dv.ToTable();
         Session["ClientMeet"] = dv.ToString();
         rep.DataSource = ViewState["tbl"];
