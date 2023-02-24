@@ -6,7 +6,7 @@
     <title>Client Meet(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
     <style>
-           #Body_myImg {
+        #Body_myImg {
             border-radius: 5px;
             cursor: pointer;
             transition: 0.3s;
@@ -107,8 +107,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
-       <h1>Client Meet
-        <asp:LinkButton style="display:inline;" ID="lnkDownloadPDF" runat="server" CssClass="btn btn-sm btn-success" OnClick="lnkDownloadPDF_Click">Print</asp:LinkButton></h1>
+        <h1>Client Meet
+        <asp:LinkButton Style="display: inline;" ID="lnkDownloadPDF" runat="server" CssClass="btn btn-sm btn-success" OnClick="lnkDownloadPDF_Click">Print</asp:LinkButton></h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/ClientMeet.aspx" class="active">Client Meet</a></li>
@@ -163,7 +163,7 @@
                                 </asp:DropDownList>
 
                             </div>
-                           <div class="col-md-2">
+                            <div class="col-md-2">
                                 <label>Status</label>
                                 <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
@@ -183,7 +183,7 @@
                                 <table id="ExportTbl" border="1" class="table display table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: left;" >Sr. No.</th>
+                                            <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">Date<br />
                                                 Time</th>
                                             <th style="text-align: left;">Employee</th>
@@ -219,47 +219,44 @@
                                                     <td style="text-align: left;"><%#Eval("Place") %></td>
                                                     <td><%--<a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>" class="abc1">
                                                         <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>' Width="50" Height="50" Visible='<%# (Eval("Image").ToString()=="")?false:true %>' /></a>--%>
-                                                  <img id="myImg" runat="server" src='<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>' style="width:80px; height:80px; padding: 10px; cursor: zoom-in" visible='<%# (Eval("Image").ToString()=="")?false:true %>' onclick="imgclick(this)"/>
+                                                        <img id="myImg" runat="server" src='<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>' style="width: 80px; height: 80px; padding: 10px; cursor: zoom-in" visible='<%# (Eval("Image").ToString()=="")?false:true %>' onclick="imgclick(this)" />
 
-                                    <!-- The Modal -->
-                                    <div id="myModal" class="modal">
-                                        <span class="close">&times;</span>
-                                        <img class="modal-content" id="img01">
-                                        <div id="caption"></div>
-                                    </div>
+                                                        <!-- The Modal -->
+                                                        <div id="myModal" class="modal">
+                                                            <span class="close">&times;</span>
+                                                            <img class="modal-content" id="img01">
+                                                            <div id="caption"></div>
+                                                        </div>
 
-                                    <script>
-                                        // Get the modal
-                                        function imgclick(e) {
-                                            debugger
-                                            var modal = document.getElementById("myModal");
+                                                        <script>
+                                                            // Get the modal
+                                                            function imgclick(e) {
+                                                                debugger
+                                                                var modal = document.getElementById("myModal");
 
-                                            // Get the image and insert it inside the modal - use its "alt" text as a caption
-                                            var ele = e.id;
-                                            var img = document.getElementById(ele);
-                                            var modalImg = document.getElementById("img01");
-                                            var captionText = document.getElementById("caption");
-                                            //img.onclick = function () {
-                                            modal.style.display = "block";
-                                            modalImg.src = img.src;
-                                            captionText.innerHTML = this.alt;
-                                            //}
-                                            // Get the <span> element that closes the modal
-                                            var span = document.getElementsByClassName("close")[0];
+                                                                // Get the image and insert it inside the modal - use its "alt" text as a caption
+                                                                var ele = e.id;
+                                                                var img = document.getElementById(ele);
+                                                                var modalImg = document.getElementById("img01");
+                                                                var captionText = document.getElementById("caption");
+                                                                //img.onclick = function () {
+                                                                modal.style.display = "block";
+                                                                modalImg.src = img.src;
+                                                                captionText.innerHTML = this.alt;
+                                                                //}
+                                                                // Get the <span> element that closes the modal
+                                                                var span = document.getElementsByClassName("close")[0];
 
-                                            // When the user clicks on <span> (x), close the modal
-                                            span.onclick = function () {
-                                                modal.style.display = "none";
-                                            }
-                                        }
+                                                                // When the user clicks on <span> (x), close the modal
+                                                                span.onclick = function () {
+                                                                    modal.style.display = "none";
+                                                                }
+                                                            }
 
-                                    </script>
-                                                                                 </td>
+                                                        </script>
+                                                    </td>
                                                     <td style="text-align: left;"><%#Eval("ClientMeetType") %></td>
                                                     <div class="col-md-4" align="center">
-
-               
-                                    
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>

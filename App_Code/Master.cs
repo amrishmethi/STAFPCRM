@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Activities.Statements;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Text;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -154,8 +156,8 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
-    public DataSet getCreateDealer(string action, string id, string name, string contper, string address,string zip, string station, string state, string gst, string gstRegType, string smsMob, string whatsapp, string district, string transport, string partyType, string partyCatg, string webdate, string webdate1,string empid, string headQtr)
-    { 
+    public DataSet getCreateDealer(string action, string id, string name, string contper, string address, string zip, string station, string state, string gst, string gstRegType, string smsMob, string whatsapp, string district, string transport, string partyType, string partyCatg, string webdate, string webdate1, string empid, string headQtr)
+    {
         cmd = new SqlCommand("PROC_CREATEDEALER");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.Clear();
@@ -217,9 +219,9 @@ public class Master
         return ds;
     }
 
-    public DataSet getSalesOrder(string action,string id, string emp, string hqtr, string party, string dt,string dt1,string delv,string pymt,string grp)
+    public DataSet getSalesOrder(string action, string id, string emp, string hqtr, string party, string dt, string dt1, string delv, string pymt, string grp)
     {
-          cmd = new SqlCommand("PROC_SalesOrder");
+        cmd = new SqlCommand("PROC_SalesOrder");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@Action", action);
         cmd.Parameters.AddWithValue("@ID", id);
@@ -360,6 +362,69 @@ public class Master
         cmd.Parameters.AddWithValue("@ATTANDANCEDATE", ATTANDANCEDATE);
         cmd.Parameters.AddWithValue("@USERID", USERID);
         ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+    public DataSet IUD_Loan(string _Action, string _Id, string EMpId, string Loanamoaunt, string NoOfInstallment, string InstallmentAMount, string intrestRate, string loanDate, string LoanDeductDate)
+    {
+        cmd.CommandText = "SP_LOANDETAILINSERT";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@ACTION", _Action);
+        cmd.Parameters.AddWithValue("@Id", _Id);
+        cmd.Parameters.AddWithValue("@FK_EmpId", EMpId);
+        cmd.Parameters.AddWithValue("@AMOUNT", Loanamoaunt);
+        cmd.Parameters.AddWithValue("@INSTALLMENTS", NoOfInstallment);
+        cmd.Parameters.AddWithValue("@INSTAMOUNT", InstallmentAMount);
+        cmd.Parameters.AddWithValue("@INSRATE", intrestRate);
+        cmd.Parameters.AddWithValue("@DAT", data.ConvertToDateTime(loanDate));
+        cmd.Parameters.AddWithValue("@LOANDEDUCTDATE", data.ConvertToDateTime(LoanDeductDate));
+        return data.getDataSet(cmd);
+    }
+
+
+    public DataSet IUD_AdvanceSalary(string ACTION, string ID, string VOC_NO, string VOC_DATE, string EMP_ID, string REMARKS, string AMOUNT, string DELID, string USERID)
+    {
+        cmd.CommandText = "IU_ADVANCESALARY";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@ACTION", ACTION);
+        cmd.Parameters.AddWithValue("@ID", ID);
+        cmd.Parameters.AddWithValue("@VOC_NO", VOC_NO);
+        cmd.Parameters.AddWithValue("@VOC_DATE", VOC_DATE);
+        cmd.Parameters.AddWithValue("@EMP_ID", EMP_ID);
+        cmd.Parameters.AddWithValue("@REMARKS", REMARKS);
+        cmd.Parameters.AddWithValue("@AMOUNT", AMOUNT);
+        cmd.Parameters.AddWithValue("@DELID", DELID);
+        cmd.Parameters.AddWithValue("@USERID", USERID);
+        DataSet ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+    public DataSet IU_LEAVE(string ACTION, string ID, string FK_EmpId, string Leave_Type, string Requested_leave, string From_date, string To_date, string Approved_Leave, string Approved_todate, string Approved_fromdate, string Reason, string Date, string IsConfirm, string Mgr_Approved, string confirmdate, string FK_AdminID, string LeaveDetect)
+    { 
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "IU_LEAVE";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@ACTION", ACTION);
+        cmd.Parameters.AddWithValue("@LEAVE_ID", ID);
+        cmd.Parameters.AddWithValue("@FK_EmpId", FK_EmpId);
+        cmd.Parameters.AddWithValue("@Leave_Type", Leave_Type);
+        cmd.Parameters.AddWithValue("@Requested_leave", Requested_leave);
+        cmd.Parameters.AddWithValue("@From_date", From_date);
+        cmd.Parameters.AddWithValue("@To_date", To_date);
+        cmd.Parameters.AddWithValue("@Approved_Leave", Approved_Leave);
+        cmd.Parameters.AddWithValue("@Approved_todate", Approved_todate);
+        cmd.Parameters.AddWithValue("@Approved_fromdate", Approved_fromdate);
+        cmd.Parameters.AddWithValue("@Reason", Reason);
+        cmd.Parameters.AddWithValue("@Date", Date);
+        cmd.Parameters.AddWithValue("@IsConfirm", IsConfirm);
+        cmd.Parameters.AddWithValue("@Mgr_Approved", Mgr_Approved);
+        cmd.Parameters.AddWithValue("@confirmdate", confirmdate);
+        cmd.Parameters.AddWithValue("@FK_AdminID", FK_AdminID);
+        cmd.Parameters.AddWithValue("@LeaveDetect", LeaveDetect);
+        DataSet ds = data.getDataSet(cmd);
         return ds;
     }
 }
