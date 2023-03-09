@@ -7,14 +7,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-
-public partial class Soft_AdvaneSallaryRep : System.Web.UI.Page
+public partial class Soft_LeaveDeductRep : System.Web.UI.Page
 {
     private HttpCookie Soft;
     Data data = new Data();
     DataSet dsResult = new DataSet();
     GetData Gd = new GetData();
-    Master master = new Master();
+    Master getdata = new Master();
     protected void Page_Load(object sender, EventArgs e)
     {
         Soft = Request.Cookies["STFP"];
@@ -27,19 +26,19 @@ public partial class Soft_AdvaneSallaryRep : System.Web.UI.Page
 
     private void GetReport()
     {
-        DataSet dss = master.IUD_AdvanceSalary("Select", "0", "", "", "", "", "", "", "");
+        DataSet dss = getdata.IU_LEAVE("SELECT", "0", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
         rep.DataSource = dss;
         rep.DataBind();
-    } 
+    }
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         if (e.CommandName == "Delete")
         {
-            DataSet dss = master.IUD_AdvanceSalary("DELETE", e.CommandArgument.ToString(), "", "", "", "", "", "1", "");
+            DataSet dss = getdata.IU_LEAVE("DELETE", e.CommandArgument.ToString(), "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
             if (dss.Tables[0].Rows[0]["Result"].ToString() == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record DELETE Successfully');window.location ='AdvaneSallaryRep.aspx'", true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record DELETE Successfully');window.location ='LeaveDeductRep.aspx'", true);
             }
         }
     }
