@@ -46,7 +46,11 @@
                                 <table id="example" class="table table-bordered display table-striped" >
                                     <thead>
                                         <tr>
-                                            <th colspan="2" ><input type='checkbox' id='chkAll' runat='server' onclick='javascript: SelectAllCheckboxes(this);' />&nbsp;Select Employee</th>
+                                            <th colspan="2" ><input type='checkbox' id='chkAll' runat='server' onclick='javascript: SelectAllCheckboxes(this);' />&nbsp;Select Employee   <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpIsCheck_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
+                                    <asp:ListItem Value="Active" Text="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
+                                </asp:DropDownList></th>
                                          </tr>
                                         </thead>
                                     <tbody>

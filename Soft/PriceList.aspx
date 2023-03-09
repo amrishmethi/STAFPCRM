@@ -8,7 +8,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
-        <h1>Price List</h1>
+        <h1>Price List&nbsp;<asp:LinkButton style="display:inline;" ID="lnkDownloadPDF" runat="server" CssClass="btn btn-sm btn-success" OnClick="lnkDownloadPDF_Click">Print</asp:LinkButton></h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/PriceList.aspx" class="active">Price List </a></li>

@@ -47,7 +47,8 @@ public partial class Admin_PriceList : System.Web.UI.Page
                 ds = getdata.getPriceList(item.Value, drpState.SelectedValue);
                 dtt.Merge(ds.Tables[0]);
             }
-        } 
+        }
+        ViewState["tbl"] = dtt;
         rep.DataSource = dtt;
         rep.DataBind();
     }
@@ -69,5 +70,52 @@ public partial class Admin_PriceList : System.Web.UI.Page
     protected void drpGroup_SelectedIndexChanged(object sender, EventArgs e)
     {
         fillData();
+    }
+
+    protected void lnkDownloadPDF_Click(object sender, EventArgs e)
+    {
+        DataTable datatable = new DataTable();
+        datatable.Clear();
+
+
+        datatable.Columns.Add("Sr. No.");
+        datatable.Columns.Add("Item Name");
+        datatable.Columns.Add("Rate Per Kg");
+        datatable.Columns.Add("Rate Per Pc");
+        datatable.Columns.Add("Carton Pack Per Pc");
+        datatable.Columns.Add("Amount Per Bag/Case");
+        datatable.Columns.Add("MRP Per Pc");
+       
+
+        foreach (DataRow dr in ((DataTable)ViewState["tbl"]).Rows)
+        {
+            DataRow _row = datatable.NewRow();
+            _row["Sr. No."] = datatable.Rows.Count + 1;
+            _row["Item Name"] = dr["itname"];
+            _row["Rate Per Kg"] = dr["SalesOrderRate"];
+            _row["Rate Per Pc"] = dr["tRate"];
+            _row["Carton Pack Per Pc"] = dr["itpacking"];
+            _row["Amount Per Bag/Case"] = dr["BagRate"];
+            _row["MRP Per Pc"] = dr["MRP"];
+           
+            datatable.Rows.Add(_row);
+        }
+       
+        Session["GridData"] = datatable;
+        Session["Title"] = "Price List";
+        string strGrp = "";
+        foreach (ListItem item in drpGroup.Items)
+        {
+            if (item.Selected)
+            {
+                if(strGrp == "")  
+                strGrp= item.Text;
+                else
+                strGrp+= ", "+ item.Text;
+            }
+        }
+            Session["DateRange"] = "("+strGrp+")";
+        //Response.Redirect("Print.aspx");
+        Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
     }
 }

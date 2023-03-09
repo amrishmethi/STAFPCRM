@@ -117,8 +117,10 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
             sb.Append("\n footer {page-break-after: always;}");
             sb.Append("\n }</style>");
            
-            DataTable dsGet = getdata.getSecondarySalesItem(Request.QueryString["id"].ToString()).Tables[0];
-           
+            DataTable dsTbl = getdata.getSecondarySalesItem(Request.QueryString["id"].ToString()).Tables[0];
+            DataView dv = dsTbl.DefaultView;
+            dv.RowFilter = "IsProd<>0";
+            DataTable dsGet = dv.ToTable();
             //  string ss = "Sp_OrderPrint " + SplitValue[_Count];
 
 
@@ -159,7 +161,8 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
                     sb.Append("<td>&nbsp;</td>");
                     sb.Append("</tr>");
                     sb.Append("<tr>");
-                    sb.Append("<td align='center'><table width='990' border='0' cellspacing='0' cellpadding='0'>");
+                    sb.Append("<td align='center'>");
+                    sb.Append("<table width='990' border='0' cellspacing='0' cellpadding='0'>");
                     sb.Append("<tr>");
                     sb.Append("<td width='990' align='center'><strong>Secondary Sales Report</strong></td>");
                     sb.Append("</tr>");
@@ -176,8 +179,14 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
                     sb.Append("<tr>");
                     sb.Append("<td>Primary Party: " + dsGet.Rows[0]["PrimaryParty"].ToString() + "</td>");
                     sb.Append("<td>Station: " + dsGet.Rows[0]["PrimaryStation"].ToString() + "</td>");
+                    sb.Append("</tr>"); 
+                    sb.Append("<td>Total Visits: " + dsTbl.Rows.Count.ToString() + "</td>");
+                    
+                    sb.Append("<td>Productive: " + dsGet.Rows.Count + "&nbsp;&nbsp;&nbsp;");
+                    sb.Append("Non-Productive: " + (dsTbl.Rows.Count - dsGet.Rows.Count) + "</td>");
                     sb.Append("</tr>");
-                    int row_num = 1;
+                    int row_num = 1; int totQty=0; Decimal totAmt = 0; 
+                    
                     foreach (DataRow dr in dsGet.Rows)
                     {
                         sb.Append("<tr>");
@@ -193,11 +202,11 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
                         sb.Append("<th colspan='2'>Mobile No: " + dr["MobileNo"].ToString() + "</th>");
                         sb.Append("</tr>");
                         sb.Append("<tr style='background-color:whitesmoke;'>");
-                        sb.Append("<th>&nbsp;</th>");
-                        sb.Append("<th colspan='2'>Item</th>");
-                        sb.Append("<th>Qty</th>");
-                        sb.Append("<th>Rate</th>");
-                        sb.Append("<th>Amount</th>");
+                        sb.Append("<th width='10%'>&nbsp;</th>");
+                        sb.Append("<th colspan='2' width='50%'>Item</th>");
+                        sb.Append("<th width='10%'>Qty</th>");
+                        sb.Append("<th width='15%'>Rate</th>");
+                        sb.Append("<th width='15%'>Amount</th>");
                         sb.Append("</tr>");
                         DataTable ITbl = data.getDataSet("PROC_SECONDARYITEMSDETAILS '" + dr["ChkOutID"].ToString() + "'").Tables[0];
                         int ino = 1; int sumQty = 0; decimal sumAmt = 0;
@@ -206,13 +215,14 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
                             sb.Append("<tr>");
                             sb.Append("<td style='text-align:center;'>" + (ino++) + "</td>");
                             sb.Append("<td style='text-align:left;' colspan='2'>" + rw["ITName"] + "</td>");
-                            sb.Append("<td style='text-align:center;'>" + rw["OrdQty"] + "</td>");
+                            sb.Append("<td style='text-align:center;'>" + Convert.ToInt32(rw["OrdQty"]).ToString("#0") + "</td>");
                             sb.Append("<td style='text-align:right;'>" + rw["OrdStpRate"] + "</td>");
                             sb.Append("<td style='text-align:right;'>" + rw["Amount"] + "</td>");
                             sb.Append("</tr>");
                             sumAmt += Convert.ToDecimal(rw["Amount"]);
                             sumQty += Convert.ToInt32(rw["OrdQty"]);
                         }
+                        totAmt += sumAmt; totQty += sumQty;
                         sb.Append("<tr style='background-color:floralwhite;'>");
                         sb.Append("<td>&nbsp;</td>");
                         sb.Append("<td style='text-align:left;' colspan='2'>Remark: " + dr["Remark"] + "</td>");
@@ -227,7 +237,18 @@ public partial class Soft_SalesItem_Report : System.Web.UI.Page
                     sb.Append("</table></td>");
                     sb.Append("</tr>");
                     sb.Append("<tr>");
-                    sb.Append("<td align='center'>&nbsp;</td>");
+                    sb.Append("<td align='center'>");
+                    sb.Append("<table width='98%' border='0' bordercolor='#CCC' cellspacing='0' cellpadding='5' style='border-top:2px  solid #CCC;border-bottom:2px  solid #CCC; border-collapse:collapse;'>");
+                    sb.Append("<tr style='background-color:ghostwhite;'>");
+                    sb.Append("<th width='10%'>&nbsp;</th>");
+                    sb.Append("<th colspan='2' width='50%'>Total</th>");
+                    sb.Append("<th width='10%'>"+ totQty + "</th>");
+                    sb.Append("<th width='15%'>&nbsp;</th>");
+                    sb.Append("<th width='15%' style='text-align:right;'>" + totAmt+"</th>");
+                    sb.Append("</tr>");
+                    sb.Append("</table>");
+                   
+                    sb.Append("</td>");
                     sb.Append("</tr>");
                     sb.Append("</table></td>");
                     sb.Append("</tr>");

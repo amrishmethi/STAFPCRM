@@ -51,9 +51,9 @@ public partial class Soft_Print : System.Web.UI.Page
 
             if (Session["Title"].ToString() == "Secondary Sales")
             {
-                totSecSales += Convert.ToDecimal(tbl.Rows[r][3].ToString() == "" ? "0" : tbl.Rows[r][3].ToString());
-                totTrgtVisit += Convert.ToInt32(tbl.Rows[r][4].ToString() == "" ? "0" : tbl.Rows[r][4].ToString());
-                totTrgtAmt += Convert.ToDecimal(tbl.Rows[r][5].ToString() == "" ? "0" : tbl.Rows[r][5].ToString());
+                totSecSales += Convert.ToDecimal(tbl.Rows[r][4].ToString() == "" ? "0" : tbl.Rows[r][4].ToString());
+                totTrgtVisit += Convert.ToInt32(tbl.Rows[r][5].ToString() == "" ? "0" : tbl.Rows[r][5].ToString());
+                totTrgtAmt += Convert.ToDecimal(tbl.Rows[r][3].ToString() == "" ? "0" : tbl.Rows[r][3].ToString());
                 totVisits += Convert.ToInt32(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][6].ToString());
                 if (r < tbl.Rows.Count - 1)
                 {
@@ -85,10 +85,10 @@ public partial class Soft_Print : System.Web.UI.Page
                 {
                     strHTML.Append("<tr style='font-weight:400;height:24px;background-color:whitesmoke;' class='" + strbreak + "'>");
                     strHTML.Append("<td colspan='3' style='text-align:left;'>Total</td>");
+                    strHTML.Append("<td>" + totTrgtAmt + "</td>");
                     strHTML.Append("<td>" + totSecSales + "</td>");
                     strHTML.Append("<td>" + totTrgtVisit + "</td>");
-                    strHTML.Append("<td>" + totTrgtAmt + "</td>");
-                    strHTML.Append("<td>" + totVisits + "</td>");
+                     strHTML.Append("<td>" + totVisits + "</td>");
                     strHTML.Append("<td colspan='3'></td>");
                     strHTML.Append("</tr>");
                     totSecSales = totTrgtVisit = 0; totTrgtAmt = totVisits = 0;

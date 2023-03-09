@@ -45,8 +45,7 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
-                                            <th style="text-align: left;">Date<br />
-                                                Time</th>
+                                            <th style="text-align: left;">Date<br />Time</th>
                                             <th style="text-align: left;">Employee</th>
                                             <th style="text-align: left;">Image</th>
                                             <th style="text-align: left;">Primary Party</th>

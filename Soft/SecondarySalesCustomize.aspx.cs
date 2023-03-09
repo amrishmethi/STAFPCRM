@@ -33,10 +33,13 @@ public partial class Admin_SecondarySalesCustomize : System.Web.UI.Page
 
     public void fillData()
     {
-        //ds = getdata.getSeconarySalesDetails("0", "", "", dpFrom.Text.Trim(), dpTo.Text.Trim(), "0");
-        //DataView dv = ds.Tables[0].DefaultView;
+        string str = "1=1";
         ds = getdata.getUserDetails("0", "2");
-        rep.DataSource = ds;
+        DataView dv = ds.Tables[0].DefaultView;
+        if (drpStatus.SelectedValue == "Active") { str += " and Status = 'Active'"; }
+        else if (drpStatus.SelectedValue == "Non-Active") { str += " and Status = 'Non-Active'"; }
+        dv.RowFilter = str;
+        rep.DataSource = dv.ToTable();
         rep.DataBind();
     }
 
@@ -76,16 +79,20 @@ public partial class Admin_SecondarySalesCustomize : System.Web.UI.Page
 
     private void GenratePrint(string orderId, bool v)
     {
+       
         DataTable datatable = new DataTable();
         datatable.Clear();
 
         datatable.Columns.Add("Sr. No.");
         datatable.Columns.Add("DateTime");
         datatable.Columns.Add("Employee");
+        datatable.Columns.Add("Target Amount");
         datatable.Columns.Add("Secondary Sale Total");
         datatable.Columns.Add("Target Visits");
-        datatable.Columns.Add("Target Amount");
         datatable.Columns.Add("No of Visits");
+        datatable.Columns.Add("Productive Visits");
+        datatable.Columns.Add("Non-Productive Visits");
+        datatable.Columns.Add("Achievement of %");
         datatable.Columns.Add("Primary Party");
         datatable.Columns.Add("Primary Station");
         datatable.Columns.Add("Mobile No");
@@ -112,6 +119,9 @@ public partial class Admin_SecondarySalesCustomize : System.Web.UI.Page
                     _row["Primary Party"] = dr["PrimaryParty"];
                     _row["Primary Station"] = dr["PrimaryStation"];
                     _row["Mobile No"] = dr["MobileNo"];
+                    _row["Productive Visits"] = dr["Productive"];
+                    _row["Non-Productive Visits"] = Convert.ToInt32(dr["Visited"]) - Convert.ToInt32(dr["Productive"]);
+                    _row["Achievement of %"] = ((Convert.ToDecimal(dr["TotalSale"]) / (Convert.ToDecimal(dr["TargetAmount"])==0?1: Convert.ToDecimal(dr["TargetAmount"]))) * 100).ToString("#0.00") + "%";
 
                     datatable.Rows.Add(_row);
                 }

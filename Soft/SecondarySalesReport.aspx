@@ -10,6 +10,8 @@
     <section class="content-header" style="height: 2.5em;">
         <h1>Secondary Sales Report</h1>
         <ol class="breadcrumb">
+            <li>
+                <asp:Button ID="print" runat="server" OnClick="print_Click" CssClass="btn btn-sm btn-info" Text="Print"></asp:Button></li>
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/SecondarySalesReport.aspx" class="active">Secondary Sales Report</a></li>
         </ol>
@@ -59,7 +61,7 @@
                                     <asp:ListItem Value="0" Text="No"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
-                             <div class="col-md-2">
+                            <div class="col-md-2">
                                 <label>Status</label>
                                 <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpIsCheck_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
@@ -80,7 +82,10 @@
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
                                         <tr>
+
                                             <th rowspan="2">Sr. No.</th>
+                                            <th rowspan="2">
+                                                <input type='checkbox' id='chkAll' runat='server' onclick='javascript: SelectAllCheckboxes(this);' /></th>
                                             <th rowspan="2">Date<br />
                                                 Time</th>
                                             <th rowspan="2">Employee</th>
@@ -101,13 +106,18 @@
                                         <asp:Repeater ID="rep" runat="server">
                                             <ItemTemplate>
                                                 <tr class="gradeA">
+
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
-
+                                                    <td>
+                                                        <asp:CheckBox ID="chk" runat="server" />
+                                                    </td>
                                                     <td style="text-align: left;"><%#Eval("CheckDate") %><br />
                                                         <%#Eval("CheckTime") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Employees") %></td>
+                                                    <td style="text-align: left;">
+                                                        <asp:HiddenField ID="hddID" runat="server" Value='<%#Eval("ID") %>' />
+                                                        <%#Eval("Employees") %></td>
                                                     <td style="text-align: left;"><%#Eval("TotalSale") %></td>
                                                     <td style="text-align: left;"><%#Eval("TargetVisit") %></td>
                                                     <td style="text-align: left;"><%#Eval("TargetAmount") %></td>
@@ -174,7 +184,29 @@
         })
 
     </script>
-  
+    <script type="text/javascript">
+        function SelectAllCheckboxes(spanChk) {
+
+            // Added as ASPX uses SPAN for checkbox
+
+            var oItem = spanChk.children;
+            var theBox = (spanChk.type == "checkbox") ?
+                spanChk : spanChk.children.item[0];
+            xState = theBox.checked;
+            elm = theBox.form.elements;
+
+            for (i = 0; i < elm.length; i++)
+                if (elm[i].type == "checkbox" &&
+                    elm[i].id != theBox.id) {
+                    //elm[i].click();
+
+                    if (elm[i].checked != xState)
+                        elm[i].click();
+                    //elm[i].checked=xState;
+
+                }
+        }
+    </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
 
