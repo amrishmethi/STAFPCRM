@@ -66,26 +66,23 @@
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: left;">Sr. No.</th>
-                                            <th style="text-align: left;">Employee Name</th>
+                                            <th style="text-align: left;">S <br /> No.</th>
+                                            <th style="text-align: left;">Employee <br /> Name</th>
                                             <th style="text-align: left;">Basic</th>
                                             <th style="text-align: left;">PF</th>
                                             <th style="text-align: left;">ESIC</th>
-                                            <th style="text-align: left;">HRA</th> 
+                                            <th style="text-align: left;">HRA</th>
                                             <th style="text-align: left;">OA</th>
                                             <th style="text-align: left;">CA</th>
-                                            <th style="text-align: left;">DAL</th>
-                                            <th style="text-align: left;">DAEx</th>
-                                            <th style="text-align: left;">NSA</th>
                                             <th style="text-align: left;">TDS</th>
                                             <th style="text-align: left;">OD</th>
                                             <th style="text-align: left;">LD</th>
                                             <th style="text-align: left;">Loan</th>
                                             <th style="text-align: left;">Advance</th>
                                             <th style="text-align: left;">OT</th>
-                                            <th style="text-align: left;">Net<br /> Sallary</th>
-                                            <th style="text-align: left;">Working<br />
-                                                Day</th> 
+                                            <th style="text-align: left;">Net<br />
+                                                Sallary</th>
+                                            <th style="text-align: left;">WD</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -96,15 +93,12 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
-                                                    <td style="text-align: left;"><%#Eval("BASIC_SALARYVALUE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("BASIC_SALARYVALUE1") %></td>
                                                     <td style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ESIC_EMPLOYEEVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("HRAVALUE") %></td> 
+                                                    <td style="text-align: left;"><%#Eval("HRAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("OAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("CAVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DAL") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DAEX") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NSA") %></td>
                                                     <td style="text-align: left;"><%#Eval("TDSVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ODVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("LeaveDeduction") %></td>
@@ -112,7 +106,7 @@
                                                     <td style="text-align: left;"><%#Eval("Advance") %></td>
                                                     <td style="text-align: left;"><%#Eval("OverTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("NETSALARY") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NOOFATTANDANCE") %></td> 
+                                                    <td style="text-align: left;"><%#Eval("NOOFATTANDANCE") %></td>
                                                 </tr>
                                             </ItemTemplate>
 
