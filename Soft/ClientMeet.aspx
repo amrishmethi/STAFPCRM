@@ -171,6 +171,10 @@
                                     <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
+                            <div class="col-md-2">
+                                <br />
+                                <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Report" OnClick="btnSubmit_Click" />
+                            </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
                         <div class="clearfix">&nbsp;</div>

@@ -98,7 +98,7 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
 
     protected void drpEmp_SelectedIndexChanged(object sender, EventArgs e)
     {
-        fillData();
+        //fillData();
 
         DropDownList ddl = sender as DropDownList;
         if (ddl == drpEmp)
@@ -286,4 +286,9 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
         Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
     }
 
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        fillData();
+    }
 }

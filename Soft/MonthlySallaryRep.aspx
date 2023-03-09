@@ -66,14 +66,27 @@
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: left;">S <br /> No.</th>
-                                            <th style="text-align: left;">Employee <br /> Name</th>
+                                            <th style="text-align: left;">S
+                                                <br />
+                                                No.</th>
+                                            <th style="text-align: left;">Employee
+                                                <br />
+                                                Name</th>
                                             <th style="text-align: left;">Basic</th>
                                             <th style="text-align: left;">PF</th>
+                                            <th style="text-align: left;">Employer
+                                                <br />
+                                                PF</th>
                                             <th style="text-align: left;">ESIC</th>
+                                            <th style="text-align: left;">Employer
+                                                <br />
+                                                ESIC</th>
                                             <th style="text-align: left;">HRA</th>
                                             <th style="text-align: left;">OA</th>
                                             <th style="text-align: left;">CA</th>
+                                            <th style="text-align: left;">DAL</th>
+                                            <th style="text-align: left;">DAEx</th>
+                                            <th style="text-align: left;">NSA</th>
                                             <th style="text-align: left;">TDS</th>
                                             <th style="text-align: left;">OD</th>
                                             <th style="text-align: left;">LD</th>
@@ -93,12 +106,17 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
-                                                    <td style="text-align: left;"><%#Eval("BASIC_SALARYVALUE1") %></td>
+                                                    <td style="text-align: left;"><%#Eval("BASIC_SALARYVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PF_EMPLOYERVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ESIC_EMPLOYEEVALUE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("ESIC_EMPLOYERVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("HRAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("OAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("CAVALUE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DAL1") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DAEX1") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NSA") %></td>
                                                     <td style="text-align: left;"><%#Eval("TDSVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ODVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("LeaveDeduction") %></td>
