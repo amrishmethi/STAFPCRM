@@ -29,8 +29,9 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label class="control-label">Date</label>
-                        <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker" ReadOnly="true"></asp:TextBox>
+                        <label class="control-label">Date<span style="color: #ff0000">*</span></label> <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDate"
+                            ErrorMessage="Please Select" ValidationGroup="aa" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
+                        <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker"></asp:TextBox>
                     </div>
                     <div class="clearfix">&nbsp;</div>
                     <div class="col-md-4">

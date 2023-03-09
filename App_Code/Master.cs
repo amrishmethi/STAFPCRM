@@ -391,7 +391,7 @@ public class Master
         cmd.Parameters.AddWithValue("@ACTION", ACTION);
         cmd.Parameters.AddWithValue("@ID", ID);
         cmd.Parameters.AddWithValue("@VOC_NO", VOC_NO);
-        cmd.Parameters.AddWithValue("@VOC_DATE", VOC_DATE);
+        cmd.Parameters.AddWithValue("@VOC_DATE", data.ConvertToDateTime(VOC_DATE));
         cmd.Parameters.AddWithValue("@EMP_ID", EMP_ID);
         cmd.Parameters.AddWithValue("@REMARKS", REMARKS);
         cmd.Parameters.AddWithValue("@AMOUNT", AMOUNT);

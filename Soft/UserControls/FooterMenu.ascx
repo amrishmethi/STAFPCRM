@@ -2,11 +2,7 @@
 
 
 <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-       <%-- <b>Powered by</b> --%>
+    <div class="pull-right hidden-xs"> 
        </div>
-    <strong><%--Copyright &copy; 2017--%> <a href="#"></a>Powered by SSCompuSoft</strong>
-  <%--  All rights
-    reserved.--%>
- 
+    <strong> <a href="#"></a>Powered by SSCompuSoft</strong> 
 </footer>

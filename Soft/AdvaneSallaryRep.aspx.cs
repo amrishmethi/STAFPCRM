@@ -27,10 +27,10 @@ public partial class Soft_AdvaneSallaryRep : System.Web.UI.Page
 
     private void GetReport()
     {
-        DataSet dss = master.IUD_AdvanceSalary("Select", "0", "", "", "", "", "", "", "");
+        DataSet dss = master.IUD_AdvanceSalary("Select", "0", "", DateTime.Now.ToString("dd/MM/yyyy"), "", "", "", "", "");
         rep.DataSource = dss;
         rep.DataBind();
-    } 
+    }
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
