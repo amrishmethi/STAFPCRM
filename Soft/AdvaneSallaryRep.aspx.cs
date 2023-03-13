@@ -36,7 +36,7 @@ public partial class Soft_AdvaneSallaryRep : System.Web.UI.Page
     {
         if (e.CommandName == "Delete")
         {
-            DataSet dss = master.IUD_AdvanceSalary("DELETE", e.CommandArgument.ToString(), "", "", "", "", "", "1", "");
+            DataSet dss = master.IUD_AdvanceSalary("DELETE", e.CommandArgument.ToString(), "", DateTime.Now.ToString("dd/MM/yyyy"), "", "", "", "1", "");
             if (dss.Tables[0].Rows[0]["Result"].ToString() == "")
             {
                 ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record DELETE Successfully');window.location ='AdvaneSallaryRep.aspx'", true);
