@@ -45,7 +45,7 @@ public partial class Soft_Print : System.Web.UI.Page
         //strHTML.Append("<td style='text-align: left;' colspan='" + tbl.Columns.Count + "'></td>");
         //strHTML.Append("</tr>");
         decimal totSecSales = 0, totTrgtAmt = 0;
-        int totVisits = 0, totTrgtVisit = 0;
+        int totVisits = 0, totTrgtVisit = 0, totProdVisit = 0, totNonProdVisit = 0;
         for (int r = 0; r < tbl.Rows.Count; r++)
         {
 
@@ -55,6 +55,8 @@ public partial class Soft_Print : System.Web.UI.Page
                 totTrgtVisit += Convert.ToInt32(tbl.Rows[r][5].ToString() == "" ? "0" : tbl.Rows[r][5].ToString());
                 totTrgtAmt += Convert.ToDecimal(tbl.Rows[r][3].ToString() == "" ? "0" : tbl.Rows[r][3].ToString());
                 totVisits += Convert.ToInt32(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][6].ToString());
+                totProdVisit += Convert.ToInt32(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][7].ToString());
+                totNonProdVisit += Convert.ToInt32(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][8].ToString());
                 if (r < tbl.Rows.Count - 1)
                 {
                     if (brkStr != tbl.Rows[r + 1][2].ToString())
@@ -83,15 +85,17 @@ public partial class Soft_Print : System.Web.UI.Page
             {
                 if (strbreak != "" || r == tbl.Rows.Count - 1)
                 {
-                    strHTML.Append("<tr style='font-weight:400;height:24px;background-color:whitesmoke;' class='" + strbreak + "'>");
+                    strHTML.Append("<tr style='font-weight:800;height:24px;background-color:whitesmoke;' class='" + strbreak + "'>");
                     strHTML.Append("<td colspan='3' style='text-align:left;'>Total</td>");
                     strHTML.Append("<td>" + totTrgtAmt + "</td>");
                     strHTML.Append("<td>" + totSecSales + "</td>");
                     strHTML.Append("<td>" + totTrgtVisit + "</td>");
-                     strHTML.Append("<td>" + totVisits + "</td>");
-                    strHTML.Append("<td colspan='3'></td>");
+                    strHTML.Append("<td>" + totVisits + "</td>");
+                    strHTML.Append("<td>" + totProdVisit + "</td>");
+                    strHTML.Append("<td>" + totNonProdVisit + "</td>");
+                    strHTML.Append("<td>&nbsp;</td>");
                     strHTML.Append("</tr>");
-                    totSecSales = totTrgtVisit = 0; totTrgtAmt = totVisits = 0;
+                    totSecSales = totTrgtVisit = 0; totTrgtAmt = totVisits = 0; totProdVisit = 0; totNonProdVisit = 0;
                 }
             }
         }

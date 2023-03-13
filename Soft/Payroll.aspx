@@ -394,10 +394,11 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:CheckBox ID="chkNightAll" runat="server" ClientIDMode="Static" onclick="return OptionsSelected(this,'txtNightAll','')" /></td>
+                                <asp:CheckBox ID="chkNightAll" runat="server" ClientIDMode="Static" onclick="return OptionsSelected(this,'txtNightAll','txtKM')" /></td>
                             <td>
                                 <label class="control-label">Night Stay Allowance</label></td>
-                            <td>&nbsp;</td>
+                            <td>
+                                <asp:TextBox ID="txtKM" ClientIDMode="Static" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
                             <td>
                                 <asp:TextBox ID="txtNightAll" ClientIDMode="Static" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
                             <td>&nbsp;</td>
@@ -931,8 +932,7 @@
             }
         }
 
-        function OnSelected(me, valuee1, valuee2) {
-            debugger
+        function OnSelected(me, valuee1, valuee2) { 
             var value = me.selectedIndex;
             if (value > 1) {
                 document.getElementById(valuee1).disabled = false;
@@ -978,8 +978,7 @@
     </script>
 
     <script>
-        function AllCal() {
-            debugger
+        function AllCal() { 
             getValue('RBBS', 'txtBasicsalary', '', 'txtNetSalary', '');
             getValue('rbPF', 'txtPFSelf', 'txtPFComp', 'txtBasicsalaryValue', '');
             getValue('rbESIC', 'txtESICSelf', 'txtESICComp', 'txtNetSalary', 'txtESICApplicable');

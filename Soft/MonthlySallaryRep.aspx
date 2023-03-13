@@ -8,7 +8,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
-        <h1>Monthly Sallary Sheet
+        <h1>Monthly Salary Sheet
         </h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
@@ -72,8 +72,8 @@
                                             <th style="text-align: left;">Employee
                                                 <br />
                                                 Name</th>
-                                            <th style="text-align: left;">Basic</th>
-                                            <th style="text-align: left;">PF</th>
+                                            <th style="text-align: left;">Basic Salary</th>
+                                            <th style="text-align: left;">Provident Fund</th>
                                             <th style="text-align: left;">Employer
                                                 <br />
                                                 PF</th>
@@ -81,21 +81,22 @@
                                             <th style="text-align: left;">Employer
                                                 <br />
                                                 ESIC</th>
-                                            <th style="text-align: left;">HRA</th>
-                                            <th style="text-align: left;">OA</th>
-                                            <th style="text-align: left;">CA</th>
-                                            <th style="text-align: left;">DAL</th>
-                                            <th style="text-align: left;">DAEx</th>
-                                            <th style="text-align: left;">NSA</th>
+                                            <th style="text-align: left;">House Rent Allowance</th>
+                                            <th style="text-align: left;">Other Allowance</th>
+                                            <th style="text-align: left;">Travel Allowance</th>
+                                            <th style="text-align: left;">Daily Allowance Local</th>
+                                            <th style="text-align: left;">Daily Allowance Ex</th>
+                                            <th style="text-align: left;">Night Stay Allowance</th>
                                             <th style="text-align: left;">TDS</th>
-                                            <th style="text-align: left;">OD</th>
-                                            <th style="text-align: left;">LD</th>
+                                            <th style="text-align: left;">Other Deduction</th>
+                                            <th style="text-align: left;">Leave Deduction</th>
                                             <th style="text-align: left;">Loan</th>
                                             <th style="text-align: left;">Advance</th>
-                                            <th style="text-align: left;">OT</th>
+                                            <th style="text-align: left;">Over Time</th>
+                                            <th style="text-align: left;">Gross Salary </th>
                                             <th style="text-align: left;">Net<br />
-                                                Sallary</th>
-                                            <th style="text-align: left;">WD</th>
+                                                Salary</th>
+                                            <th style="text-align: left;">Working Day</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -123,6 +124,7 @@
                                                     <td style="text-align: left;"><%#Eval("LOANAMOUNT") %></td>
                                                     <td style="text-align: left;"><%#Eval("Advance") %></td>
                                                     <td style="text-align: left;"><%#Eval("OverTime") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
                                                     <td style="text-align: left;"><%#Eval("NETSALARY") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFATTANDANCE") %></td>
                                                 </tr>
