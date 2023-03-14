@@ -97,6 +97,7 @@
                                             <th style="text-align: left;">Net<br />
                                                 Salary</th>
                                             <th style="text-align: left;">Working Day</th>
+                                            <th style="text-align: left;">Working Sunday</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -127,6 +128,7 @@
                                                     <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
                                                     <td style="text-align: left;"><%#Eval("NETSALARY") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFATTANDANCE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NOOFSUNDAY") %></td>
                                                 </tr>
                                             </ItemTemplate>
 

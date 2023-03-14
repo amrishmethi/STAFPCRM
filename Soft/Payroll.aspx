@@ -524,6 +524,21 @@
                         <tr>
                             <td>&nbsp;</td>
                             <td>
+                                <label class="control-label">No Of Working Sunday</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:DropDownList ID="drpNoOfSunday" runat="server" CssClass="form-control select2">
+                                    <asp:ListItem Text="1" Value="1"></asp:ListItem>
+                                    <asp:ListItem Text="2" Value="2"></asp:ListItem>
+                                    <asp:ListItem Text="3" Value="3"></asp:ListItem>
+                                    <asp:ListItem Text="4" Value="4"></asp:ListItem>
+                                    <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                                </asp:DropDownList></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
                                 <label class="control-label">Cost To Company (CTC) </label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ForeColor="Red"
                                     ErrorMessage=" Please Enter" ValidationGroup="aa" ControlToValidate="txtCTC" InitialValue="0"></asp:RequiredFieldValidator>
@@ -932,7 +947,7 @@
             }
         }
 
-        function OnSelected(me, valuee1, valuee2) { 
+        function OnSelected(me, valuee1, valuee2) {
             var value = me.selectedIndex;
             if (value > 1) {
                 document.getElementById(valuee1).disabled = false;
@@ -978,7 +993,7 @@
     </script>
 
     <script>
-        function AllCal() { 
+        function AllCal() {
             getValue('RBBS', 'txtBasicsalary', '', 'txtNetSalary', '');
             getValue('rbPF', 'txtPFSelf', 'txtPFComp', 'txtBasicsalaryValue', '');
             getValue('rbESIC', 'txtESICSelf', 'txtESICComp', 'txtNetSalary', 'txtESICApplicable');
