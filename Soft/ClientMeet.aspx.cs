@@ -300,4 +300,19 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
         panel.Visible = !panel.Visible;
     }
 
+
+    protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)
+    {
+        if (drpImg.SelectedValue == "0")
+        {
+            isShowImg.Visible = false;
+            HtmlTableCell tdValue2 = (HtmlTableCell)e.Item.FindControl("isShowImgData");
+            tdValue2.Visible = false;
+        }
+        else {
+            isShowImg.Visible = true;
+            HtmlTableCell tdValue2 = (HtmlTableCell)e.Item.FindControl("isShowImgData");
+            tdValue2.Visible = true;
+        }
+    }
 }

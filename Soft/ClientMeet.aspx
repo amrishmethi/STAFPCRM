@@ -129,7 +129,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Department</label>
-                                <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" >
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-3">
@@ -139,7 +139,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label>Client Meet Type</label>
-                                <asp:DropDownList ID="drpType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpType" runat="server" CssClass="form-control select2" >
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
                                     <asp:ListItem Value="New" Text="New"></asp:ListItem>
                                     <asp:ListItem Value="Exist" Text="Exist"></asp:ListItem>
@@ -148,17 +148,17 @@
 
                             <div class="col-md-2">
                                 <label>Date From</label>
-                                <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control datepicker" OnTextChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control datepicker" >
                                 </asp:TextBox>
                             </div>
                             <div class="col-md-2">
                                 <label>Date To</label>
-                                <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control datepicker" OnTextChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control datepicker" >
                                 </asp:TextBox>
                             </div>
                             <div class="col-md-2">
                                 <label>IsMeet</label>
-                                <asp:DropDownList ID="drpIsMeet" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" >
+                                <asp:DropDownList ID="drpIsMeet" runat="server" CssClass="form-control" >
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
                                     <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
                                     <asp:ListItem Value="0" Text="No"></asp:ListItem>
@@ -167,17 +167,24 @@
                             </div>
                             <div class="col-md-2">
                                 <label>Status</label>
-                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" >
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
                                     <asp:ListItem Value="Active" Text="Active" Selected="True"></asp:ListItem>
                                     <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
+                                <label>Show Image</label>
+                                <asp:DropDownList ID="drpImg" runat="server" CssClass="form-control" >
+                                   <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
+                                    <asp:ListItem Value="0" Text="No" Selected="True"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
                                 <br />
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Report" OnClick="btnSubmit_Click" />
 
-                                <asp:Button ID="btnToggle" runat="server" Text="Show/Hide" OnClick="btnToggle_Click" />
+                              
 
                             </div>
                         </div>
@@ -204,12 +211,12 @@
                                             <th style="text-align: left;">WhatsApp No</th>
                                             <th style="text-align: left;">Description</th>
                                             <th style="text-align: left;">Location</th>
-                                            <th style="text-align: left;">Image</th>
+                                            <th style="text-align: left;" id="isShowImg" runat="server">Image</th>
                                             <th style="text-align: left;">Meet Type</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="rep"  runat="server">
+                                        <asp:Repeater ID="rep"  runat="server" OnItemDataBound="rep_ItemDataBound">
                                             <ItemTemplate>
                                                 <tr class="gradeA">
                                                     <td>
@@ -226,10 +233,9 @@
                                                     <td style="text-align: left;"><%#Eval("WhatsAppNo") %></td>
                                                     <td style="text-align: left;"><%#Eval("Description") %></td>
                                                     <td style="text-align: left;"><%#Eval("Place") %></td>
-            <asp:Panel ID="Panel1" Visible="false" runat="server" >
+           
 
-                 <td><%--<a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>" class="abc1">
-                                                        <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>' Width="50" Height="50" Visible='<%# (Eval("Image").ToString()=="")?false:true %>' /></a>--%>
+                 <td id="isShowImgData" runat="server" >
                                                         <img id="myImg" runat="server" src='<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>' style="width: 80px; height: 80px; padding: 10px; cursor: zoom-in" visible='<%# (Eval("Image").ToString()=="")?false:true %>' onclick="imgclick(this)" />
 
                                                         <!-- The Modal -->
@@ -267,10 +273,8 @@
                                                         </script>
                                                     </td>
 
-            </asp:Panel>
-                                                   
                                                     <td style="text-align: left;"><%#Eval("ClientMeetType") %></td>
-                                                    <div class="col-md-4" align="center">
+                                                    
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
