@@ -119,19 +119,17 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
         datatable.Columns.Add("Station");
         datatable.Columns.Add("Address");
         datatable.Columns.Add("District");
-        datatable.Columns.Add("PinCode");
+        datatable.Columns.Add("Zip");
         datatable.Columns.Add("State");
-        datatable.Columns.Add("ContPer");
-        datatable.Columns.Add("GSTNo");
-        datatable.Columns.Add("GstType");
-        datatable.Columns.Add("SMSMobile");
-     
-
-        // datatable.Columns.Add("Mobile No");
+        datatable.Columns.Add("Contact Person");
+        datatable.Columns.Add("GST No");
+        datatable.Columns.Add("Gst Type");
+        datatable.Columns.Add("Mobile");
+       // datatable.Columns.Add("Mobile No");
         datatable.Columns.Add("WhatsApp No");   
         datatable.Columns.Add("Transport");
-        datatable.Columns.Add("PartyType");
-        datatable.Columns.Add("PartyCatg");
+        datatable.Columns.Add("Party Type");
+        datatable.Columns.Add("Party Category");
         // datatable.Columns.Add("Meet Type");
         // datatable.Columns.Add("Image");
 
@@ -156,9 +154,8 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
             _row["WhatsApp No"] = dr["WhatsAppNo"];
             _row["PartyType"] = dr["Transport"];
             _row["PartyCatg"] = dr["PartyCatg"];
-
-            // _row["Meet Type"] = dr["ClientMeetType"];
-            //    _row["Image"] = dr["Image"];
+         // _row["Meet Type"] = dr["ClientMeetType"];
+         //    _row["Image"] = dr["Image"];
             datatable.Rows.Add(_row);
         }
         //GeneratePDF(datatable, "ClientMeet");
