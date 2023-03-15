@@ -23,11 +23,11 @@
                         <div class="form-group">
                             <div class="col-md-3">
                                 <label>Department</label>
-                                <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2"></asp:DropDownList>
+                                <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
                             <div class="col-md-3 hidden">
                                 <label>Designation</label>
-                                <asp:DropDownList ID="drpDesignation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                <asp:DropDownList ID="drpDesignation" runat="server" CssClass="form-control select2"></asp:DropDownList>
                             </div>
                             <div class="col-md-3">
                                 <label>Employee</label>
@@ -96,8 +96,11 @@
                                             <th style="text-align: left;">Gross Salary </th>
                                             <th style="text-align: left;">Net<br />
                                                 Salary</th>
-                                            <th style="text-align: left;">Working Day</th>
-                                            <th style="text-align: left;">Working Sunday</th>
+                                            <th style="text-align: left;">Total Days</th>
+                                            <th style="text-align: left;">Sunday Off</th>
+                                            <th style="text-align: left;">Sunday Work</th>
+                                            <th style="text-align: left;">Attandance</th>
+                                            <th style="text-align: left;">Leave</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -127,8 +130,11 @@
                                                     <td style="text-align: left;"><%#Eval("OverTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
                                                     <td style="text-align: left;"><%#Eval("NETSALARY") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NOOFWORKINGDAY") %></td>
+                                                    <td style="text-align: left;"><%#Eval("SundayOFF") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NOOFSUNDAYWork") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFATTANDANCE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NOOFSUNDAY") %></td>
+                                                    <td style="text-align: left;"><%#Eval("TOTALLEAVE") %></td>
                                                 </tr>
                                             </ItemTemplate>
 

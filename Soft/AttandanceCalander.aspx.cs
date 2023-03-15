@@ -24,7 +24,8 @@ public partial class Soft_AttandanceCalander : System.Web.UI.Page
         if (!IsPostBack)
         {
             mnth.Text = DateTime.Now.ToString("MM-yyyy");
-            Gd.FillUser(drpEmployee);
+            Gd.fillDepartment(drpDepartment);
+            Gd.FillUser(drpEmployee, drpDepartment.SelectedValue);
         }
     }
 
@@ -50,5 +51,10 @@ public partial class Soft_AttandanceCalander : System.Web.UI.Page
         DataTable dsHoliday = data.getDataSet("select * from GETHOLIDAYLIST_VIEW where Month(DATEFROM)=" + mnta + " and Year(DATEFROM)=" + yr + " order by DATEFROM").Tables[0];
         DataTable dtSunday = data.getDataSet("PROC_GETSUNDAYOFMONTH '" + mnta + "', '" + yr + "'").Tables[0];
         FData1 = dsHoliday;
+    }
+
+    protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Gd.FillUser(drpEmployee, drpDepartment.SelectedValue);
     }
 }

@@ -9,6 +9,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Data.Odbc;
 using System.Data.SqlClient;
+using Org.BouncyCastle.Asn1.X509;
 
 /// <summary>
 /// Summary description for GetData
@@ -37,7 +38,7 @@ public class GetData
         drptypeConst.DataBind();
     }
 
-    
+
     public void FillRoomType(ListBox drptypeConst)
     {
         ds = data.getDataSet("select * from Tbl_RoomType where IsDeleted=0 Order by Name");
@@ -274,5 +275,22 @@ public class GetData
         drpDesignation.DataValueField = "DESG_ID";
         drpDesignation.DataBind();
         drpDesignation.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+
+    public void FillUser(DropDownList drp, string De_Id)
+    {
+        query = "select * from [stm_acmast].[dbo].[tbl_EmpMaster] where Delid=0 and Status='Active' ";
+        if (De_Id != "0")
+        {
+            query += " and Dept_Id=" + De_Id;
+        }
+        query += " order by Emp_Name ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "Emp_Name";
+        drp.DataValueField = "EmpId";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
     }
 }

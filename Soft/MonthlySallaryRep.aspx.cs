@@ -38,6 +38,7 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
         Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue);
+        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue);
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)

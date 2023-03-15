@@ -24,6 +24,10 @@
                     <div class="box-body">
                         <div class="form-group">
                             <div class="col-md-3">
+                                <label>Department</label>
+                                <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </div>
+                            <div class="col-md-3">
                                 <label>
                                     Employee 
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ControlToValidate="drpEmployee" ForeColor="Red" ValidationGroup="Save" InitialValue="0"></asp:RequiredFieldValidator></label>
