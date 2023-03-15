@@ -104,6 +104,8 @@
             }
         }
     </style>
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
@@ -156,7 +158,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label>IsMeet</label>
-                                <asp:DropDownList ID="drpIsMeet" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpIsMeet" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" >
                                     <asp:ListItem Value="" Text="Select"></asp:ListItem>
                                     <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
                                     <asp:ListItem Value="0" Text="No"></asp:ListItem>
@@ -174,6 +176,9 @@
                             <div class="col-md-2">
                                 <br />
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Report" OnClick="btnSubmit_Click" />
+
+                                <asp:Button ID="btnToggle" runat="server" Text="Show/Hide" OnClick="btnToggle_Click" />
+
                             </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
@@ -204,7 +209,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="rep" runat="server">
+                                        <asp:Repeater ID="rep"  runat="server">
                                             <ItemTemplate>
                                                 <tr class="gradeA">
                                                     <td>
@@ -221,7 +226,9 @@
                                                     <td style="text-align: left;"><%#Eval("WhatsAppNo") %></td>
                                                     <td style="text-align: left;"><%#Eval("Description") %></td>
                                                     <td style="text-align: left;"><%#Eval("Place") %></td>
-                                                    <td><%--<a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>" class="abc1">
+            <asp:Panel ID="Panel1" Visible="false" runat="server" >
+
+                 <td><%--<a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>" class="abc1">
                                                         <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>' Width="50" Height="50" Visible='<%# (Eval("Image").ToString()=="")?false:true %>' /></a>--%>
                                                         <img id="myImg" runat="server" src='<%# "https://app.tadkeshwarfoods.com/AreaDevelop/" + Eval("Image") %>' style="width: 80px; height: 80px; padding: 10px; cursor: zoom-in" visible='<%# (Eval("Image").ToString()=="")?false:true %>' onclick="imgclick(this)" />
 
@@ -259,6 +266,9 @@
 
                                                         </script>
                                                     </td>
+
+            </asp:Panel>
+                                                   
                                                     <td style="text-align: left;"><%#Eval("ClientMeetType") %></td>
                                                     <div class="col-md-4" align="center">
                                                 </tr>

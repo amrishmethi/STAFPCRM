@@ -38,6 +38,7 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
             bindDrp(true, true);
             fillData();
         }
+       
     }
 
     private void bindDrp(bool isuser, bool ishqtr)
@@ -291,4 +292,12 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
     {
         fillData();
     }
+
+    protected void btnToggle_Click(object sender, EventArgs e)
+    {
+        Button btn = (Button)sender;
+        Panel panel = (Panel)btn.NamingContainer.FindControl("Panel1");
+        panel.Visible = !panel.Visible;
+    }
+
 }

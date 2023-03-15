@@ -10,7 +10,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
-        <h1>Create Dealer</h1>
+        <h1>Create Dealer  <asp:LinkButton Style="display: inline;" ID="lnkDownloadPDF" runat="server" OnClick="lnkDownloadPDF_Click" CssClass="btn btn-sm btn-success" >Print</asp:LinkButton></h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/CreateDealer.aspx" class="active">Create Dealer</a></li>

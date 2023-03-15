@@ -68,6 +68,11 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
         //if (drpIsMeet.SelectedValue == "0") { dv.RowFilter = " AddedDate is null"; }
         //else if (drpIsMeet.SelectedValue == "1") { dv.RowFilter = "AddedDate <> ''"; }
 
+        
+     
+        ViewState["tbl"] = dv.ToTable();
+        Session["ClientMeet"] = dv.ToString();
+
         rep.DataSource = dv.ToTable();
         rep.DataBind();
     }
@@ -98,5 +103,50 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
         {
             bindDrp(true, false);
         }
+    }
+
+    protected void lnkDownloadPDF_Click(object sender, EventArgs e)
+    {
+
+        DataTable datatable = new DataTable();
+        datatable.Clear();
+
+        datatable.Columns.Add("Sr. No.");
+        datatable.Columns.Add("DateTime");
+        datatable.Columns.Add("Employee");
+         datatable.Columns.Add("Head Quarter");
+        datatable.Columns.Add("District");
+        datatable.Columns.Add("Station");
+        // datatable.Columns.Add("Mobile No");
+        datatable.Columns.Add("WhatsApp No");
+        
+        datatable.Columns.Add("Address");
+        // datatable.Columns.Add("Meet Type");
+        // datatable.Columns.Add("Image");
+
+        foreach (DataRow dr in ((DataTable)ViewState["tbl"]).Rows)
+        {
+            DataRow _row = datatable.NewRow();
+            _row["Sr. No."] = datatable.Rows.Count + 1;
+            _row["DateTime"] = dr["cdDATE"];
+            _row["Employee"] = dr["Name"];
+           
+            _row["Head Quarter"] = dr["HeadQtr"];
+            _row["District"] = dr["District"];
+            _row["Station"] = dr["Station"];
+            //   _row["Mobile No"] = dr["MobileNo"];
+            _row["WhatsApp No"] = dr["WhatsAppNo"];
+           _row["Address"] = dr["Address"];
+            // _row["Meet Type"] = dr["ClientMeetType"];
+            //    _row["Image"] = dr["Image"];
+            datatable.Rows.Add(_row);
+        }
+        //GeneratePDF(datatable, "ClientMeet");
+        Session["GridData"] = datatable;
+        Session["Title"] = "Create Dealer";
+        Session["DateRange"] = "(Date as on " + txtDateFrom.Text + " - " + txtDateTo.Text + ")";
+        //Response.Redirect("Print.aspx");
+        Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
+
     }
 }
