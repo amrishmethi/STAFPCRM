@@ -115,12 +115,23 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
         datatable.Columns.Add("DateTime");
         datatable.Columns.Add("Employee");
          datatable.Columns.Add("Head Quarter");
-        datatable.Columns.Add("District");
+        datatable.Columns.Add("Name");
         datatable.Columns.Add("Station");
-        // datatable.Columns.Add("Mobile No");
-        datatable.Columns.Add("WhatsApp No");
-        
         datatable.Columns.Add("Address");
+        datatable.Columns.Add("District");
+        datatable.Columns.Add("PinCode");
+        datatable.Columns.Add("State");
+        datatable.Columns.Add("ContPer");
+        datatable.Columns.Add("GSTNo");
+        datatable.Columns.Add("GstType");
+        datatable.Columns.Add("SMSMobile");
+     
+
+        // datatable.Columns.Add("Mobile No");
+        datatable.Columns.Add("WhatsApp No");   
+        datatable.Columns.Add("Transport");
+        datatable.Columns.Add("PartyType");
+        datatable.Columns.Add("PartyCatg");
         // datatable.Columns.Add("Meet Type");
         // datatable.Columns.Add("Image");
 
@@ -129,14 +140,23 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
             DataRow _row = datatable.NewRow();
             _row["Sr. No."] = datatable.Rows.Count + 1;
             _row["DateTime"] = dr["cdDATE"];
-            _row["Employee"] = dr["Name"];
-           
+            _row["Employee"] = dr["Employee"];           
             _row["Head Quarter"] = dr["HeadQtr"];
-            _row["District"] = dr["District"];
+            _row["Name"] = dr["Name"];
             _row["Station"] = dr["Station"];
+            _row["Address"] = dr["Address"];
+            _row["District"] = dr["District"];
+            _row["PinCode"] = dr["PinCode"];
+            _row["State"] = dr["State"];
+            _row["ContPer"] = dr["ContPer"];
+            _row["GSTNo"] = dr["GSTNo"];
+            _row["GstType"] = dr["GstType"];
+            _row["SMSMobile"] = dr["SMSMobile"];
             //   _row["Mobile No"] = dr["MobileNo"];
             _row["WhatsApp No"] = dr["WhatsAppNo"];
-           _row["Address"] = dr["Address"];
+            _row["PartyType"] = dr["Transport"];
+            _row["PartyCatg"] = dr["PartyCatg"];
+
             // _row["Meet Type"] = dr["ClientMeetType"];
             //    _row["Image"] = dr["Image"];
             datatable.Rows.Add(_row);
