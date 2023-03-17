@@ -26,8 +26,9 @@
         return false;"
                     class="btn btn-sm btn-success">
                     Go Back</button>--%>
-                <button id="print" onclick="Print_Div()" class="btn btn-sm btn-info">PDF</button>
-            </li>
+             <%--   <button id="print" onclick="Print_Div()" class="btn btn-sm btn-info">PDF</button>--%>
+                <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" CssClass="btn btn-sm btn-info" Text="Print"></asp:Button></li>
+
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/SalesItemReport.aspx" class="active">Sales Order Report</a></li>
         </ol>
@@ -46,37 +47,31 @@
                             </div>
                             <div class="col-md-3">
                                 <label>HeadQuarter</label>
-                                <asp:DropDownList ID="drpHeadQtr" runat="server" CssClass="form-control select2"  OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpHeadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
                                 <label>Party</label>
-                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2"  OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
                                 <label>Date From</label>
-                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker"  OnTextChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker" OnTextChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:TextBox>
                             </div>
                             <div class="col-md-2">
                                 <label>Date To</label>
-                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker"  OnTextChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker" OnTextChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:TextBox>
                             </div>
-                             <div class="col-md-3">
+                            <div class="col-md-3">
                                 <label>Group</label>
                                 <asp:DropDownList ID="drpGrp" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                          <%--     <div class="col-md-2">
-                                <label>Status</label>
-                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
-                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
-                                    <asp:ListItem Value="Active" Text="Active"></asp:ListItem>
-                                    <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
-                                </asp:DropDownList>
-                            </div>--%>
+                            <div class="col-md-2">
+                            </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
                         <div class="clearfix">&nbsp;</div>
@@ -92,6 +87,8 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
+                                            <th rowspan="2">
+                                                <input type='checkbox' id='chkAll' runat='server' onclick='javascript: SelectAllCheckboxes(this);' /></th>
                                             <th style="text-align: left;">Order Date/Time</th>
                                             <th style="text-align: left;">Employee Name</th>
                                             <th style="text-align: left;">Party Name</th>
@@ -99,7 +96,7 @@
                                             <th style="text-align: left;">Delivery Mode</th>
                                             <th style="text-align: left;">Payment Mode</th>
                                             <th style="text-align: left;">Action</th>
- </tr>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <asp:Repeater ID="rep" runat="server" OnItemDataBound="rep_ItemDataBound" OnItemCommand="rep_ItemCommand">
@@ -109,6 +106,8 @@
                                                         <%#Container.ItemIndex+1 %>
                                                         <asp:HiddenField ID="hddid" runat="server" Value='<%#Eval("ID") %>' />
                                                     </td>
+                                                    <td>
+                                                        <asp:CheckBox ID="chk" runat="server" /></td>
                                                     <td><%#Eval("ODATE") %><br />
                                                         <%#Eval("OTIME") %></td>
                                                     <td><%#Eval("Employee") %></td>
@@ -116,10 +115,10 @@
                                                     <td><%#Eval("Station") %></td>
                                                     <td><%#Eval("DeliveryMode") %></td>
                                                     <td><%#Eval("PaymentMode") %></td>
-                                                  
-                                                     <td style="text-align: center;">
-                                                                                <a href="UpdateSalesOrder.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
-                                                                            </td>
+
+                                                    <td style="text-align: center;">
+                                                        <a href="UpdateSalesOrder.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td id="backcolor" colspan="13" style="">
@@ -135,7 +134,7 @@
                                                                     <th>Weight</th>
                                                                     <th>RATE PER KG</th>
                                                                     <th>Amount</th>
-                                                                   </tr>
+                                                                </tr>
                                                             </thead>
                                                             <tbody>
                                                                 <asp:Repeater ID="rep1" runat="server">
@@ -151,24 +150,28 @@
                                                                             <td style="text-align: left;"><%# string.Format("{0:0.00}",Eval("Weight")) %></td>
                                                                             <td style="text-align: left;"><%#Eval("OrdStpRate") %></td>
                                                                             <td style="text-align: left;"><%#Eval("Amount") %></td>
-                                                                           
+
                                                                         </tr>
                                                                     </ItemTemplate>
 
                                                                 </asp:Repeater>
                                                             </tbody>
                                                             <tfoot style="background-color: floralwhite;">
-                                                                <tr> <td colspan="3" runat="server">Remark : <%# Eval("Remark") %></td>
-                                                                    <td><strong><asp:Label ID="lblQty" runat="server"></asp:Label></strong></td>
-                                                                     
+                                                                <tr>
+                                                                    <td colspan="3" runat="server">Remark : <%# Eval("Remark") %></td>
+                                                                    <td><strong>
+                                                                        <asp:Label ID="lblQty" runat="server"></asp:Label></strong></td>
+
                                                                     <td>&nbsp;</td>
-                                                                    <td><strong><asp:Label ID="lblWeight" runat="server"></asp:Label></strong></td>
+                                                                    <td><strong>
+                                                                        <asp:Label ID="lblWeight" runat="server"></asp:Label></strong></td>
                                                                     <td>&nbsp;</td>
-                                                                    <td><strong><asp:Label ID="lblTotal" runat="server"></asp:Label>
-                                                        </strong></td>
-                                                    <td>&nbsp;</td>
-                                                </tr>
-                                                </tfoot>
+                                                                    <td><strong>
+                                                                        <asp:Label ID="lblTotal" runat="server"></asp:Label>
+                                                                    </strong></td>
+                                                                    <td>&nbsp;</td>
+                                                                </tr>
+                                                            </tfoot>
                                                         </table>
 
                                                     </td>
@@ -178,7 +181,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                              <div class="col-sm-12" style="text-align: right;">
+                            <div class="col-sm-12" style="text-align: right;">
                                 <label>Grand Total</label>
                                 <asp:TextBox ID="txtGrandTot" runat="server" Style="font-weight: bold; text-align: right;" ReadOnly="true" Text="0.00"></asp:TextBox>
                             </div>
@@ -257,6 +260,31 @@
             $('body').html(restorepage);
         };
 
+    </script>
+
+
+    <script type="text/javascript">
+        function SelectAllCheckboxes(spanChk) {
+
+            // Added as ASPX uses SPAN for checkbox
+
+            var oItem = spanChk.children;
+            var theBox = (spanChk.type == "checkbox") ?
+                spanChk : spanChk.children.item[0];
+            xState = theBox.checked;
+            elm = theBox.form.elements;
+
+            for (i = 0; i < elm.length; i++)
+                if (elm[i].type == "checkbox" &&
+                    elm[i].id != theBox.id) {
+                    //elm[i].click();
+
+                    if (elm[i].checked != xState)
+                        elm[i].click();
+                    //elm[i].checked=xState;
+
+                }
+        }
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
