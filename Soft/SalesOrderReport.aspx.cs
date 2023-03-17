@@ -100,9 +100,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                 lblTotal.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(Amount)", ""))).ToString("#0.00");
                 lblQty.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(OrdQty)", ""))).ToString("#0");
                 //    lblPacking.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(Packing)", ""))).ToString("#0.00");
-
-
-                lblWeight.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("sum(Weight)", ""))).ToString("#0.00");
+              lblWeight.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("sum(Weight)", ""))).ToString("#0.00");
                 txtGrandTot.Text = String.Format("{0:0.00}", Convert.ToDecimal(txtGrandTot.Text) + Convert.ToDecimal(lblTotal.Text));
                 rep1.DataSource = dsrep1.Tables[1];
                 rep1.DataBind();
@@ -135,6 +133,8 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
         DropDownList ddl = sender as DropDownList;
         if (ddl == drpUser)
         {
+
+
             bindDrp(false, true);
         }
         if (ddl == drpHeadQtr)
@@ -174,6 +174,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             string _OrderId = SaleId;
             StringBuilder sb = new StringBuilder();
             string[] SplitValue = _OrderId.Split(',');
+            string emp = "";
             for (int _Count = 0; _Count < SplitValue.Length; _Count++)
             {
                 sb.Append("<style>");
@@ -182,43 +183,44 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                 sb.Append("\n }</style>");
 
                 DataSet dset = getdata.getSalesOrder("SELECT", SplitValue[_Count], drpUser.SelectedValue, drpHeadQtr.SelectedValue, drpParty.SelectedValue, dpFrom.Text.Trim(), dpTo.Text.Trim(), "", "", drpGrp.SelectedValue);
-                DataTable dstbl = dset.Tables[0];
+               
 
-                DataView dv = dstbl.DefaultView;
-
-                DataTable dsGet = dv.ToTable();
+                DataTable dsGet = dset.Tables[0];
+                emp = dsGet.Rows[0]["Employee"].ToString();
                 //  string ss = "Sp_OrderPrint " + SplitValue[_Count];
                 //    DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
 
                 using (StringWriter sw = new StringWriter())
                 {
                     using (HtmlTextWriter hw = new HtmlTextWriter(sw))
-                    {
-                        sb.Append("<table style='width: 100%; padding-right: 15px; border-spacing: 0px;'>");
-                        sb.Append("<tr style='padding: 0px; margin-top: -10px; margin-bottom: -10px;'>");
-                        sb.Append("<td style='text-align: left;padding: 0px;'>");
-                        sb.Append("<img src='../../img/logo.jpg' height='80px'><br />");
-                        sb.Append("</td>");
-                        sb.Append("<td style='text-align: right;padding: 0px;'>");
-                        sb.Append("<p style='font-size: 12px;'>");
-                        sb.Append("<strong style='font-size: 18px;'>Shree Tadkeshwar Agro Food Product</strong>");
-                        sb.Append("<br />");
-                        sb.Append("H- 1-37- A, Sarna Doongar Industrial Area, Jhotwara Extension,");
-                        sb.Append("<br />");
-                        sb.Append("Jaipur - 302012 Rajasthan, India");
-                        sb.Append("<br />");
-                        sb.Append("(Mob) : + 91 - 98290 - 32422, (Tel) : 0141 - 3540250");
-                        sb.Append("<br />");
-                        sb.Append("(Email) : sales@tadkeshwarfoods.com, (url) : www.tadkeshwarfoods.com");
-                        sb.Append("</p>");
-                        sb.Append("</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr style='padding: 0px; margin-top: -10px; margin-bottom: -10px;'>");
-                        sb.Append("<td colspan='2' style='padding: 0px;' >");
-                        sb.Append("<asp:Label ID='lblHeading' runat='server' Style='font-size: 20px; color: firebrick;'></asp:Label>");
-                        sb.Append("<asp:Label ID='lblDateRng' runat='server'></asp:Label></td>");
-                        sb.Append("</tr>");
-                        sb.Append("</table>");
+                    { if (emp != dsGet.Rows[0]["Employee"].ToString())
+                        {
+                            sb.Append("<table style='width: 100%; padding-right: 15px; border-spacing: 0px;'>");
+                            sb.Append("<tr style='padding: 0px; margin-top: -10px; margin-bottom: -10px;'>");
+                            sb.Append("<td style='text-align: left;padding: 0px;'>");
+                            sb.Append("<img src='../../img/logo.jpg' height='80px'><br />");
+                            sb.Append("</td>");
+                            sb.Append("<td style='text-align: right;padding: 0px;'>");
+                            sb.Append("<p style='font-size: 12px;'>");
+                            sb.Append("<strong style='font-size: 18px;'>Shree Tadkeshwar Agro Food Product</strong>");
+                            sb.Append("<br />");
+                            sb.Append("H- 1-37- A, Sarna Doongar Industrial Area, Jhotwara Extension,");
+                            sb.Append("<br />");
+                            sb.Append("Jaipur - 302012 Rajasthan, India");
+                            sb.Append("<br />");
+                            sb.Append("(Mob) : + 91 - 98290 - 32422, (Tel) : 0141 - 3540250");
+                            sb.Append("<br />");
+                            sb.Append("(Email) : sales@tadkeshwarfoods.com, (url) : www.tadkeshwarfoods.com");
+                            sb.Append("</p>");
+                            sb.Append("</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr style='padding: 0px; margin-top: -10px; margin-bottom: -10px;'>");
+                            sb.Append("<td colspan='2' style='padding: 0px;' >");
+                            sb.Append("<asp:Label ID='lblHeading' runat='server' Style='font-size: 20px; color: firebrick;'></asp:Label>");
+                            sb.Append("<asp:Label ID='lblDateRng' runat='server'></asp:Label></td>");
+                            sb.Append("</tr>");
+                            sb.Append("</table>");
+                        
                         sb.Append("<table width='100%' border='0' cellspacing='0' cellpadding='0'>");
                         sb.Append("<tr>");
                         sb.Append("<td>&nbsp;</td>");
@@ -234,20 +236,20 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                         sb.Append("</tr>");
                         sb.Append("<tr>");
                         sb.Append("<td align='center'>" +
-                            "<table width='98%' border='0px' bordercolor='#CCC' cellspacing='0' cellpadding='5'>");//style='border:0px solid #CCC; border-collapsecollapse;'
+                            "<table width='98%' border='0px' bordercolor='#CCC' cellspacing='0' cellpadding='5'>");
+                        //style='border:0px solid #CCC; border-collapsecollapse;'
                         sb.Append("<tr>");
                         sb.Append("<td>Employee Name: " + dsGet.Rows[0]["Employee"].ToString() + "</td>");
                         sb.Append("<td>Date: " + dsGet.Rows[0]["ODATE"].ToString() + " " + dsGet.Rows[0]["OTIME"].ToString() + "</td>");
                         sb.Append("</tr>");
                         sb.Append("<tr>");
-                        sb.Append("<td>Primary Party: " + dsGet.Rows[0]["Party"].ToString() + "</td>");
-                        sb.Append("<td>Station: " + dsGet.Rows[0]["Station"].ToString() + "</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<td>DELIVERY MODE: " + dsGet.Rows[0]["DeliveryMode"].ToString() + "</td>");
-                        sb.Append("<td>Payment MODE: " + dsGet.Rows[0]["PaymentMode"].ToString() + "</td>");
-                       
-                        sb.Append("</tr>");
+
+                            sb.Append("</tr>");
+                            sb.Append("</table>");
+                            emp = dsGet.Rows[0]["Employee"].ToString();
+                        }
                         int row_num = 1; int totQty = 0; Decimal totAmt = 0; decimal totwat = 0;
+                        sb.Append("<table width='990' border='0' cellspacing='0' cellpadding='0'>");
                         foreach (DataRow dr in dsGet.Rows)
                         {
                             sb.Append("<tr>");
@@ -255,25 +257,33 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                                 "<table width='100%' border='1' bordercolor='#CCC' cellspacing='0' cellpadding='5' style='border:1px solid #CCC; border-collapse:collapse;'>");//style='border:0px solid #CCC; border-collapsecollapse;'
                             sb.Append("<tr>");
                             sb.Append("<th rowspan='2'>" + (row_num++) + "</th>");
+                            sb.Append("<th colspan='2'>Primary Party: " + dsGet.Rows[0]["Party"].ToString() + "</td>");
+                            sb.Append("<th colspan='2'>Station: " + dsGet.Rows[0]["Station"].ToString() + "</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<th colspan='2'>Date & Time:  " + dsGet.Rows[0]["ODATE"].ToString() + " " + dsGet.Rows[0]["OTIME"].ToString() + " </th>");
+                            sb.Append("<th colspan='2'>DELIVERY MODE: " + dsGet.Rows[0]["DeliveryMode"].ToString() + " Payment MODE: " + dsGet.Rows[0]["PaymentMode"].ToString() + "</th>");
+                      
+                           
+                            sb.Append("</tr>");
                             sb.Append("<tr style='background-color:whitesmoke;'>");
                             sb.Append("<th width='10%'>&nbsp;</th>");
                             sb.Append("<th  width='50%'>Item</th>");
-                            sb.Append("<th width='10%'>	BAG/CASE</th>");
-                            sb.Append("<th width='10%'>Packing</th>");
-                            sb.Append("<th width='10%'>Weight</th>");
-                            sb.Append("<th width='15%'>RATE PER KG</th>");
+                            sb.Append("<th width='10%'>	Qty.</th>");
+                           // sb.Append("<th width='10%'>Packing</th>");
+                           // sb.Append("<th width='10%'>Weight</th>");
+                            sb.Append("<th width='15%'>RATE </th>");
                             sb.Append("<th width='15%'>Amount</th>");
                             sb.Append("</tr>");
                             DataTable ITbl = dset.Tables[1];
-                            int ino = 1; int sumQty = 0; decimal sumAmt = 0; decimal sumwat = 0;
+                    int ino = 1; int sumQty = 0; decimal sumAmt = 0; decimal sumwat = 0;
                             foreach (DataRow rw in ITbl.Rows)
                             {
                                 sb.Append("<tr>");
                                 sb.Append("<td style='text-align:center;'>" + (ino++) + "</td>");
-                                sb.Append("<td style='text-align:left;' colspan='2'>" + rw["ITName"] + "</td>");
+                                sb.Append("<td style='text-align:left;colspan='2'>" + rw["ITName"] + "</td>");
                                 sb.Append("<td style='text-align:center;'>" + Convert.ToInt32(rw["OrdQty"]).ToString("#0") + "</td>");
-                                sb.Append("<td style='text-align:center;'>" + rw["Packing"] + "</td>");
-                                sb.Append("<td style='text-align:center;'>" + rw["Weight"] + "</td>");
+                              //  sb.Append("<td style='text-align:center;'>" + rw["Packing"] + "</td>");
+                              //  sb.Append("<td style='text-align:center;'>" + rw["Weight"] + "</td>");
                                 sb.Append("<td style='text-align:right;'>" + rw["OrdStpRate"] + "</td>");
                                 sb.Append("<td style='text-align:right;'>" + rw["Amount"] + "</td>");
                                 sb.Append("</tr>");
@@ -281,14 +291,16 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                                 sumQty += Convert.ToInt32(rw["OrdQty"]);
                                 sumwat += Convert.ToInt32(rw["Weight"]);
                             }
-                            totAmt += sumAmt; totQty += sumQty; totwat += sumwat;
+                            totAmt += sumAmt; totQty += sumQty; 
+                            //totwat += sumwat;
                             sb.Append("<tr style='background-color:floralwhite;'>");
-                            sb.Append("<td>&nbsp;</td>");
+                          
                             sb.Append("<td style='text-align:left;' colspan='2'>Remark: " + dr["Remark"] + "</td>");
                             sb.Append("<td style='text-align:center;'>" + sumQty + "</td>");
                             sb.Append("<td>&nbsp;</td>");
-                            sb.Append("<td style='text-align:center;'>" + sumwat + "</td>");
-                            sb.Append("<td>&nbsp;</td>");
+                            
+                        // sb.Append("<td style='text-align:center;'>" + sumwat + "</td>");
+                         
                             sb.Append("<td style='text-align:right;'>" + sumAmt + "</td>");
                             sb.Append("</tr>");
                             sb.Append("</table>");
@@ -308,10 +320,8 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                         //sb.Append("<th width='10%'>" + totwat + "</th>");
                         //sb.Append("<th width='15%'>&nbsp;</th>");
                         //sb.Append("<th width='15%' style='text-align:right;'>" + totAmt + "</th>");
-
-                      
-                        sb.Append("</tr>");
-                        sb.Append("</table>");
+                      //  sb.Append("</tr>");
+                        //sb.Append("</table>");
                         sb.Append("</td>");
                         sb.Append("</tr>");
                         sb.Append("</table></td>");
@@ -320,7 +330,10 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                         sb.Append("<td>&nbsp;</td>");
                         sb.Append("</tr>");
                         sb.Append("</table>");
-                        sb.Append("<footer></footer>");
+                        
+
+
+                        //sb.Append("<footer></footer>");
                     }
                 }
             }
