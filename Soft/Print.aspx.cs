@@ -44,7 +44,7 @@ public partial class Soft_Print : System.Web.UI.Page
         //strHTML.Append("<tr style='height:2px;background-color:silver;'>");
         //strHTML.Append("<td style='text-align: left;' colspan='" + tbl.Columns.Count + "'></td>");
         //strHTML.Append("</tr>");
-        decimal totSecSales = 0, totTrgtAmt = 0;
+        decimal totSecSales = 0, totTrgtAmt = 0,totAchivePer = 0;
         int totVisits = 0, totTrgtVisit = 0, totProdVisit = 0, totNonProdVisit = 0;
         for (int r = 0; r < tbl.Rows.Count; r++)
         {
@@ -57,6 +57,7 @@ public partial class Soft_Print : System.Web.UI.Page
                 totVisits += Convert.ToInt32(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][6].ToString());
                 totProdVisit += Convert.ToInt32(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][7].ToString());
                 totNonProdVisit += Convert.ToInt32(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][8].ToString());
+                totAchivePer += Convert.ToDecimal(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][9].ToString().Replace('%',' ').Trim());
                 if (r < tbl.Rows.Count - 1)
                 {
                     if (brkStr != tbl.Rows[r + 1][2].ToString())
@@ -93,6 +94,9 @@ public partial class Soft_Print : System.Web.UI.Page
                     strHTML.Append("<td>" + totVisits + "</td>");
                     strHTML.Append("<td>" + totProdVisit + "</td>");
                     strHTML.Append("<td>" + totNonProdVisit + "</td>");
+                    strHTML.Append("<td>" + totAchivePer + "</td>");
+                    strHTML.Append("<td>&nbsp;</td>");
+                    strHTML.Append("<td>&nbsp;</td>");
                     strHTML.Append("<td>&nbsp;</td>");
                     strHTML.Append("</tr>");
                     totSecSales = totTrgtVisit = 0; totTrgtAmt = totVisits = 0; totProdVisit = 0; totNonProdVisit = 0;

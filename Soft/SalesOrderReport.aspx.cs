@@ -175,8 +175,10 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             StringBuilder sb = new StringBuilder();
             string[] SplitValue = _OrderId.Split(',');
             string emp = "";
+            int row_num = 1; int totQty = 0; Decimal totAmt = 0; decimal totwat = 0;
             for (int _Count = 0; _Count < SplitValue.Length; _Count++)
             {
+
                 sb.Append("<style>");
                 sb.Append("\n @media print {");
                 sb.Append("\n footer {page-break-after: always;}");
@@ -186,15 +188,31 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                
 
                 DataTable dsGet = dset.Tables[0];
-                emp = dsGet.Rows[0]["Employee"].ToString();
                 //  string ss = "Sp_OrderPrint " + SplitValue[_Count];
                 //    DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
 
                 using (StringWriter sw = new StringWriter())
                 {
                     using (HtmlTextWriter hw = new HtmlTextWriter(sw))
-                    { if (emp != dsGet.Rows[0]["Employee"].ToString())
+                    {
+                        if (emp != dsGet.Rows[0]["Employee"].ToString())
                         {
+                           
+                          
+                            if (emp != "") {
+                            sb.Append("<table width='990' border='0' bordercolor='#CCC' cellspacing='0' cellpadding='5' style='border-top:2px  solid #CCC;border-bottom:2px  solid #CCC; border-collapse:collapse;'>");
+                            sb.Append("<tr style='background-color:ghostwhite;'>");
+                            sb.Append("<th width='10%'>&nbsp;</th>");
+                            sb.Append("<th colspan='3' width='50%'>Total</th>");
+                            sb.Append("<th width='10%'>" + totQty + "</th>");
+                            sb.Append("<th width='15%' style='text-align:right;'>" + totwat + "</th>");
+                            sb.Append("<th width='15%' style='text-align:right;'>" + totAmt + "</th>");
+                            sb.Append("</tr>");
+                            sb.Append("</table>");
+                                sb.Append("<footer></footer>");
+                                row_num = 1; totQty = 0; totAmt = 0; totwat = 0;
+                            }
+                           
                             sb.Append("<table style='width: 100%; padding-right: 15px; border-spacing: 0px;'>");
                             sb.Append("<tr style='padding: 0px; margin-top: -10px; margin-bottom: -10px;'>");
                             sb.Append("<td style='text-align: left;padding: 0px;'>");
@@ -220,35 +238,32 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                             sb.Append("<asp:Label ID='lblDateRng' runat='server'></asp:Label></td>");
                             sb.Append("</tr>");
                             sb.Append("</table>");
-                        
-                        sb.Append("<table width='100%' border='0' cellspacing='0' cellpadding='0'>");
-                        sb.Append("<tr>");
-                        sb.Append("<td>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td align='center'>");
-                        sb.Append("<table width='990' border='0' cellspacing='0' cellpadding='0'>");
-                        sb.Append("<tr>");
-                        sb.Append("<td width='990' align='center'><strong> Sales Item Report</strong></td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td align='center'>&nbsp;</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
-                        sb.Append("<td align='center'>" +
-                            "<table width='98%' border='0px' bordercolor='#CCC' cellspacing='0' cellpadding='5'>");
-                        //style='border:0px solid #CCC; border-collapsecollapse;'
-                        sb.Append("<tr>");
-                        sb.Append("<td>Employee Name: " + dsGet.Rows[0]["Employee"].ToString() + "</td>");
-                        sb.Append("<td>Date: " + dsGet.Rows[0]["ODATE"].ToString() + " " + dsGet.Rows[0]["OTIME"].ToString() + "</td>");
-                        sb.Append("</tr>");
-                        sb.Append("<tr>");
 
+                            sb.Append("<table width='100%' border='0' cellspacing='0' cellpadding='0'>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td align='center'>");
+                            sb.Append("<table width='990' border='0' cellspacing='0' cellpadding='0'>");
+                            sb.Append("<tr>");
+                            sb.Append("<td width='990' align='center'><strong> Sales Item Report</strong></td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td align='center'>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td align='center'>" +
+                                "<table width='98%' border='0px' bordercolor='#CCC' cellspacing='0' cellpadding='5'>");
+                            //style='border:0px solid #CCC; border-collapsecollapse;'
+                            sb.Append("<tr>");
+                            sb.Append("<td>Employee Name: " + dsGet.Rows[0]["Employee"].ToString() + "</td>");
+                            sb.Append("<td>Date: " + dsGet.Rows[0]["ODATE"].ToString() + " " + dsGet.Rows[0]["OTIME"].ToString() + "</td>");
                             sb.Append("</tr>");
                             sb.Append("</table>");
                             emp = dsGet.Rows[0]["Employee"].ToString();
                         }
-                        int row_num = 1; int totQty = 0; Decimal totAmt = 0; decimal totwat = 0;
+                      
                         sb.Append("<table width='990' border='0' cellspacing='0' cellpadding='0'>");
                         foreach (DataRow dr in dsGet.Rows)
                         {
@@ -262,28 +277,28 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                             sb.Append("</tr>");
                             sb.Append("<th colspan='2'>Date & Time:  " + dsGet.Rows[0]["ODATE"].ToString() + " " + dsGet.Rows[0]["OTIME"].ToString() + " </th>");
                             sb.Append("<th colspan='2'>DELIVERY MODE: " + dsGet.Rows[0]["DeliveryMode"].ToString() + " Payment MODE: " + dsGet.Rows[0]["PaymentMode"].ToString() + "</th>");
-                      
-                           
+
+
                             sb.Append("</tr>");
                             sb.Append("<tr style='background-color:whitesmoke;'>");
                             sb.Append("<th width='10%'>&nbsp;</th>");
                             sb.Append("<th  width='50%'>Item</th>");
                             sb.Append("<th width='10%'>	Qty.</th>");
-                           // sb.Append("<th width='10%'>Packing</th>");
-                           // sb.Append("<th width='10%'>Weight</th>");
+                            // sb.Append("<th width='10%'>Packing</th>");
+                            // sb.Append("<th width='10%'>Weight</th>");
                             sb.Append("<th width='15%'>RATE </th>");
                             sb.Append("<th width='15%'>Amount</th>");
                             sb.Append("</tr>");
                             DataTable ITbl = dset.Tables[1];
-                    int ino = 1; int sumQty = 0; decimal sumAmt = 0; decimal sumwat = 0;
+                            int ino = 1; int sumQty = 0; decimal sumAmt = 0; decimal sumwat = 0;
                             foreach (DataRow rw in ITbl.Rows)
                             {
                                 sb.Append("<tr>");
                                 sb.Append("<td style='text-align:center;'>" + (ino++) + "</td>");
                                 sb.Append("<td style='text-align:left;colspan='2'>" + rw["ITName"] + "</td>");
                                 sb.Append("<td style='text-align:center;'>" + Convert.ToInt32(rw["OrdQty"]).ToString("#0") + "</td>");
-                              //  sb.Append("<td style='text-align:center;'>" + rw["Packing"] + "</td>");
-                              //  sb.Append("<td style='text-align:center;'>" + rw["Weight"] + "</td>");
+                                //  sb.Append("<td style='text-align:center;'>" + rw["Packing"] + "</td>");
+                                //  sb.Append("<td style='text-align:center;'>" + rw["Weight"] + "</td>");
                                 sb.Append("<td style='text-align:right;'>" + rw["OrdStpRate"] + "</td>");
                                 sb.Append("<td style='text-align:right;'>" + rw["Amount"] + "</td>");
                                 sb.Append("</tr>");
@@ -291,16 +306,16 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                                 sumQty += Convert.ToInt32(rw["OrdQty"]);
                                 sumwat += Convert.ToInt32(rw["Weight"]);
                             }
-                            totAmt += sumAmt; totQty += sumQty; 
+                            totAmt += sumAmt; totQty += sumQty;
                             //totwat += sumwat;
                             sb.Append("<tr style='background-color:floralwhite;'>");
-                          
+
                             sb.Append("<td style='text-align:left;' colspan='2'>Remark: " + dr["Remark"] + "</td>");
                             sb.Append("<td style='text-align:center;'>" + sumQty + "</td>");
                             sb.Append("<td>&nbsp;</td>");
-                            
-                        // sb.Append("<td style='text-align:center;'>" + sumwat + "</td>");
-                         
+
+                            // sb.Append("<td style='text-align:center;'>" + sumwat + "</td>");
+
                             sb.Append("<td style='text-align:right;'>" + sumAmt + "</td>");
                             sb.Append("</tr>");
                             sb.Append("</table>");
@@ -308,32 +323,37 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                             sb.Append("</tr>");
                         }
                         sb.Append("</table></td>");
-                        //sb.Append("</tr>");
+                        sb.Append("</tr>");
                         //sb.Append("<tr>");
                         //sb.Append("<td align='center'>");
-                        //sb.Append("<table width='98%' border='0' bordercolor='#CCC' cellspacing='0' cellpadding='5' style='border-top:2px  solid #CCC;border-bottom:2px  solid #CCC; border-collapse:collapse;'>");
-                        //sb.Append("<tr style='background-color:ghostwhite;'>");
-                        //sb.Append("<th width='10%'>&nbsp;</th>");
-                        //sb.Append("<th colspan='3' width='50%'>Total</th>");
-                        //sb.Append("<th width='10%'>" + totQty + "</th>");
-                        //sb.Append("<th width='10%'>&nbsp;</th>");
-                        //sb.Append("<th width='10%'>" + totwat + "</th>");
-                        //sb.Append("<th width='15%'>&nbsp;</th>");
-                        //sb.Append("<th width='15%' style='text-align:right;'>" + totAmt + "</th>");
-                      //  sb.Append("</tr>");
-                        //sb.Append("</table>");
-                        sb.Append("</td>");
-                        sb.Append("</tr>");
+                        //sb.Append("</td>");
+                        //sb.Append("</tr>");
+                    
                         sb.Append("</table></td>");
                         sb.Append("</tr>");
                         sb.Append("<tr>");
                         sb.Append("<td>&nbsp;</td>");
                         sb.Append("</tr>");
                         sb.Append("</table>");
-                        
 
-
-                        //sb.Append("<footer></footer>");
+                        if (_Count == SplitValue.Length-1)
+                        {
+                            sb.Append("<table width='990' border='0' bordercolor='#CCC' cellspacing='0' cellpadding='5' style='border-top:2px  solid #CCC;border-bottom:2px  solid #CCC; border-collapse:collapse;'>");
+                            sb.Append("<tr style='background-color:ghostwhite;'>");
+                            sb.Append("<th width='10%'>&nbsp;</th>");
+                            sb.Append("<th colspan='3' width='50%'>Total</th>");
+                            sb.Append("<th width='10%'>" + totQty + "</th>");
+                            
+                            sb.Append("<th width='15%' style='text-align:right;'>" + totwat + "</th>");
+                            
+                            sb.Append("<th width='15%' style='text-align:right;'>" + totAmt + "</th>");
+                            sb.Append("</tr>");
+                            sb.Append("</table>");
+                        }
+                        //if (emp != dsGet.Rows[0]["Employee"].ToString())
+                       // {
+                            
+                       // }
                     }
                 }
             }
