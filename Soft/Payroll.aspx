@@ -382,7 +382,7 @@
                                 <asp:TextBox ID="txtDALocal" ClientIDMode="Static" runat="server" CssClass="form-control" Enabled="false"></asp:TextBox></td>
                             <td>&nbsp;</td>
                         </tr>
-                        <tr>
+                        <tr class="hidden">
                             <td>
                                 <asp:CheckBox ID="chkDAEx" runat="server" ClientIDMode="Static" onclick="return OptionsSelected(this,'txtDAEx','')" /></td>
                             <td>

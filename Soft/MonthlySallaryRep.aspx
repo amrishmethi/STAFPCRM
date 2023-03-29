@@ -84,8 +84,7 @@
                                             <th style="text-align: left;">House Rent Allowance</th>
                                             <th style="text-align: left;">Other Allowance</th>
                                             <th style="text-align: left;">Travel Allowance</th>
-                                            <th style="text-align: left;">Daily Allowance Local</th>
-                                            <th style="text-align: left;">Daily Allowance Ex</th>
+                                            <th style="text-align: left;">Daily Allowance Local</th> 
                                             <th style="text-align: left;">Night Stay Allowance</th>
                                             <th style="text-align: left;">TDS</th>
                                             <th style="text-align: left;">Other Deduction</th>
@@ -119,8 +118,7 @@
                                                     <td style="text-align: left;"><%#Eval("HRAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("OAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("CAVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DAL1") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DAEX1") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DAL1") %></td> 
                                                     <td style="text-align: left;"><%#Eval("NSA") %></td>
                                                     <td style="text-align: left;"><%#Eval("TDSVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ODVALUE") %></td>
