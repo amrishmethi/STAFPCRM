@@ -76,19 +76,23 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
 
            recDt.AsEnumerable()
              .GroupBy(r => r.Field<string>("Emp_Name"))
-              
              .Select(g =>
              {
-                 var row = recDt.NewRow();
-                 row["Emp_Name"] = g.Key;
-                 row["Distance"] = g.Sum(r => r.Field<decimal>("Distance"));
-                 row["TotalAmt"] = g.Sum(r => r.Field<decimal>("Amount"));
-                 row["NightStay"] = g.Sum(r => r.Field<decimal>("NightStay"));
-                 row["DAL1"] = g.Sum(r => r.Field<decimal>("DAL1"));
-                 row["Total"] = g.Sum(r => r.Field<decimal>("Total"));
+             var row = recDt.NewRow();
+             row["Emp_Name"] = g.Key;
+             row["Distance"] = g.Sum(r => r.Field<decimal>("Distance"));
+             row["TotalAmt"] = g.Sum(r => r.Field<decimal>("Amount"));
+             row["NightStay"] = g.Sum(r => r.Field<decimal>("NightStay"));
+             row["DAL1"] = g.Sum(r => r.Field<decimal>("DAL1"));
+             row["Total"] = g.Sum(r => r.Field<decimal>("Total"));
               return row;
-             }).CopyToDataTable<DataRow>();
-
+             }).OrderBy(r => r.Field<string>("Emp_Name")).CopyToDataTable<DataRow>();
+            foreach(DataRow dr in boundTable.Rows)
+            {
+                decimal rate = Convert.ToDecimal(recDt.Select("Emp_Name = '"+dr["Emp_Name"]+"'").FirstOrDefault()["Rate"]);
+                dr["Rate"] = rate;
+                dr["Amount"] = rate * Convert.ToDecimal(dr["Distance"]);
+            }
                         // Create a table from the query.
             //DataTable boundTable = query.CopyToDataTable<DataRow>();
 
