@@ -18,7 +18,7 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
         if (!IsPostBack)
         {
             if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
-
+          
             Soft = Request.Cookies["STFP"];
             Gd.FillUser(drpEmp);
         }
@@ -26,26 +26,35 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
 
     private void GetReport()
     {
+        if (drpEmp.SelectedIndex == 0 && drpReport.SelectedIndex != 2)
+        {
+            lblerror.Text = "Please Select";
+            return;
+        }
+        else { lblerror.Text = ""; }
         if (drpReport.SelectedIndex == 0)
         {
             summary.Visible = true;
             detail.Visible = false;
-            DataSet dss = data.getDataSet("usp_DistanceTravelReort_Summary " + drpEmp.SelectedValue + ",'" + data.ConvertToDateTime(txtDateFrom.Text) + "','" + data.ConvertToDateTime(txtDateTo.Text) + "'");
+            all.Visible = false;
+            DataSet dss = data.getDataSet("usp_DistanceTravelReort_Summary " + drpEmp.SelectedValue + ",'" + data.YYYYMMDD(txtDateFrom.Text) + "','" + data.YYYYMMDD(txtDateTo.Text) + "'");
             Repeater1.DataSource = dss;
             Repeater1.DataBind();
-
-            lblTotalKM.Text = dss.Tables[0].Compute("sum(Distance)", "").ToString() + "";
             if (dss.Tables[0].Rows.Count > 0)
             {
-                lblRate.Text = dss.Tables[0].Rows[0]["Rate"].ToString();
-                lblAMount.Text = dss.Tables[0].Rows[0]["TotalAmt"].ToString();
+                lblTotalKM.Text = dss.Tables[0].Compute("sum(Distance)", "").ToString() + "";
+                lblAmount.Text = dss.Tables[0].Rows[0]["TotalAmt"].ToString();
+                lblTotNS.Text = dss.Tables[0].Compute("sum(NightStay)", "").ToString();
+                lblTotDA.Text = dss.Tables[0].Compute("sum(DAL1)", "").ToString();
+                lblTotal.Text = dss.Tables[0].Compute("sum(Total)", "").ToString();
             }
         }
-        else
+        else if(drpReport.SelectedIndex == 1)
         {
             summary.Visible = false;
             detail.Visible = true;
-            DataSet dss = data.getDataSet("usp_DistanceTravelReort " + drpEmp.SelectedValue + ",'" + data.ConvertToDateTime(txtDateFrom.Text) + "','" + data.ConvertToDateTime(txtDateTo.Text) + "'");
+            all.Visible = false;
+            DataSet dss = data.getDataSet("usp_DistanceTravelReort " + drpEmp.SelectedValue + ",'" + data.YYYYMMDD(txtDateFrom.Text) + "','" + data.YYYYMMDD(txtDateTo.Text) + "'");
             rep.DataSource = dss;
             rep.DataBind();
 
@@ -56,9 +65,50 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
                 lblAmountt.Text = dss.Tables[0].Rows[0]["TotalAmt"].ToString();
             }
         }
+        else if (drpReport.SelectedIndex == 2)
+        {
+            summary.Visible = false;
+            detail.Visible = false;
+            all.Visible = true;
+            DataSet dss = data.getDataSet("usp_DistanceTravelReort_Summary " + drpEmp.SelectedValue + ",'" + data.YYYYMMDD(txtDateFrom.Text) + "','" + data.YYYYMMDD(txtDateTo.Text) + "'");
+            DataTable recDt = dss.Tables[0];
+            DataTable boundTable =
+
+           recDt.AsEnumerable()
+             .GroupBy(r => r.Field<string>("Emp_Name"))
+              
+             .Select(g =>
+             {
+                 var row = recDt.NewRow();
+                 row["Emp_Name"] = g.Key;
+                 row["Distance"] = g.Sum(r => r.Field<decimal>("Distance"));
+                 row["TotalAmt"] = g.Sum(r => r.Field<decimal>("Amount"));
+                 row["NightStay"] = g.Sum(r => r.Field<decimal>("NightStay"));
+                 row["DAL1"] = g.Sum(r => r.Field<decimal>("DAL1"));
+                 row["Total"] = g.Sum(r => r.Field<decimal>("Total"));
+              return row;
+             }).CopyToDataTable<DataRow>();
+
+                        // Create a table from the query.
+            //DataTable boundTable = query.CopyToDataTable<DataRow>();
+
+
+            Repeater2.DataSource = boundTable;
+            Repeater2.DataBind();
+            if (dss.Tables[0].Rows.Count > 0)
+            {
+                lblTotalKM.Text = dss.Tables[0].Compute("sum(Distance)", "").ToString() + "";
+                lblAmount.Text = dss.Tables[0].Rows[0]["TotalAmt"].ToString();
+                lblTotNS.Text = dss.Tables[0].Compute("sum(NightStay)", "").ToString();
+                lblTotDA.Text = dss.Tables[0].Compute("sum(DAL1)", "").ToString();
+                lblTotal.Text = dss.Tables[0].Compute("sum(Total)", "").ToString();
+            }
+        }
     }
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         GetReport();
     }
+
+   
 }
