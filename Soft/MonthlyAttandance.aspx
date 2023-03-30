@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="MonthlyAttandance.aspx.cs" Inherits="Soft_MonthlyAttandance" %>
-
+<%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
+<%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
         div > p {
@@ -7,6 +8,7 @@
         }
     </style>
     <title>Monthly Attandance Calander</title>
+     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
@@ -306,5 +308,6 @@
             autoclose: true
         });
     </script>
+     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
 
