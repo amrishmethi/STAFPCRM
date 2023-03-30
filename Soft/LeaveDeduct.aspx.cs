@@ -55,9 +55,9 @@ public partial class Soft_LeaveDeduct : System.Web.UI.Page
             ApproveLeave = "1";
         if (rbHalfDay.Checked)
             ApproveLeave = "0.5";
-        DataSet dsApproveLeave = data.getDataSet("select PL+CL as ApprovedLeave From tbl_EMPSalaryDetails WHERE Emp_Id=" + drpEmployee.SelectedValue);
-        double ApprovedLeave = Convert.ToDouble(dsApproveLeave.Tables[0].Rows[0]["ApprovedLeave"]);
-
+        //DataSet dsApproveLeave = data.getDataSet("select PL+CL as ApprovedLeave From tbl_EMPSalaryDetails WHERE Emp_Id=" + drpEmployee.SelectedValue);
+        //double ApprovedLeave = Convert.ToDouble(dsApproveLeave.Tables[0].Rows[0]["ApprovedLeave"]);
+        double ApprovedLeave = 100;
         DataSet dss = data.getDataSet("select isnull(sum(Approved_Leave),0)ApproveLeave from tbl_Leave WHERE FK_EmpId=" + drpEmployee.SelectedValue);
         double TotalLeave = Convert.ToDouble(dss.Tables[0].Rows[0]["ApproveLeave"]);
 

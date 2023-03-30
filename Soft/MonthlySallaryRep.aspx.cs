@@ -53,6 +53,7 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@Desig_Id", drpDesignation.SelectedValue);
         cmd.Parameters.AddWithValue("@Rep_Manager", drpProjectManager.SelectedValue);
         cmd.Parameters.AddWithValue("@PF", drpPf.SelectedValue);
+        cmd.Parameters.AddWithValue("@STATUS", drpStatus.SelectedValue);
         DataSet dss = data.getDataSet(cmd);
         rep.DataSource = dss;
         rep.DataBind();

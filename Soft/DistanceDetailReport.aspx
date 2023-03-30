@@ -20,10 +20,24 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
+                             <div class="col-md-3">
+                                <label>Department</label>
+                                <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </div>
                             <div class="col-md-3">
                                 <label class="control-label">Employee<span style="color: #ff0000">*</span></label>
-                              <asp:Label id="lblerror" ForeColor="Red" runat="server"></asp:Label>
+                                <asp:Label ID="lblerror" ForeColor="Red" runat="server"></asp:Label>
                                 <asp:DropDownList ID="drpEmp" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
+                             <div class="col-md-2">
+                                <label>
+                                    Employee Status
+                                </label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2">
+                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
+                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
@@ -158,13 +172,15 @@
                                             <th colspan="2" style="text-align: right;">Total Distance</th>
                                             <td>
                                                 <asp:Label ID="lblTotalKM" runat="server"></asp:Label></td>
-                                       <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
                                             <td>
                                                 <asp:Label ID="lblAmount" runat="server"></asp:Label></td>
-                                        
+
                                             <td>
-                                                <asp:Label ID="lblTotNS" runat="server"></asp:Label></td>  <td>
-                                                <asp:Label ID="lblTotDA" runat="server"></asp:Label></td><td>
+                                                <asp:Label ID="lblTotNS" runat="server"></asp:Label></td>
+                                            <td>
+                                                <asp:Label ID="lblTotDA" runat="server"></asp:Label></td>
+                                            <td>
                                                 <asp:Label ID="lblTotal" runat="server"></asp:Label></td>
 
                                         </tr>
@@ -175,7 +191,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="box box-primary" id="all" runat="server" visible="false">
                     <div class="box-body">
                         <div class="widget-content">
@@ -213,16 +229,18 @@
                                     </tbody>
                                     <tfoot>
                                         <tr class="gradeA">
-                                            <th colspan="2" style="text-align: right;">Total Distance</th>
+                                            <th colspan="2" style="text-align: right;">Total</th>
                                             <td>
                                                 <asp:Label ID="Label1" runat="server"></asp:Label></td>
-                                       <td>&nbsp;</td>
+                                            <td>&nbsp;</td> 
                                             <td>
                                                 <asp:Label ID="Label2" runat="server"></asp:Label></td>
-                                        
+
                                             <td>
-                                                <asp:Label ID="Label3" runat="server"></asp:Label></td>  <td>
-                                                <asp:Label ID="Label4" runat="server"></asp:Label></td><td>
+                                                <asp:Label ID="Label3" runat="server"></asp:Label></td>
+                                            <td>
+                                                <asp:Label ID="Label4" runat="server"></asp:Label></td>
+                                            <td>
                                                 <asp:Label ID="Label5" runat="server"></asp:Label></td>
 
                                         </tr>
@@ -238,5 +256,5 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <uc1:DTJS runat="server" ID="DTJS" />
-    </asp:Content>
+</asp:Content>
 

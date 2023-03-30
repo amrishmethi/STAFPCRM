@@ -47,9 +47,17 @@ public partial class Soft_AttandanceCalander : System.Web.UI.Page
         DataSet dss = data.getDataSet(query);
         FData = dss.Tables[0];
 
+        //DataSet dssLeave = data.getDataSet("GETLEAVEOFEMPLOYEE  '" + drpEmployee.SelectedValue + "','" + nextdate.ToString("MM/dd/yyyy") + "'");
+
+        //string _datee = mnta + "/28/" + yr;
+        //string query1 = "GETHOLIDAYLIST_Proc '" + _datee + "'  ";
+
+
+        //DataTable dsHoliday = data.getDataSet(query1).Tables[0];
 
         DataTable dsHoliday = data.getDataSet("select * from GETHOLIDAYLIST_VIEW where Month(DATEFROM)=" + mnta + " and Year(DATEFROM)=" + yr + " order by DATEFROM").Tables[0];
         DataTable dtSunday = data.getDataSet("PROC_GETSUNDAYOFMONTH '" + mnta + "', '" + yr + "'").Tables[0];
+        //dsHoliday.Merge(dtSunday);
         FData1 = dsHoliday;
     }
 
