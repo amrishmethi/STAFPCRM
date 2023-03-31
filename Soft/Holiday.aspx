@@ -24,13 +24,13 @@
                         </div>
                         <div class="col-md-3">
                             <label>Date From</label>
-                            <asp:TextBox ID="txtDateFrom" runat="server" CssClass=" form-control datepicker2"></asp:TextBox>
+                            <asp:TextBox ID="txtDateFrom" runat="server" CssClass=" form-control datepicker1"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*"
                                 Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="txtDateFrom"></asp:RequiredFieldValidator>
                         </div>
                         <div class="col-md-3">
                             <label>Date To</label>
-                            <asp:TextBox ID="txtDateTo" runat="server" CssClass=" form-control datepicker2"></asp:TextBox>
+                            <asp:TextBox ID="txtDateTo" runat="server" CssClass=" form-control datepicker1"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*"
                                 Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="txtDateTo"></asp:RequiredFieldValidator>
                         </div>

@@ -20,7 +20,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                             <div class="col-md-3">
+                            <div class="col-md-3">
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
@@ -30,7 +30,7 @@
                                 <asp:DropDownList ID="drpEmp" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
-                             <div class="col-md-2">
+                            <div class="col-md-2">
                                 <label>
                                     Employee Status
                                 </label>
@@ -83,8 +83,10 @@
                                             <th style="text-align: left;">Station</th>
                                             <th style="text-align: left;">Travel Date</th>
                                             <th style="text-align: left;">Working</th>
-                                            <th style="text-align: left;">Distance in KM</th>
                                             <th style="text-align: left;">Place</th>
+                                            <th style="text-align: left;">Distance in KM</th>
+                                            <th style="text-align: left;">Rate</th>
+                                            <th style="text-align: left;">Amount</th>
 
                                         </tr>
                                     </thead>
@@ -98,8 +100,10 @@
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;"><%#Eval("TravelDate") %></td>
                                                     <td style="text-align: left;"><%#Eval("EntryType") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Distance") %></td>
                                                     <td style="text-align: left;"><%#Eval("Place") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Distance") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Rate") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Amount") %></td>
 
                                                 </tr>
                                             </ItemTemplate>
@@ -107,22 +111,15 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="4" style="text-align: right;">Total Disance</th>
+                                            <th colspan="5" style="text-align: right;">Total Disance</th>
                                             <td>
-                                                <asp:Label ID="txtTotal" runat="server" CssClass="form-control"></asp:Label></td>
-                                            <td>&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="4" style="text-align: right;">Rate</th>
+                                                <asp:Label ID="txtTotal" runat="server" ></asp:Label></td>
+
                                             <td>
-                                                <asp:Label ID="lblRatee" runat="server" CssClass="form-control"></asp:Label></td>
-                                            <td>&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="4" style="text-align: right;">Amount</th>
+                                                &nbsp;</td>
+
                                             <td>
-                                                <asp:Label ID="lblAmountt" runat="server" CssClass="form-control"></asp:Label></td>
-                                            <td>&nbsp;</td>
+                                                <asp:Label ID="lblAmountt" runat="server" ></asp:Label></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -232,7 +229,7 @@
                                             <th colspan="2" style="text-align: right;">Total</th>
                                             <td>
                                                 <asp:Label ID="Label1" runat="server"></asp:Label></td>
-                                            <td>&nbsp;</td> 
+                                            <td>&nbsp;</td>
                                             <td>
                                                 <asp:Label ID="Label2" runat="server"></asp:Label></td>
 

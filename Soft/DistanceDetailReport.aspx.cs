@@ -37,10 +37,11 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
             lblerror.Text = "Please Select";
             return;
         }
-        else { lblerror.Text = ""; }
-        DataSet dss = data.getDataSet("usp_DistanceTravelReort_Summary '" + drpEmp.SelectedValue + "','" + data.YYYYMMDD(txtDateFrom.Text) + "','" + data.YYYYMMDD(txtDateTo.Text) + "','" + drpDepartment.SelectedValue + "','" + drpStatus.SelectedValue + "'");
+        else { lblerror.Text = ""; } 
+        
         if (drpReport.SelectedIndex == 0)
         {
+            DataSet dss = data.getDataSet("usp_DistanceTravelReort_Summary '" + drpEmp.SelectedValue + "','" + data.YYYYMMDD(txtDateFrom.Text) + "','" + data.YYYYMMDD(txtDateTo.Text) + "','" + drpDepartment.SelectedValue + "','" + drpStatus.SelectedValue + "'");
             summary.Visible = true;
             detail.Visible = false;
             all.Visible = false;
@@ -58,6 +59,7 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
         }
         else if (drpReport.SelectedIndex == 1)
         {
+            DataSet dss = data.getDataSet("usp_DistanceTravelReort '" + drpEmp.SelectedValue + "','" + data.YYYYMMDD(txtDateFrom.Text) + "','" + data.YYYYMMDD(txtDateTo.Text) + "','" + drpDepartment.SelectedValue + "','" + drpStatus.SelectedValue + "'");
             summary.Visible = false;
             detail.Visible = true;
             all.Visible = false;
@@ -66,13 +68,13 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
 
             txtTotal.Text = dss.Tables[0].Compute("sum(Distance)", "").ToString() + "";
             if (dss.Tables[0].Rows.Count > 0)
-            {
-                lblRatee.Text = dss.Tables[0].Rows[0]["Rate"].ToString();
+            { 
                 lblAmountt.Text = dss.Tables[0].Rows[0]["TotalAmt"].ToString();
             }
         }
         else if (drpReport.SelectedIndex == 2)
         {
+            DataSet dss = data.getDataSet("usp_DistanceTravelReort_Summary '" + drpEmp.SelectedValue + "','" + data.YYYYMMDD(txtDateFrom.Text) + "','" + data.YYYYMMDD(txtDateTo.Text) + "','" + drpDepartment.SelectedValue + "','" + drpStatus.SelectedValue + "'");
             summary.Visible = false;
             detail.Visible = false;
             all.Visible = true;

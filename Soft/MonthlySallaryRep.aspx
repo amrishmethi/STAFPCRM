@@ -33,7 +33,7 @@
                                 <label>Employee</label>
                                 <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2"></asp:DropDownList>
                             </div>
-                             <div class="col-md-2">
+                            <div class="col-md-2">
                                 <label>
                                     Employee Status
                                 </label>
@@ -93,7 +93,7 @@
                                             <th style="text-align: left;">House Rent Allowance</th>
                                             <th style="text-align: left;">Other Allowance</th>
                                             <th style="text-align: left;">Travel Allowance</th>
-                                            <th style="text-align: left;">Daily Allowance Local</th> 
+                                            <th style="text-align: left;">Daily Allowance Local</th>
                                             <th style="text-align: left;">Night Stay Allowance</th>
                                             <th style="text-align: left;">TDS</th>
                                             <th style="text-align: left;">Other Deduction</th>
@@ -101,13 +101,13 @@
                                             <th style="text-align: left;">Loan</th>
                                             <th style="text-align: left;">Advance</th>
                                             <th style="text-align: left;">Over Time</th>
-                                            <th style="text-align: left;">Gross Salary </th>
-                                            <th style="text-align: left;">Net<br />
-                                                Salary</th>
+                                            <th style="text-align: left;">Net<br />Salary</th>
+                                            <th style="text-align: left;">Salary Payble</th>
                                             <th style="text-align: left;">Total Days</th>
                                             <th style="text-align: left;">Sunday Off</th>
                                             <th style="text-align: left;">Sunday Work</th>
                                             <th style="text-align: left;">Attandance</th>
+                                            <th style="text-align: left;">No Of Working Days</th>
                                             <th style="text-align: left;">Leave</th>
                                         </tr>
                                     </thead>
@@ -127,7 +127,7 @@
                                                     <td style="text-align: left;"><%#Eval("HRAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("OAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("CAVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DAL1") %></td> 
+                                                    <td style="text-align: left;"><%#Eval("DAL1") %></td>
                                                     <td style="text-align: left;"><%#Eval("NSA") %></td>
                                                     <td style="text-align: left;"><%#Eval("TDSVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ODVALUE") %></td>
@@ -141,6 +141,7 @@
                                                     <td style="text-align: left;"><%#Eval("SundayOFF") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFSUNDAYWork") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFATTANDANCE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("TotalWork") %></td>
                                                     <td style="text-align: left;"><%#Eval("TOTALLEAVE") %></td>
                                                 </tr>
                                             </ItemTemplate>
