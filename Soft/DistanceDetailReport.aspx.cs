@@ -69,7 +69,8 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
             txtTotal.Text = dss.Tables[0].Compute("sum(Distance)", "").ToString() + "";
             if (dss.Tables[0].Rows.Count > 0)
             { 
-                lblAmountt.Text = dss.Tables[0].Rows[0]["TotalAmt"].ToString();
+                lblAmountt.Text = dss.Tables[0].Compute("sum(Amount)", "").ToString();
+                lblTotalq.Text = dss.Tables[0].Compute("sum(Total)", "").ToString();
             }
         }
         else if (drpReport.SelectedIndex == 2)

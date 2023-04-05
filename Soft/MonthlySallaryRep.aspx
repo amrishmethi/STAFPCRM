@@ -105,7 +105,9 @@
                                             <th style="text-align: left;">Salary Payble</th>
                                             <th style="text-align: left;">Total Days</th>
                                             <th style="text-align: left;">Sunday Off</th>
+                                            <th style="text-align: left;">Holiday Off</th>
                                             <th style="text-align: left;">Sunday Work</th>
+                                            <th style="text-align: left;">Holiday Work</th>
                                             <th style="text-align: left;">Attandance</th>
                                             <th style="text-align: left;">No Of Working Days</th>
                                             <th style="text-align: left;">Leave</th>
@@ -139,13 +141,14 @@
                                                     <td style="text-align: left;"><%#Eval("NETSALARY") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFWORKINGDAY") %></td>
                                                     <td style="text-align: left;"><%#Eval("SundayOFF") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NoOfHoliday") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFSUNDAYWork") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NOOFHolidayWork") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFATTANDANCE") %></td>
                                                     <td style="text-align: left;"><%#Eval("TotalWork") %></td>
                                                     <td style="text-align: left;"><%#Eval("TOTALLEAVE") %></td>
                                                 </tr>
                                             </ItemTemplate>
-
                                         </asp:Repeater>
                                     </tbody>
                                     <tfoot>

@@ -282,6 +282,10 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                                 }
                                 else
                                 {
+                                    if (nextdate.ToString("MM/dd/yyyy") == "03/06/2023")
+                                    {
+                                        int a = 0;
+                                    }
                                     string query1 = "GETHOLIDAYLIST_Proc '" + nextdate.ToString("MM/dd/yyyy") + "'  ";
                                     DataSet dsholiday = data.getDataSet(query1);
                                     if (dsholiday.Tables[0].Rows.Count > 0)
@@ -289,7 +293,15 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                                         DataView dvv = dsholiday.Tables[0].DefaultView;
                                         dvv.RowFilter = "DATEFROM ='" + nextdate.ToString("MM/dd/yyyy") + "'";
                                         if (dvv.ToTable().Rows.Count > 0)
-                                            dt1.Rows[i][j] = "HD";
+                                        {
+                                            if (dt1.Rows[i][j].ToString() != "P") 
+                                                dt1.Rows[i][j] = "HD"; 
+                                        }
+                                        else
+                                        {
+                                            dt1.Rows[i][j] = "L";
+                                            totalleave = totalleave + 1;
+                                        }
                                     }
                                     else
                                     {

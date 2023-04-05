@@ -87,6 +87,9 @@
                                             <th style="text-align: left;">Distance in KM</th>
                                             <th style="text-align: left;">Rate</th>
                                             <th style="text-align: left;">Amount</th>
+                                            <th style="text-align: left;">Night Stay</th>
+                                            <th style="text-align: left;">Daily Allowance</th>
+                                            <th style="text-align: left;">Total</th>
 
                                         </tr>
                                     </thead>
@@ -104,6 +107,9 @@
                                                     <td style="text-align: left;"><%#Eval("Distance") %></td>
                                                     <td style="text-align: left;"><%#Eval("Rate") %></td>
                                                     <td style="text-align: left;"><%#Eval("Amount") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NightStay") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DAL1") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Total") %></td>
 
                                                 </tr>
                                             </ItemTemplate>
@@ -113,13 +119,14 @@
                                         <tr>
                                             <th colspan="5" style="text-align: right;">Total Disance</th>
                                             <td>
-                                                <asp:Label ID="txtTotal" runat="server" ></asp:Label></td>
+                                                <asp:Label ID="txtTotal" runat="server"></asp:Label></td>
+
+                                            <td>&nbsp;</td>
 
                                             <td>
-                                                &nbsp;</td>
-
-                                            <td>
-                                                <asp:Label ID="lblAmountt" runat="server" ></asp:Label></td>
+                                                <asp:Label ID="lblAmountt" runat="server"></asp:Label></td>
+                                            <td colspan="2"></td>
+                                            <td> <asp:Label ID="lblTotalq" runat="server"></asp:Label></td>
                                         </tr>
                                     </tfoot>
                                 </table>
