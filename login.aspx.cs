@@ -9,15 +9,33 @@ public partial class login : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Data data = new Data();
+    SyncData syncData = new SyncData();
     SqlCommand cmd = new SqlCommand();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
+            GetUserData();
             HttpContext.Current.Response.Cookies["STFP"].Expires = DateTime.Now.AddDays(-1d);
             if (Request.Params["logout"] != null)
             {
                 HttpContext.Current.Response.Cookies["STFP"].Expires = DateTime.Now.AddDays(-1d);
+            }
+        }
+    }
+
+    private void GetUserData()
+    {
+        string QBind = " INSERT INTO [csinfo].[dbo].[MobileAppUser]([id],[Name],[MobileNo],[Password],[ExpiryDate],[Deactivate],[RegNo],[AppSoftCode],[UserType],[CreateDate],[ModifiedDate],[isCrmLogin])";
+        string _QBind = "";
+        DataSet dsUser = syncData.getDataSet("select * FROM [CSinfo].[dbo].[MobileAppUser]");
+        foreach (DataRow drr in dsUser.Tables[0].Rows)
+        {
+            if (!data.Exist("select * FROM [CSinfo].[dbo].[MobileAppUser] WHERE ID=" + drr["ID"]))
+            {
+                _QBind = " Select '" + drr["id"] + "','" + drr["Name"] + "','" + drr["MobileNo"] + "','" + drr["Password"] + "','" + drr["ExpiryDate"] + "','" + drr["Deactivate"] + "','" + drr["RegNo"] + "','" + drr["AppSoftCode"] + "','" + drr["UserType"] + "','" + drr["CreateDate"] + "','" + drr["ModifiedDate"] + "','" + drr["isCrmLogin"] + "' ";
+                string NQBind = QBind + _QBind;
+                data.executeCommand(NQBind);
             }
         }
     }

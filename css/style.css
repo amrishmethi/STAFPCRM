@@ -422,9 +422,10 @@ a.slim4 {color: #ccc; }
 .italic { font-style:italic; }
 .non-capitalize { text-transform:none; }
 #footer .description { font-weight:bold; }
-
-/* 2.5 Footer */	
-.readon {background: url('../images/readon2.gif'); display: block; height: 20px; width: 90px; margin-left: 30px; }
+#status { 
+	background-image: url('../content/dist/img/Preloader_10.gif');
+	/* 2.5 Footer */
+	.readon {background: url('../images/readon2.gif'); display: block; height: 20px; width: 90px; margin-left: 30px; }
 .readon:hover{background-position: 0 -20px; }
 .readon2 {height: 40px; width: 90px;}
 

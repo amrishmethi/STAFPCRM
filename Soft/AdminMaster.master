@@ -62,7 +62,7 @@
             width: 100%;
             height: 100%;
             z-index: 9999;
-            background: url(/Soft/dist/img/Preloader_10.gif) center no-repeat #fff;
+            background: url(../content/dist/img/Preloader_10.gif) center no-repeat #fff;
         }
 
         #back-top {
@@ -109,6 +109,7 @@
     <form id="form1" runat="server" autocomplete="off" style="text-transform: uppercase;">
         <!-- Site wrapper -->
         <div class="wrapper">
+             
             <uc1:TopMenu runat="server" ID="TopMenu" />
             <uc1:SideMenu runat="server" ID="SideMenu" />
             <div class="content-wrapper">
