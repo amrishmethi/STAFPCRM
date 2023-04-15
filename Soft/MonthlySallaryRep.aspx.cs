@@ -13,12 +13,13 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
     Data data = new Data();
     DataSet dsResult = new DataSet();
     GetData Gd = new GetData();
-
+    Master master = new Master();
     protected void Page_Load(object sender, EventArgs e)
     {
         Soft = Request.Cookies["STFP"];
         if (!IsPostBack)
         {
+            mnth.Text = DateTime.Now.ToString("MM-yyyy");
             Gd.fillDepartment(drpDepartment);
             Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue);
             Gd.FillUser(drpProjectManager);
@@ -43,19 +44,16 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
 
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
+        int month = Convert.ToInt32(mnth.Text.Split('-')[0]);
+        int year = Convert.ToInt32(mnth.Text.Split('-')[1]);
+        string _DD = year + "-" + month + "-01";
+
+
         string _FromDate = DateTime.Now.ToString("yyyy") + "-" + drpMonth.SelectedValue + "-01";
-        SqlCommand cmd = new SqlCommand();
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "GETSALLARYDATA_PROC";
-        cmd.Parameters.Clear();
-        cmd.Parameters.AddWithValue("@MONTH", _FromDate);
-        cmd.Parameters.AddWithValue("@Dept_Id", drpDepartment.SelectedValue);
-        cmd.Parameters.AddWithValue("@Desig_Id", drpDesignation.SelectedValue);
-        cmd.Parameters.AddWithValue("@Rep_Manager", drpProjectManager.SelectedValue);
-        cmd.Parameters.AddWithValue("@PF", drpPf.SelectedValue);
-        cmd.Parameters.AddWithValue("@STATUS", drpStatus.SelectedValue);
-        DataSet dss = data.getDataSet(cmd);
+        DataSet dss = master.GetSallary(_DD, drpDepartment.SelectedValue, drpDesignation.SelectedValue, drpProjectManager.SelectedValue, drpPf.SelectedValue, drpStatus.SelectedValue);
         rep.DataSource = dss;
         rep.DataBind();
     }
+
+
 }

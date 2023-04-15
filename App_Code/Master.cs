@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Activities.Statements;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Text;
 using System.Web;
-using System.Web.UI.WebControls;
 
 
 public class Master
@@ -426,5 +422,35 @@ public class Master
         cmd.Parameters.AddWithValue("@LeaveDetect", LeaveDetect);
         DataSet ds = data.getDataSet(cmd);
         return ds;
+    }
+
+
+    public DataSet getSalesSummaryOrder(string EMPID, string HQTR, string PARTY, string ORDDATE, string TYPE)
+    { 
+        cmd = new SqlCommand("GETSALESUMMARY_REPORT");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@EMPID", EMPID);
+        cmd.Parameters.AddWithValue("@HQTR", HQTR);
+        cmd.Parameters.AddWithValue("@PARTY", PARTY);
+        cmd.Parameters.AddWithValue("@ORDDATE", ORDDATE); 
+        cmd.Parameters.AddWithValue("@TYPE", TYPE); 
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+    public DataSet GetSallary(string _FromDate, string Dept_Id, string Desig_Id, string Rep_Manager, string PF, string STATUS)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.CommandText = "GETSALLARYDATA_PROC";
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@MONTH", _FromDate);
+        cmd.Parameters.AddWithValue("@Dept_Id", Dept_Id);
+        cmd.Parameters.AddWithValue("@Desig_Id", Desig_Id);
+        cmd.Parameters.AddWithValue("@Rep_Manager", Rep_Manager);
+        cmd.Parameters.AddWithValue("@PF", PF);
+        cmd.Parameters.AddWithValue("@STATUS", STATUS);
+        DataSet dss = data.getDataSet(cmd);
+        return dss;
     }
 }

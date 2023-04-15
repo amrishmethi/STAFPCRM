@@ -43,10 +43,14 @@
                                     <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-2">
+                             <div class="col-md-2">
+                                <label>Month</label>
+                                <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
+                            </div>
+                            <div class="col-md-2 hidden">
                                 <label class="control-label">Month<span style="color: #ff0000">*</span></label>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="drpMonth"
-                                    ErrorMessage="Please Select" ValidationGroup="aa" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
+                                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="drpMonth"
+                                    ErrorMessage="Please Select" ValidationGroup="aa" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>--%>
                                 <asp:DropDownList ID="drpMonth" runat="server" CssClass="form-control select2"></asp:DropDownList>
                             </div>
                             <div class="col-md-2">
@@ -164,5 +168,24 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <uc1:DTJS runat="server" ID="DTJS" />
+     <link href="../css/CalenderView.css" rel="stylesheet" />
+    <script src="js/jquery-ui.js"></script>
+    <link href="js/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .ui-datepicker-calendar {
+            /*display: tr;*/
+        }
+    </style>
+    <script type="text/javascript">
+        $('.MnthPicker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            format: "mm-yyyy",
+            viewMode: "months",
+            minViewMode: "months",
+            autoclose: true
+        });
+    </script>
 </asp:Content>
 

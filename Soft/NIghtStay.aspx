@@ -1,20 +1,21 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="NIghtStay.aspx.cs" Inherits="Soft_NIghtStay" %>
+﻿<%@ Page Title="Night Stay (STAFP)" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="NIghtStay.aspx.cs" Inherits="Soft_NIghtStay" %>
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <%--<meta http-equiv="refresh" content="60">--%>
-    <title>Night Stay (STAFP)</title>
-    <uc1:DTCSS runat="server" ID="DTCSS" /> 
+    <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     <section class="content-header" style="height: 2.5em;">
-        <h1>Night Stay 
-            <asp:Label ID="lblDate" ClientIDMode="Static" runat="server" Style="float: right"></asp:Label>
+
+        <h1><a id="lnkAdd" runat="server" href="/Soft/NightStayA.aspx" class="btn btn-primary">Add Night Stay</a>
         </h1>
-         
+        <ol class="breadcrumb">
+            <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
+            <li><a href="/Soft/NIghtStay.aspx" class="active">Night Stay</a></li>
+        </ol>
     </section>
     <section class="content">
         <div class="row">
@@ -31,14 +32,14 @@
                                 <asp:DropDownList ID="drpDesignation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
                             <div class="col-md-3">
-                                <label>Reporting Manager</label>
-                                <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                <label>Employee</label>
+                                <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpProjectManager_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
                             <div class="col-md-2 isEditVisible1">
                                 <label>Date From</label>
                                 <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker " placeholder="dd/MM/yyyy" AutoPostBack="true" OnTextChanged="txtDate_TextChanged"></asp:TextBox>
                             </div>
-                              <div class="col-md-2 isEditVisible1">
+                            <div class="col-md-2 isEditVisible1">
                                 <label>Date To</label>
                                 <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control datepicker " placeholder="dd/MM/yyyy" AutoPostBack="true" OnTextChanged="txtDate_TextChanged"></asp:TextBox>
                             </div>
@@ -67,8 +68,9 @@
                                             <th style="text-align: left;">Date</th>
                                             <th style="text-align: left;">Department</th>
                                             <th style="text-align: left;">Emp Name</th>
-                                            <th>Charges </th>
-                                            <th>Charges Type </th>
+                                            <th style="text-align: left;">Charges </th>
+                                            <th style="text-align: left;">Charges Type </th>
+                                            <th style="text-align: left;">Attandance By</th>
                                             <th style="text-align: left;">&nbsp;</th>
                                         </tr>
                                     </thead>
@@ -81,10 +83,15 @@
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("ATTENDANCEDATE1") %></td>
                                                     <td style="text-align: left;"><%#Eval("DEPT_NAME") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Emp_Name") %></td> 
+                                                    <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("CHARGES") %> </td>
                                                     <td style="text-align: left;"><%#Eval("CHARGESTYPE") %> </td>
-                                                    <td style="text-align: left;"><asp:LinkButton ID="lnkOut" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName='<%#Eval("CHARGESTYPE1") %>' CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("ID") %>'><%#Eval("CHARGESTYPE1") %></asp:LinkButton></td>
+                                                    <td style="text-align: left;"><%#Eval("AttandanceBy") %> </td>
+                                                    <td style="text-align: left;">
+                                                        <asp:LinkButton ID="lnkOut" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName='<%#Eval("CHARGESTYPE1") %>' CssClass="btn btn-small btn-success" CommandArgument='<%#Eval("ID") %>'><%#Eval("CHARGESTYPE1") %></asp:LinkButton>
+
+                                                        <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("ID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
+                                                    </td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -101,17 +108,14 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <script type="text/javascript">
         $(document).ready(function () {
-
             $.ajax({
                 url: 'NIghtStay.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-
                     let text = data.d;
                     const myArray = text.split(",");
-
                     var elements = document.getElementsByClassName("isEditVisible1");
                     Array.prototype.forEach.call(elements, function (element) {
                         element.style.display = myArray[1] == "False" ? "none" : "inline";
@@ -126,4 +130,3 @@
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
-

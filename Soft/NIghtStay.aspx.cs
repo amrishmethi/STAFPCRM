@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -21,7 +22,7 @@ public partial class Soft_NIghtStay : System.Web.UI.Page
         Soft = Request.Cookies["STFP"];
         if (!IsPostBack)
         {
-            Session["AccessRigthsSet"] = master.AccessRights("NIghtStay.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
+            Session["AccessRigthsSet"] = master.AccessRights("NightStay.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             Gd.fillDepartment(drpDepartment);
             Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue);
             Gd.FillUser(drpProjectManager);
@@ -42,13 +43,15 @@ public partial class Soft_NIghtStay : System.Web.UI.Page
             query += " and EMPID=" + drpProjectManager.SelectedValue;
         if (drpStatus.SelectedIndex > 0)
             query += " and Status='" + drpStatus.SelectedValue + "'";
-        lblDate.Text = txtDate.Text;
+        //lblDate.Text = txtDate.Text;
+        query += " order by ATTENDANCEDATE2";
         DataSet ds = data.getDataSet(query);
         rep.DataSource = ds;
         rep.DataBind();
     }
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
+        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue);
         FillRecords();
     }
 
@@ -56,15 +59,25 @@ public partial class Soft_NIghtStay : System.Web.UI.Page
     {
         FillRecords();
     }
-     
+
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         string _ID = e.CommandArgument.ToString();
         string _CHARGESTYPE1 = e.CommandName.ToString();
+        if (e.CommandName == "Delete")
+        {
+            string _query = "ALLOWANCE_UPDATE '" + _ID + "','" + _CHARGESTYPE1.ToUpper() + "'";
 
-
-        dsResult = data.getDataSet("ALLOWANCE_UPDATE '" + _ID + "','" + _CHARGESTYPE1 + "'");
+            if (data.executeCommand(_query) == 0)
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record DELETE Successfully');window.location ='NightStay.aspx'", true);
+            }
+        }
+        else
+        {
+            dsResult = data.getDataSet("ALLOWANCE_UPDATE '" + _ID + "','" + _CHARGESTYPE1 + "'");
+        }
         FillRecords();
     }
 
@@ -73,5 +86,10 @@ public partial class Soft_NIghtStay : System.Web.UI.Page
     {
         DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
         return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString() + "";
+    }
+
+    protected void drpProjectManager_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FillRecords();
     }
 }

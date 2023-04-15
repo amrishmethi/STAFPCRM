@@ -26,11 +26,11 @@
         return false;"
                     class="btn btn-sm btn-success">
                     Go Back</button>--%>
-             <%--   <button id="print" onclick="Print_Div()" class="btn btn-sm btn-info">PDF</button>--%>
+                <%--   <button id="print" onclick="Print_Div()" class="btn btn-sm btn-info">PDF</button>--%>
                 <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" CssClass="btn btn-sm btn-info" Text="Print"></asp:Button></li>
 
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/SalesItemReport.aspx" class="active">Sales Order Report</a></li>
+            <li><a href="/Soft/SalesOrderReport.aspx" class="active">Sales Order Report</a></li>
         </ol>
     </section>
     <section class="content">
@@ -118,6 +118,9 @@
 
                                                     <td style="text-align: center;">
                                                         <a href="UpdateSalesOrder.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+
+                                                        <asp:LinkButton ID="LinkButton1" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("ID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
+                                                         
                                                     </td>
                                                 </tr>
                                                 <tr>
