@@ -35,11 +35,11 @@
                                 <label>Employee</label>
                                 <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpProjectManager_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
-                            <div class="col-md-2 isEditVisible1">
+                            <div class="col-md-2">
                                 <label>Date From</label>
                                 <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker " placeholder="dd/MM/yyyy" AutoPostBack="true" OnTextChanged="txtDate_TextChanged"></asp:TextBox>
                             </div>
-                            <div class="col-md-2 isEditVisible1">
+                            <div class="col-md-2">
                                 <label>Date To</label>
                                 <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control datepicker " placeholder="dd/MM/yyyy" AutoPostBack="true" OnTextChanged="txtDate_TextChanged"></asp:TextBox>
                             </div>
