@@ -23,6 +23,8 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
     GetData Gd = new GetData();
     private HttpCookie Soft;
     double _TotalAMt = 0;
+    double _TotalBags = 0;
+    double _TotalWght = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -34,7 +36,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             Session["AccessRigthsSet"] = getdata.AccessRights("SalesOrderReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            Gd.FillUser(drpUser);
+            Gd.FillUser(drpUser,"2");
             bindDrp(true, true);
             Gd.FillPrimaryParty(drpParty);
             Gd.FillGroup(drpGrp);
@@ -45,7 +47,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
 
     private void bindDrp(bool isuser, bool ishqtr)
     {
-        DataSet dsusr = getdata.getHqtrUser();
+        DataSet dsusr = getdata.getHqtrUserDpt();
         DataView dv = dsusr.Tables[0].DefaultView;
         if (isuser)
         {
@@ -82,6 +84,8 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
         rep.DataBind();
 
         txtGrandTot.Text = String.Format("{0:0.00}", _TotalAMt);
+        txtTotalBags.Text = String.Format("{0:0.00}", _TotalBags);
+        txtTotalWeight.Text = String.Format("{0:0.00}", _TotalWght);
     }
 
 
@@ -101,6 +105,8 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             if (dsrep1.Tables[1].Rows.Count > 0)
             {
                 _TotalAMt += (Convert.ToDouble(dsrep1.Tables[1].Compute("Sum(Amount)", "")));
+                _TotalBags += (Convert.ToDouble(dsrep1.Tables[1].Compute("Sum(OrdQty)", "")));
+                _TotalWght += (Convert.ToDouble(dsrep1.Tables[1].Compute("Sum(Weight)", "")));
 
                 lblTotal.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(Amount)", ""))).ToString("#0.00");
                 lblQty.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(OrdQty)", ""))).ToString("#0");

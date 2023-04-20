@@ -106,21 +106,23 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
             Label lblAmount = (Label)e.Item.FindControl("lblAmount");
             Label lblCTC = (Label)e.Item.FindControl("lblCTC");
 
+            if (drpReport.SelectedIndex == 0)
+            {
+                int month = Convert.ToInt32(mnth.Text.Split('-')[0]);
+                int year = Convert.ToInt32(mnth.Text.Split('-')[1]);
+                string _DD = month + "/1/" + year;
 
-            int month = Convert.ToInt32(mnth.Text.Split('-')[0]);
-            int year = Convert.ToInt32(mnth.Text.Split('-')[1]);
-            string _DD = month + "/1/" + year;
+                DataSet dss = getdata.GetSallary(_DD, "0", "0", hddcrmId.Value, "2", "ALL");
+                if (dss.Tables[0].Rows.Count > 0)
+                    lblExpense.Text = dss.Tables[0].Rows[0]["NETSALARY"].ToString();
+                else
+                    lblExpense.Text = "0";
+                double _CTC = Convert.ToDouble(lblExpense.Text) * 100 / Convert.ToDouble(lblAmount.Text);
+                lblCTC.Text = _CTC.ToString("0.00");
 
-            DataSet dss = getdata.GetSallary(_DD, "0", "0", hddcrmId.Value, "2", "ALL");
-            if (dss.Tables[0].Rows.Count > 0)
-                lblExpense.Text = dss.Tables[0].Rows[0]["NETSALARY"].ToString();
-            else
-                lblExpense.Text = "0";
-            double _CTC = Convert.ToDouble(lblExpense.Text) * 100 / Convert.ToDouble(lblAmount.Text);
-            lblCTC.Text = _CTC.ToString("0.00");
-
-            _TotalAmount += Convert.ToDouble(lblAmount.Text);
-            _TotalExp += Convert.ToDouble(lblExpense.Text);
+                _TotalAmount += Convert.ToDouble(lblAmount.Text);
+                _TotalExp += Convert.ToDouble(lblExpense.Text);
+            }
         }
     }
 }

@@ -460,7 +460,17 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<td>Total Visit</td>");
                             sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["SALES_VISITED"].ToString() + "</td>");
                             sb.Append("</tr>");
-                           
+
+                            sb.Append("<tr>");
+                            sb.Append("<td>Total Visit Productive</td>");
+                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["Productive"].ToString() + "</td>");
+                            sb.Append("</tr>");
+
+                            sb.Append("<tr>");
+                            sb.Append("<td>Total Visit Non-Productive</td>");
+                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["NonProductive"].ToString() + "</td>");
+                            sb.Append("</tr>");
+
                             sb.Append("<tr>");
                             sb.Append("<td>Sale order(in Amount)</td>");
                             sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["ORDER_AMT"].ToString() + "</td>");

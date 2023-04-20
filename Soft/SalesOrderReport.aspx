@@ -120,7 +120,7 @@
                                                         <a href="UpdateSalesOrder.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
 
                                                         <asp:LinkButton ID="LinkButton1" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("ID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
-                                                         
+
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -184,9 +184,19 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="col-sm-12" style="text-align: right;">
-                                <label>Grand Total</label>
-                                <asp:TextBox ID="txtGrandTot" runat="server" Style="font-weight: bold; text-align: right;" ReadOnly="true" Text="0.00"></asp:TextBox>
+                            <div class="col-md-12" style="text-align: right;">
+                                <div class="col-md-4">
+                                    <label>Total Bags</label>
+                                    <asp:TextBox ID="txtTotalBags" runat="server" Style="font-weight: bold; text-align: right;" ReadOnly="true" Text="0.00"></asp:TextBox>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Total Weight</label>
+                                    <asp:TextBox ID="txtTotalWeight" runat="server" Style="font-weight: bold; text-align: right;" ReadOnly="true" Text="0.00"></asp:TextBox>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Grand Total</label>
+                                    <asp:TextBox ID="txtGrandTot" runat="server" Style="font-weight: bold; text-align: right;" ReadOnly="true" Text="0.00"></asp:TextBox>
+                                </div>
                             </div>
                         </div>
 

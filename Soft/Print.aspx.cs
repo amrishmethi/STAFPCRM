@@ -99,7 +99,7 @@ public partial class Soft_Print : System.Web.UI.Page
                     strHTML.Append("<td>&nbsp;</td>");
                     strHTML.Append("<td>&nbsp;</td>");
                     strHTML.Append("</tr>");
-                    totSecSales = totTrgtVisit = 0; totTrgtAmt = totVisits = 0; totProdVisit = 0; totNonProdVisit = 0;
+                    totSecSales = totTrgtVisit = 0; totTrgtAmt = totVisits = 0; totProdVisit = 0; totNonProdVisit = 0; totAchivePer=0;  
                 }
             }
         }

@@ -237,6 +237,11 @@ public class Master
         return ds = data.getDataSet("select * from [stm_acmast].[dbo].GETHEADQUARTER order by Name,HEADQTR");
     }
 
+    public DataSet getHqtrUserDpt()
+    {
+        return ds = data.getDataSet("select distinct  G.*,EMP.EMPID from [stm_acmast].[dbo].GETHEADQUARTER G inner join [stm_acmast].[dbo].tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 and EMP.Dept_Id=2   order by Name,HEADQTR ");
+    }
+
     public DataSet GetSecondarySaleTargetMain(string EMPID, string APP_DATE, string MINVISIT, string TOTALQTY, string ID, string Amount)
     {
         cmd = new SqlCommand("IU_SECONDARYSALESTARGET_MAIN");
