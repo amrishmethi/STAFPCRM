@@ -30,7 +30,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
             DataSet dsusr = getdata.getHqtrUser();
             DataView dv = dsusr.Tables[0].DefaultView;
             dv.Sort = "HeadQtr";
-            drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr");
+            drpheadQtr.DataSource = dv.ToTable(true,"HeadQtr");
             drpheadQtr.DataTextField = "HeadQtr";
             drpheadQtr.DataValueField = "HeadQtr";
             drpheadQtr.DataBind();
