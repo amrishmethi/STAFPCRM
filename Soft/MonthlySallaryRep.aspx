@@ -43,7 +43,7 @@
                                     <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
-                             <div class="col-md-2">
+                            <div class="col-md-2">
                                 <label>Month</label>
                                 <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
                             </div>
@@ -105,7 +105,8 @@
                                             <th style="text-align: left;">Loan</th>
                                             <th style="text-align: left;">Advance</th>
                                             <th style="text-align: left;">Over Time</th>
-                                            <th style="text-align: left;">Net<br />Salary</th>
+                                            <th style="text-align: left;">Net<br />
+                                                Salary</th>
                                             <th style="text-align: left;">Salary Payble</th>
                                             <th style="text-align: left;">Total Days</th>
                                             <th style="text-align: left;">Sunday Off</th>
@@ -156,6 +157,32 @@
                                         </asp:Repeater>
                                     </tbody>
                                     <tfoot>
+                                        <asp:Repeater ID="Repeater1" runat="server">
+                                            <ItemTemplate>
+                                                <tr class="gradeA">
+                                                    <th colspan="2"><%#Eval("Emp_Name") %></th>
+                                                    <th style="text-align: left;"><%#Eval("BASIC_SALARYVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("PF_EMPLOYERVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("ESIC_EMPLOYEEVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("ESIC_EMPLOYERVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("HRAVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("OAVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("CAVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("DAL1") %></th>
+                                                    <th style="text-align: left;"><%#Eval("NSA") %></th>
+                                                    <th style="text-align: left;"><%#Eval("tdSVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("ODVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("LeaveDeduction") %></th>
+                                                    <th style="text-align: left;"><%#Eval("LOANAMOUNT") %></th>
+                                                    <th style="text-align: left;"><%#Eval("Advance") %></th>
+                                                    <th style="text-align: left;"><%#Eval("OverTime") %></th>
+                                                    <th style="text-align: left;"><%#Eval("Net_Salary") %></th>
+                                                    <th style="text-align: left;"><%#Eval("NETSALARY") %></th>
+                                                    <th style="text-align: left;" colspan="8"></th>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
                                     </tfoot>
                                 </table>
                             </div>
@@ -168,7 +195,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <uc1:DTJS runat="server" ID="DTJS" />
-     <link href="../css/CalenderView.css" rel="stylesheet" />
+    <link href="../css/CalenderView.css" rel="stylesheet" />
     <script src="js/jquery-ui.js"></script>
     <link href="js/jquery-ui.css" rel="stylesheet" type="text/css" />
     <style type="text/css">

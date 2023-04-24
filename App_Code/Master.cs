@@ -237,9 +237,13 @@ public class Master
         return ds = data.getDataSet("select * from [stm_acmast].[dbo].GETHEADQUARTER order by Name,HEADQTR");
     }
 
-    public DataSet getHqtrUserDpt()
+    public DataSet getHqtrUserDpt(string Dept_Id)
     {
-        return ds = data.getDataSet("select distinct  G.*,EMP.EMPID from [stm_acmast].[dbo].GETHEADQUARTER G inner join [stm_acmast].[dbo].tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 and EMP.Dept_Id=2   order by Name,HEADQTR ");
+        string query = "select distinct  G.*,EMP.EMPID from [stm_acmast].[dbo].GETHEADQUARTER G inner join [stm_acmast].[dbo].tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 ";
+        if (Dept_Id != "0")
+            query += "and EMP.Dept_Id = " + Dept_Id + " ";
+        query += "order by Name,HEADQTR ";
+        return ds = data.getDataSet(query);
     }
 
     public DataSet GetSecondarySaleTargetMain(string EMPID, string APP_DATE, string MINVISIT, string TOTALQTY, string ID, string Amount)
@@ -403,7 +407,7 @@ public class Master
     }
 
     public DataSet IU_LEAVE(string ACTION, string ID, string FK_EmpId, string Leave_Type, string Requested_leave, string From_date, string To_date, string Approved_Leave, string Approved_todate, string Approved_fromdate, string Reason, string Date, string IsConfirm, string Mgr_Approved, string confirmdate, string FK_AdminID, string LeaveDetect)
-    { 
+    {
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = "IU_LEAVE";
         cmd.CommandType = CommandType.StoredProcedure;
@@ -430,15 +434,17 @@ public class Master
     }
 
 
-    public DataSet getSalesSummaryOrder(string EMPID, string HQTR, string PARTY, string ORDDATE, string TYPE)
-    { 
+    public DataSet getSalesSummaryOrder(string EMPID, string HQTR, string PARTY, string ORDDATE, string TYPE,string DEPT_ID, string EMP_STATUS)
+    {
         cmd = new SqlCommand("GETSALESUMMARY_REPORT");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@EMPID", EMPID);
         cmd.Parameters.AddWithValue("@HQTR", HQTR);
         cmd.Parameters.AddWithValue("@PARTY", PARTY);
-        cmd.Parameters.AddWithValue("@ORDDATE", ORDDATE); 
-        cmd.Parameters.AddWithValue("@TYPE", TYPE); 
+        cmd.Parameters.AddWithValue("@ORDDATE", ORDDATE);
+        cmd.Parameters.AddWithValue("@TYPE", TYPE);
+        cmd.Parameters.AddWithValue("@DEPT_ID", DEPT_ID);
+        cmd.Parameters.AddWithValue("@EMP_STATUS", EMP_STATUS);
         ds = data.getDataSet(cmd);
         return ds;
     }

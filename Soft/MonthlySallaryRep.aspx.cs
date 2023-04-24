@@ -23,7 +23,7 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
             Gd.fillDepartment(drpDepartment);
             Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue);
             Gd.FillUser(drpProjectManager);
-            FillMonth();
+            FillMonth(); 
         }
     }
 
@@ -51,9 +51,10 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
 
         string _FromDate = DateTime.Now.ToString("yyyy") + "-" + drpMonth.SelectedValue + "-01";
         DataSet dss = master.GetSallary(_DD, drpDepartment.SelectedValue, drpDesignation.SelectedValue, drpProjectManager.SelectedValue, drpPf.SelectedValue, drpStatus.SelectedValue);
-        rep.DataSource = dss;
+        rep.DataSource = dss.Tables[0];
         rep.DataBind();
+
+        Repeater1.DataSource = dss.Tables[1];
+        Repeater1.DataBind(); 
     }
-
-
 }

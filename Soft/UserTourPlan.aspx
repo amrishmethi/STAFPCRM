@@ -20,22 +20,26 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-
+                            <div class="col-md-3">
+                                <label>Department</label>
+                                <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </div>
                             <div class="col-md-3">
                                 <label>Employee</label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                              <div class="col-md-2">
-                                        <label>HeadQuarter</label>
-                                        <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
-                                        </asp:DropDownList>
-                                    </div> <div class="col-md-2">
-                                        <label>District</label>
-                                        <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
-                                        </asp:DropDownList>
-                                    </div>
-                            <%--<div class="col-md-2">
+                            <div class="col-md-2">
+                                <label>HeadQuarter</label>
+                                <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <label>District</label>
+                                <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
                                 <label>Date From</label>
                                 <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker">
                                 </asp:TextBox>
@@ -44,13 +48,13 @@
                                 <label>Date To</label>
                                 <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker">
                                 </asp:TextBox>
-                            </div>--%>
+                            </div>
 
 
-                            <%--  <div class="col-md-1" style="padding-top: 3px;">
+                            <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>--%>
+                            </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
                         <div class="clearfix">&nbsp;</div>

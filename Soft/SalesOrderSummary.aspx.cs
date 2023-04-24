@@ -29,7 +29,8 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
             mnth.Text = DateTime.Now.ToString("MM-yyyy");
             Session["AccessRigthsSet"] = getdata.AccessRights("SalesOrderSummary.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-            Gd.FillUser(drpUser);
+            Gd.fillDepartment(drpDepartment);
+            Gd.FillUser(drpUser, drpDepartment.SelectedValue);
             bindDrp(true, true);
             Gd.FillPrimaryParty(drpParty);
             //Filldata();
@@ -38,7 +39,7 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
 
     private void bindDrp(bool isuser, bool ishqtr)
     {
-        DataSet dsusr = getdata.getHqtrUser();
+        DataSet dsusr = getdata.getHqtrUserDpt(drpDepartment.SelectedValue);
         DataView dv = dsusr.Tables[0].DefaultView;
         if (isuser)
         {
@@ -65,17 +66,17 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
     }
 
     private void Filldata()
-    { 
-        ds = getdata.getSalesSummaryOrder(drpUser.SelectedValue, drpHeadQtr.SelectedValue, drpParty.SelectedValue, mnth.Text, drpReport.SelectedValue);
+    {
+        ds = getdata.getSalesSummaryOrder(drpUser.SelectedValue, drpHeadQtr.SelectedValue, drpParty.SelectedValue, mnth.Text, drpReport.SelectedValue, drpDepartment.SelectedValue, drpStatus.SelectedValue);
         DataView dv = ds.Tables[0].DefaultView;
         repData.DataSource = ds.Tables[0];
         repData.DataBind();
 
         lblPowder.Text = ds.Tables[0].Compute("Sum(POWDER)", "").ToString();
         lblBarTub.Text = ds.Tables[0].Compute("Sum(BAR_AND_TUB)", "").ToString();
-        lblTotalAmount.Text = _TotalAmount.ToString("0.00");
+        lblTotalAmount.Text = ds.Tables[0].Compute("Sum(AMOUNT)", "").ToString();
         lblTotalExp.Text = _TotalExp.ToString("0.00");
-        lblTotalCTC.Text = ((_TotalExp/_TotalAmount) * 100).ToString("0.00");
+        lblTotalCTC.Text = ((_TotalExp / _TotalAmount) * 100).ToString("0.00");
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -84,14 +85,21 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
     }
     protected void drpType_SelectedIndexChanged(object sender, EventArgs e)
     {
+        Bind(sender);
+    }
+
+    private void Bind(object sender)
+    {
         DropDownList ddl = sender as DropDownList;
         if (ddl == drpUser)
         {
-
-
             bindDrp(false, true);
         }
         if (ddl == drpHeadQtr)
+        {
+            bindDrp(true, false);
+        }
+        if (ddl == drpDepartment)
         {
             bindDrp(true, false);
         }
@@ -124,5 +132,10 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
                 _TotalExp += Convert.ToDouble(lblExpense.Text);
             }
         }
+    }
+
+    protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Bind(sender);
     }
 }

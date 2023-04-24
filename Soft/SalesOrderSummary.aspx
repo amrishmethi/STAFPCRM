@@ -29,13 +29,16 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-
+                            <div class="col-md-3">
+                                <label>Department</label>
+                                <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </div>
                             <div class="col-md-3">
                                 <label>Employee</label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label>HeadQuarter</label>
                                 <asp:DropDownList ID="drpHeadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
@@ -45,25 +48,38 @@
                                 <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
+                            <div class="clearfix">&nbsp;</div>
                             <div class="col-md-2">
                                 <label>Month</label>
                                 <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
                             </div>
-                             <div class="col-md-2">
+                            <div class="col-md-2">
+                                <label>
+                                    Employee Status
+                                </label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2">
+                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
+                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
                                 <label class="control-label">Report Type<span style="color: #ff0000">*</span></label>
                                 <asp:DropDownList ID="drpReport" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Text="EMPLOYEE WISE" Value="EMPLOYEEWISE" Selected="True"></asp:ListItem>
                                     <asp:ListItem Text="PARTY WISE" Value="PARTYWISE"></asp:ListItem>
                                     <asp:ListItem Text="DATE WISE" Value="DATEWISE"></asp:ListItem>
                                 </asp:DropDownList>
-                            </div><div class="clearfix">&nbsp;</div>
-                            <div class="col-md-2"> 
-                            <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Report"
-                                ValidationGroup="aa" OnClick="btnSubmit_Click" />
+                            </div>
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="col-md-2">
+                                <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Report"
+                                    ValidationGroup="aa" OnClick="btnSubmit_Click" />
                             </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
-                        <div class="clearfix">&nbsp;</div> 
+                        <div class="clearfix">&nbsp;</div>
                     </div>
                 </div>
                 <div class="box box-primary">
@@ -116,12 +132,17 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="4"> Total</td>
-                                            <td><asp:Label ID="lblPowder" runat="server" Text="0"></asp:Label></td>
-                                            <td><asp:Label ID="lblBarTub" runat="server" Text="0"></asp:Label></td>
-                                            <td><asp:Label ID="lblTotalAmount" runat="server" Text="0"></asp:Label></td>
-                                            <td><asp:Label ID="lblTotalExp" runat="server" Text="0"></asp:Label></td>
-                                            <td><asp:Label ID="lblTotalCTC" runat="server" Text="0"></asp:Label></td>
+                                            <th colspan="4">Total</th>
+                                            <th>
+                                                <asp:Label ID="lblPowder" runat="server" Text="0"></asp:Label></th>
+                                            <th>
+                                                <asp:Label ID="lblBarTub" runat="server" Text="0"></asp:Label></th>
+                                            <th>
+                                                <asp:Label ID="lblTotalAmount" runat="server" Text="0"></asp:Label></th>
+                                            <th>
+                                                <asp:Label ID="lblTotalExp" runat="server" Text="0"></asp:Label></th>
+                                            <th>
+                                                <asp:Label ID="lblTotalCTC" runat="server" Text="0"></asp:Label></th>
                                         </tr>
                                     </tfoot>
                                 </table>

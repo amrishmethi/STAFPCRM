@@ -47,7 +47,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
 
     private void bindDrp(bool isuser, bool ishqtr)
     {
-        DataSet dsusr = getdata.getHqtrUserDpt();
+        DataSet dsusr = getdata.getHqtrUserDpt("2");
         DataView dv = dsusr.Tables[0].DefaultView;
         if (isuser)
         {
