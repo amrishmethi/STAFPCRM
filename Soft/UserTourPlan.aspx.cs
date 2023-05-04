@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -25,12 +26,13 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
 
             Soft = Request.Cookies["STFP"];
 
-            Session["AccessRigthsSet"] = getdata.AccessRights("EmployeeTourPlan.aspx", Soft["Type"] == "admin" ? "0" : Soft["EmployeeId"]).Tables[0];
+            Session["AccessRigthsSet"] = getdata.AccessRights("EmployeeTourPlan.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
 
             Gd.fillDepartment(drpDepartment);
             bindDrp(true, true, true);
-            //fillData();
+            dpFrom.Text = dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            fillData();
         }
     }
 
@@ -79,26 +81,26 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
     }
     public void fillData()
     {
+
         ds = getdata.getUserTourPlan(drpUser.SelectedValue, "");
         DataView dv = ds.Tables[1].DefaultView;
         string _filter = "0=0 ";
         if (drpheadQtr.SelectedIndex > 0)
-        {
             _filter += " and HeadQtr = '" + drpheadQtr.SelectedValue + "'";
-        }
         if (drpDepartment.SelectedIndex > 0)
-        {
             _filter += " and Dept_Id = '" + drpDepartment.SelectedValue + "'";
-        }
+        if (drpUser.SelectedIndex > 0)
+            _filter += " and id= '" + drpUser.SelectedValue + "'";
         if (drpDistrict.SelectedIndex > 0)
-        {
             _filter += " and District = '" + drpDistrict.SelectedValue + "'";
-        }
+        if (drpStatus.SelectedIndex > 0)
+            _filter += " and Status = '" + drpStatus.SelectedValue + "'";
         if (dpFrom.Text != "")
             _filter += " and TDate1>='" + data.ConvertToDateTime(dpFrom.Text) + "'";
         if (dpTo.Text != "")
             _filter += " and  TDate1<='" + data.ConvertToDateTime(dpTo.Text) + "'";
         dv.RowFilter = _filter;
+        dv.Sort = "Emp_Name,TDate";
         rep.DataSource = dv.ToTable();
         rep.DataBind();
 
@@ -114,17 +116,18 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        if (e.CommandName == "Save")
+        if (e.CommandName == "Delete")
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                TextBox txtDate = (e.Item.FindControl("txtDate") as TextBox);
-                Label lblHqtr = (e.Item.FindControl("lblHqtr") as Label);
-                Label lblDist = (e.Item.FindControl("lblDist") as Label);
-                Label lblStat = (e.Item.FindControl("lblStat") as Label);
+            data.executeCommand("Update [TourPlan] set isdelete=1 where Id=" + e.CommandArgument);
+            //if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            //{
+            //    TextBox txtDate = (e.Item.FindControl("txtDate") as TextBox);
+            //    Label lblHqtr = (e.Item.FindControl("lblHqtr") as Label);
+            //    Label lblDist = (e.Item.FindControl("lblDist") as Label);
+            //    Label lblStat = (e.Item.FindControl("lblStat") as Label);
 
-                ds = getdata.saveUserTourPlan(e.CommandArgument.ToString(), drpUser.SelectedValue, lblHqtr.Text, lblDist.Text, lblStat.Text, txtDate.Text == "" ? "" : data.YYYYMMDD(txtDate.Text.Trim()));
-            }
+            //    ds = getdata.saveUserTourPlan(e.CommandArgument.ToString(), drpUser.SelectedValue, lblHqtr.Text, lblDist.Text, lblStat.Text, txtDate.Text == "" ? "" : data.YYYYMMDD(txtDate.Text.Trim()));
+            //}
             fillData();
         }
     }

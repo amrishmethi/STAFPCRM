@@ -108,7 +108,7 @@
                                                     <td style="text-align: left;"><%#Eval("Rate") %></td>
                                                     <td style="text-align: left;"><%#Eval("Amount") %></td>
                                                     <td style="text-align: left;"><%#Eval("NightStay") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DAL1") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DAL") %></td>
                                                     <td style="text-align: left;"><%#Eval("Total") %></td>
 
                                                 </tr>
@@ -123,9 +123,10 @@
 
                                             <td>&nbsp;</td>
 
-                                            <td>
-                                                <asp:Label ID="lblAmountt" runat="server"></asp:Label></td>
-                                            <td colspan="2"></td>
+                                            <td><asp:Label ID="lblAmountt" runat="server"></asp:Label></td>
+                                            <td><asp:Label ID="lblNight" runat="server"></asp:Label></td>
+                                            <td><asp:Label ID="lblDal" runat="server"></asp:Label></td>
+                                            
                                             <td> <asp:Label ID="lblTotalq" runat="server"></asp:Label></td>
                                         </tr>
                                     </tfoot>

@@ -434,7 +434,7 @@ public class Master
     }
 
 
-    public DataSet getSalesSummaryOrder(string EMPID, string HQTR, string PARTY, string ORDDATE, string TYPE,string DEPT_ID, string EMP_STATUS)
+    public DataSet getSalesSummaryOrder(string EMPID, string HQTR, string PARTY, string ORDDATE, string TYPE, string DEPT_ID, string EMP_STATUS)
     {
         cmd = new SqlCommand("GETSALESUMMARY_REPORT");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -461,6 +461,37 @@ public class Master
         cmd.Parameters.AddWithValue("@Rep_Manager", Rep_Manager);
         cmd.Parameters.AddWithValue("@PF", PF);
         cmd.Parameters.AddWithValue("@STATUS", STATUS);
+        DataSet dss = data.getDataSet(cmd);
+        return dss;
+    }
+
+
+    public DataSet Appraisal(string EMP_ID, string PREV_NETSALARY, string APPRAISAL, string CUR_NETSALARY, string AFFECTIVE_DATE, string ID, string _UserId)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "IU_APPRAISAL";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@EMP_ID", EMP_ID);
+        cmd.Parameters.AddWithValue("@PREV_NETSALARY", PREV_NETSALARY);
+        cmd.Parameters.AddWithValue("@APPRAISAL", APPRAISAL);
+        cmd.Parameters.AddWithValue("@CUR_NETSALARY", CUR_NETSALARY);
+        cmd.Parameters.AddWithValue("@AFFECTIVE_DATE", AFFECTIVE_DATE);
+        cmd.Parameters.AddWithValue("@CREATEUSER", _UserId);
+        cmd.Parameters.AddWithValue("@ID", ID);
+        DataSet dss = data.getDataSet(cmd);
+        return dss;
+    }
+
+    public DataSet AppraisalD(string EMP_ID, string ID, string _UserId)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "IU_APPRAISALD";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@EMP_ID", EMP_ID); 
+        cmd.Parameters.AddWithValue("@CREATEUSER", _UserId);
+        cmd.Parameters.AddWithValue("@ID", ID);
         DataSet dss = data.getDataSet(cmd);
         return dss;
     }

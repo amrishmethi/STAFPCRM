@@ -25,7 +25,7 @@
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
                             <div class="col-md-3">
-                                <label>Employee</label>
+                                <label class="control-label">Employee </label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
@@ -40,16 +40,25 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
+                                <label>
+                                    Employee Status
+                                </label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2">
+                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
+                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
                                 <label>Date From</label>
-                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker">
+                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker1">
                                 </asp:TextBox>
                             </div>
                             <div class="col-md-2">
                                 <label>Date To</label>
-                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker">
+                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker1">
                                 </asp:TextBox>
                             </div>
-
 
                             <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
@@ -68,10 +77,12 @@
                                     <thead>
                                         <tr>
                                             <th>Sr. No.</th>
+                                            <th>Employee</th>
                                             <th>HeadQuarter</th>
                                             <th>District</th>
                                             <th>Station</th>
                                             <th>Tour Date</th>
+                                            <th>Purpose</th>
                                             <th style="text-align: center;">
                                                 <label id="lblAction">Action</label></th>
                                         </tr>
@@ -82,9 +93,9 @@
                                             <ItemTemplate>
                                                 <tr class="gradeA">
                                                     <td>
-                                                        <%#Container.ItemIndex+1 %>
-                                                      
+                                                        <%#Container.ItemIndex+1 %>                                                      
                                                     </td>
+                                                    <td><%#Eval("Emp_Name") %></td>
                                                     <td style="text-align: left;">
                                                         <asp:Label ID="lblHqtr" runat="server" Text='<%#Eval("HeadQtr") %>'></asp:Label></td>
                                                     <td style="text-align: left;">
@@ -94,9 +105,17 @@
                                                     <td style="text-align: left;">
                                                         <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker2" Text='<%# Eval("TDate") %>'></asp:TextBox>
                                                     </td>
+                                                    <td><%# Eval("Purpose") %></td>
                                                     <td style="text-align: center;">
-                                                        <asp:LinkButton ID="lnkSave" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName="Save" CssClass="btn btn-small btn-success"
-                                                            CommandArgument='<%#Eval("TID") %>'><i class="fa fa-save"></i></asp:LinkButton>
+                                                        <%--<asp:LinkButton ID="lnkSave" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName="Save" CssClass="btn btn-small btn-success"
+                                                            CommandArgument='<%#Eval("TID") %>'><i class="fa fa-pencil"></i></asp:LinkButton>--%>
+
+
+
+
+                                                        <a href="TourPlan.aspx?id=<%#Eval("TID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+
+                                                        <asp:LinkButton ID="LinkButton1" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("TID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>

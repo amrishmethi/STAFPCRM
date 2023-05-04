@@ -94,13 +94,14 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
         sb.Append("</tr>");
 
         //***********TOUR DATE******************
-        DataTable dt_tour = dtEmp.DefaultView.ToTable(true, "Emp_Name", "Tour_Date");
+        DataTable dt_tour = dtEmp.DefaultView.ToTable(true, "Emp_Name", "Tour_Date", "Tour_Station");
         sb.Append("<tr style='height:60px;'>");
         sb.Append("<th colspan='3'>Employee Tour Plan Day Wise</th>");
         foreach (DataRow dr in dt_tour.Rows)
         {
             sb.Append("<td>" + dr["Tour_Date"] + "</td>");
-            sb.Append("<td>&nbsp;</td>");
+            sb.Append("<td>" + dr["Tour_Station"] + "</td>"); 
+            //sb.Append("<td>&nbsp;</td>");
         }
         sb.Append("</tr>");
         //***********CHECK IN******************

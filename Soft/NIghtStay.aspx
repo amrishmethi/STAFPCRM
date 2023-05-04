@@ -88,7 +88,7 @@
                                                     <td style="text-align: left;"><%#Eval("CHARGESTYPE") %> </td>
                                                     <td style="text-align: left;"><%#Eval("AttandanceBy") %> </td>
                                                     <td style="text-align: left;">
-                                                        <asp:LinkButton ID="lnkOut" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName='<%#Eval("CHARGESTYPE1") %>' CssClass="btn btn-small btn-success" CommandArgument='<%#Eval("ID") %>'><%#Eval("CHARGESTYPE1") %></asp:LinkButton>
+                                                        <asp:LinkButton ID="lnkOut" runat="server" Style="padding: 1px 6px; font-size: 11px;" CommandName='<%#Eval("CHARGESTYPE1") %>' CssClass="btn btn-small btn-success" Visible='<%#Eval("CHARGESTYPE").ToString()=="OTHER CLAIM"?false:true %>' CommandArgument='<%#Eval("ID") %>'><%#Eval("CHARGESTYPE1") %></asp:LinkButton>
 
                                                         <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("ID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
                                                     </td>
@@ -96,6 +96,14 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </tbody>
+                                    <tfoot>
+                                        <tr class="gradeA">
+                                            <td colspan="4" style="text-align: left;">Total</td>
+                                            <td style="text-align: left;">
+                                                <asp:Label ID="lblTotal" runat="server" CssClass="form-control"></asp:Label></td>
+                                            <td colspan="3" style="text-align: left;"></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>

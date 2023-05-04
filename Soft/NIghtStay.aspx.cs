@@ -48,6 +48,8 @@ public partial class Soft_NIghtStay : System.Web.UI.Page
         DataSet ds = data.getDataSet(query);
         rep.DataSource = ds;
         rep.DataBind();
+
+        lblTotal.Text = ds.Tables[0].Compute("sum(CHARGES)", "").ToString();
     }
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {

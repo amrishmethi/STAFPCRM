@@ -99,6 +99,7 @@
                                             <th style="text-align: left;">Travel Allowance</th>
                                             <th style="text-align: left;">Daily Allowance Local</th>
                                             <th style="text-align: left;">Night Stay Allowance</th>
+                                            <th style="text-align: left;">Other Claim</th>
                                             <th style="text-align: left;">TDS</th>
                                             <th style="text-align: left;">Other Deduction</th>
                                             <th style="text-align: left;">Leave Deduction</th>
@@ -136,6 +137,7 @@
                                                     <td style="text-align: left;"><%#Eval("CAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("DAL1") %></td>
                                                     <td style="text-align: left;"><%#Eval("NSA") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Other") %></td>
                                                     <td style="text-align: left;"><%#Eval("TDSVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ODVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("LeaveDeduction") %></td>
@@ -171,6 +173,7 @@
                                                     <th style="text-align: left;"><%#Eval("CAVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("DAL1") %></th>
                                                     <th style="text-align: left;"><%#Eval("NSA") %></th>
+                                                    <th style="text-align: left;"><%#Eval("OTHER") %></th>
                                                     <th style="text-align: left;"><%#Eval("tdSVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("ODVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("LeaveDeduction") %></th>

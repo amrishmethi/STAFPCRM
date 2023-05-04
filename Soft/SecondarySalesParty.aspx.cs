@@ -41,7 +41,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
 
     public void fillData()
     {
-        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue,"", drpStation.SelectedValue, "","","",drpheadQtr.SelectedValue);
+        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue, drpStation.SelectedValue, drpStation.SelectedItem.Text, "","","",drpheadQtr.SelectedValue);
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }

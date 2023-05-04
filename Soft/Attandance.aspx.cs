@@ -58,6 +58,7 @@ public partial class Soft_Attandance : System.Web.UI.Page
     {
         TextBox txtWorkingTimeFRom = (TextBox)e.Item.FindControl("txtWorkingTimeFRom"); 
         string _Action = e.CommandName;
+        
         string _EmpId = e.CommandArgument.ToString();
         string Lat = hddLnL.Value.Split(',')[0].Replace("(", "");
         string Lang = hddLnL.Value.Split(',')[1].Replace(")", "");

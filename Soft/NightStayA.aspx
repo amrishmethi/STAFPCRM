@@ -6,7 +6,7 @@
     <section class="content-header" style="height: 2.5em;">
         <h1>Night Stay &nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnBack" runat="server" CssClass="btn btn-danger" Text="Back To List"
-            CausesValidation="false" OnClick="btnBack_Click"/>
+            CausesValidation="false" OnClick="btnBack_Click" />
         </h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
@@ -36,28 +36,38 @@
                         <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control datepicker"></asp:TextBox>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label class="control-label">Entry Type</label>
                         <br />
                         <asp:RadioButton ID="rbNightStay" runat="server" Text=" Night Stay" GroupName="A" Checked="true" OnCheckedChanged="drpEmployee_SelectedIndexChanged" AutoPostBack="true" />
                         &nbsp;&nbsp;&nbsp;
                         <asp:RadioButton ID="rbDA" runat="server" Text="Daily Allowance" GroupName="A" OnCheckedChanged="drpEmployee_SelectedIndexChanged" AutoPostBack="true" />
+                        &nbsp;&nbsp;&nbsp;
+                        <asp:RadioButton ID="rbEx" runat="server" Text="Other Claim" GroupName="A" OnCheckedChanged="drpEmployee_SelectedIndexChanged" AutoPostBack="true" />
                     </div>
 
                     <div class="col-md-2">
                         <label class="control-label">Charges </label>
-                        <asp:Label ID="txtCharges" runat="server" CssClass="form-control"></asp:Label>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtCharges"
+                            ErrorMessage="*" ValidationGroup="aa" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
+                        <asp:TextBox ID="txtCharges" runat="server" CssClass="form-control" Enabled="false" onkeypress="return IsNumericKey(event);"></asp:TextBox>
+                    </div>
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="col-md-6">
+                        <label class="control-label">Remarks </label>
+                        <asp:TextBox ID="lblRemarks" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                     <div class="clearfix">&nbsp;</div>
                     <div class="clearfix">&nbsp;</div>
                     <div class="box-body">
                         <div class="col-md-12">
-                            <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="btnSave_Click" />
+                            <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" ValidationGroup="aa" Text="Save" OnClick="btnSave_Click" />
 
                             <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-danger" CausesValidation="false"
-                                Text="Cancel" OnClick="btnBack_Click"/>
+                                Text="Cancel" OnClick="btnBack_Click" />
                         </div>
-                    </div><div class="clearfix">&nbsp;</div>
+                    </div>
+                    <div class="clearfix">&nbsp;</div>
                 </div>
             </div>
         </div>
