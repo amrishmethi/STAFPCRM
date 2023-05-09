@@ -28,10 +28,9 @@
             vertical-align: top;
             border-top: 1px solid #ddd;
         }
-
     </style>
     <script type="text/javascript">
-      //  const { each } = require("jquery");
+        //  const { each } = require("jquery");
 
         function SelectAllCheckboxes(spanChk) {
 
@@ -57,25 +56,25 @@
         }
 
     </script>
-     <script type="text/javascript">
-         function SelectCheckID() {
-             debugger
-             
-             var str = "";
-             var aa = document.querySelectorAll("input[type=checkbox]");
-             for (var i = 1; i < aa.length; i++) {
-                 
-                 if (aa[i].checked) {
-                     var OrderId = aa[i].id.substring(aa[i].id.indexOf('_') + 1);
-                     if (str == "") { str = OrderId; }
-                     else { str += ","+OrderId;}
-                     
-                 }
-             }
-             document.getElementById("HDDID").value = str;
-             
-         }
-     </script>
+    <script type="text/javascript">
+        function SelectCheckID() {
+            debugger
+
+            var str = "";
+            var aa = document.querySelectorAll("input[type=checkbox]");
+            for (var i = 1; i < aa.length; i++) {
+
+                if (aa[i].checked) {
+                    var OrderId = aa[i].id.substring(aa[i].id.indexOf('_') + 1);
+                    if (str == "") { str = OrderId; }
+                    else { str += "," + OrderId; }
+
+                }
+            }
+            document.getElementById("HDDID").value = str;
+
+        }
+    </script>
 </head>
 <body runat="server">
     <form id="form1" runat="server">
@@ -98,10 +97,7 @@
                 <li>
                     <button onclick="location.href='../Soft/Dashboard.aspx'; return false;" class="btn btn-sm btn-success">Go Home</button></li>
                 <li>
-                    <asp:Button runat="server" ID="btnPrint" Text="Print"
-                        class="btn btn-sm btn-success" OnClick="btnPrint_Click" />
-
-
+                    <asp:Button runat="server" ID="btnPrint" Text="Print" class="btn btn-sm btn-success" OnClick="btnPrint_Click" />
                 </li>
             </ol>
         </section>
@@ -166,7 +162,7 @@
                 endDate: new Date(),
             });
         </script>
-       
+
     </form>
 </body>
 </html>

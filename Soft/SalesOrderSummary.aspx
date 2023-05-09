@@ -97,7 +97,7 @@
                                             <th style="text-align: center;" colspan="2">Total Sale (Month)</th>
                                             <th style="text-align: center;" rowspan="2">Total Amount<br />
                                                 (Month)</th>
-                                            <th style="text-align: center;" rowspan="2">Total Expenses<br />
+                                            <th style="text-align: center;" rowspan="2">CTC<br />
                                                 (Month)</th>
                                             <th style="text-align: center;" rowspan="2">CTC%
                                                 <br />

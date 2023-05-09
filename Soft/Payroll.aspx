@@ -344,7 +344,7 @@
                                 <input id="txtTDSValue" runat="server" type="text" clientidmode="Static" class="form-control" readonly />
                             </td>
                         </tr>
-                        <tr>
+                        <tr class="hidden">
                             <td>
                                 <asp:CheckBox ID="chkDeductOther" runat="server" ClientIDMode="Static" onclick="return OptionsSelected(this,'txtDeductOther','')" /></td>
                             <td>

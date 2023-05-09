@@ -122,7 +122,7 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
 
                 DataSet dss = getdata.GetSallary(_DD, "0", "0", hddcrmId.Value, "2", "ALL");
                 if (dss.Tables[0].Rows.Count > 0)
-                    lblExpense.Text = dss.Tables[0].Rows[0]["NETSALARY"].ToString();
+                    lblExpense.Text = dss.Tables[0].Rows[0]["CTC"].ToString();
                 else
                     lblExpense.Text = "0";
                 double _CTC = Convert.ToDouble(lblExpense.Text) * 100 / Convert.ToDouble(lblAmount.Text);

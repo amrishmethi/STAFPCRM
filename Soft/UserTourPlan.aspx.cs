@@ -90,7 +90,7 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
         if (drpDepartment.SelectedIndex > 0)
             _filter += " and Dept_Id = '" + drpDepartment.SelectedValue + "'";
         if (drpUser.SelectedIndex > 0)
-            _filter += " and id= '" + drpUser.SelectedValue + "'";
+            _filter += " and CrmUserID= '" + drpUser.SelectedValue + "'";
         if (drpDistrict.SelectedIndex > 0)
             _filter += " and District = '" + drpDistrict.SelectedValue + "'";
         if (drpStatus.SelectedIndex > 0)

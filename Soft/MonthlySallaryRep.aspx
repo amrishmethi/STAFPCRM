@@ -79,44 +79,48 @@
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: left;">S
-                                                <br />
+                                            <th colspan="4"></th>
+                                            <th style="text-align: center;"colspan="8">Earning</th>
+                                            <th style="text-align: center;"colspan="5">Deduction</th>
+                                            <th colspan="4"></th>
+                                        </tr>
+                                        <tr>
+                                            <th style="text-align: left;">S<br />
                                                 No.</th>
-                                            <th style="text-align: left;">Employee
-                                                <br />
+                                            <th style="text-align: left;">Employee<br />
                                                 Name</th>
+                                            <th style="text-align: left;">Net<br />
+                                                Salary</th>
+                                            <th style="text-align: left;">No Of Working Days</th>
                                             <th style="text-align: left;">Basic Salary</th>
-                                            <th style="text-align: left;">Provident Fund</th>
-                                            <th style="text-align: left;">Employer
-                                                <br />
-                                                PF</th>
-                                            <th style="text-align: left;">ESIC</th>
-                                            <th style="text-align: left;">Employer
-                                                <br />
-                                                ESIC</th>
+
                                             <th style="text-align: left;">House Rent Allowance</th>
                                             <th style="text-align: left;">Other Allowance</th>
                                             <th style="text-align: left;">Travel Allowance</th>
                                             <th style="text-align: left;">Daily Allowance Local</th>
                                             <th style="text-align: left;">Night Stay Allowance</th>
-                                            <th style="text-align: left;">Other Claim</th>
-                                            <th style="text-align: left;">TDS</th>
-                                            <th style="text-align: left;">Other Deduction</th>
-                                            <th style="text-align: left;">Leave Deduction</th>
-                                            <th style="text-align: left;">Loan</th>
-                                            <th style="text-align: left;">Advance</th>
+                                            <th style="text-align: left;">Extra Claim</th>
                                             <th style="text-align: left;">Over Time</th>
-                                            <th style="text-align: left;">Net<br />
-                                                Salary</th>
+                                            <th style="text-align: left;">Provident Fund</th>
+                                            <th style="text-align: left;">ESIC</th>
+                                            <th style="text-align: left;">Loan EMI</th>
+                                            <th style="text-align: left;">Advance</th>
+                                            <th style="text-align: left;">TDS</th>
                                             <th style="text-align: left;">Salary Payble</th>
-                                            <th style="text-align: left;">Total Days</th>
+                                            <th style="text-align: left;">Employer<br />
+                                                PF</th>
+                                            <th style="text-align: left;">Employer<br />
+                                                ESIC</th>
+                                            <th style="text-align: left;">CTC</th>
+                                            <%--<th style="text-align: left;">Other Deduction</th>--%>
+                                            <%--<th style="text-align: left;">Leave Deduction</th>--%>
+                                            <%-- <th style="text-align: left;">Total Days</th>
                                             <th style="text-align: left;">Sunday Off</th>
                                             <th style="text-align: left;">Holiday Off</th>
                                             <th style="text-align: left;">Sunday Work</th>
                                             <th style="text-align: left;">Holiday Work</th>
-                                            <th style="text-align: left;">Attandance</th>
-                                            <th style="text-align: left;">No Of Working Days</th>
-                                            <th style="text-align: left;">Leave</th>
+                                            <th style="text-align: left;">Attandance</th>--%>
+                                            <%--<th style="text-align: left;">Leave</th>--%>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -127,33 +131,34 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NOOFWORKINGDAY") %>/<%#Eval("TotalWork") %></td>
                                                     <td style="text-align: left;"><%#Eval("BASIC_SALARYVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("PF_EMPLOYERVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("ESIC_EMPLOYEEVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("ESIC_EMPLOYERVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("HRAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("OAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("CAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("DAL1") %></td>
                                                     <td style="text-align: left;"><%#Eval("NSA") %></td>
                                                     <td style="text-align: left;"><%#Eval("Other") %></td>
-                                                    <td style="text-align: left;"><%#Eval("TDSVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("ODVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("LeaveDeduction") %></td>
+                                                    <td style="text-align: left;"><%#Eval("OverTime") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("ESIC_EMPLOYEEVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("LOANAMOUNT") %></td>
                                                     <td style="text-align: left;"><%#Eval("Advance") %></td>
-                                                    <td style="text-align: left;"><%#Eval("OverTime") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
+                                                    <td style="text-align: left;"><%#Eval("TDSVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("NETSALARY") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NOOFWORKINGDAY") %></td>
-                                                    <td style="text-align: left;"><%#Eval("SundayOFF") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PF_EMPLOYERVALUE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("ESIC_EMPLOYERVALUE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("CTC") %></td>
+                                                    <%--<td style="text-align: left;"><%#Eval("ODVALUE") %></td>--%>
+                                                    <%--<td style="text-align: left;"><%#Eval("LeaveDeduction") %></td>--%>
+                                                    <%--  <td style="text-align: left;"><%#Eval("SundayOFF") %></td>
                                                     <td style="text-align: left;"><%#Eval("NoOfHoliday") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFSUNDAYWork") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFHolidayWork") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NOOFATTANDANCE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("TotalWork") %></td>
-                                                    <td style="text-align: left;"><%#Eval("TOTALLEAVE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NOOFATTANDANCE") %></td>--%>
+                                                    <%--<td style="text-align: left;"><%#Eval("TotalWork") %></td>--%>
+                                                    <%--<td style="text-align: left;"><%#Eval("TOTALLEAVE") %></td>--%>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -163,26 +168,25 @@
                                             <ItemTemplate>
                                                 <tr class="gradeA">
                                                     <th colspan="2"><%#Eval("Emp_Name") %></th>
+                                                    <th style="text-align: left;"><%#Eval("Net_Salary") %></th>
+                                                    <th style="text-align: left;" colspan="1"></th>
                                                     <th style="text-align: left;"><%#Eval("BASIC_SALARYVALUE") %></th>
-                                                    <th style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></th>
-                                                    <th style="text-align: left;"><%#Eval("PF_EMPLOYERVALUE") %></th>
-                                                    <th style="text-align: left;"><%#Eval("ESIC_EMPLOYEEVALUE") %></th>
-                                                    <th style="text-align: left;"><%#Eval("ESIC_EMPLOYERVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("HRAVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("OAVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("CAVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("DAL1") %></th>
                                                     <th style="text-align: left;"><%#Eval("NSA") %></th>
-                                                    <th style="text-align: left;"><%#Eval("OTHER") %></th>
-                                                    <th style="text-align: left;"><%#Eval("tdSVALUE") %></th>
-                                                    <th style="text-align: left;"><%#Eval("ODVALUE") %></th>
-                                                    <th style="text-align: left;"><%#Eval("LeaveDeduction") %></th>
+                                                    <th style="text-align: left;"><%#Eval("Other") %></th>
+                                                    <th style="text-align: left;"><%#Eval("OverTime") %></th>
+                                                    <th style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("ESIC_EMPLOYEEVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("LOANAMOUNT") %></th>
                                                     <th style="text-align: left;"><%#Eval("Advance") %></th>
-                                                    <th style="text-align: left;"><%#Eval("OverTime") %></th>
-                                                    <th style="text-align: left;"><%#Eval("Net_Salary") %></th>
+                                                    <th style="text-align: left;"><%#Eval("TDSVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("NETSALARY") %></th>
-                                                    <th style="text-align: left;" colspan="8"></th>
+                                                    <th style="text-align: left;"><%#Eval("PF_EMPLOYERVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("ESIC_EMPLOYERVALUE") %></th>
+                                                    <th style="text-align: left;"><%#Eval("CTC") %></th>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>

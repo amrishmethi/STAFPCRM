@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="MonthlyAttandance.aspx.cs" Inherits="Soft_MonthlyAttandance" %>
+
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -8,7 +9,7 @@
         }
     </style>
     <title>Monthly Attandance Calander</title>
-     <uc1:DTCSS runat="server" ID="DTCSS" />
+    <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
@@ -70,7 +71,8 @@
                                             <th>Sr.<br />
                                                 No.
                                             </th>
-                                            <th>Employee<Br />Name
+                                            <th>Employee<br />
+                                                Name
                                             </th>
                                             <th>01
                                             </th>
@@ -134,12 +136,21 @@
                                             </th>
                                             <th>31
                                             </th>
-                                            <th>Total<br />
+                                            <%--                                            <th>Total<br />
                                                 Attendance
                                             </th>
                                             <th>Total<br />
                                                 Leave
-                                            </th>
+                                            </th>--%>
+                                            <th style="text-align: left;">Total Days</th>
+                                            <th style="text-align: left;">Sunday Off</th>
+                                            <th style="text-align: left;">Holiday Off</th>
+                                            <th style="text-align: left;">Sunday Work</th>
+                                            <th style="text-align: left;">Holiday Work</th>
+                                            <th style="text-align: left;">Attendance</th>
+                                            <th style="text-align: left;">PL</th>
+                                            <th style="text-align: left;">NO Of Working Days</th>
+                                            <th style="text-align: left;">Leave</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -269,12 +280,23 @@
                                                         <%#Eval("Dat31") %> 
                                                            
                                                     </td>
-                                                    <td>
+
+                                                    <td style="text-align: left;"><%#Eval("TotalDays") %></td>
+                                                    <td style="text-align: left;"><%#Eval("SundayOFF") %></td>
+                                                    <td style="text-align: left;"><%#Eval("HolidayOff") %></td>
+                                                    <td style="text-align: left;"><%#Eval("SundayWork") %></td>
+                                                    <td style="text-align: left;"><%#Eval("HolidayWork") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Attandance") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PL") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NoOfWorkingDays") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Leave") %></td>
+
+                                                    <%--  <td>
                                                         <asp:Label ID="lbltotAttend" runat="server" Style="padding-left: 5px;" Text='<%#Eval("TotAttend")%>'></asp:Label>
                                                     </td>
                                                     <td>
                                                         <asp:Label ID="lbltotleave" runat="server" Style="padding-left: 5px;" Text='<%#Eval("TotLeave")%>'></asp:Label>
-                                                    </td>
+                                                    </td>--%>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -308,6 +330,6 @@
             autoclose: true
         });
     </script>
-     <uc1:DTJS runat="server" ID="DTJS" />
+    <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
 

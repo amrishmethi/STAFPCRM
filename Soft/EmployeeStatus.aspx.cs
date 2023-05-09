@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -100,7 +101,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
         foreach (DataRow dr in dt_tour.Rows)
         {
             sb.Append("<td>" + dr["Tour_Date"] + "</td>");
-            sb.Append("<td>" + dr["Tour_Station"] + "</td>"); 
+            sb.Append("<td>" + dr["Tour_Station"] + "</td>");
             //sb.Append("<td>&nbsp;</td>");
         }
         sb.Append("</tr>");
@@ -367,6 +368,10 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                     dv.RowFilter = "ID=" + SplitValue[_Count];
                     DataTable dt = dv.ToTable();
 
+
+                    DataSet dss = data.getDataSet("usp_DistanceTravelReort_Summary '" + SplitValue[_Count] + "','" + data.YYYYMMDD(txtdate.Text) + "','" + data.YYYYMMDD(txtdate.Text) + "','0','Active'");
+
+
                     DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
 
                     using (StringWriter sw = new StringWriter())
@@ -427,7 +432,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<tr>");
                             sb.Append("<td>&nbsp;</td>");
                             sb.Append("<td>&nbsp;</td>");
-                            sb.Append("<td>date : " +txtdate.Text.Trim().ToString() + "</td>");
+                            sb.Append("<td>date : " + txtdate.Text.Trim().ToString() + "</td>");
                             sb.Append("<td></td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
@@ -435,7 +440,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["Att_DATEIN"].ToString() + " " + dt.Rows[0]["Att_TIMEIN"].ToString() + "</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
-                            sb.Append("<td>Check in : "+ dt.Rows[0]["CHECKIN_PARTY"].ToString() + " </td>");
+                            sb.Append("<td>Check in : " + dt.Rows[0]["CHECKIN_PARTY"].ToString() + " </td>");
                             sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["CHECKIN_DATE"].ToString() + " " + dt.Rows[0]["CHECKIN_TIME"].ToString() + "</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
@@ -529,13 +534,13 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<tr>");
                             sb.Append("<td>Total Travel(in km) today</td>");
                             sb.Append("<td>&nbsp;</td>");
-                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>" + dss.Tables[0].Rows[0]["TotalDistance"].ToString() + " </td>");
                             sb.Append("<td>&nbsp;</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
                             sb.Append("<td>Employee travel expenses</td>");
                             sb.Append("<td>&nbsp;</td>");
-                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>" + dss.Tables[0].Rows[0]["Total"].ToString() + "</td>");
                             sb.Append("<td>&nbsp;</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Activities.Expressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -109,11 +110,25 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
         DataColumn c33 = new DataColumn();
         c33.ColumnName = "Dat31";
         DataColumn c34 = new DataColumn();
-        c34.ColumnName = "TotAttend";
+        c34.ColumnName = "TotalDays";
         DataColumn c35 = new DataColumn();
-        c35.ColumnName = "TotLeave";
+        c35.ColumnName = "SundayOff";
+        DataColumn c36 = new DataColumn();
+        c36.ColumnName = "EmpId";
         DataColumn c37 = new DataColumn();
-        c37.ColumnName = "EmpId";
+        c37.ColumnName = "HolidayOff";
+        DataColumn c38 = new DataColumn();
+        c38.ColumnName = "SundayWork";
+        DataColumn c39 = new DataColumn();
+        c39.ColumnName = "HolidayWork";
+        DataColumn c40 = new DataColumn();
+        c40.ColumnName = "PL";
+        DataColumn c41 = new DataColumn();
+        c41.ColumnName = "Attandance";
+        DataColumn c42 = new DataColumn();
+        c42.ColumnName = "Leave";
+        DataColumn c43 = new DataColumn();
+        c43.ColumnName = "NoOfWorkingDays";
 
         dt1.Columns.Add(c1);
         dt1.Columns.Add(c2);
@@ -150,13 +165,19 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
         dt1.Columns.Add(c33);
         dt1.Columns.Add(c34);
         dt1.Columns.Add(c35);
-        //dt1.Columns.Add(c36);
+        dt1.Columns.Add(c36);
         dt1.Columns.Add(c37);
+        dt1.Columns.Add(c38);
+        dt1.Columns.Add(c39);
+        dt1.Columns.Add(c40);
+        dt1.Columns.Add(c41);
+        dt1.Columns.Add(c42);
+        dt1.Columns.Add(c43);
 
         mntyr = (mnth.Text == "") ? DateTime.Now.ToString("MM-yyyy") : mnth.Text;
         month = Convert.ToInt32(mntyr.Split('-')[0]);
         year = Convert.ToInt32(mntyr.Split('-')[1]);
-
+        string _DD = year + "-" + month + "-01";
 
         if (mnth.Text != "")
         {
@@ -294,8 +315,8 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                                         dvv.RowFilter = "DATEFROM ='" + nextdate.ToString("MM/dd/yyyy") + "'";
                                         if (dvv.ToTable().Rows.Count > 0)
                                         {
-                                            if (dt1.Rows[i][j].ToString() != "P") 
-                                                dt1.Rows[i][j] = "HD"; 
+                                            if (dt1.Rows[i][j].ToString() != "P")
+                                                dt1.Rows[i][j] = "HD";
                                         }
                                         else
                                         {
@@ -320,8 +341,20 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                                 }
                             }
                             nextdate = nextdate.AddDays(1); ;
-                            dt1.Rows[i]["TotAttend"] = totattend.ToString();
-                            dt1.Rows[i]["TotLeave"] = totalleave.ToString();
+
+                            DataSet dss = master.GetSallary(_DD, drpDepartment.SelectedValue, "0", EmpId, "2", drpStatus.SelectedValue);
+
+                            dt1.Rows[i]["TotalDays"] = dss.Tables[0].Rows[0]["NOOFWORKINGDAY"].ToString();
+                            dt1.Rows[i]["SundayOFF"] = dss.Tables[0].Rows[0]["SundayOFF"].ToString();
+                            dt1.Rows[i]["HolidayOff"] = dss.Tables[0].Rows[0]["NoOfHoliday"].ToString();
+                            dt1.Rows[i]["SundayWork"] = dss.Tables[0].Rows[0]["NOOFSUNDAYWork"].ToString();
+                            dt1.Rows[i]["HolidayWork"] = dss.Tables[0].Rows[0]["NOOFHolidayWork"].ToString();
+                            dt1.Rows[i]["Attandance"] = dss.Tables[0].Rows[0]["NOOFATTANDANCE"].ToString();
+                            dt1.Rows[i]["NoOfWorkingDays"] = dss.Tables[0].Rows[0]["TotalWork"].ToString();
+                            dt1.Rows[i]["PL"] = dss.Tables[0].Rows[0]["Leave"].ToString();
+                            dt1.Rows[i]["Leave"] = dss.Tables[0].Rows[0]["TOTALLEAVE"].ToString();
+                            //dt1.Rows[i]["TotAttend"] = totattend.ToString();
+                            //dt1.Rows[i]["TotLeave"] = totalleave.ToString();
                         }
                         dsnext.Clear();
                     }

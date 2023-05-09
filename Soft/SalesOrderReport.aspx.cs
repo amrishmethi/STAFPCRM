@@ -36,7 +36,8 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             Session["AccessRigthsSet"] = getdata.AccessRights("SalesOrderReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            Gd.FillUser(drpUser,"2");
+            Gd.fillDepartment(drpDepartment);
+            Gd.FillUser(drpUser, drpDepartment.SelectedValue);
             bindDrp(true, true);
             Gd.FillPrimaryParty(drpParty);
             Gd.FillGroup(drpGrp);
@@ -44,10 +45,10 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             Filldata();
         }
     }
-
+     
     private void bindDrp(bool isuser, bool ishqtr)
     {
-        DataSet dsusr = getdata.getHqtrUserDpt("2");
+        DataSet dsusr = getdata.getHqtrUserDpt(drpDepartment.SelectedValue);
         DataView dv = dsusr.Tables[0].DefaultView;
         if (isuser)
         {
@@ -149,11 +150,13 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
         DropDownList ddl = sender as DropDownList;
         if (ddl == drpUser)
         {
-
-
             bindDrp(false, true);
         }
         if (ddl == drpHeadQtr)
+        {
+            bindDrp(true, false);
+        }
+        if (ddl == drpDepartment)
         {
             bindDrp(true, false);
         }
