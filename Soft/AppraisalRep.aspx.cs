@@ -23,7 +23,7 @@ public partial class Soft_AppraisalRep : System.Web.UI.Page
             Session["AccessRigthsSet"] = master.AccessRights("Attandance.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
             Gd.fillDepartment(drpDepartment);
-            Gd.FillUser(drpProjectManager);
+            Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue);
             FillRecords();
             //if (Soft["Type"].ToUpper() != "ADMIN")
             //{
@@ -36,6 +36,7 @@ public partial class Soft_AppraisalRep : System.Web.UI.Page
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
         FillRecords();
+        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue);
     }
 
     private void FillRecords()

@@ -26,36 +26,49 @@
                         <asp:DropDownList ID="drpEmployee" runat="server" CssClass="form-control select2">
                         </asp:DropDownList>
                     </div>
-                    <div class="col-md-4">
+
+                    <div class="col-md-2">
                         <label class="control-label">Date From</label>
-                        <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control datepicker"></asp:TextBox>
+                        <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control datepicker" ClientIDMode="Static" onchange="getdays();"></asp:TextBox>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <label class="control-label">Date To</label>
-                        <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control datepicker"></asp:TextBox>
+                        <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control datepicker" ClientIDMode="Static" onchange="getdays();"></asp:TextBox>
                     </div>
                     <div class="clearfix">&nbsp;</div>
                     <div class="col-md-4">
-                        <label class="control-label">Leave</label>
-                        <br />
-                        <asp:RadioButton ID="rbHalfDay" runat="server" Text=" Half Day" GroupName="A" Checked="true" />
-                        &nbsp;&nbsp;&nbsp;
-                        <asp:RadioButton ID="rbFullDay" runat="server" Text="Full Day" GroupName="A" />
-                    </div>
-                    <div class="col-md-4">
                         <label class="control-label">Leave Type</label>
                         <br />
-                        <asp:DropDownList ID="drpLeaveType" runat="server" CssClass="form-control select2">
+                        <asp:DropDownList ID="drpLeaveType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpLeaveType_SelectedIndexChanged" AutoPostBack="true">
                             <asp:ListItem Text="--Select--" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="Casual Leave" Value="1"></asp:ListItem>
-                            <asp:ListItem Text="Sick Leave" Value="2"></asp:ListItem>
+                            <asp:ListItem Text="Casual Leave" Value="Casual Leave"></asp:ListItem>
+                            <%--<asp:ListItem Text="Sick Leave" Value="2"></asp:ListItem>--%>
+                            <%--<asp:ListItem Text="Paid Leave" Value="Paid Leave"></asp:ListItem>--%>
                         </asp:DropDownList>
                     </div>
+                    <div class="col-md-2">
+                        <label>Remaining Leave</label>
+                        <asp:TextBox ID="txtRemaininig" runat="server" ReadOnly="true" CssClass="form-control"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="control-label">Days</label>
+                        <input id="TxtDay" runat="server" class="form-control" readonly="" />
+                    </div>
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="col-md-4 hidden">
+                        <label class="control-label">Leave</label>
+                        <br />
+                        <asp:RadioButton ID="rbHalfDay" runat="server" Text=" Half Day" GroupName="A" />
+                        &nbsp;&nbsp;&nbsp;
+                        <asp:RadioButton ID="rbFullDay" runat="server" Text="Full Day" GroupName="A" Checked="true" />
+                    </div>
+
 
                     <div class="col-md-4">
                         <label class="control-label">Reason </label>
                         <asp:TextBox ID="txtReason" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
                     </div>
+                    <div class="clearfix">&nbsp;</div>
                     <div class="clearfix">&nbsp;</div>
                     <div class="box-body">
                         <div class="col-md-12">
@@ -71,5 +84,53 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
+
+    <script type="text/javascript">
+        function getdays() {
+            var dateI1 = document.getElementById("txtFromDate").value;
+            var dateI2 = document.getElementById("txtToDate").value;
+            debugger
+            $.ajax({
+
+                url: 'LeaveDeduct.aspx/GetDays',
+                dataType: "json",
+                data: '{From: "' + dateI1 + '",To: "' + dateI2 + '"}',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    debugger
+                    $('#Body_TxtDay').val(data.d); 
+                },
+                error: function (response) {
+                },
+                failure: function (response) {
+                }
+            });
+        }
+
+
+        $(document).ready(function () {
+            var dateI1 = document.getElementById("txtFromDate").value;
+            var dateI2 = document.getElementById("txtToDate").value;
+            debugger
+            $.ajax({
+
+                url: 'LeaveDeduct.aspx/GetDays',
+                dataType: "json",
+                data: '{From: "' + dateI1 + '",To: "' + dateI2 + '"}',
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    debugger
+                    $('#Body_TxtDay').val(data.d); 
+                },
+                error: function (response) {
+                },
+                failure: function (response) {
+                }
+            });
+        });
+
+    </script>
 </asp:Content>
 

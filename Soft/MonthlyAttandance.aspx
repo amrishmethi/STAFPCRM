@@ -136,18 +136,12 @@
                                             </th>
                                             <th>31
                                             </th>
-                                            <%--                                            <th>Total<br />
-                                                Attendance
-                                            </th>
-                                            <th>Total<br />
-                                                Leave
-                                            </th>--%>
-                                            <th style="text-align: left;">Total Days</th>
+                                            <th style="text-align: left;">Month Days </th>
+                                            <th style="text-align: left;">Attendance</th>
                                             <th style="text-align: left;">Sunday Off</th>
                                             <th style="text-align: left;">Holiday Off</th>
                                             <th style="text-align: left;">Sunday Work</th>
                                             <th style="text-align: left;">Holiday Work</th>
-                                            <th style="text-align: left;">Attendance</th>
                                             <th style="text-align: left;">PL</th>
                                             <th style="text-align: left;">NO Of Working Days</th>
                                             <th style="text-align: left;">Leave</th>
@@ -282,11 +276,11 @@
                                                     </td>
 
                                                     <td style="text-align: left;"><%#Eval("TotalDays") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Attandance") %></td>
                                                     <td style="text-align: left;"><%#Eval("SundayOFF") %></td>
                                                     <td style="text-align: left;"><%#Eval("HolidayOff") %></td>
                                                     <td style="text-align: left;"><%#Eval("SundayWork") %></td>
                                                     <td style="text-align: left;"><%#Eval("HolidayWork") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Attandance") %></td>
                                                     <td style="text-align: left;"><%#Eval("PL") %></td>
                                                     <td style="text-align: left;"><%#Eval("NoOfWorkingDays") %></td>
                                                     <td style="text-align: left;"><%#Eval("Leave") %></td>
@@ -307,6 +301,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col-md-12">
+            <h2>Note :   &nbsp;&nbsp;&nbsp;&nbsp; 
+            <h4 style="color: black;">No Of Working Days:&nbsp;&nbsp;   Attendance&nbsp;+&nbsp;Sunday Off&nbsp;+&nbsp;Sunday Work&nbsp;+&nbsp;Holiday Off&nbsp;+&nbsp;Holiday Work&nbsp;+&nbsp; PL</h4>
+            </h2>
         </div>
     </section>
 </asp:Content>

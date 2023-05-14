@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Web;
 using System.Web.Services;
@@ -26,7 +27,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-
+            gd.fillDepartment(drpDepartment);
             DataSet dsusr = getdata.getHqtrUser();
             gd.FillPartyCategory(drpCatg);
             DataView dv = dsusr.Tables[0].DefaultView;
@@ -47,30 +48,38 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         }
     }
 
+    protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        gd.FillCRMUser(drpUser, drpDepartment.SelectedValue, drpStatus.SelectedValue);
+    }
     public void fillData()
     {
         DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
+
+        string rowFilter = "0=0";
         if (drpheadQtr.SelectedIndex > 0)
         {
-            dv.RowFilter = " HeadQtr = '" + drpheadQtr.SelectedValue + "'";
+            rowFilter += " and HeadQtr = '" + drpheadQtr.SelectedValue + "'";
         }
 
         if (drpDistrict.SelectedIndex > 0)
         {
-            dv.RowFilter = " District = '" + drpDistrict.SelectedValue + "'";
+            rowFilter += " and District = '" + drpDistrict.SelectedValue + "'";
         }
         if (drpStation.SelectedIndex > 0)
         {
-            dv.RowFilter = " Station = '" + drpStation.SelectedValue + "'";
+            rowFilter += " and Station = '" + drpStation.SelectedValue + "'";
         }
         if (drpCatg.SelectedIndex > 0)
         {
-            dv.RowFilter = " PTCMsNo = '" + drpCatg.SelectedValue + "' or PTCMsNo is null) ";
+            if (chk.Checked)
+                rowFilter += "  and PTCMsNo = '" + drpCatg.SelectedValue + "'  ";
+            else
+                rowFilter += " and (PTCMsNo = '" + drpCatg.SelectedValue + "' or PTCMsNo is null) ";
         }
-        //if (drpStatus.SelectedIndex > 0)
-        //{
-        //    dv.RowFilter = " Status = '"+ drpStatus.SelectedValue +"') ";
-        //}
+
+
+        dv.RowFilter = rowFilter;
         rep.DataSource = dv.ToTable();
         rep.DataBind();
     }
@@ -108,22 +117,22 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         drpStation.DataBind();
         drpStation.Items.Insert(0, new ListItem("Select", "0"));
         fillData();
-        
+
     }
 
     protected void drpheadQtr_SelectedIndexChanged(object sender, EventArgs e)
     {
         DataSet dsusr = getdata.getHqtrUser();
-        
+
         DataView dv = dsusr.Tables[0].DefaultView;
         dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
 
-        drpUser.DataSource = dv.ToTable(true, "Name", "MId");
-        drpUser.DataTextField = "Name";
-        drpUser.DataValueField = "MId";
-        drpUser.DataBind();
-        drpUser.Items.Insert(0, new ListItem("Select", "0"));
-        drpUser.SelectedIndex = 1;
+        //drpUser.DataSource = dv.ToTable(true, "Name", "MId");
+        //drpUser.DataTextField = "Name";
+        //drpUser.DataValueField = "MId";
+        //drpUser.DataBind();
+        //drpUser.Items.Insert(0, new ListItem("Select", "0"));
+        //drpUser.SelectedIndex = 0;
         ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
         ViewState["tbl"] = ds.Tables[0];
         drpDistrict.DataSource = ds.Tables[0].DefaultView.ToTable(true, "District");
@@ -177,5 +186,13 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         fillData();
     }
 
-   
+
+
+    protected void chk_CheckedChanged(object sender, EventArgs e)
+    {
+        if (drpUser.SelectedIndex > 0)
+        {
+            fillData();
+        }
+    }
 }

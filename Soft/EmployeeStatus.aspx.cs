@@ -370,7 +370,13 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
 
 
                     DataSet dss = data.getDataSet("usp_DistanceTravelReort_Summary '" + SplitValue[_Count] + "','" + data.YYYYMMDD(txtdate.Text) + "','" + data.YYYYMMDD(txtdate.Text) + "','0','Active'");
-
+                    string _TotalDistance = "0";
+                    string _Travel = "0";
+                    if (dss.Tables[0].Rows.Count > 0)
+                    {
+                        _TotalDistance = dss.Tables[0].Rows[0]["TotalDistance"].ToString();
+                        _Travel = dss.Tables[0].Rows[0]["Total"].ToString();
+                    }
 
                     DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
 
@@ -534,13 +540,13 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<tr>");
                             sb.Append("<td>Total Travel(in km) today</td>");
                             sb.Append("<td>&nbsp;</td>");
-                            sb.Append("<td>" + dss.Tables[0].Rows[0]["TotalDistance"].ToString() + " </td>");
+                            sb.Append("<td>" + _TotalDistance + " </td>");
                             sb.Append("<td>&nbsp;</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
                             sb.Append("<td>Employee travel expenses</td>");
                             sb.Append("<td>&nbsp;</td>");
-                            sb.Append("<td>" + dss.Tables[0].Rows[0]["Total"].ToString() + "</td>");
+                            sb.Append("<td>" + _Travel+ "</td>");
                             sb.Append("<td>&nbsp;</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");

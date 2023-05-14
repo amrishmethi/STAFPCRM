@@ -216,11 +216,11 @@ public sealed class Data
     {
         DateTime dtFinaldate;
         string sDateTime;
-        string sTime; 
+        string sTime;
 
 
-        string[] sDate = strDateTime.Replace('-','/').Split('/');
-        string[] sTimee = strTime.Replace(' ',':').Split(':');
+        string[] sDate = strDateTime.Replace('-', '/').Split('/');
+        string[] sTimee = strTime.Replace(' ', ':').Split(':');
         sTime = sTimee[0] + ':' + sTimee[1] + ' ' + sTimee[2];
         sTime = DateTime.Parse(sTime).ToString("HH:mm");
 

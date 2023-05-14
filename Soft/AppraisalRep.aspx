@@ -65,6 +65,7 @@
                                             <th style="text-align: left;">Appraisal</th>
                                             <th style="text-align: left;">Current Salary</th>
                                             <th style="text-align: left;">Affective Date</th>
+                                            <th style="text-align: left;">Appraisal Status</th>
                                             <th>
                                                 <label id="lblAction">Action</label></th>
                                         </tr>
@@ -84,6 +85,7 @@
                                                     <td style="text-align: left;"><%#Eval("APPRAISAL") %></td>
                                                     <td style="text-align: left;"><%#Eval("CUR_NETSALARY") %></td>
                                                     <td style="text-align: left;"><%#Eval("AFFECTIVE_DATE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("APPRAISAL_STATUS1") %></td>
 
                                                     <td style="text-align: left;">
                                                         <div class="isEditVisible" style="display: inline;">

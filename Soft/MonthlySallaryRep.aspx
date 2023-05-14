@@ -62,7 +62,7 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <br />
+
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Report"
                                     ValidationGroup="aa" OnClick="btnSubmit_Click" />
                             </div>
@@ -80,20 +80,16 @@
                                     <thead>
                                         <tr>
                                             <th colspan="4"></th>
-                                            <th style="text-align: center;"colspan="8">Earning</th>
-                                            <th style="text-align: center;"colspan="5">Deduction</th>
+                                            <th style="text-align: center; background-color: green; color: white" colspan="8">Earning</th>
+                                            <th style="text-align: center; background-color: red; color: white" colspan="5">Deduction</th>
                                             <th colspan="4"></th>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: left;">S<br />
-                                                No.</th>
-                                            <th style="text-align: left;">Employee<br />
-                                                Name</th>
-                                            <th style="text-align: left;">Net<br />
-                                                Salary</th>
+                                            <th style="text-align: left;">S No.</th>
+                                            <th style="text-align: left;">Employee Name</th>
+                                            <th style="text-align: left;">Net Salary</th>
                                             <th style="text-align: left;">No Of Working Days</th>
                                             <th style="text-align: left;">Basic Salary</th>
-
                                             <th style="text-align: left;">House Rent Allowance</th>
                                             <th style="text-align: left;">Other Allowance</th>
                                             <th style="text-align: left;">Travel Allowance</th>
@@ -107,10 +103,8 @@
                                             <th style="text-align: left;">Advance</th>
                                             <th style="text-align: left;">TDS</th>
                                             <th style="text-align: left;">Salary Payble</th>
-                                            <th style="text-align: left;">Employer<br />
-                                                PF</th>
-                                            <th style="text-align: left;">Employer<br />
-                                                ESIC</th>
+                                            <th style="text-align: left;">Employer PF</th>
+                                            <th style="text-align: left;">Employer ESIC</th>
                                             <th style="text-align: left;">CTC</th>
                                             <%--<th style="text-align: left;">Other Deduction</th>--%>
                                             <%--<th style="text-align: left;">Leave Deduction</th>--%>
@@ -132,12 +126,12 @@
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NOOFWORKINGDAY") %>/<%#Eval("TotalWork") %></td>
-                                                    <td style="text-align: left;"><%#Eval("BASIC_SALARYVALUE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NOOFWORKINGDAY") %>/<%#Eval("SALARYDAY") %></td>
+                                                    <td style="text-align: left;"><a href="ShowPopup.aspx" runat="server" class="abc"><%#Eval("BASIC_SALARYVALUE") %></a></td>
                                                     <td style="text-align: left;"><%#Eval("HRAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("OAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("CAVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DAL1") %></td>
+                                                    <td style="text-align: left;"><%#Eval("DAL") %></td>
                                                     <td style="text-align: left;"><%#Eval("NSA") %></td>
                                                     <td style="text-align: left;"><%#Eval("Other") %></td>
                                                     <td style="text-align: left;"><%#Eval("OverTime") %></td>
@@ -174,7 +168,7 @@
                                                     <th style="text-align: left;"><%#Eval("HRAVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("OAVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("CAVALUE") %></th>
-                                                    <th style="text-align: left;"><%#Eval("DAL1") %></th>
+                                                    <th style="text-align: left;"><%#Eval("DAL") %></th>
                                                     <th style="text-align: left;"><%#Eval("NSA") %></th>
                                                     <th style="text-align: left;"><%#Eval("Other") %></th>
                                                     <th style="text-align: left;"><%#Eval("OverTime") %></th>

@@ -293,4 +293,23 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
+    public void FillCRMUser(DropDownList drp, string De_Id, string status)
+    {
+        query = "select * from [stm_acmast].[dbo].[tbl_EmpMaster] where Delid=0 ";
+        if (status != "ALL")
+        {
+            query += " and Status='" + status + "'";
+        }
+        if (De_Id != "0")
+        {
+            query += " and Dept_Id=" + De_Id;
+        }
+        query += " order by Emp_Name ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "Emp_Name";
+        drp.DataValueField = "crmuserid";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
 }

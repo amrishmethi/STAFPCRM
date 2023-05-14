@@ -24,12 +24,26 @@
 
                             <%--   <asp:UpdatePanel ID="upd" runat="server">
                     <ContentTemplate>--%>
+                            <div class="col-md-3">
+                                <label>Department</label>
+                                <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <label>
+                                    Employee Status
+                                </label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
+                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-2">
                                 <label>Employee</label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 hidden">
                                 <label>HeadQuarter</label>
                                 <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
@@ -45,15 +59,19 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <label>Party Category</label>
+                                <asp:CheckBox ID="chk" runat="server" ToolTip="Without Party" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" />
+                                <label>
+                                    Party Category
+                                
+                                </label>
                                 <asp:DropDownList ID="drpCatg" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpCatg_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                             <div class="col-md-2">
+                            <div class="col-md-2">
                                 <label>Party Type</label>
                                 <asp:DropDownList ID="drpType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
-                                <asp:ListItem Value="0" Selected="True">Primary</asp:ListItem>
-                                <asp:ListItem Value="1">Secondary</asp:ListItem>
+                                    <asp:ListItem Value="0" Selected="True">Primary</asp:ListItem>
+                                    <asp:ListItem Value="1">Secondary</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                             <%--<div class="col-md-2">
@@ -71,9 +89,9 @@
                         <asp:AsyncPostBackTrigger ControlID="drpDistrict" EventName="SelectedIndexChanged" />
                     </Triggers>
                 </asp:UpdatePanel>--%>
-                             
                         </div>
-                      
+
+                        <div class="clearfix">&nbsp;</div>
                         <div class="clearfix">&nbsp;</div>
                     </div>
                 </div>
