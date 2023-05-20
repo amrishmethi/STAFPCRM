@@ -22,8 +22,8 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
             mnth.Text = DateTime.Now.ToString("MM-yyyy");
             Gd.fillDepartment(drpDepartment);
             Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue);
-            Gd.FillUser(drpProjectManager);
-            FillMonth(); 
+            Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue, drpStatus.SelectedValue);
+            FillMonth();
         }
     }
 
@@ -39,7 +39,7 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
         Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue);
-        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue);
+        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue, drpStatus.SelectedValue);
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -55,6 +55,23 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
         rep.DataBind();
 
         Repeater1.DataSource = dss.Tables[1];
-        Repeater1.DataBind(); 
+        Repeater1.DataBind();
+
+        Session["Salary"] = dss.Tables[0];
+    }
+
+    protected void btnSalary_Click(object sender, EventArgs e)
+    {
+        Soft = Request.Cookies["STFP"];
+        for (int i = 0; i < rep.Items.Count; i++)
+        {
+            CheckBox chk = (CheckBox)rep.Items[i].FindControl("chk");
+            HiddenField HddSalaryId = (HiddenField)rep.Items[i].FindControl("HddSalaryId");
+            if (chk.Checked == true)
+            {
+                data.executeCommand("Update tbl_EMPSalary SET IsApprove=1, ApprovedBy='" + Soft["UserId"] + "' WHERE Id=" + HddSalaryId.Value);
+            }
+        }
+        ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Salary Saved Successfully');window.location ='MonthlySallaryRep.aspx'", true);
     }
 }

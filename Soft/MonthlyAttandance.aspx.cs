@@ -346,7 +346,8 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                         dsnext.Clear();
                     }
 
-                    DataSet dss = master.GetSallary(_DD, drpDepartment.SelectedValue, "0", EmpId, "2", drpStatus.SelectedValue);
+                    //DataSet dss = master.GetSallary(_DD, drpDepartment.SelectedValue, "0", EmpId, "2", drpStatus.SelectedValue);
+                    DataSet dss = data.getDataSet("GETATTENDANCECALCULATION '" + EmpId + "','" + _DD + "'");
 
                     dt1.Rows[i]["TotalDays"] = dss.Tables[0].Rows[0]["NOOFWORKINGDAY"].ToString();
                     dt1.Rows[i]["SundayOFF"] = dss.Tables[0].Rows[0]["ALLOWSUNDAY"].ToString();
@@ -354,11 +355,9 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                     dt1.Rows[i]["SundayWork"] = dss.Tables[0].Rows[0]["NOOFSUNDAYWork"].ToString();
                     dt1.Rows[i]["HolidayWork"] = dss.Tables[0].Rows[0]["NOOFHolidayWork"].ToString();
                     dt1.Rows[i]["Attandance"] = dss.Tables[0].Rows[0]["NOOFATTANDANCE"].ToString();
-                    dt1.Rows[i]["NoOfWorkingDays"] = dss.Tables[0].Rows[0]["SALARYDAY"].ToString();
+                    dt1.Rows[i]["NoOfWorkingDays"] = dss.Tables[0].Rows[0]["TOTALWORKINGDAY"].ToString();
                     dt1.Rows[i]["PL"] = dss.Tables[0].Rows[0]["PL"].ToString();
-                    dt1.Rows[i]["Leave"] = dss.Tables[0].Rows[0]["TOTALLEAVE"].ToString();
-                    //dt1.Rows[i]["TotAttend"] = totattend.ToString();
-                    //dt1.Rows[i]["TotLeave"] = totalleave.ToString();
+                    dt1.Rows[i]["Leave"] = dss.Tables[0].Rows[0]["TOTALLEAVE"].ToString(); 
                 }
             }
         }

@@ -55,6 +55,7 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
                 lblTotNS.Text = dss.Tables[0].Compute("sum(NightStay)", "").ToString();
                 lblTotDA.Text = dss.Tables[0].Compute("sum(DAL1)", "").ToString();
                 lblTotal.Text = dss.Tables[0].Compute("sum(Total)", "").ToString();
+                lblTotOth.Text = dss.Tables[0].Compute("sum(Other)", "").ToString();
             }
         }
         else if (drpReport.SelectedIndex == 1)

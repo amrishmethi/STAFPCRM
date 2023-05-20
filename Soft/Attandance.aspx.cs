@@ -22,7 +22,7 @@ public partial class Soft_Attandance : System.Web.UI.Page
         if (!IsPostBack)
         {
             Session["AccessRigthsSet"] = master.AccessRights("Attandance.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-             
+
             Gd.fillDepartment(drpDepartment);
             Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue);
             Gd.FillUser(drpProjectManager);
@@ -56,23 +56,24 @@ public partial class Soft_Attandance : System.Web.UI.Page
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        TextBox txtWorkingTimeFRom = (TextBox)e.Item.FindControl("txtWorkingTimeFRom"); 
+        TextBox txtWorkingTimeFRom = (TextBox)e.Item.FindControl("txtWorkingTimeFRom");
         string _Action = e.CommandName;
-        
+
         string _EmpId = e.CommandArgument.ToString();
         string Lat = hddLnL.Value.Split(',')[0].Replace("(", "");
         string Lang = hddLnL.Value.Split(',')[1].Replace(")", "");
         dsResult = master.GetAttandance(_Action, _EmpId, Soft["UserName"], Lat, Lang, data.ConvertToDateTimeNew(txtDate.Text, txtWorkingTimeFRom.Text).ToString());
-        FillRecords(); 
+        FillRecords();
     }
 
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
+        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue);
         FillRecords();
     }
 
     protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)
-    { 
+    {
         LinkButton lnkIN = (LinkButton)e.Item.FindControl("lnkIN");
         LinkButton lnkOut = (LinkButton)e.Item.FindControl("lnkOut");
         LinkButton lnkLeave = (LinkButton)e.Item.FindControl("lnkLeave");
@@ -106,5 +107,10 @@ public partial class Soft_Attandance : System.Web.UI.Page
     {
         DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
         return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString() + "";
+    }
+
+    protected void drpProjectManager_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FillRecords();
     }
 }

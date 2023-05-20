@@ -29,20 +29,21 @@
                                 <label>Designation</label>
                                 <asp:DropDownList ID="drpDesignation" runat="server" CssClass="form-control select2"></asp:DropDownList>
                             </div>
-                            <div class="col-md-3">
-                                <label>Employee</label>
-                                <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2"></asp:DropDownList>
-                            </div>
                             <div class="col-md-2">
                                 <label>
                                     Employee Status
                                 </label>
-                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2">
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
                                     <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
                                     <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
+                            <div class="col-md-3">
+                                <label>Employee</label>
+                                <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2"></asp:DropDownList>
+                            </div>
+
                             <div class="col-md-2">
                                 <label>Month</label>
                                 <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
@@ -61,10 +62,15 @@
                                     <asp:ListItem Text="NO" Value="0"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-2">
-
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="col-md-6">
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Report"
                                     ValidationGroup="aa" OnClick="btnSubmit_Click" />
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                <asp:Button ID="btnSalary" runat="server" CssClass="btn btn-primary" Text="Salary Generate"
+                                    ValidationGroup="aa" OnClick="btnSalary_Click" />
                             </div>
                         </div>
 
@@ -79,13 +85,15 @@
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
                                         <tr>
-                                            <th colspan="4"></th>
+                                            <th colspan="5"></th>
                                             <th style="text-align: center; background-color: green; color: white" colspan="8">Earning</th>
                                             <th style="text-align: center; background-color: red; color: white" colspan="5">Deduction</th>
                                             <th colspan="4"></th>
                                         </tr>
                                         <tr>
                                             <th style="text-align: left;">S No.</th>
+                                            <th style="text-align: left;">
+                                                <input type='checkbox' id='chkAll' runat='server' onclick='javascript: SelectAllCheckboxes(this);' /></th>
                                             <th style="text-align: left;">Employee Name</th>
                                             <th style="text-align: left;">Net Salary</th>
                                             <th style="text-align: left;">No Of Working Days</th>
@@ -106,15 +114,6 @@
                                             <th style="text-align: left;">Employer PF</th>
                                             <th style="text-align: left;">Employer ESIC</th>
                                             <th style="text-align: left;">CTC</th>
-                                            <%--<th style="text-align: left;">Other Deduction</th>--%>
-                                            <%--<th style="text-align: left;">Leave Deduction</th>--%>
-                                            <%-- <th style="text-align: left;">Total Days</th>
-                                            <th style="text-align: left;">Sunday Off</th>
-                                            <th style="text-align: left;">Holiday Off</th>
-                                            <th style="text-align: left;">Sunday Work</th>
-                                            <th style="text-align: left;">Holiday Work</th>
-                                            <th style="text-align: left;">Attandance</th>--%>
-                                            <%--<th style="text-align: left;">Leave</th>--%>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -123,11 +122,14 @@
                                                 <tr class="gradeA">
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
+                                                        <asp:HiddenField ID="HddSalaryId" runat="server" Value='<%#Eval("Id") %>' />
                                                     </td>
+                                                    <td>
+                                                        <asp:CheckBox ID="chk" runat="server" Visible='<%#Eval("IsApprove").ToString()=="True"?false:true %>' /></td>
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NOOFWORKINGDAY") %>/<%#Eval("SALARYDAY") %></td>
-                                                    <td style="text-align: left;"><a href="ShowPopup.aspx" runat="server" class="abc"><%#Eval("BASIC_SALARYVALUE") %></a></td>
+                                                    <td style="text-align: left;"><%#Eval("NOOFWORKINGDAY") %>/<%#Eval("TotalWorkingDay") %></td>
+                                                    <td style="text-align: left;"><a href='<%# "ShowPopup.aspx?EMP_ID="+Eval("EMP_ID") %>' runat="server" class="abc1"><%#Eval("BASIC_SALARYVALUE") %></a></td>
                                                     <td style="text-align: left;"><%#Eval("HRAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("OAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("CAVALUE") %></td>
@@ -144,15 +146,6 @@
                                                     <td style="text-align: left;"><%#Eval("PF_EMPLOYERVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ESIC_EMPLOYERVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("CTC") %></td>
-                                                    <%--<td style="text-align: left;"><%#Eval("ODVALUE") %></td>--%>
-                                                    <%--<td style="text-align: left;"><%#Eval("LeaveDeduction") %></td>--%>
-                                                    <%--  <td style="text-align: left;"><%#Eval("SundayOFF") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NoOfHoliday") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NOOFSUNDAYWork") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NOOFHolidayWork") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NOOFATTANDANCE") %></td>--%>
-                                                    <%--<td style="text-align: left;"><%#Eval("TotalWork") %></td>--%>
-                                                    <%--<td style="text-align: left;"><%#Eval("TOTALLEAVE") %></td>--%>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -161,7 +154,7 @@
                                         <asp:Repeater ID="Repeater1" runat="server">
                                             <ItemTemplate>
                                                 <tr class="gradeA">
-                                                    <th colspan="2"><%#Eval("Emp_Name") %></th>
+                                                    <th colspan="3"><%#Eval("Emp_Name") %></th>
                                                     <th style="text-align: left;"><%#Eval("Net_Salary") %></th>
                                                     <th style="text-align: left;" colspan="1"></th>
                                                     <th style="text-align: left;"><%#Eval("BASIC_SALARYVALUE") %></th>
@@ -214,6 +207,30 @@
             minViewMode: "months",
             autoclose: true
         });
+    </script>
+
+    <script type="text/javascript">
+        function SelectAllCheckboxes(spanChk) {
+
+            // Added as ASPX uses SPAN for checkbox
+
+            var oItem = spanChk.children;
+            var theBox = (spanChk.type == "checkbox") ?
+                spanChk : spanChk.children.item[0];
+            xState = theBox.checked;
+            elm = theBox.form.elements;
+
+            for (i = 0; i < elm.length; i++)
+                if (elm[i].type == "checkbox" &&
+                    elm[i].id != theBox.id) {
+                    //elm[i].click();
+
+                    if (elm[i].checked != xState)
+                        elm[i].click();
+                    //elm[i].checked=xState;
+
+                }
+        }
     </script>
 </asp:Content>
 

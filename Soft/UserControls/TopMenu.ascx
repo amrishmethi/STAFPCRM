@@ -2,22 +2,22 @@
 
 <header class="main-header">
     <!-- Logo -->
-    <a href="/Soft/Dashboard.aspx" class="logo"> 
-        <span class="logo-mini"  style="font-size:12px;"><b>STAFP</b></span> 
+    <a href="/Soft/Dashboard.aspx" class="logo">
+        <span class="logo-mini" style="font-size: 12px;"><b>STAFP</b></span>
         <span class="logo-lg"><b>STAFP</b></span>
-    </a> 
-    <nav class="navbar navbar-static-top"> 
+    </a>
+    <nav class="navbar navbar-static-top">
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" onclick="DOSO()">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-        </a> 
+        </a>
         <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav"> 
-                   <!-- Messages: style can be found in dropdown.less-->
-          <%--<li class="dropdown messages-menu">--%>
-            <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <%--<li class="dropdown messages-menu">--%>
+                <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">4</span>
             </a>
@@ -208,24 +208,24 @@
               </li>
             </ul>
           </li>--%>
-                <li><p style="color:white;margin-top: revert;">
-                                <asp:Label ID="lblName" runat="server" ></asp:Label>
-                            </p></li>
+                <li>
+                    <p style="color: white; margin-top: revert;">
+                        <asp:Label ID="lblName" runat="server"></asp:Label>
+                    </p>
+                </li>
                 <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="../../img/user-img.jpg" class="user-image" alt="User Image">
                         <span class="hidden-xs"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                           
-                            <img src="../../img/user-img.jpg" class="img-circle" alt="User Image"> 
-                            
-                            
-                        </li> 
+
+                            <img src="../../img/user-img.jpg" class="img-circle" alt="User Image">
+                        </li>
                         <li class="user-footer">
-                           <%-- <div class="pull-left">
+                            <%-- <div class="pull-left">
                                 <a id="profileuser" runat="server"  class="btn btn-default btn-flat">Profile</a>
                             </div>--%>
                             <div class="pull-right">
@@ -233,24 +233,21 @@
                             </div>
                         </li>
                     </ul>
-                </li> 
+                </li>
             </ul>
         </div>
     </nav>
 </header>
 <script>
 
-    function DOSO()
-    {
+    function DOSO() {
         var gg = sessionStorage.getItem("menu");
         if (gg != "set") {
             sessionStorage.setItem("menu", 'set');
         }
-        else
-        {
+        else {
             sessionStorage.setItem("menu", 'reset');
         }
     }
 </script>
 
-  

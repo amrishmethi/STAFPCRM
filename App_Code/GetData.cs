@@ -278,12 +278,16 @@ public class GetData
     }
 
 
-    public void FillUser(DropDownList drp, string De_Id)
+    public void FillUser(DropDownList drp, string De_Id, string status = "Active")
     {
-        query = "select * from [stm_acmast].[dbo].[tbl_EmpMaster] where Delid=0 and Status='Active' ";
+        query = "select * from [stm_acmast].[dbo].[tbl_EmpMaster] where Delid=0   ";
         if (De_Id != "0")
         {
             query += " and Dept_Id=" + De_Id;
+        }
+        if (status != "ALL")
+        {
+            query += " and Status='" + status + "'";
         }
         query += " order by Emp_Name ";
         ds = data.getDataSet(query);

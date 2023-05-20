@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -102,7 +104,7 @@
 <body>
     <form id="form1" runat="server">
         <section class="content-header" style="height: 2.5em;">
-            <h1>Monthly Salary Sheet
+            <h1>Salary Calculation of <span id="lblName" runat="server"></span>
             </h1>
         </section>
         <section class="content">
@@ -110,23 +112,72 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <div class="form-group">
-                                <div class="col-md-3">
-                                    <label>Net Salary</label>
-                                    <asp:Label ID="lblNetSalary" runat="server" Text="00000"></asp:Label>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Basic Salary</label>
-                                    <asp:Label ID="lblBasicSalary" runat="server" Text="00000"></asp:Label>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Total Days In Month</label>
-                                    <asp:Label ID="lblTotalDay" runat="server" Text="00000"></asp:Label>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Working Days </label>
-                                    <asp:Label ID="lblWorkingDay" runat="server" Text="00000"></asp:Label>
-                                </div>
+                            <div class="widget-content">
+                                <table class="table table-bordered display table-striped">
+                                    <asp:Repeater ID="rep" runat="server">
+                                        <ItemTemplate>
+                                            <tr>
+                                                <td>Net Salary (A)</td>
+                                                <td><%#Eval("Net_Salary") %> </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Days In Month (B) </td>
+                                                <td><%#Eval("NOOFWORKINGDAY") %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Salary Working Days (C)</td>
+                                                <td><%#Eval("SALARYDAY") %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Basic Salary [(A*C)/B] </td>
+                                                <td><%#Eval("BASIC_SALARYVALUE") %></td>
+                                            </tr>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </table>
+
+                                <table class="table table-bordered display table-striped">
+                                    <asp:Repeater ID="rptUserViewAttendance" runat="server">
+                                        <ItemTemplate>
+                                            <tr>
+                                                <td>Month Days</td>
+                                                <td><%#Eval("NOOFWORKINGDAY") %> </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Attendance </td>
+                                                <td><%#Eval("NOOFATTANDANCE") %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sunday Off</td>
+                                                <td><%#Eval("ALLOWSUNDAY") %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Holiday Off</td>
+                                                <td><%#Eval("NoOfHoliday") %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Sunday Work</td>
+                                                <td><%#Eval("NOOFSUNDAYWork") %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Holiday Work </td>
+                                                <td><%#Eval("NOOFHolidayWork") %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>PL</td>
+                                                <td><%#Eval("PL") %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>NO Of Working Days</td>
+                                                <td><%#Eval("TOTALWORKINGDAY") %></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Leave</td>
+                                                <td><%#Eval("TOTALLEAVE") %></td>
+                                            </tr>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -134,5 +185,32 @@
             </div>
         </section>
     </form>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../JsP/data-table/bootstrap-table.js"></script>
+    <script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+    <script src="../JsP/data-table/tableExport.js"></script>
+    <script src="../JsP/data-table/data-table-active.js"></script>
+    <script src="../jsp/data-table/bootstrap-table-editable.js"></script>
+    <%--<script src="../jsp/data-table/bootstrap-editable.js"></script>--%>
+    <script src="../JsP/data-table/bootstrap-table-resizable.js"></script>
+    <script src="../JsP/data-table/colResizable-1.5.source.js"></script>
+    <script src="../JsP/data-table/bootstrap-table-export.js"></script>
+
+
+    <script src="../content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../content/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../content/plugins/datatables/dataTables.bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="../content/plugins/slimScroll/jquery.slimscroll.js"></script>
+    <!-- FastClick -->
+    <script src="../content/plugins/fastclick/fastclick.js"></script>
+    <script src="../content/plugins/select2/select2.full.js"></script>
+    <script src="../content/dist/MenuScript.js"></script>
+    <script src="../content/bootstrap/sweetalert.js"></script>
+    <!-- SoftLTE App -->
+    <script src="../content/dist/js/app.js"></script>
+    <script src="../content/plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="../content/plugins/Toster/jquery.toaster.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
 </body>
 </html>
