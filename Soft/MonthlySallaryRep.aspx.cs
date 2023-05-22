@@ -74,4 +74,13 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
         }
         ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Salary Saved Successfully');window.location ='MonthlySallaryRep.aspx'", true);
     }
+
+    protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        if (e.CommandName == "Delete")
+        {
+            data.executeCommand("Update TBL_EMPSALARY SET ISDELETE=1,ModifyTime=Getdate() WHERE ID= " + e.CommandArgument.ToString() + "");
+            ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Delete Successfully');window.location ='PayrollRep.aspx'", true);
+        }
+    }
 }
