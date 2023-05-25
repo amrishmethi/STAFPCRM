@@ -69,14 +69,28 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
     {
         ds = getdata.getSalesSummaryOrder(drpUser.SelectedValue, drpHeadQtr.SelectedValue, drpParty.SelectedValue, mnth.Text, drpReport.SelectedValue, drpDepartment.SelectedValue, drpStatus.SelectedValue);
         DataView dv = ds.Tables[0].DefaultView;
-        repData.DataSource = ds.Tables[0];
-        repData.DataBind();
+        if (drpReport.SelectedValue == "TARGETWISE")
+        {
+            All.Visible = false;
+            TargetWise.Visible = true;
+            Repeater1.DataSource = ds.Tables[0];
+            Repeater1.DataBind();
+        }
+        else
+        {
+            All.Visible = true;
+            TargetWise.Visible = false;
+            repData.DataSource = ds.Tables[0];
+            repData.DataBind();
 
-        lblPowder.Text = ds.Tables[0].Compute("Sum(POWDER)", "").ToString();
-        lblBarTub.Text = ds.Tables[0].Compute("Sum(BAR_AND_TUB)", "").ToString();
-        lblTotalAmount.Text = ds.Tables[0].Compute("Sum(AMOUNT)", "").ToString();
-        lblTotalExp.Text = _TotalExp.ToString("0.00");
-        lblTotalCTC.Text = ((_TotalExp / _TotalAmount) * 100).ToString("0.00");
+            lblPowder.Text = ds.Tables[0].Compute("Sum(POWDER)", "").ToString();
+            lblBarTub.Text = ds.Tables[0].Compute("Sum(BAR_AND_TUB)", "").ToString();
+            lblTotalAmount.Text = ds.Tables[0].Compute("Sum(AMOUNT)", "").ToString();
+            lblTotalExp.Text = _TotalExp.ToString("0.00");
+            lblTotalCTC.Text = ((_TotalExp / _TotalAmount) * 100).ToString("0.00");
+        }
+
+        
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)

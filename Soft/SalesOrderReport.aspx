@@ -70,8 +70,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Group</label>
-                                <asp:DropDownList ID="drpGrp" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
+                                <asp:ListBox ID="drpGrp" runat="server" CssClass="form-control select2" SelectionMode="Multiple" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
                             </div>
                             <div class="col-md-2">
                             </div>

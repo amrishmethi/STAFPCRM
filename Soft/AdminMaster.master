@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="AdminMaster.master.cs" Inherits="Admin_MasterPage" %>
- 
+
 <%@ Register Src="~/Soft/UserControls/TopMenu.ascx" TagPrefix="uc1" TagName="TopMenu" %>
 <%@ Register Src="~/Soft/UserControls/SideMenu.ascx" TagPrefix="uc1" TagName="SideMenu" %>
 <%@ Register Src="~/Soft/UserControls/FooterMenu.ascx" TagPrefix="uc1" TagName="FooterMenu" %>
@@ -109,7 +109,7 @@
     <form id="form1" runat="server" autocomplete="off" style="text-transform: uppercase;">
         <!-- Site wrapper -->
         <div class="wrapper">
-             
+
             <uc1:TopMenu runat="server" ID="TopMenu" />
             <uc1:SideMenu runat="server" ID="SideMenu" />
             <div class="content-wrapper">
@@ -213,6 +213,25 @@
                 todayHighlight: true,
                 autoclose: true,
                 // endDate: new Date(),
+            });
+        </script>
+        <link href="../css/CalenderView.css" rel="stylesheet" />
+        <script src="js/jquery-ui.js"></script>
+        <link href="js/jquery-ui.css" rel="stylesheet" type="text/css" />
+        <style type="text/css">
+            .ui-datepicker-calendar {
+                /*display: tr;*/
+            }
+        </style>
+        <script type="text/javascript">
+            $('.MnthPicker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                format: "mm-yyyy",
+                viewMode: "months",
+                minViewMode: "months",
+                autoclose: true
             });
         </script>
         <script type="text/javascript"> 

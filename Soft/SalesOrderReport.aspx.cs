@@ -42,10 +42,18 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             Gd.FillPrimaryParty(drpParty);
             Gd.FillGroup(drpGrp);
             //Gd.FillPrimaryStation(drpStation);
+            foreach (ListItem size in drpGrp.Items)
+            {
+                if (size.Value.ToString() == "DISHWAS" || size.Value.ToString() == "POWDER")
+                {
+                    size.Selected = true;
+                }
+            } 
+
             Filldata();
         }
     }
-     
+
     private void bindDrp(bool isuser, bool ishqtr)
     {
         DataSet dsusr = getdata.getHqtrUserDpt(drpDepartment.SelectedValue);
@@ -75,6 +83,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
     }
     private void Filldata()
     {
+
         //string str = "1=1";
         ds = getdata.getSalesOrder("SELECT", "", drpUser.SelectedValue, drpHeadQtr.SelectedValue, drpParty.SelectedValue, dpFrom.Text.Trim(), dpTo.Text.Trim(), "", "", drpGrp.SelectedValue);
         DataView dv = ds.Tables[0].DefaultView;
@@ -102,7 +111,17 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             Label lblQty = (Label)e.Item.FindControl("lblQty");
             //  Label lblPacking = (Label)e.Item.FindControl("lblPacking");
             Label lblWeight = (Label)e.Item.FindControl("lblWeight");
-            DataSet dsrep1 = getdata.getSalesOrder("SELECT", hddid.Value, "", "", "", "", "", "", "", drpGrp.SelectedValue);
+
+            string grp = "0";
+            foreach (ListItem item in drpGrp.Items)
+            {
+                if (item.Selected)
+                {
+                    grp += "," + item.Value;
+                }
+            }
+
+            DataSet dsrep1 = getdata.getSalesOrder("SELECT", hddid.Value, "", "", "", "", "", "", "", grp);
             if (dsrep1.Tables[1].Rows.Count > 0)
             {
                 _TotalAMt += (Convert.ToDouble(dsrep1.Tables[1].Compute("Sum(Amount)", "")));

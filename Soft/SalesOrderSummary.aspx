@@ -69,6 +69,7 @@
                                     <asp:ListItem Text="EMPLOYEE WISE" Value="EMPLOYEEWISE" Selected="True"></asp:ListItem>
                                     <asp:ListItem Text="PARTY WISE" Value="PARTYWISE"></asp:ListItem>
                                     <asp:ListItem Text="DATE WISE" Value="DATEWISE"></asp:ListItem>
+                                    <asp:ListItem Text="TARGET WISE" Value="TARGETWISE"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                             <div class="clearfix">&nbsp;</div>
@@ -85,7 +86,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
 
-                        <div class="widget-content nopadding" style="overflow: auto;">
+                        <div id="All" runat="server" class="widget-content nopadding" style="overflow: auto;">
                             <div id="tblBlock" runat="server" class="table-responsive">
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
@@ -153,6 +154,52 @@
                             </div>
                         </div>
 
+
+                        <div id="TargetWise" runat="server" visible="false" class="widget-content nopadding" style="overflow: auto;">
+                            <div id="Div1" runat="server" class="table-responsive">
+                                <table id="ExportTbl" class="table table-bordered display table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;" rowspan="2">Sr. No.</th>
+                                            <th style="text-align: center;" rowspan="2">Date</th>
+                                            <th style="text-align: center;" rowspan="2">Employee Name</th>
+                                            <th style="text-align: center;" rowspan="2">Party Name</th>
+                                            <th style="text-align: center;" colspan="2">Target (Month)</th>
+                                            <th style="text-align: center;" colspan="2">Sale (Month)</th>
+                                            <th style="text-align: center;" colspan="2">Balance (Month)</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Powder</th>
+                                            <th>Bar/Tub</th><th>Powder</th>
+                                            <th>Bar/Tub</th><th>Powder</th>
+                                            <th>Bar/Tub</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="repData_ItemDataBound">
+                                            <ItemTemplate>
+                                                <tr class="gradeA">
+                                                    <td><%#Container.ItemIndex+1 %></td>
+                                                    <td><%#Eval("ORDDATE") %></td>
+                                                    <td><%#Eval("NAME") %>  </td>
+                                                    <td><%#Eval("PARTY") %></td>
+                                                    <td><%#Eval("Powder") %></td>
+                                                    <td><%#Eval("Bar_Tub") %></td>
+                                                    <td><%#Eval("Sale_POWDER") %></td>
+                                                    <td><%#Eval("Sale_BAR_AND_TUB") %></td>
+                                                    <td><%#Eval("REMAIN_POWDER") %></td>
+                                                    <td><%#Eval("RemainBar_Tub") %></td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-12 hidden" style="text-align: right;">
+                                <label>Grand Total</label>
+                                <asp:TextBox ID="TextBox1" runat="server" Style="font-weight: bold; text-align: right;" ReadOnly="true" Text="0.00"></asp:TextBox>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
