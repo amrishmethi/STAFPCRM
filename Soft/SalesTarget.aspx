@@ -21,15 +21,12 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-
                             <div class="col-md-3">
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <label>
-                                    Employee Status
-                                </label>
+                                <label>Employee Status</label>
                                 <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
                                     <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
@@ -43,7 +40,7 @@
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-2 hidden">
+                            <div class="col-md-2">
                                 <label>HeadQuarter</label>
                                 <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
@@ -60,10 +57,7 @@
                             </div>
                             <div class="col-md-2">
                                 <asp:CheckBox ID="chk" runat="server" ToolTip="Without Party" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" />
-                                <label>
-                                    Party Category
-                                
-                                </label>
+                                <label>Party Category</label>
                                 <asp:DropDownList ID="drpCatg" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpCatg_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
@@ -81,7 +75,7 @@
                                 <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <br />
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Target"
                                     ValidationGroup="aa" OnClick="btnSubmit_Click" />
@@ -107,13 +101,15 @@
                                         <tr>
                                             <th>Sr. No.</th>
                                             <th>Employee</th>
-                                            <th>HeadQuarter</th>
+                                            <%--    <th>HeadQuarter</th>--%>
                                             <th>District</th>
-                                            <th>Station</th>
                                             <th>Party Category</th>
                                             <th>Party</th>
+                                            <th>Station</th>
                                             <th>Powder</th>
                                             <th>BAR/ TUB</th>
+                                            <th>Last Month Sale (Powder)</th>
+                                            <th>Last Month Sale (BAR/ TUB)</th>
                                         </tr>
 
                                     </thead>
@@ -126,19 +122,22 @@
                                                         <asp:HiddenField ID="hddId" runat="server" Value='<%#Eval("TargetId") %>' />
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("Employee") %></td>
-                                                    <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
+                                                    <%--<td style="text-align: left;"><%#Eval("HeadQtr") %></td>--%>
                                                     <td style="text-align: left;"><%#Eval("District") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;"><%#Eval("PartyCategory") %></td>
                                                     <td style="text-align: left;"><%#Eval("Party") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;">
                                                         <asp:TextBox ID="txtPowder" CssClass="form-control" runat="server" Text='<%#Eval("Powder") %>' onkeypress="return IsNumericKey(event);"></asp:TextBox></td>
                                                     <td style="text-align: left;">
                                                         <asp:TextBox ID="txtBar_Tub" CssClass="form-control" runat="server" Text='<%#Eval("Bar_Tub") %>' onkeypress="return IsNumericKey(event);"></asp:TextBox>
                                                     </td>
+
+                                                    <td style="text-align: left;"><%#Eval("Sale_POWDER") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Sale_BAR_AND_TUB") %></td>
+
                                                 </tr>
                                             </ItemTemplate>
-
                                         </asp:Repeater>
                                     </tbody>
                                 </table>

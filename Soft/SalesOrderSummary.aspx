@@ -71,10 +71,9 @@
                                     <asp:ListItem Text="DATE WISE" Value="DATEWISE"></asp:ListItem>
                                     <asp:ListItem Text="TARGET WISE" Value="TARGETWISE"></asp:ListItem>
                                 </asp:DropDownList>
-                            </div>
-                            <div class="clearfix">&nbsp;</div>
-                            <div class="clearfix">&nbsp;</div>
+                            </div> 
                             <div class="col-md-2">
+                                <br />
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Report"
                                     ValidationGroup="aa" OnClick="btnSubmit_Click" />
                             </div>
@@ -95,6 +94,7 @@
                                             <th style="text-align: center;" rowspan="2">Date</th>
                                             <th style="text-align: center;" rowspan="2">Employee Name</th>
                                             <th style="text-align: center;" rowspan="2">Party Name</th>
+                                            <th style="text-align: center;" rowspan="2">Station</th>
                                             <th style="text-align: center;" colspan="2">Total Sale (Month)</th>
                                             <th style="text-align: center;" rowspan="2">Total Amount<br />
                                                 (Month)</th>
@@ -119,6 +119,7 @@
                                                         <asp:HiddenField ID="hddcrmId" runat="server" Value='<%#Eval("Id") %>' />
                                                     </td>
                                                     <td><%#Eval("PARTY") %></td>
+                                                    <td><%#Eval("Station") %></td>
                                                     <td><%#Eval("POWDER") %></td>
                                                     <td><%#Eval("BAR_AND_TUB") %></td>
                                                     <td>
@@ -133,7 +134,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="4">Total</th>
+                                            <th colspan="5">Total</th>
                                             <th>
                                                 <asp:Label ID="lblPowder" runat="server" Text="0"></asp:Label></th>
                                             <th>
@@ -164,14 +165,17 @@
                                             <th style="text-align: center;" rowspan="2">Date</th>
                                             <th style="text-align: center;" rowspan="2">Employee Name</th>
                                             <th style="text-align: center;" rowspan="2">Party Name</th>
+                                            <th style="text-align: center;" rowspan="2">Station</th>
                                             <th style="text-align: center;" colspan="2">Target (Month)</th>
                                             <th style="text-align: center;" colspan="2">Sale (Month)</th>
                                             <th style="text-align: center;" colspan="2">Balance (Month)</th>
                                         </tr>
                                         <tr>
                                             <th>Powder</th>
-                                            <th>Bar/Tub</th><th>Powder</th>
-                                            <th>Bar/Tub</th><th>Powder</th>
+                                            <th>Bar/Tub</th>
+                                            <th>Powder</th>
+                                            <th>Bar/Tub</th>
+                                            <th>Powder</th>
                                             <th>Bar/Tub</th>
                                         </tr>
                                     </thead>
@@ -183,6 +187,7 @@
                                                     <td><%#Eval("ORDDATE") %></td>
                                                     <td><%#Eval("NAME") %>  </td>
                                                     <td><%#Eval("PARTY") %></td>
+                                                    <td><%#Eval("Station") %></td>
                                                     <td><%#Eval("Powder") %></td>
                                                     <td><%#Eval("Bar_Tub") %></td>
                                                     <td><%#Eval("Sale_POWDER") %></td>

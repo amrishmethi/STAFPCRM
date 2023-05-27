@@ -28,15 +28,23 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             gd.fillDepartment(drpDepartment);
+            drpDepartment.SelectedValue = "2";
+            gd.FillCRMUser(drpUser, drpDepartment.SelectedValue, drpStatus.SelectedValue);
+            chk.Checked = true;
+            drpCatg.SelectedValue = "1115";
+            mnth.Text = DateTime.Now.ToString("MM-yyyy");
+
+
+
             DataSet dsusr = getdata.getHqtrUser();
             gd.FillPartyCategory(drpCatg);
             DataView dv = dsusr.Tables[0].DefaultView;
-            dv.Sort = "Name";
-            drpUser.DataSource = dv.ToTable(true, "Name", "MId");
-            drpUser.DataTextField = "Name";
-            drpUser.DataValueField = "MId";
-            drpUser.DataBind();
-            drpUser.Items.Insert(0, new ListItem("Select", "0"));
+            //dv.Sort = "Name";
+            //drpUser.DataSource = dv.ToTable(true, "Name", "MId");
+            //drpUser.DataTextField = "Name";
+            //drpUser.DataValueField = "MId";
+            //drpUser.DataBind();
+            //drpUser.Items.Insert(0, new ListItem("Select", "0"));
 
             dv.Sort = "HeadQtr";
             drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr");
@@ -58,7 +66,7 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
         int year = Convert.ToInt32(mnth.Text.Split('-')[1]);
         string _DD = year + "-" + month + "-01";
 
-        DataView dv = data.getDataSet("Proc_SalesTarget '" + drpUser.SelectedValue + "','" + _DD + "'").Tables[0].DefaultView;
+        DataView dv = data.getDataSet("Proc_SalesTarget '" + drpUser.SelectedValue + "','" + _DD + "'").Tables[1].DefaultView;
         string rowFilter = "0=0";
         if (drpheadQtr.SelectedIndex > 0)
         {
@@ -85,10 +93,7 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
         dv.RowFilter = rowFilter;
         rep.DataSource = dv.ToTable();
         rep.DataBind();
-    }
-
-
-
+    } 
     [WebMethod]
     public static string ControlAccess()
     {
@@ -207,5 +212,5 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
             }
         }
         ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Sales Target Saved Successfully');window.location ='SalesTarget.aspx'", true);
-    }
+    } 
 }

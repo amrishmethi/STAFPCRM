@@ -162,7 +162,14 @@
                 endDate: new Date(),
             });
         </script>
-
+        <link href="../css/CalenderView.css" rel="stylesheet" />
+        <script src="js/jquery-ui.js"></script>
+        <link href="js/jquery-ui.css" rel="stylesheet" type="text/css" />
+        <style type="text/css">
+            .ui-datepicker-calendar {
+                /*display: tr;*/
+            }
+        </style>
     </form>
 </body>
 </html>
