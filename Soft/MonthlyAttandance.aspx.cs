@@ -356,7 +356,7 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                     dt1.Rows[i]["HolidayWork"] = dss.Tables[0].Rows[0]["NOOFHolidayWork"].ToString();
                     dt1.Rows[i]["Attandance"] = dss.Tables[0].Rows[0]["NOOFATTANDANCE"].ToString();
                     dt1.Rows[i]["NoOfWorkingDays"] = dss.Tables[0].Rows[0]["TOTALWORKINGDAY"].ToString();
-                    dt1.Rows[i]["PL"] = dss.Tables[0].Rows[0]["PL"].ToString();
+                    dt1.Rows[i]["PL"] = dss.Tables[0].Rows[0]["PL1"].ToString();
                     dt1.Rows[i]["Leave"] = dss.Tables[0].Rows[0]["TOTALLEAVE"].ToString(); 
                 }
             }

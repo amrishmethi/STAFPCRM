@@ -26,7 +26,7 @@ public partial class login : System.Web.UI.Page
 
     private void GetUserData()
     {
-        string QBind = " INSERT INTO [csinfo].[dbo].[MobileAppUser]([id],[Name],[MobileNo],[Password],[ExpiryDate],[Deactivate],[RegNo],[AppSoftCode],[UserType],[CreateDate],[ModifiedDate],[isCrmLogin])";
+        string QBind = " INSERT INTO [csinfo].[dbo].[MobileAppUser] ([id],[Name],[MobileNo],[Password],[ExpiryDate],[Deactivate],[RegNo],[AppSoftCode],[UserType],[CreateDate],[ModifiedDate],[isCrmLogin])";
         string _QBind = "";
         DataSet dsUser = syncData.getDataSet("select * FROM [CSinfo].[dbo].[MobileAppUser]");
         foreach (DataRow drr in dsUser.Tables[0].Rows)
@@ -38,6 +38,16 @@ public partial class login : System.Web.UI.Page
                 data.executeCommand(NQBind);
             }
         }
+
+
+        DataSet dsUser1 = syncData.getDataSet("select * FROM [CSinfo].[dbo].[MobileAppUser] where Cast([ModifiedDate] as date)=Cast(getdate() as date)");
+        foreach (DataRow drr in dsUser1.Tables[0].Rows)
+        {
+            _QBind = " Update  [CSinfo].[dbo].[MobileAppUser] SET [Password]='" + drr["Password"] + "' WHERE id='" + drr["id"] + "' ";
+            data.executeCommand(_QBind);
+        }
+
+
     }
 
     protected void LogBtn_Click(object sender, EventArgs e)
