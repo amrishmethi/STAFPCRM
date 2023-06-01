@@ -179,7 +179,7 @@ public class GetData
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "Station";
-        drp.DataValueField = "StationId";
+        drp.DataValueField = "Station";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }

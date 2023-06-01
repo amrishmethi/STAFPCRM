@@ -29,22 +29,23 @@ public partial class Soft_IPAdrs : System.Web.UI.Page
 
     private void GetReport()
     {
-        DataSet dss = getdata.IpAddress("SELECT", "", "0");
+        DataSet dss = getdata.IpAddress("SELECT", "","", "0");
         rep.DataSource = dss;
         rep.DataBind();
     }
 
     private void BinData(string Id)
     {
-        DataSet dss = getdata.IpAddress("SELECT", "", Id);
+        DataSet dss = getdata.IpAddress("SELECT", "","", Id);
         txtIpAdrs.Text = dss.Tables[0].Rows[0]["IPAdrs"].ToString();
+        txtRemark.Text = dss.Tables[0].Rows[0]["Remark"].ToString();
     }
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         if (e.CommandName == "Delete")
         {
-            DataSet dss = getdata.IpAddress("DELETE", "", e.CommandArgument.ToString());
+            DataSet dss = getdata.IpAddress("DELETE", "","", e.CommandArgument.ToString());
             if (dss.Tables[0].Rows[0]["Result"].ToString() == "")
             {
                 ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record DELETE Successfully');window.location ='IPAdrs.aspx'", true);
@@ -57,7 +58,7 @@ public partial class Soft_IPAdrs : System.Web.UI.Page
         string _Action = Request.QueryString["Id"] == null ? "SAVE" : "UPDATE";
         string _Id = Request.QueryString["Id"] == null ? "0" : Request.QueryString["Id"];
 
-        DataSet dss = getdata.IpAddress(_Action, txtIpAdrs.Text, _Id);
+        DataSet dss = getdata.IpAddress(_Action, txtIpAdrs.Text,txtRemark.Text.Trim(), _Id);
 
         if (dss.Tables[0].Rows[0]["Result"].ToString() == "")
         {

@@ -497,7 +497,7 @@ public class Master
     }
 
 
-    public DataSet IpAddress(string Action, string Ip, string ID)
+    public DataSet IpAddress(string Action, string Ip, string remark, string ID)
     {
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = "PROC_IPADRS";
@@ -505,6 +505,7 @@ public class Master
         cmd.Parameters.Clear();
         cmd.Parameters.AddWithValue("@ACTION", Action);
         cmd.Parameters.AddWithValue("@IPADRS", Ip);
+        cmd.Parameters.AddWithValue("@RMK", remark);
         cmd.Parameters.AddWithValue("@ID", ID);
         DataSet dss = data.getDataSet(cmd);
         return dss;

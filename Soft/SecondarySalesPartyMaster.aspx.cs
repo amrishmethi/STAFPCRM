@@ -33,7 +33,7 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
 
     public void fillData(string id)
     {
-        ds = getdata.getSecondarySalesParty("SELECT",id,"0","0","","","","0");
+        ds = getdata.getSecondarySalesParty("SELECT",id,"0","SELECT","","","","0");
         if (ds.Tables[0].Rows.Count > 0) { 
         drpStation.SelectedValue = ds.Tables[0].Rows[0]["StationName"].ToString();
         txtParty.Text = ds.Tables[0].Rows[0]["Name"].ToString();

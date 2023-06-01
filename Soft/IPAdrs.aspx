@@ -27,6 +27,12 @@
                                     ErrorMessage="Must Be Fill" ValidationGroup="A" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
                                 <asp:TextBox ID="txtIpAdrs" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Remark<span style="color: #ff0000">*</span></label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtRemark"
+                                    ErrorMessage="Must Be Fill" ValidationGroup="A" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
+                                <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control"></asp:TextBox>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" OnClick="btnSave_Click" ValidationGroup="A" />
@@ -44,8 +50,8 @@
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">IP Address</th>
-                                            <th>
-                                                <label id="lblAction">Action</label></th>
+                                            <th style="text-align: left;">Remark</th>
+                                            <th><label id="lblAction">Action</label></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -56,6 +62,7 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("IPAdrs") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Remark") %></td>
                                                     <td style="text-align: left;">
                                                         <a href="IPAdrs.aspx?id=<%#Eval("Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
 
