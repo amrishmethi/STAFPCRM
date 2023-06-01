@@ -72,11 +72,14 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         }
         if (drpCatg.SelectedIndex > 0)
         {
-            if (chk.Checked)
+            if (drpReportType.SelectedIndex == 2)
                 rowFilter += "  and PTCMsNo = '" + drpCatg.SelectedValue + "'  ";
-            else
+            if (drpReportType.SelectedIndex == 0)
                 rowFilter += " and (PTCMsNo = '" + drpCatg.SelectedValue + "' or PTCMsNo is null) ";
+            if (drpReportType.SelectedIndex == 1)
+                rowFilter += "  and PTCMsNo is null  ";
         }
+
 
 
         dv.RowFilter = rowFilter;

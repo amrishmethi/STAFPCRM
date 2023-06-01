@@ -59,10 +59,9 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <asp:CheckBox ID="chk" runat="server" ToolTip="Without Party" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" />
+                                <asp:CheckBox ID="chk" runat="server" ToolTip="Without Party" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" Visible="false" />
                                 <label>
-                                    Party Category
-                                
+                                    Party Category 
                                 </label>
                                 <asp:DropDownList ID="drpCatg" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpCatg_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
@@ -72,6 +71,14 @@
                                 <asp:DropDownList ID="drpType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Value="0" Selected="True">Primary</asp:ListItem>
                                     <asp:ListItem Value="1">Secondary</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                 <label>Report Type</label>
+                                <asp:DropDownList ID="drpReportType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Value="0" Selected="True">ALL</asp:ListItem>
+                                    <asp:ListItem Value="1">Without Category</asp:ListItem>
+                                    <asp:ListItem Value="2">With Category</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                             <%--<div class="col-md-2">

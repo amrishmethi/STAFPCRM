@@ -1,4 +1,5 @@
-﻿using System;
+﻿using iTextSharp.text;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -372,10 +373,12 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                     DataSet dss = data.getDataSet("usp_DistanceTravelReort_Summary '" + SplitValue[_Count] + "','" + data.YYYYMMDD(txtdate.Text) + "','" + data.YYYYMMDD(txtdate.Text) + "','0','Active'");
                     string _TotalDistance = "0";
                     string _Travel = "0";
+                    string _TotalAmt = "0";
                     if (dss.Tables[0].Rows.Count > 0)
                     {
                         _TotalDistance = dss.Tables[0].Rows[0]["TotalDistance"].ToString();
-                        _Travel = dss.Tables[0].Rows[0]["Total"].ToString();
+                        _Travel = dss.Tables[0].Rows[0]["Amount"].ToString();
+                        _TotalAmt = dss.Tables[0].Rows[0]["NigVal"].ToString();
                     }
 
                     DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
@@ -409,7 +412,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<asp:Label ID='lblDateRng' runat='server'></asp:Label></td>");
                             sb.Append("</tr>");
                             sb.Append("</table>");
-                            sb.Append("<table width='100%' border='0' cellspacing='0' cellpadding='0'>");
+                            sb.Append("<table width='100%' border='0' cellspacing='0' cellpadding='0' style='font-weight:bold;'>");
                             sb.Append("<tr>");
                             sb.Append("<td>&nbsp;</td>");
                             sb.Append("</tr>");
@@ -451,6 +454,8 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("</tr>");
                             sb.Append("<tr>");
                             sb.Append("<td>Secondary sale(Amount)</td>");
+
+
                             sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["SALES_AMT"].ToString() + "</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
@@ -485,7 +490,9 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
 
                             sb.Append("<tr>");
                             sb.Append("<td>Sale order(in Amount)</td>");
-                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["ORDER_AMT"].ToString() + "</td>");
+                            //sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["ORDER_AMT"].ToString() + "</td>"); 
+
+                            sb.Append("<td colspan='3' align='center'>" + dt.DefaultView.ToTable(true, "Order_Amt", "Emp_Name").Compute("sum(Order_Amt)", "") + "</td>");
                             sb.Append("</tr>");
 
                             sb.Append("<tr>");
@@ -546,7 +553,13 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<tr>");
                             sb.Append("<td>Employee travel expenses</td>");
                             sb.Append("<td>&nbsp;</td>");
-                            sb.Append("<td>" + _Travel+ "</td>");
+                            sb.Append("<td>" + _Travel + "</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Employee expenses</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>" + _TotalAmt + "</td>");
                             sb.Append("<td>&nbsp;</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");

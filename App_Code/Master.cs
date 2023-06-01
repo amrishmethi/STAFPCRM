@@ -489,8 +489,22 @@ public class Master
         cmd.CommandText = "IU_APPRAISALD";
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.Clear();
-        cmd.Parameters.AddWithValue("@EMP_ID", EMP_ID); 
+        cmd.Parameters.AddWithValue("@EMP_ID", EMP_ID);
         cmd.Parameters.AddWithValue("@CREATEUSER", _UserId);
+        cmd.Parameters.AddWithValue("@ID", ID);
+        DataSet dss = data.getDataSet(cmd);
+        return dss;
+    }
+
+
+    public DataSet IpAddress(string Action, string Ip, string ID)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "PROC_IPADRS";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@ACTION", Action);
+        cmd.Parameters.AddWithValue("@IPADRS", Ip);
         cmd.Parameters.AddWithValue("@ID", ID);
         DataSet dss = data.getDataSet(cmd);
         return dss;

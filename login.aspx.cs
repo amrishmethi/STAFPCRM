@@ -4,6 +4,9 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Security;
+using System.Web.UI;
+using System.Net.Sockets;
+using System.Net;
 
 public partial class login : System.Web.UI.Page
 {
@@ -15,6 +18,7 @@ public partial class login : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            //ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('" + GetIp() + "')", true);
             GetUserData();
             HttpContext.Current.Response.Cookies["STFP"].Expires = DateTime.Now.AddDays(-1d);
             if (Request.Params["logout"] != null)
@@ -23,7 +27,33 @@ public partial class login : System.Web.UI.Page
             }
         }
     }
+    public string GetIp()
+    {
+        string ip = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+        if (string.IsNullOrEmpty(ip))
+        {
+            ip = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
+        }
+        return ip;
+    }
 
+    public static string GetLocalIPAddress()
+    {
+        string hostName = Dns.GetHostName(); // Retrive the Name of HOST
+
+        string myIP = Dns.GetHostByName(hostName).AddressList[0].ToString();
+
+        return myIP;
+        //var host = Dns.GetHostEntry(Dns.GetHostName());
+        //foreach (var ip in host.AddressList)
+        //{
+        //    if (ip.AddressFamily == AddressFamily.InterNetwork)
+        //    {
+        //        return ip.ToString();
+        //    }
+        //}
+        //throw new Exception("No network adapters with an IPv4 address in the system!");
+    }
     private void GetUserData()
     {
         string QBind = " INSERT INTO [csinfo].[dbo].[MobileAppUser] ([id],[Name],[MobileNo],[Password],[ExpiryDate],[Deactivate],[RegNo],[AppSoftCode],[UserType],[CreateDate],[ModifiedDate],[isCrmLogin])";
@@ -46,12 +76,18 @@ public partial class login : System.Web.UI.Page
             _QBind = " Update  [CSinfo].[dbo].[MobileAppUser] SET [Password]='" + drr["Password"] + "' WHERE id='" + drr["id"] + "' ";
             data.executeCommand(_QBind);
         }
-
-
     }
 
     protected void LogBtn_Click(object sender, EventArgs e)
     {
+        if (txtuser.Value != "9829032422")
+        {
+            if (!data.Exist("select * from tbl_IpAddress WHere Isdelete=0 and IPAdrs='" + GetIp() + "'"))
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('unauthorized access please share the ip address (" + GetIp() + ") to the administrator');window.location ='Login.aspx'", true);
+                return;
+            }
+        }
         //    string url = System.Configuration.ConfigurationManager.AppSettings["SiteUrl"].ToString();
         if (txtuser.Value.Trim() != "" && txtpass.Value.Trim() != "")
         {
@@ -65,7 +101,6 @@ public partial class login : System.Web.UI.Page
             {
                 HttpCookie Admin = new HttpCookie("STFP");
                 Admin.Expires = DateTime.Now.AddDays(1d);
-
                 Admin.Values.Add("MobileNo", txtuser.Value.Trim());
                 Admin.Values.Add("UserName", ds.Tables[0].Rows[0]["Name"].ToString());
                 Admin.Values.Add("UserId", ds.Tables[0].Rows[0]["ID"].ToString());

@@ -43,8 +43,8 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             Gd.FillGroup(drpGrp);
             //Gd.FillPrimaryStation(drpStation);
             foreach (ListItem size in drpGrp.Items)
-            {
-                if (size.Value.ToString() == "DISHWAS" || size.Value.ToString() == "POWDER")
+            {//
+                if (size.Value.ToString() == "DISHWAS" || size.Value.ToString() == "POWDER" || size.Value.ToString() == "ARTICLE")
                 {
                     size.Selected = true;
                 }
@@ -197,8 +197,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                     OrderId = hddID.Value;
                 else
                     OrderId += "," + hddID.Value;
-            }
-
+            } 
         }
 
         GenratePrint(OrderId);
@@ -206,6 +205,15 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
 
     public void GenratePrint(string SaleId)
     {
+        string grp = "0";
+        foreach (ListItem item in drpGrp.Items)
+        {
+            if (item.Selected)
+            {
+                grp += "," + item.Value;
+            }
+        }
+
         if (SaleId != "")
         {
             //  CreateTable();
@@ -222,7 +230,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                 sb.Append("\n footer {page-break-after: always;}");
                 sb.Append("\n }</style>");
 
-                DataSet dset = getdata.getSalesOrder("SELECT", SplitValue[_Count], drpUser.SelectedValue, drpHeadQtr.SelectedValue, drpParty.SelectedValue, dpFrom.Text.Trim(), dpTo.Text.Trim(), "", "", drpGrp.SelectedValue);
+                DataSet dset = getdata.getSalesOrder("SELECT", SplitValue[_Count], drpUser.SelectedValue, drpHeadQtr.SelectedValue, drpParty.SelectedValue, dpFrom.Text.Trim(), dpTo.Text.Trim(), "", "", grp);
 
 
                 DataTable dsGet = dset.Tables[0];
