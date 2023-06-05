@@ -254,7 +254,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
             DataTable dt_sales = dv.ToTable(true, "Emp_Name", "SALES_VISITED", "SALES_AMT", "CHECKIN_PARTY");
             if (dt_sales.Rows[0]["CHECKIN_PARTY"].ToString() != "")
             {
-                sb.Append("<td>" + txtdate.Text.Trim() + "<br/>(Visits : " + dt_sales.Rows[0]["SALES_VISITED"] + ") <br/>(Amount : " + dt_sales.Rows[0]["SALES_AMT"] + ")</td>");
+                sb.Append("<td>" + txtdate.Text.Trim() + "<br/>(Visits : " + dt_sales.Compute("Sum(SALES_VISITED)", "") + ") <br/>(Amount : " + dt_sales.Compute("Sum(SALES_AMT)","")+"</td>");
                 sb.Append("<td>" + dt_sales.Rows[0]["CHECKIN_PARTY"] + " (Primary)</td>");
             }
             else

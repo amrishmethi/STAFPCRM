@@ -23,7 +23,7 @@
                         <div class="form-group">
                             <div class="col-md-4">
                                 <label>Employee</label>
-                                <asp:DropDownList ID="drpEmployee" runat="server" CssClass="form-control select2" AutoPostBack="true">
+                                <asp:DropDownList ID="drpEmployee" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
@@ -33,6 +33,10 @@
                             <div class="col-md-2">
                                 <label>Date To</label>
                                 <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control datepicker"></asp:TextBox>
+                            </div>
+                            <div class="col-md-3">
+                                <br />
+                                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Get Report" OnClick="btnSearch_Click" />
                             </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
@@ -47,10 +51,11 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
-                                            <th style="text-align: left;">Leave Date</th> 
+                                            <th style="text-align: left;">Leave Date</th>
                                             <th style="text-align: left;">Employee</th>
                                             <th style="text-align: left;">Leave Type</th>
                                             <th style="text-align: left;">Leave </th>
+                                            <th style="text-align: left;">Days </th>
                                             <th style="text-align: left;">Remarks</th>
                                             <th>
                                                 <label id="lblAction">Action</label></th>
@@ -63,10 +68,11 @@
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
-                                                    <td style="text-align: left;"><%#Eval("Leave_Date") %>-<%#Eval("LeaveTo_Date") %></td> 
+                                                    <td style="text-align: left;"><%#Eval("Leave_Date") %>-<%#Eval("LeaveTo_Date") %></td>
                                                     <td style="text-align: left;"><%#Eval("EMP_NAME") %></td>
                                                     <td style="text-align: left;"><%#Eval("Leave_Type") %></td>
                                                     <td style="text-align: left;"><%#Eval("LeaveValue") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Requested_leave") %></td>
                                                     <td style="text-align: left;"><%#Eval("Reason") %></td>
                                                     <td style="text-align: left;">
                                                         <a href="LeaveDeduct.aspx?id=<%#Eval("Leave_Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>

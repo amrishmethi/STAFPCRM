@@ -84,12 +84,13 @@
                             <div class="table-responsive">
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
-                                        <tr>
+                                       <%-- <tr>
                                             <th colspan="5"></th>
                                             <th style="text-align: center; background-color: green; color: white" colspan="8">Earning</th>
+                                            <th></th>
                                             <th style="text-align: center; background-color: red; color: white" colspan="5">Deduction</th>
                                             <th colspan="4"></th>
-                                        </tr>
+                                        </tr>--%>
                                         <tr>
                                             <th style="text-align: left;">S No.</th>
                                             <th style="text-align: left;">
@@ -105,6 +106,7 @@
                                             <th style="text-align: left;">Night Stay Allowance</th>
                                             <th style="text-align: left;">Extra Claim</th>
                                             <th style="text-align: left;">Over Time</th>
+                                            <th style="text-align: left;">Gross Salary</th>
                                             <th style="text-align: left;">Provident Fund</th>
                                             <th style="text-align: left;">ESIC</th>
                                             <th style="text-align: left;">Loan EMI</th>
@@ -140,6 +142,7 @@
                                                     <td style="text-align: left;"><%#Eval("NSA") %></td>
                                                     <td style="text-align: left;"><%#Eval("Other") %></td>
                                                     <td style="text-align: left;"><%#Eval("OverTime") %></td>
+                                                    <td style="text-align: left;"><%#Eval("GrossSalary") %></td>
                                                     <td style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ESIC_EMPLOYEEVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("LOANAMOUNT") %></td>
@@ -168,6 +171,7 @@
                                                     <th style="text-align: left;"><%#Eval("NSA") %></th>
                                                     <th style="text-align: left;"><%#Eval("Other") %></th>
                                                     <th style="text-align: left;"><%#Eval("OverTime") %></th>
+                                                    <th style="text-align: left;"><%#Eval("GrossSalary") %></th>
                                                     <th style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("ESIC_EMPLOYEEVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("LOANAMOUNT") %></th>
