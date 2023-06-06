@@ -284,7 +284,7 @@
             }
             function IsNumericKey(e) {
                 var charCode = (e.which) ? e.which : e.keyCode;
-                if ((charCode < 46 || charCode > 57))
+                if ((charCode < 46 || charCode > 57) && Charc == 150)
                     return false;
                 return true;
             }

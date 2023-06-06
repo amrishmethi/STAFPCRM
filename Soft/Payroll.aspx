@@ -926,6 +926,7 @@
 
     <script> 
         function OptionsSelected(me, valuee, valuee2) {
+            debugger
             if (document.getElementById(me.id).checked) {
                 document.getElementById(valuee).disabled = false;
                 if (valuee2 != '')
@@ -933,8 +934,11 @@
             }
             else {
                 document.getElementById(valuee).disabled = true;
-                if (valuee2 != '')
+                document.getElementById(valuee).value = "";
+                if (valuee2 != '') {
                     document.getElementById(valuee2).disabled = true;
+                    document.getElementById(valuee2).value = "";
+                }
             }
             document.getElementById(valuee).value = "";
             if (valuee2 != '')
@@ -948,6 +952,7 @@
         }
 
         function OnSelected(me, valuee1, valuee2) {
+            debugger
             var value = me.selectedIndex;
             if (value > 1) {
                 document.getElementById(valuee1).disabled = false;
