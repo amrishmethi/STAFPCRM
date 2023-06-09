@@ -80,7 +80,7 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
         if (e.CommandName == "Delete")
         {
             data.executeCommand("Update TBL_EMPSALARY SET ISDELETE=1,ModifyTime=Getdate() WHERE ID= " + e.CommandArgument.ToString() + "");
-            ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Delete Successfully');window.location ='PayrollRep.aspx'", true);
+            ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Delete Successfully');window.location ='MonthlySallaryRep.aspx'", true);
         }
     }
 }

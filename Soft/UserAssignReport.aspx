@@ -8,7 +8,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
-        <h1>Employee Assign Report</h1>
+        <h1>Employee Assign Report  <asp:Button ID="btnSync" runat="server" CssClass="btn btn-success" Text="Sync Users"
+            OnClick="btnSync_Click" CausesValidation="false" /></h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/UserAssignReport.aspx" class="active">Employee Assign Report </a></li>
@@ -54,6 +55,7 @@
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: center;" class="isLoginVisible">IsLogin CRM</th>
                                             <th style="text-align: center;" class="isLoginVisible">IsLogin APP</th>
+                                            <th style="text-align: center;" class="isLoginVisible">WhiteList</th>
                                             <th style="text-align: left;">Employee Name</th>
                                             <th style="text-align: left;">Department</th>
                                             <th>Mobile</th>
@@ -75,6 +77,8 @@
                                                         <asp:CheckBox ID="IsChkLogin" runat="server" Checked='<%# Convert.ToBoolean(Eval("isCrmLogin"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLogin_CheckedChanged" /></td>
                                                     <td style="text-align: center;" class="isLoginVisible">
                                                         <asp:CheckBox ID="IsChkLoginApp" runat="server" Checked='<%# Convert.ToBoolean(Eval("Deactivate"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLoginApp_CheckedChanged" /></td>
+                                                     <td style="text-align: center;" class="isLoginVisible">
+                                                        <asp:CheckBox ID="isCHkWitelist" runat="server" Checked='<%# Convert.ToBoolean(Eval("isWhitelist"))? true:false %>' AutoPostBack="true" OnCheckedChanged="isCHkWitelist_CheckedChanged" /></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("Department") %></td>
 

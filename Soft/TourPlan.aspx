@@ -37,8 +37,8 @@
                 <div class="box-body">
                     <div class="clearfix">&nbsp;</div>
                     <asp:HiddenField ID="hddid" runat="server" />
-                    <asp:UpdatePanel ID="updt1" runat="server">
-                        <ContentTemplate>
+                   <%-- <asp:UpdatePanel ID="updt1" runat="server">
+                        <ContentTemplate>--%>
                             <div class="col-md-4">
                                 <label class="control-label">Employee </label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" Enabled="false" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
@@ -76,10 +76,12 @@
                             </div>
                             <div class="clearfix"></div>
 
-                        </ContentTemplate>
+                       <%-- </ContentTemplate>
                         <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="drpUser" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="drpheadQtr" EventName="SelectedIndexChanged" /> 
                         </Triggers>
-                    </asp:UpdatePanel>
+                    </asp:UpdatePanel>--%>
 
                 </div>
             </div>
@@ -100,10 +102,6 @@
         <script src="../content/dist/js/app.js"></script>
         <script src="../content/plugins/datepicker/bootstrap-datepicker.js"></script>
         <script src="../content/plugins/Toster/jquery.toaster.js"></script>
-        <script src="../content/plugins/jQueryUI/jquery-ui.min.js"></script>
-        <script src="../JsP/jquery-1.10.1.min.js"></script>
-
-        <link href="../JsP/jquery-ui.min.css" rel="stylesheet" />
         <script type="text/javascript">
             $(window).load(function () {
                 $(".se-pre-con").fadeOut("slow");;

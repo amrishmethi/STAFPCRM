@@ -47,8 +47,8 @@
                             </div>
                             <div class="col-md-2">
                                 <label>District</label>
-                                <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
+                                <asp:ListBox ID="drpDistrict" runat="server" SelectionMode="Multiple" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:ListBox>
                             </div>
                             <div class="col-md-2">
                                 <label>Station</label>

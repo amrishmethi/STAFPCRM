@@ -89,14 +89,18 @@
                                             <th rowspan="2">Date<br />
                                                 Time</th>
                                             <th rowspan="2">Employee</th>
-                                            <th rowspan="2">Secondary Sale Total</th>
-                                            <th rowspan="2">Target Visits</th>
                                             <th rowspan="2">Target Amount</th>
-                                            <th rowspan="2">No of Visits</th>
+                                            <th rowspan="2">Secondary Sale Total</th>
+                                            <th rowspan="2">Achievement</th>
+                                            <th rowspan="2">Target Visits</th>
+                                            <th colspan="2" style="text-align: center;">No of Visits</th>
                                             <th colspan="3" style="text-align: center;">Primary</th>
                                             <th rowspan="2">View</th>
                                         </tr>
                                         <tr>
+                                            <th>Productive</th>
+                                            <th>Non Productive</th>
+                                         
                                             <th>Party</th>
                                             <th>Station</th>
                                             <th>Mobile No</th>
@@ -118,10 +122,12 @@
                                                     <td style="text-align: left;">
                                                         <asp:HiddenField ID="hddID" runat="server" Value='<%#Eval("ID") %>' />
                                                         <%#Eval("Employees") %></td>
-                                                    <td style="text-align: left;"><%#Eval("TotalSale") %></td>
-                                                    <td style="text-align: left;"><%#Eval("TargetVisit") %></td>
                                                     <td style="text-align: left;"><%#Eval("TargetAmount") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Visited") %></td>
+                                                    <td style="text-align: left;"><%#Eval("TotalSale") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Achievement") %></td>
+                                                    <td style="text-align: left;"><%#Eval("TargetVisit") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Productive") %></td> 
+                                                    <td style="text-align: left;"><%#Eval("NonProductive") %></td>
                                                     <td style="text-align: left;"><%#Eval("PrimaryParty") %></td>
                                                     <td style="text-align: left;"><%#Eval("PrimaryStation") %></td>
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>

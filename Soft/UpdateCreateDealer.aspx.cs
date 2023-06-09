@@ -59,7 +59,8 @@ public partial class Admin_UpdateCreateDealer : System.Web.UI.Page
 
     private void save()
     {
-        ds = master.getCreateDealer("UPDATE", Request.QueryString["id"].ToString(),txtname.Text.Trim(), txtContPer.Text.Trim(), txtAddress.Text.Trim(), txtZip.Text.Trim(), drpStation.SelectedValue, txtState.Text.Trim(), txtGst.Text.Trim(), drpGstRegType.SelectedValue, txtMobile.Text.Trim(), txtWhtsApp.Text.Trim(), drpDistrict.SelectedValue, txtTransport.Text.Trim(), drpType.SelectedValue, drpPartyCatg.SelectedValue, "", "", "", ""); Page.ClientScript.RegisterStartupScript(typeof(Page), "close", string.Format("<script type='text/javascript'>{0}</script>", "parent.location.href='CreateDealer.aspx'; parent.$.fancybox.close() ;"));
+        ds = master.getCreateDealer("UPDATE", Request.QueryString["id"].ToString(),txtname.Text.Trim(), txtContPer.Text.Trim(), txtAddress.Text.Trim(), txtZip.Text.Trim(), drpStation.SelectedValue, txtState.Text.Trim(), txtGst.Text.Trim(), drpGstRegType.SelectedValue, txtMobile.Text.Trim(), txtWhtsApp.Text.Trim(), drpDistrict.SelectedValue, txtTransport.Text.Trim(), drpType.SelectedValue, drpPartyCatg.SelectedValue, "", "", "", ""); 
+        Page.ClientScript.RegisterStartupScript(typeof(Page), "close", string.Format("<script type='text/javascript'>{0}</script>", "parent.location.href='CreateDealer.aspx'; parent.$.fancybox.close() ;"));
     }
 
 

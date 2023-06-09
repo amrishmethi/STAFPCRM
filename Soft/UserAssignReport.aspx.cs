@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 
 public partial class Admin_UserAssignReport : System.Web.UI.Page
 {
+    SyncData syncData = new SyncData();
     DataSet ds = new DataSet();
     Master getdata = new Master();
     GetData Gd = new GetData();
@@ -106,5 +107,52 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
     protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
     {
         fillData();
+    }
+
+    protected void isCHkWitelist_CheckedChanged(object sender, EventArgs e)
+    {
+        int ItemC = 0;
+        string[] ClientID = ((CheckBox)sender).ClientID.Split('_');
+        if (ClientID.Length == 4)
+        {
+            ItemC = Convert.ToInt32(ClientID[3]);
+        }
+
+        CheckBox chk = (CheckBox)rep.Items[ItemC].FindControl("isCHkWitelist");
+        HiddenField hddUid = (HiddenField)rep.Items[ItemC].FindControl("hddUid");
+        if (hddUid.Value != "")
+        {
+            data.getDataSet("Update [CSInfo].[dbo].[MobileAppUser]  set isWhiteList = (case when isWhiteList=1 then 0 else 1 end)  where id = " + hddUid.Value);
+            fillData();
+        }
+    }
+
+    protected void btnSync_Click(object sender, EventArgs e)
+    {
+        GetUserData();
+    }
+
+    private void GetUserData()
+    {
+        string QBind = " INSERT INTO [csinfo].[dbo].[MobileAppUser] ([id],[Name],[MobileNo],[Password],[ExpiryDate],[Deactivate],[RegNo],[AppSoftCode],[UserType],[CreateDate],[ModifiedDate],[isCrmLogin])";
+        string _QBind = "";
+        DataSet dsUser = syncData.getDataSet("select * FROM [CSinfo].[dbo].[MobileAppUser]");
+        foreach (DataRow drr in dsUser.Tables[0].Rows)
+        {
+            if (!data.Exist("select * FROM [CSinfo].[dbo].[MobileAppUser] WHERE ID=" + drr["ID"]))
+            {
+                _QBind = " Select '" + drr["id"] + "','" + drr["Name"] + "','" + drr["MobileNo"] + "','" + drr["Password"] + "','" + drr["ExpiryDate"] + "','" + drr["Deactivate"] + "','" + drr["RegNo"] + "','" + drr["AppSoftCode"] + "','" + drr["UserType"] + "','" + drr["CreateDate"] + "','" + drr["ModifiedDate"] + "','" + drr["isCrmLogin"] + "' ";
+                string NQBind = QBind + _QBind;
+                data.executeCommand(NQBind);
+            }
+        }
+
+
+        DataSet dsUser1 = syncData.getDataSet("select * FROM [CSinfo].[dbo].[MobileAppUser] where Cast([ModifiedDate] as date)=Cast(getdate() as date)");
+        foreach (DataRow drr in dsUser1.Tables[0].Rows)
+        {
+            _QBind = " Update  [CSinfo].[dbo].[MobileAppUser] SET [Password]='" + drr["Password"] + "' WHERE id='" + drr["id"] + "' ";
+            data.executeCommand(_QBind);
+        }
     }
 }

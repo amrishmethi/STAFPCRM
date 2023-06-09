@@ -68,15 +68,30 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
 
         DataView dv = data.getDataSet("Proc_SalesTarget '" + drpUser.SelectedValue + "','" + _DD + "'").Tables[1].DefaultView;
         string rowFilter = "0=0";
+        string grp = "";
+        foreach (ListItem item in drpDistrict.Items)
+        {
+            if (item.Selected)
+            {
+                grp += " or District ='" + item.Value + "'";
+            }
+        }
+        string _grp = grp.Count() > 0 ? grp.Remove(0, 4) : grp;
+        if (!string.IsNullOrEmpty(_grp))
+        {
+            rowFilter += "AND (" + _grp + ")";
+        }
+
+
         if (drpheadQtr.SelectedIndex > 0)
         {
             rowFilter += " and HeadQtr = '" + drpheadQtr.SelectedValue + "'";
         }
 
-        if (drpDistrict.SelectedIndex > 0)
-        {
-            rowFilter += " and District = '" + drpDistrict.SelectedValue + "'";
-        }
+        //if (drpDistrict.SelectedIndex > 0)
+        //{
+        //    rowFilter += " and District = '" + drpDistrict.SelectedValue + "'";
+        //}
         if (drpStation.SelectedIndex > 0)
         {
             rowFilter += " and Station = '" + drpStation.SelectedValue + "'";
@@ -93,7 +108,7 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
         dv.RowFilter = rowFilter;
         rep.DataSource = dv.ToTable();
         rep.DataBind();
-    } 
+    }
     [WebMethod]
     public static string ControlAccess()
     {
@@ -150,9 +165,24 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
     protected void drpDistrict_SelectedIndexChanged(object sender, EventArgs e)
     {
         DataTable dt = (DataTable)ViewState["tbl"];
+
+        string grp = "";
+        foreach (ListItem item in drpDistrict.Items)
+        {
+            if (item.Selected)
+            {
+                grp += " or District ='" + item.Value + "'";
+            }
+        }
+        string _grp = grp.Count() > 0 ? grp.Remove(0, 4) : grp;
         DataView dv = dt.DefaultView;
-        dv.RowFilter = "District = '" + drpDistrict.SelectedValue + "'";
-        drpStation.DataSource = dv.ToTable(true, "Station");
+        //dv.RowFilter = "District = '" + drpDistrict.SelectedValue + "'";
+        if (!string.IsNullOrEmpty(_grp))
+        {
+            dv.RowFilter = "0=0 AND (" + _grp + ")";
+            dv.Sort = "Station";
+        }
+        drpStation.DataSource = dv.ToTable(true, "Station", "District");
         drpStation.DataTextField = "Station";
         drpStation.DataValueField = "Station";
         drpStation.DataBind();
@@ -212,5 +242,5 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
             }
         }
         ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Sales Target Saved Successfully');window.location ='SalesTarget.aspx'", true);
-    } 
+    }
 }

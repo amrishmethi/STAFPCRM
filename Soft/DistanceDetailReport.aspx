@@ -80,6 +80,7 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">S No.</th>
+                                            <th style="text-align: left;">Emp Name</th>
                                             <th style="text-align: left;">Station</th>
                                             <th style="text-align: left;">Travel Date</th>
                                             <th style="text-align: left;">Working</th>
@@ -100,6 +101,7 @@
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
+                                                    <td style="text-align: left;"><%#Eval("EMP_NAME") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;"><%#Eval("TravelDate") %></td>
                                                     <td style="text-align: left;"><%#Eval("EntryType") %></td>
@@ -149,6 +151,7 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">S No.</th>
+                                            <th style="text-align: left;">Employee Name</th>
                                             <th style="text-align: left;">Travel Date</th>
                                             <th style="text-align: left;">Distance in KM</th>
                                             <th style="text-align: left;">Rate Per KM</th>
@@ -166,6 +169,7 @@
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
+                                                    <td style="text-align: left;"><%#Eval("Emp_NAME") %></td>
                                                     <td style="text-align: left;"><%#Eval("TravelDate") %></td>
                                                     <td style="text-align: left;"><%#Eval("Distance") %></td>
                                                     <td style="text-align: left;"><%#Eval("Rate") %></td>

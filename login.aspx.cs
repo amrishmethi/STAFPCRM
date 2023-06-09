@@ -19,7 +19,7 @@ public partial class login : System.Web.UI.Page
         if (!IsPostBack)
         {
             //ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('" + GetIp() + "')", true);
-            GetUserData();
+             
             HttpContext.Current.Response.Cookies["STFP"].Expires = DateTime.Now.AddDays(-1d);
             if (Request.Params["logout"] != null)
             {
@@ -54,40 +54,18 @@ public partial class login : System.Web.UI.Page
         //}
         //throw new Exception("No network adapters with an IPv4 address in the system!");
     }
-    private void GetUserData()
-    {
-        string QBind = " INSERT INTO [csinfo].[dbo].[MobileAppUser] ([id],[Name],[MobileNo],[Password],[ExpiryDate],[Deactivate],[RegNo],[AppSoftCode],[UserType],[CreateDate],[ModifiedDate],[isCrmLogin])";
-        string _QBind = "";
-        DataSet dsUser = syncData.getDataSet("select * FROM [CSinfo].[dbo].[MobileAppUser]");
-        foreach (DataRow drr in dsUser.Tables[0].Rows)
-        {
-            if (!data.Exist("select * FROM [CSinfo].[dbo].[MobileAppUser] WHERE ID=" + drr["ID"]))
-            {
-                _QBind = " Select '" + drr["id"] + "','" + drr["Name"] + "','" + drr["MobileNo"] + "','" + drr["Password"] + "','" + drr["ExpiryDate"] + "','" + drr["Deactivate"] + "','" + drr["RegNo"] + "','" + drr["AppSoftCode"] + "','" + drr["UserType"] + "','" + drr["CreateDate"] + "','" + drr["ModifiedDate"] + "','" + drr["isCrmLogin"] + "' ";
-                string NQBind = QBind + _QBind;
-                data.executeCommand(NQBind);
-            }
-        }
-
-
-        DataSet dsUser1 = syncData.getDataSet("select * FROM [CSinfo].[dbo].[MobileAppUser] where Cast([ModifiedDate] as date)=Cast(getdate() as date)");
-        foreach (DataRow drr in dsUser1.Tables[0].Rows)
-        {
-            _QBind = " Update  [CSinfo].[dbo].[MobileAppUser] SET [Password]='" + drr["Password"] + "' WHERE id='" + drr["id"] + "' ";
-            data.executeCommand(_QBind);
-        }
-    }
+  
 
     protected void LogBtn_Click(object sender, EventArgs e)
-    {
-        if (txtuser.Value != "9829032422")
-        {
-            if (!data.Exist("select * from tbl_IpAddress WHere Isdelete=0 and IPAdrs='" + GetIp() + "'"))
-            {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('unauthorized access please share the ip address (" + GetIp() + ") to the administrator');window.location ='Login.aspx'", true);
-                return;
-            }
-        }
+    { 
+        //if (txtuser.Value != "9829032422")
+        //{
+        //    if (!data.Exist("select * from tbl_IpAddress WHere Isdelete=0 and IPAdrs='" + GetIp() + "'"))
+        //    {
+        //        ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('unauthorized access please share the ip address (" + GetIp() + ") to the administrator');window.location ='Login.aspx'", true);
+        //        return;
+        //    }
+        //}
         //    string url = System.Configuration.ConfigurationManager.AppSettings["SiteUrl"].ToString();
         if (txtuser.Value.Trim() != "" && txtpass.Value.Trim() != "")
         {
@@ -97,8 +75,16 @@ public partial class login : System.Web.UI.Page
             cmd.Parameters.AddWithValue("@UserName", txtuser.Value);
             cmd.Parameters.AddWithValue("@Password", txtpass.Value);
             ds = data.getDataSet(cmd);
-            if (ds.Tables[0].Rows.Count > 0)
+            if (ds.Tables[0].Rows.Count > 0 )
             {
+                if (ds.Tables[0].Rows[0]["isWhiteList"].ToString() == "False")
+                {
+                    if (!data.Exist("select * from tbl_IpAddress WHere Isdelete=0 and IPAdrs='" + GetIp() + "'"))
+                    {
+                        ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('unauthorized access please share the ip address (" + GetIp() + ") to the administrator');window.location ='Login.aspx'", true);
+                        return;
+                    }
+                }
                 HttpCookie Admin = new HttpCookie("STFP");
                 Admin.Expires = DateTime.Now.AddDays(1d);
                 Admin.Values.Add("MobileNo", txtuser.Value.Trim());
@@ -112,6 +98,7 @@ public partial class login : System.Web.UI.Page
             }
             else
             {
+                
                 lblMes.Visible = true;
             }
         }
