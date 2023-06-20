@@ -1,5 +1,6 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Mailjet.Client.Resources;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -38,7 +39,7 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
             bindDrp(true, true);
             fillData();
         }
-       
+
     }
 
     private void bindDrp(bool isuser, bool ishqtr)
@@ -282,7 +283,7 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
         //GeneratePDF(datatable, "ClientMeet");
         Session["GridData"] = datatable;
         Session["Title"] = "Client Meet";
-        Session["DateRange"] = "(Date as on "+ txtDateFrom.Text + " - "+ txtDateTo.Text + ")";
+        Session["DateRange"] = "(Date as on " + txtDateFrom.Text + " - " + txtDateTo.Text + ")";
         //Response.Redirect("Print.aspx");
         Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
     }
@@ -299,8 +300,7 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
         Panel panel = (Panel)btn.NamingContainer.FindControl("Panel1");
         panel.Visible = !panel.Visible;
     }
-
-
+     
     protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         if (drpImg.SelectedValue == "0")
@@ -309,7 +309,8 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
             HtmlTableCell tdValue2 = (HtmlTableCell)e.Item.FindControl("isShowImgData");
             tdValue2.Visible = false;
         }
-        else {
+        else
+        {
             isShowImg.Visible = true;
             HtmlTableCell tdValue2 = (HtmlTableCell)e.Item.FindControl("isShowImgData");
             tdValue2.Visible = true;

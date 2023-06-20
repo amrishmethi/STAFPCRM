@@ -93,14 +93,15 @@
                                             <th rowspan="2">Secondary Sale Total</th>
                                             <th rowspan="2">Achievement</th>
                                             <th rowspan="2">Target Visits</th>
-                                            <th colspan="2" style="text-align: center;">No of Visits</th>
+                                            <th colspan="3" style="text-align: center;">No of Visits</th>
                                             <th colspan="3" style="text-align: center;">Primary</th>
                                             <th rowspan="2">View</th>
                                         </tr>
                                         <tr>
                                             <th>Productive</th>
                                             <th>Non Productive</th>
-                                         
+                                            <th>Total</th>
+
                                             <th>Party</th>
                                             <th>Station</th>
                                             <th>Mobile No</th>
@@ -115,7 +116,7 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td>
-                                                        <asp:CheckBox ID="chk" runat="server" />
+                                                        <asp:CheckBox ID="chk" runat="server" Visible='<%#Eval("Employees").ToString()=="Total"?false:true %>' />
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("CheckDate") %><br />
                                                         <%#Eval("CheckTime") %></td>
@@ -126,17 +127,16 @@
                                                     <td style="text-align: left;"><%#Eval("TotalSale") %></td>
                                                     <td style="text-align: left;"><%#Eval("Achievement") %></td>
                                                     <td style="text-align: left;"><%#Eval("TargetVisit") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Productive") %></td> 
+                                                    <td style="text-align: left;"><%#Eval("Productive") %></td>
                                                     <td style="text-align: left;"><%#Eval("NonProductive") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Visited") %></td>
                                                     <td style="text-align: left;"><%#Eval("PrimaryParty") %></td>
                                                     <td style="text-align: left;"><%#Eval("PrimaryStation") %></td>
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
                                                     <td>
-                                                        <a href="SalesItemReport.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-info  rolese" aria-label="View"><i class="fa fa-eye"></i></a>
+                                                        <a href="SalesItemReport.aspx?id=<%#Eval("ID") %>" style='<%#Eval("Employees").ToString()=="Total"?"padding: 1px 6px; font-size: 11px; display:none;":"padding: 1px 6px; font-size: 11px;"%>' class="btn btn-small btn-info  rolese" aria-label="View"><i class="fa fa-eye"></i></a>
                                                     </td>
                                                 </tr>
-
-
                                             </ItemTemplate>
 
                                         </asp:Repeater>

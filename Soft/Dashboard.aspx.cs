@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class Admin_Dashboard : System.Web.UI.Page
-{
+{ 
     DataSet ds = new DataSet();
     Data data = new Data();
     Master master = new Master();

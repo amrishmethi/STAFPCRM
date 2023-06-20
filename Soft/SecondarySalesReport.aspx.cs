@@ -38,14 +38,26 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
     public void fillData()
     {
         string str = "1=1";
-        ds = getdata.getSeconarySalesDetails(drpUser.SelectedValue, drpParty.SelectedValue, drpStation.SelectedItem.Text, dpFrom.Text.Trim(), dpTo.Text.Trim(),drpDept.SelectedValue);
+        ds = getdata.getSeconarySalesDetails(drpUser.SelectedValue, drpParty.SelectedValue, drpStation.SelectedItem.Text, dpFrom.Text.Trim(), dpTo.Text.Trim(), drpDept.SelectedValue);
         DataView dv = ds.Tables[0].DefaultView;
         if (drpIsCheck.SelectedValue == "0") { str += " and AddedDate is null"; }
         else if (drpIsCheck.SelectedValue == "1") { str += " and AddedDate is not null"; }
         if (drpStatus.SelectedValue == "Active") { str += " and Status = 'Active'"; }
         else if (drpStatus.SelectedValue == "Non-Active") { str += " and Status = 'Non-Active'"; }
         dv.RowFilter = str;
-        rep.DataSource = dv.ToTable();
+
+        DataTable dtt = dv.ToTable();
+        DataRow drr = dtt.NewRow();
+        drr["Employees"] = "Total";
+        drr["TargetAmount"] = dtt.Compute("sum(TargetAmount)", "");
+        drr["TotalSale"] = dtt.Compute("sum(TotalSale)", "");
+        drr["Achievement"] = dtt.Compute("sum(Achievement)", "");
+        drr["TargetVisit"] = dtt.Compute("sum(TargetVisit)", "");
+        drr["Productive"] = dtt.Compute("sum(Productive)", "");
+        drr["NonProductive"] = dtt.Compute("sum(NonProductive)", "");
+        drr["Visited"] = dtt.Compute("sum(Visited)", "");
+        dtt.Rows.Add(drr);
+        rep.DataSource = dtt;
         rep.DataBind();
     }
 
@@ -164,7 +176,7 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
                         sb.Append("<td>Station: " + dsGet.Rows[0]["PrimaryStation"].ToString() + "</td>");
                         sb.Append("</tr>");
                         sb.Append("<td>Total Visits: " + dstbl.Rows.Count.ToString() + "</td>");
-                       sb.Append("<td>Productive: " + dsGet.Rows.Count + "\t");
+                        sb.Append("<td>Productive: " + dsGet.Rows.Count + "\t");
                         sb.Append("Non-Productive: " + (dstbl.Rows.Count - dsGet.Rows.Count) + "</td>");
                         sb.Append("</tr>");
                         int row_num = 1; int totQty = 0; Decimal totAmt = 0;

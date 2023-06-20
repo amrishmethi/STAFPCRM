@@ -22,9 +22,14 @@
                             <label>Sales Station</label>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*"
                             InitialValue="0" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="drpStation"></asp:RequiredFieldValidator>
-                            <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2"></asp:DropDownList>
+                            <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                           </div>
-                         
+                         <div class="col-md-4">
+                            <label>Sales Beat</label>
+                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*"
+                            InitialValue="0" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="drpBeat"></asp:RequiredFieldValidator>
+                            <asp:DropDownList ID="drpBeat" runat="server" CssClass="form-control select2"></asp:DropDownList>
+                          </div>
                         <div class="col-md-4">
                             <label>Sales Party</label>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*"

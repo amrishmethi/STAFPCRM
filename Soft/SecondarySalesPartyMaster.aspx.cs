@@ -33,12 +33,16 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
 
     public void fillData(string id)
     {
-        ds = getdata.getSecondarySalesParty("SELECT",id,"0","SELECT","","","","0");
-        if (ds.Tables[0].Rows.Count > 0) { 
-        drpStation.SelectedValue = ds.Tables[0].Rows[0]["StationName"].ToString();
-        txtParty.Text = ds.Tables[0].Rows[0]["Name"].ToString();
-        txtMobile.Text = ds.Tables[0].Rows[0]["MobileNo"].ToString();
-        txtWhatsApp.Text = ds.Tables[0].Rows[0]["WhatsUpMobileNo"].ToString();
+        ds = getdata.getSecondarySalesParty("SELECT", id, "0", "SELECT", "", "", "", "0", "");
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+
+            drpStation.SelectedValue = ds.Tables[0].Rows[0]["StationName"].ToString();
+            txtParty.Text = ds.Tables[0].Rows[0]["Name"].ToString();
+            txtMobile.Text = ds.Tables[0].Rows[0]["MobileNo"].ToString();
+            txtWhatsApp.Text = ds.Tables[0].Rows[0]["WhatsUpMobileNo"].ToString();
+            Beat(drpStation.SelectedValue);
+            drpBeat.SelectedValue = ds.Tables[0].Rows[0]["BeatId"].ToString();
         }
     }
 
@@ -50,7 +54,7 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
             action = "UPDATE";
             SecondarySalesPartyid = Request.QueryString["id"].ToString();
         }
-        getdata.getSecondarySalesParty(action, SecondarySalesPartyid,"0",drpStation.SelectedItem.Text,txtParty.Text.Trim(),txtMobile.Text.Trim(),txtWhatsApp.Text.Trim(),"");
+        getdata.getSecondarySalesParty(action, SecondarySalesPartyid, "0", drpStation.SelectedItem.Text, txtParty.Text.Trim(), txtMobile.Text.Trim(), txtWhatsApp.Text.Trim(), "", drpBeat.SelectedValue);
         Response.Redirect("SecondarySalesParty.aspx");
     }
 
@@ -65,6 +69,26 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
     {
         Response.Redirect("SecondarySalesParty.aspx");
     }
-   
 
+
+
+    protected void drpStation_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Beat(drpStation.SelectedValue);
+    }
+
+    private void Beat(string stationId)
+    {
+
+        DataSet ds1 = Gd.FillStationBeat();
+        DataView view = new DataView(ds1.Tables[0]);
+        string _RowFilter = "0=0";
+        if (drpStation.SelectedIndex > 0)
+            _RowFilter += " and Station='" + stationId + "'";
+        view.RowFilter = _RowFilter;
+        view.Sort = "station";
+
+        DataTable District = view.ToTable(true, "Station", "StationId");
+        Gd.FillData(drpBeat, District, "Station", "StationId");
+    }
 }

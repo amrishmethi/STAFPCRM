@@ -9,7 +9,7 @@ using System.Net.Sockets;
 using System.Net;
 
 public partial class login : System.Web.UI.Page
-{
+{ 
     DataSet ds = new DataSet();
     Data data = new Data();
     SyncData syncData = new SyncData();

@@ -22,7 +22,7 @@ public class Master
         //
     }
 
-    public DataSet getSecondarySalesParty(string action, string id, string stationid, string station, string name, string mobile, string whatsapp, string hqtr)
+    public DataSet getSecondarySalesParty(string action, string id, string stationid, string station, string name, string mobile, string whatsapp, string hqtr, string Beat)
     {
         cmd = new SqlCommand("PROC_SECONDARYPARTY");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -34,6 +34,7 @@ public class Master
         cmd.Parameters.AddWithValue("@MOBILENO", mobile);
         cmd.Parameters.AddWithValue("@WHATSUPMOBILENO", whatsapp);
         cmd.Parameters.AddWithValue("@HQD", hqtr);
+        cmd.Parameters.AddWithValue("@BeatId", Beat);
         ds = data.getDataSet(cmd);
         return ds;
     }
@@ -509,5 +510,21 @@ public class Master
         cmd.Parameters.AddWithValue("@ID", ID);
         DataSet dss = data.getDataSet(cmd);
         return dss;
+    }
+
+    public DataSet StationBeat(string Action, string STATION, string DISTRICT, string HEADQTR, string BEAT, string STATIONID)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "IU_STATIONBEAT";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@ACTION", Action);
+        cmd.Parameters.AddWithValue("@STATION", STATION);
+        cmd.Parameters.AddWithValue("@DISTRICT", DISTRICT);
+        cmd.Parameters.AddWithValue("@HEADQTR", HEADQTR);
+        cmd.Parameters.AddWithValue("@BEAT", BEAT);
+        cmd.Parameters.AddWithValue("@STATIONID", STATIONID);
+        DataSet dss = data.getDataSet(cmd);
+        return dss; 
     }
 }

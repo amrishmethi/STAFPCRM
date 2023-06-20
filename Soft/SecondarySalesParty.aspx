@@ -21,25 +21,46 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
+                            <div class="col-md-3">
+                                <label>District<span style="color: #ff0000">*</span></label>
 
-                            <div class="col-md-4">
-                                <label>Station</label>
-                                <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Party</label>
-                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-4">
-                                <label>HeadQuarter</label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpheadQtr"
+                                    ErrorMessage="Must Be Select" ValidationGroup="A" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
+
                                 <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-
+                            <div class="col-md-2">
+                                <label>Station</label>
+                                <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged1" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Beat</label>
+                                <asp:DropDownList ID="drpBeat1" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Party</label>
+                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="cold-md-2">
+                                <br />
+                                <asp:Button ID="tnSearch" runat="server" CssClass="btn btn-success" Text="Get Data" ValidationGroup="A" OnClick="tnSearch_Click" />
+                            </div>
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="col-md-3">
+                                <label>Beat</label>
+                                <asp:DropDownList ID="drpBeat" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="cold-md-3">
+                                <br />
+                                <asp:Button ID="btnUpdateBeat" runat="server" CssClass="btn btn-success" Text="Update Beat" OnClick="btnUpdateBeat_Click" />
+                            </div>
                         </div>
-                        
+
                         <div class="clearfix">&nbsp;</div>
                     </div>
                 </div>
@@ -51,11 +72,13 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
+                                            <th style="text-align: left;">
+                                                <input type='checkbox' id='chkAll' runat='server' onclick='javascript: SelectAllCheckboxes(this);' /></th>
                                             <th style="text-align: left;">Station</th>
+                                            <th style="text-align: left;">Beat</th>
                                             <th style="text-align: left;">Party</th>
                                             <th style="text-align: left;">Mobile No</th>
                                             <th style="text-align: left;">WhatsApp No</th>
-                                          
                                             <th>
                                                 <label id="lblAction">Action</label></th>
                                         </tr>
@@ -67,9 +90,14 @@
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
+                                                    <td>
+                                                        <asp:CheckBox ID="chk" runat="server" />
+                                                        <asp:HiddenField ID="hddPartyId" runat="server" Value='<%#Eval("ID") %>' />
+                                                    </td>
                                                     <%--     <asp:Label ID="lblItem" runat="server" Text='<%#Eval("StationName") %>'></asp:Label>--%>
 
                                                     <td style="text-align: left;"><%#Eval("StationName") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Beat") %></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
                                                     <td style="text-align: left;"><%#Eval("WhatsUpMobileNo") %></td>
@@ -140,6 +168,32 @@
             });
         })
 
+
+
+    </script>
+
+    <script type="text/javascript">
+        function SelectAllCheckboxes(spanChk) {
+
+            // Added as ASPX uses SPAN for checkbox
+
+            var oItem = spanChk.children;
+            var theBox = (spanChk.type == "checkbox") ?
+                spanChk : spanChk.children.item[0];
+            xState = theBox.checked;
+            elm = theBox.form.elements;
+
+            for (i = 0; i < elm.length; i++)
+                if (elm[i].type == "checkbox" &&
+                    elm[i].id != theBox.id) {
+                    //elm[i].click();
+
+                    if (elm[i].checked != xState)
+                        elm[i].click();
+                    //elm[i].checked=xState;
+
+                }
+        }
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
