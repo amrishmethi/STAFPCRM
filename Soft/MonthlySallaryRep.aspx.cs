@@ -51,11 +51,17 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
 
         string _FromDate = DateTime.Now.ToString("yyyy") + "-" + drpMonth.SelectedValue + "-01";
         DataSet dss = master.GetSallary(_DD, drpDepartment.SelectedValue, drpDesignation.SelectedValue, drpProjectManager.SelectedValue, drpPf.SelectedValue, drpStatus.SelectedValue);
-        rep.DataSource = dss.Tables[0];
-        rep.DataBind();
 
-        Repeater1.DataSource = dss.Tables[1];
-        Repeater1.DataBind();
+
+        DataTable mergedTable = new DataTable();        
+        mergedTable.Merge(dss.Tables[0]);        
+        mergedTable.Merge(dss.Tables[1]);       
+
+        rep.DataSource = mergedTable;
+        rep.DataBind();
+         
+        //Repeater1.DataSource = dss.Tables[1];
+        //Repeater1.DataBind();
 
         Session["Salary"] = dss.Tables[0];
     }

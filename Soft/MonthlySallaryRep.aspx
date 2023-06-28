@@ -95,6 +95,7 @@
                                             <th style="text-align: left;">S No.</th>
                                             <th style="text-align: left;">
                                                 <input type='checkbox' id='chkAll' runat='server' onclick='javascript: SelectAllCheckboxes(this);' /></th>
+                                              <th style="text-align: left;">Month</th>
                                             <th style="text-align: left;">Employee Name</th>
                                             <th style="text-align: left;">Net Salary</th>
                                             <th style="text-align: left;">No Of Working Days</th>
@@ -131,6 +132,7 @@
                                                         <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("Id") %>' Visible='<%#Eval("IsApprove").ToString()=="True"?true:false%>'><i class="fa fa-trash-o"></i></asp:LinkButton>
 
                                                     </td>
+                                                                              <td style="text-align: left;"><%#Eval("SALARYMONTH") %></td>
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFWORKINGDAY") %>/<%#Eval("TotalWorkingDay") %></td>

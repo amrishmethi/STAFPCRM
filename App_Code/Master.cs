@@ -84,6 +84,10 @@ public class Master
         return ds;
     }
 
+
+
+
+
     public DataSet getAttendanceList(string userid, string deptid, string date)
     {
         cmd = new SqlCommand("PROC_ATTENDANCE");
@@ -233,17 +237,42 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
+
+    public DataSet getSaleOrderReportST(string head, string district, string report, string station, string dt, string dt1,string rate, string party, string Group)
+    {
+        cmd = new SqlCommand("Proc_SaleOrderReportST");
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.Parameters.AddWithValue("@head", head);
+        cmd.Parameters.AddWithValue("@district", district);
+        cmd.Parameters.AddWithValue("@report", report);
+        cmd.Parameters.AddWithValue("@station", station);
+        cmd.Parameters.AddWithValue("@dtFrom", data.YYYYMMDD(dt));
+        cmd.Parameters.AddWithValue("@dtTo", data.YYYYMMDD(dt1));
+        cmd.Parameters.AddWithValue("@rate", rate);
+        cmd.Parameters.AddWithValue("@Party", party);
+        cmd.Parameters.AddWithValue("@Group", Group);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+
     public DataSet getHqtrUser()
     {
         return ds = data.getDataSet("select * from [stm_acmast].[dbo].GETHEADQUARTER order by Name,HEADQTR");
     }
+    public DataSet getHqtrUser1()
+    {
+        return ds = data.getDataSet("select * from [stm_acmast].[dbo].GETHEADQUARTER G inner Join [STM_AcMast].[dbo].[Station] S on S.District = G.district inner join [stm_acmast].[dbo].tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 order by Name,G.HEADQTR");
+    }
+
 
     public DataSet getHqtrUserDpt(string Dept_Id)
     {
         string query = "select distinct  G.*,EMP.EMPID from [stm_acmast].[dbo].GETHEADQUARTER G inner join [stm_acmast].[dbo].tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 ";
         if (Dept_Id != "0")
             query += "and EMP.Dept_Id = " + Dept_Id + " ";
-        query += "order by Name,HEADQTR ";
+        query += "order by Name,HEADQTR";
         return ds = data.getDataSet(query);
     }
 
@@ -525,6 +554,6 @@ public class Master
         cmd.Parameters.AddWithValue("@BEAT", BEAT);
         cmd.Parameters.AddWithValue("@STATIONID", STATIONID);
         DataSet dss = data.getDataSet(cmd);
-        return dss; 
+        return dss;
     }
 }

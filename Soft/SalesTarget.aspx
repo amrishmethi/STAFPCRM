@@ -21,7 +21,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-md-3">
+                            <div class="col-md-3 hidden">
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
@@ -35,26 +35,27 @@
                             </div>
                             <div class="col-md-2">
                                 <label>Employee</label>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="drpUser"
-                                    ErrorMessage="Please Select" ValidationGroup="aa" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
+
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label>HeadQuarter</label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="drpheadQtr"
+                                    ErrorMessage="Please Select" ValidationGroup="aa" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
                                 <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
                                 <label>District</label>
-                                <asp:ListBox ID="drpDistrict" runat="server" SelectionMode="Multiple" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:ListBox>
+                                <asp:ListBox ID="drpDistrict" runat="server" SelectionMode="Multiple" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true"></asp:ListBox>
                             </div>
                             <div class="col-md-2">
                                 <label>Station</label>
                                 <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
+                            <div class="clearfix"></div>
                             <div class="col-md-2">
                                 <asp:CheckBox ID="chk" runat="server" ToolTip="Without Party" OnCheckedChanged="chk_CheckedChanged" AutoPostBack="true" />
                                 <label>Party Category</label>
@@ -100,8 +101,8 @@
                                     <thead>
                                         <tr>
                                             <th>Sr. No.</th>
-                                            <th>Employee</th>
-                                            <%--    <th>HeadQuarter</th>--%>
+                                            <%--<th>Employee</th>--%>
+                                            <th>HeadQuarter</th>
                                             <th>District</th>
                                             <th>Party Category</th>
                                             <th>Party</th>
@@ -121,8 +122,8 @@
                                                         <%#Container.ItemIndex+1 %>
                                                         <asp:HiddenField ID="hddId" runat="server" Value='<%#Eval("TargetId") %>' />
                                                     </td>
-                                                    <td style="text-align: left;"><%#Eval("Employee") %></td>
-                                                    <%--<td style="text-align: left;"><%#Eval("HeadQtr") %></td>--%>
+                                                    <%--<td style="text-align: left;"><%#Eval("Employee") %></td>--%>
+                                                    <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
                                                     <td style="text-align: left;"><%#Eval("District") %></td>
                                                     <td style="text-align: left;"><%#Eval("PartyCategory") %></td>
                                                     <td style="text-align: left;"><%#Eval("Party") %></td>
@@ -154,7 +155,7 @@
         $(document).ready(function () {
             debugger
             $.ajax({
-                url: 'UserWiseParty.aspx/ControlAccess',
+                url: 'salestarget.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",

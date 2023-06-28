@@ -236,6 +236,17 @@ public class GetData
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
 
+    public void FillHeadQt(DropDownList drp)
+    {
+        query = "SELECT [CMsCode], [CMsName]   FROM  Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "CMsName";
+        drp.DataValueField = "CMsCode";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
     public void FillDrop(DropDownList drp, String tbl)
     {
         query = "select * from " + tbl + " where IsDeleted=0 order by Name ";
@@ -317,6 +328,8 @@ public class GetData
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
 
+
+
     public DataSet FillHeadQtrDistrict()
     {
         string query = "SELECT distinct [HeadQtr],[District] FROM [stm_acmast].[dbo].[HeadQtrDistrict] order by HeadQtr";
@@ -334,7 +347,6 @@ public class GetData
         string query = "SELECT * FROM [stm_acmast].[dbo].[stationBeat] WHere isDelete=0 order by station";
         return data.getDataSet(query);
     }
-
 
     public void FillData(DropDownList drp, DataTable ds,string TextField, string ValueField)
     { 

@@ -28,7 +28,7 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             gd.fillDepartment(drpDepartment);
-            drpDepartment.SelectedValue = "2";
+            //drpDepartment.SelectedValue = "2";
             gd.FillCRMUser(drpUser, drpDepartment.SelectedValue, drpStatus.SelectedValue);
             chk.Checked = true;
             drpCatg.SelectedValue = "1115";
@@ -66,7 +66,7 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
         int year = Convert.ToInt32(mnth.Text.Split('-')[1]);
         string _DD = year + "-" + month + "-01";
 
-        DataView dv = data.getDataSet("Proc_SalesTarget '" + drpUser.SelectedValue + "','" + _DD + "'").Tables[1].DefaultView;
+        DataView dv = data.getDataSet("Proc_SalesTarget_New '" + drpheadQtr.SelectedValue + "','" + _DD + "'").Tables[1].DefaultView;
         string rowFilter = "0=0";
         string grp = "";
         foreach (ListItem item in drpDistrict.Items)
@@ -83,15 +83,11 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
         }
 
 
-        if (drpheadQtr.SelectedIndex > 0)
-        {
-            rowFilter += " and HeadQtr = '" + drpheadQtr.SelectedValue + "'";
-        }
-
-        //if (drpDistrict.SelectedIndex > 0)
+        //if (drpheadQtr.SelectedIndex > 0)
         //{
-        //    rowFilter += " and District = '" + drpDistrict.SelectedValue + "'";
+        //    rowFilter += " and HeadQtr = '" + drpheadQtr.SelectedValue + "'";
         //}
+         
         if (drpStation.SelectedIndex > 0)
         {
             rowFilter += " and Station = '" + drpStation.SelectedValue + "'";
