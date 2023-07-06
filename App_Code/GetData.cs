@@ -164,7 +164,9 @@ public class GetData
 
     public void FillPrimaryParty(DropDownList drp)
     {
-        query = "select * from STM_ACMAST.DBO.ACCOUNT order by ACNAME ";
+
+
+        query = "select AcName + '(' + AcStation + ')' AS AcName, AcCode from STM_ACMAST.DBO.ACCOUNT order by ACNAME " ;
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "ACNAME";
@@ -222,6 +224,17 @@ public class GetData
         drp.DataSource = ds;
         drp.DataTextField = "CMsName";
         drp.DataValueField = "CMsCode";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillGroup1(ListBox drp)
+    {
+        query = "SELECT [CMsCode], [CMsName]   FROM [stm_stmast].[dbo].[CMaster] Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "CMsName";
+        drp.DataValueField = "CMsName";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
