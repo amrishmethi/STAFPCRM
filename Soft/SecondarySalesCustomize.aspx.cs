@@ -34,7 +34,7 @@ public partial class Admin_SecondarySalesCustomize : System.Web.UI.Page
     public void fillData()
     {
         string str = "1=1";
-        ds = getdata.getUserDetails("0", "2");
+        ds = getdata.getUserDetails("0", "2","Active");
         DataView dv = ds.Tables[0].DefaultView;
         if (drpStatus.SelectedValue == "Active") { str += " and Status = 'Active'"; }
         else if (drpStatus.SelectedValue == "Non-Active") { str += " and Status = 'Non-Active'"; }

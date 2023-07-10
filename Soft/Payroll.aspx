@@ -10,10 +10,10 @@
     <section class="content-header" style="height: 2.5em;">
         <h1>HR Details &nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnBack" runat="server" CssClass="btn btn-danger" Text="Back To List"
-            OnClick="btnCancel_Click" CausesValidation="false" /></h1>
+            OnClick="btnCancel_Click" CausesValidation="false"/></h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/AttendanceReport.aspx" class="active">HR Details </a></li>
+            <li><a href="/Soft/AttendanceReport.aspx" class="active">HR Details</a></li>
         </ol>
     </section>
     <section class="content">
@@ -528,11 +528,24 @@
                             <td>&nbsp;</td>
                             <td>
                                 <asp:DropDownList ID="drpNoOfSunday" runat="server" CssClass="form-control select2">
+                                    <asp:ListItem Text="0" Value="0"></asp:ListItem>
                                     <asp:ListItem Text="1" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="2" Value="2"></asp:ListItem>
                                     <asp:ListItem Text="3" Value="3"></asp:ListItem>
                                     <asp:ListItem Text="4" Value="4"></asp:ListItem>
                                     <asp:ListItem Text="5" Value="5"></asp:ListItem>
+                                </asp:DropDownList></td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>
+                                <label class="control-label">Over Time Applicable</label></td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <asp:DropDownList ID="drpOverTime" runat="server" CssClass="form-control select2">
+                                    <asp:ListItem Text="No" Value="0"></asp:ListItem>
+                                    <asp:ListItem Text="Yes" Value="1"></asp:ListItem> 
                                 </asp:DropDownList></td>
                             <td>&nbsp;</td>
                         </tr>

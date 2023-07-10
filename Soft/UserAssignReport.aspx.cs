@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Web;
 using System.Web.Services;
@@ -28,23 +29,24 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserAssignReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
-            Gd.FillUser1(drpUser);
+            //Gd.FillUser1(drpUser);
             Gd.fillDepartment(drpDept);
-            fillData();
+            Gd.FillUser(drpUser, drpDept.SelectedValue, drpStatus.SelectedValue);
+            //fillData();
         }
     }
 
     public void fillData()
     {
-        ds = getdata.getUserDetails(drpUser.SelectedValue,drpDept.SelectedValue);
+        ds = getdata.getUserDetails(drpUser.SelectedValue,drpDept.SelectedValue, drpStatus.SelectedValue);
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
 
-    //protected void btnSearch_Click(object sender, EventArgs e)
-    //{
-    //    fillData();
-    //}
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        fillData();
+    }
 
     [WebMethod]
     public static string ControlAccess()
@@ -106,7 +108,8 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
 
     protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
     {
-        fillData();
+        Gd.FillUser(drpUser, drpDept.SelectedValue, drpStatus.SelectedValue);
+        //fillData();
     }
 
     protected void isCHkWitelist_CheckedChanged(object sender, EventArgs e)

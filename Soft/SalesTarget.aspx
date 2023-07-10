@@ -109,8 +109,10 @@
                                             <th>Station</th>
                                             <th>Powder</th>
                                             <th>BAR/ TUB</th>
+                                            <th>CLEAN BOLD POWDER</th>
                                             <th>Last Month Sale (Powder)</th>
                                             <th>Last Month Sale (BAR/ TUB)</th>
+                                            <th>Last Month Sale (CBP)</th>
                                         </tr>
 
                                     </thead>
@@ -133,8 +135,12 @@
                                                     <td style="text-align: left;">
                                                         <asp:TextBox ID="txtBar_Tub" CssClass="form-control" runat="server" Text='<%#Eval("Bar_Tub") %>' onkeypress="return IsNumericKey(event);"></asp:TextBox>
                                                     </td>
+                                                    <td style="text-align: left;">
+                                                        <asp:TextBox ID="txtclean" CssClass="form-control" runat="server" Text='<%#Eval("Bar_Tub") %>' onkeypress="return IsNumericKey(event);"></asp:TextBox>
+                                                    </td>
 
                                                     <td style="text-align: left;"><%#Eval("Sale_POWDER") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Sale_BAR_AND_TUB") %></td>
                                                     <td style="text-align: left;"><%#Eval("Sale_BAR_AND_TUB") %></td>
 
                                                 </tr>

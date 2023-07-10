@@ -1,18 +1,18 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="LeaveDeductRep.aspx.cs" Inherits="Soft_LeaveDeductRep" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="NightAttendanceRep.aspx.cs" Inherits="Soft_NightAttendanceRep" %>
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>Leave Report</title>
+    <title>Night Attendance Report</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
-        <h1><a id="lnkAdd" runat="server" href="/Soft/LeaveDeduct.aspx" class="btn btn-primary">Add Leave</a>
+        <h1><a id="lnkAdd" runat="server" href="/Soft/NightAttendance.aspx" class="btn btn-primary">Add Night Attendance</a>
         </h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/LeaveDeductRep.aspx" class="active">Leave</a></li>
+            <li><a href="/Soft/NightAttendanceRep.aspx" class="active">Night Attendance</a></li>
         </ol>
     </section>
     <section class="content">
@@ -57,11 +57,8 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
-                                            <th style="text-align: left;">Leave Date</th>
-                                            <th style="text-align: left;">Employee</th>
-                                            <th style="text-align: left;">Leave Type</th>
-                                            <th style="text-align: left;">Leave </th>
-                                            <th style="text-align: left;">Days </th>
+                                            <th style="text-align: left;">Attendance Date</th>
+                                            <th style="text-align: left;">Employee</th> 
                                             <th style="text-align: left;">Remarks</th>
                                             <th>
                                                 <label id="lblAction">Action</label></th>
@@ -74,17 +71,14 @@
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
-                                                    <td style="text-align: left;"><%#Eval("Leave_Date") %>-<%#Eval("LeaveTo_Date") %></td>
-                                                    <td style="text-align: left;"><%#Eval("EMP_NAME") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Leave_Type") %></td>
-                                                    <td style="text-align: left;"><%#Eval("LeaveValue") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Requested_leave") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Reason") %></td>
+                                                    <td style="text-align: left;"><%#Eval("AttendanceDate1") %> </td>
+                                                    <td style="text-align: left;"><%#Eval("EMP_NAME") %></td> 
+                                                    <td style="text-align: left;"><%#Eval("Remarks") %></td>
                                                     <td style="text-align: left;">
-                                                        <a href="LeaveDeduct.aspx?id=<%#Eval("Leave_Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                        <a href="NightAttendance.aspx?id=<%#Eval("NightAttendance_Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
 
                                                         <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"
-                                                            CommandArgument='<%#Eval("Leave_Id") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
+                                                            CommandArgument='<%#Eval("NightAttendance_Id") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>

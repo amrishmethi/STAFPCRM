@@ -90,7 +90,7 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
             lblTotalCTC.Text = ((_TotalExp / _TotalAmount) * 100).ToString("0.00");
         }
 
-        
+
     }
 
     protected void btnSubmit_Click(object sender, EventArgs e)
@@ -136,7 +136,7 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
 
                 DataSet dss = getdata.GetSallary(_DD, "0", "0", hddcrmId.Value, "2", "ALL");
                 if (dss.Tables[0].Rows.Count > 0)
-                    lblExpense.Text = dss.Tables[0].Rows[0]["CTC"].ToString();
+                    lblExpense.Text = (Convert.ToDouble(dss.Tables[0].Rows[0]["CTC"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["CAVALUE"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["NSA"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["Other"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["DAL"])).ToString();
                 else
                     lblExpense.Text = "0";
                 double _CTC = Convert.ToDouble(lblExpense.Text) * 100 / Convert.ToDouble(lblAmount.Text);

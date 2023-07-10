@@ -68,8 +68,8 @@
                                 <asp:DropDownList ID="drpReport" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Text="EMPLOYEE WISE" Value="EMPLOYEEWISE" Selected="True"></asp:ListItem>
                                     <asp:ListItem Text="PARTY WISE" Value="PARTYWISE"></asp:ListItem>
-                                    <asp:ListItem Text="DATE WISE" Value="DATEWISE"></asp:ListItem>
-                                    <asp:ListItem Text="TARGET WISE" Value="TARGETWISE"></asp:ListItem>
+                            <%--        <asp:ListItem Text="DATE WISE" Value="DATEWISE"></asp:ListItem>
+                                    <asp:ListItem Text="TARGET WISE" Value="TARGETWISE"></asp:ListItem>--%>
                                 </asp:DropDownList>
                             </div> 
                             <div class="col-md-2">

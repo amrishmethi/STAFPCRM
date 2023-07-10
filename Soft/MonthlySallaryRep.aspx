@@ -84,7 +84,7 @@
                             <div class="table-responsive">
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
-                                       <%-- <tr>
+                                        <%-- <tr>
                                             <th colspan="5"></th>
                                             <th style="text-align: center; background-color: green; color: white" colspan="8">Earning</th>
                                             <th></th>
@@ -95,17 +95,17 @@
                                             <th style="text-align: left;">S No.</th>
                                             <th style="text-align: left;">
                                                 <input type='checkbox' id='chkAll' runat='server' onclick='javascript: SelectAllCheckboxes(this);' /></th>
-                                              <th style="text-align: left;">Month</th>
+                                            <th style="text-align: left;">Month</th>
                                             <th style="text-align: left;">Employee Name</th>
                                             <th style="text-align: left;">Net Salary</th>
                                             <th style="text-align: left;">No Of Working Days</th>
                                             <th style="text-align: left;">Basic Salary</th>
                                             <th style="text-align: left;">House Rent Allowance</th>
                                             <th style="text-align: left;">Other Allowance</th>
-                                            <th style="text-align: left;">Travel Allowance</th>
+                                            <%-- <th style="text-align: left;">Travel Allowance</th>
                                             <th style="text-align: left;">Daily Allowance Local</th>
                                             <th style="text-align: left;">Night Stay Allowance</th>
-                                            <th style="text-align: left;">Extra Claim</th>
+                                            <th style="text-align: left;">Extra Claim</th>--%>
                                             <th style="text-align: left;">Over Time</th>
                                             <th style="text-align: left;">Gross Salary</th>
                                             <th style="text-align: left;">Provident Fund</th>
@@ -132,17 +132,17 @@
                                                         <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("Id") %>' Visible='<%#Eval("IsApprove").ToString()=="True"?true:false%>'><i class="fa fa-trash-o"></i></asp:LinkButton>
 
                                                     </td>
-                                                                              <td style="text-align: left;"><%#Eval("SALARYMONTH") %></td>
+                                                    <td style="text-align: left;"><%#Eval("SALARYMONTH1") %></td>
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFWORKINGDAY") %>/<%#Eval("TotalWorkingDay") %></td>
                                                     <td style="text-align: left;"><a href='<%# "ShowPopup.aspx?EMP_ID="+Eval("EMP_ID") %>' runat="server" class="abc1"><%#Eval("BASIC_SALARYVALUE") %></a></td>
                                                     <td style="text-align: left;"><%#Eval("HRAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("OAVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("CAVALUE") %></td>
+                                                    <%-- <td style="text-align: left;"><%#Eval("CAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("DAL") %></td>
                                                     <td style="text-align: left;"><%#Eval("NSA") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Other") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Other") %></td>--%>
                                                     <td style="text-align: left;"><%#Eval("OverTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("GrossSalary") %></td>
                                                     <td style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></td>
@@ -168,10 +168,10 @@
                                                     <th style="text-align: left;"><%#Eval("BASIC_SALARYVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("HRAVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("OAVALUE") %></th>
-                                                    <th style="text-align: left;"><%#Eval("CAVALUE") %></th>
+                                                    <%--  <th style="text-align: left;"><%#Eval("CAVALUE") %></th>
                                                     <th style="text-align: left;"><%#Eval("DAL") %></th>
                                                     <th style="text-align: left;"><%#Eval("NSA") %></th>
-                                                    <th style="text-align: left;"><%#Eval("Other") %></th>
+                                                    <th style="text-align: left;"><%#Eval("Other") %></th>--%>
                                                     <th style="text-align: left;"><%#Eval("OverTime") %></th>
                                                     <th style="text-align: left;"><%#Eval("GrossSalary") %></th>
                                                     <th style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></th>

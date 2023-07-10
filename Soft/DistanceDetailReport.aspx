@@ -119,7 +119,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="5" style="text-align: right;">Total Disance</th>
+                                            <th colspan="6" style="text-align: right;">Total Disance</th>
                                             <td>
                                                 <asp:Label ID="txtTotal" runat="server"></asp:Label></td>
 
@@ -184,7 +184,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr class="gradeA">
-                                            <th colspan="2" style="text-align: right;">Total Distance</th>
+                                            <th colspan="3" style="text-align: right;">Total Distance</th>
                                             <td>
                                                 <asp:Label ID="lblTotalKM" runat="server"></asp:Label></td>
                                             <td>&nbsp;</td>

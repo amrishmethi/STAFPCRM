@@ -29,79 +29,9 @@ public class GetData
         //
     }
 
-    public void FillTypeOfConstruction(ListBox drptypeConst)
-    {
-        ds = data.getDataSet("select * from Tbl_TypeConst where IsDeleted=0 Order by TypeName");
-        drptypeConst.DataSource = ds;
-        drptypeConst.DataTextField = "TypeName";
-        drptypeConst.DataValueField = "ID";
-        drptypeConst.DataBind();
-    }
-
-
-    public void FillRoomType(ListBox drptypeConst)
-    {
-        ds = data.getDataSet("select * from Tbl_RoomType where IsDeleted=0 Order by Name");
-        drptypeConst.DataSource = ds;
-        drptypeConst.DataTextField = "Name";
-        drptypeConst.DataValueField = "ID";
-        drptypeConst.DataBind();
-    }
-
-    public void FillCustomer(DropDownList drptypeConst, string uid)
-    {
-        ds = data.getDataSet("select * from tbl_Enquiry where IsDeleted=0 and UserId = iif(" + uid + "=1,UserId," + uid + ") Order by Name");
-        drptypeConst.DataSource = ds;
-        drptypeConst.DataTextField = "Name";
-        drptypeConst.DataValueField = "ID";
-        drptypeConst.DataBind();
-
-    }
-
-    public void FillProduct(DropDownList drpName, string mid)
-    {
-        ds = data.getDataSet("select * from tbl_Product where IsDeleted=0 and MaterialID = '" + mid + "' Order by Name");
-        drpName.DataSource = ds;
-        drpName.DataTextField = "Name";
-        drpName.DataValueField = "ID";
-        drpName.DataBind();
-        drpName.Items.Insert(0, new ListItem("Select Name", "0"));
-
-    }
-
-    public void FillFinish(DropDownList drpFinish)
-    {
-        ds = data.getDataSet("select * from Tbl_MaterialType where IsDeleted=0  Order by Name");
-        drpFinish.DataSource = ds;
-        drpFinish.DataTextField = "Name";
-        drpFinish.DataValueField = "ID";
-        drpFinish.DataBind();
-        drpFinish.Items.Insert(0, new ListItem("Select Finish", "0"));
-    }
-
-    public void FillUnit(DropDownList drp)
-    {
-        ds = data.getDataSet("select * from tbl_Unit where IsDeleted=0 Order by Name");
-        drp.DataSource = ds;
-        drp.DataTextField = "Name";
-        drp.DataValueField = "ID";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select Unit", "0"));
-    }
-
-    public void FillColor(DropDownList drp)
-    {
-        ds = data.getDataSet("select * from tbl_MaterialColor where IsDeleted=0 Order by Name");
-        drp.DataSource = ds;
-        drp.DataTextField = "Name";
-        drp.DataValueField = "ID";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select Color", "0"));
-    }
-
     public void FillCompany(DropDownList DrpCompanies)
     {
-        string query = "Select *   FROM [stm_company].[dbo].[Company]";
+        string query = "Select *   FROM  [Company]";
         ds = data.getDataSet(query);
         DrpCompanies.DataSource = ds;
         DrpCompanies.DataTextField = "COname";
@@ -151,20 +81,25 @@ public class GetData
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
 
-    public void FillPrimaryStation(DropDownList drp)
+    public void FillPrimaryStation(DropDownList drp, string DistrictNo = "0")
     {
-        query = "select distinct Station from [STM_AcMast].[dbo].[Station] WHERE IsActive=1 order by Station ";
+        query = "select  Station,StationNo from  [Station] WHERE IsActive=1 ";
+        if (DistrictNo != "0")
+            query += " and DistrictNo=" + DistrictNo;
+        query += " order by Station ";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "Station";
-        drp.DataValueField = "Station";
+        drp.DataValueField = "StationNo";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
 
     public void FillPrimaryParty(DropDownList drp)
     {
-        query = "select * from STM_ACMAST.DBO.ACCOUNT order by ACNAME ";
+
+
+        query = "select AcName + '(' + AcStation + ')' AS AcName, AcCode from  ACCOUNT order by ACNAME ";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "ACNAME";
@@ -173,13 +108,40 @@ public class GetData
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
 
+    public void FillDistrict(DropDownList drpdistrict, string HeadQtr)
+    {
+        query = "select distinct District,DistrictNO from  [HEADQTRDISTRICT]  WHERE 0=0";
+        if (HeadQtr != "0")
+            query += " and HeadQtrNo=" + HeadQtr;
+        query += " order by District ";
+        ds = data.getDataSet(query);
+        drpdistrict.DataSource = ds;
+        drpdistrict.DataTextField = "District";
+        drpdistrict.DataValueField = "DistrictNO";
+        drpdistrict.DataBind();
+        drpdistrict.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillHeadQtr(DropDownList drpHEADQTR)
+    {
+        query = "select * from  [HEADQTRDISTRICT]  order by HEADQTR ";
+        ds = data.getDataSet(query);
+        drpHEADQTR.DataSource = ds;
+        drpHEADQTR.DataTextField = "HEADQTR";
+        drpHEADQTR.DataValueField = "HeadQtrNo";
+        drpHEADQTR.DataBind();
+        drpHEADQTR.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+
+
     public void FillStation(DropDownList drp)
     {
-        query = "select * from [STM_ACMAST].[DBO].[STATION] order by Station ";
+        query = "select * from [STATION] order by Station ";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "Station";
-        drp.DataValueField = "Station";
+        drp.DataValueField = "StationNo";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
@@ -197,7 +159,7 @@ public class GetData
 
     public void FillUser(DropDownList drp)
     {
-        query = "select * from [stm_acmast].[dbo].[tbl_EmpMaster] where Delid=0 order by Emp_Name ";
+        query = "select * from [tbl_EmpMaster] where Delid=0 order by Emp_Name ";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "Emp_Name";
@@ -207,7 +169,7 @@ public class GetData
     }
     public void FillGroup(DropDownList drp)
     {
-        query = "SELECT [CMsCode], [CMsName]   FROM [stm_stmast].[dbo].[CMaster] Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
+        query = "SELECT [CMsCode], [CMsName]   FROM [CMaster] Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "CMsName";
@@ -217,7 +179,7 @@ public class GetData
     }
     public void FillGroup(ListBox drp)
     {
-        query = "SELECT [CMsCode], [CMsName]   FROM [stm_stmast].[dbo].[CMaster] Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
+        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "CMsName";
@@ -225,9 +187,20 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
+
+    public void FillGroup1(ListBox drp)
+    {
+        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "CMsName";
+        drp.DataValueField = "CMsName";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
     public void FillItem(DropDownList drp)
     {
-        query = "SELECT ITName  FROM [stm_stmast].[dbo].[ITEM] Order By ITName";
+        query = "SELECT ITName  FROM  [ITEM] Order By ITName";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "ITName";
@@ -289,9 +262,9 @@ public class GetData
     }
 
 
-    public void FillUser(DropDownList drp, string De_Id, string status = "Active")
+    public void FillUser(DropDownList drp, string De_Id, string status = "Active", string Desg_Id = "0")
     {
-        query = "select * from [stm_acmast].[dbo].[tbl_EmpMaster] where Delid=0   ";
+        query = "select * from [tbl_EmpMaster] where Delid=0   ";
         if (De_Id != "0")
         {
             query += " and Dept_Id=" + De_Id;
@@ -299,6 +272,10 @@ public class GetData
         if (status != "ALL")
         {
             query += " and Status='" + status + "'";
+        }
+        if (Desg_Id != "0")
+        {
+            query += " and Desig_Id='" + Desg_Id + "'";
         }
         query += " order by Emp_Name ";
         ds = data.getDataSet(query);
@@ -310,7 +287,7 @@ public class GetData
     }
     public void FillCRMUser(DropDownList drp, string De_Id, string status)
     {
-        query = "select * from [stm_acmast].[dbo].[tbl_EmpMaster] where Delid=0 ";
+        query = "select * from [tbl_EmpMaster] where Delid=0 ";
         if (status != "ALL")
         {
             query += " and Status='" + status + "'";
@@ -332,24 +309,24 @@ public class GetData
 
     public DataSet FillHeadQtrDistrict()
     {
-        string query = "SELECT distinct [HeadQtr],[District] FROM [stm_acmast].[dbo].[HeadQtrDistrict] order by HeadQtr";
+        string query = "SELECT distinct [HeadQtr],[District],DistrictNo,HeadQtrNo FROM [HeadQtrDistrict] order by HeadQtr";
         return data.getDataSet(query);
     }
 
     public DataSet FillStation()
     {
-        string query = "SELECT * FROM [stm_acmast].[dbo].[station] order by station";
+        string query = "SELECT * FROM [station] order by station";
         return data.getDataSet(query);
     }
 
     public DataSet FillStationBeat()
     {
-        string query = "SELECT * FROM [stm_acmast].[dbo].[stationBeat] WHere isDelete=0 order by station";
+        string query = "SELECT * FROM [stationBeat] WHere isDelete=0 order by station";
         return data.getDataSet(query);
     }
 
-    public void FillData(DropDownList drp, DataTable ds,string TextField, string ValueField)
-    { 
+    public void FillData(DropDownList drp, DataTable ds, string TextField, string ValueField)
+    {
         drp.DataSource = ds;
         drp.DataTextField = TextField;
         drp.DataValueField = ValueField;

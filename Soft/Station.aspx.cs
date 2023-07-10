@@ -20,9 +20,10 @@ public partial class Soft_Station : System.Web.UI.Page
         if (!IsPostBack)
         {
             ViewState["HeadQtrDistrict"] = Gd.FillHeadQtrDistrict();
-            ViewState["station"] = Gd.FillStation();
+            ViewState["station"] = Gd.FillStation(); 
             BindData();
             FillData();
+
         }
     }
 
@@ -31,12 +32,12 @@ public partial class Soft_Station : System.Web.UI.Page
         ds = (DataSet)ViewState["HeadQtrDistrict"];
         DataView view = new DataView(ds.Tables[0]);
         view.Sort = "HeadQtr";
-        DataTable HeadQtr = view.ToTable(true, "HeadQtr");
-        Gd.FillData(drpHeadqtr, HeadQtr, "HeadQtr", "HeadQtr");
+        DataTable HeadQtr = view.ToTable(true, "HeadQtr", "HeadQtrNo");
+        Gd.FillData(drpHeadqtr, HeadQtr, "HeadQtr", "HeadQtrNo");
 
         view.Sort = "District";
-        DataTable District = view.ToTable(true, "District");
-        Gd.FillData(drpDistrict, District, "District", "District");
+        DataTable District = view.ToTable(true, "District", "DistrictNo");
+        Gd.FillData(drpDistrict, District, "District", "DistrictNo");
     }
     protected void IsChkLoginApp_CheckedChanged(object sender, EventArgs e)
     {
@@ -51,7 +52,7 @@ public partial class Soft_Station : System.Web.UI.Page
         HiddenField hddUid = (HiddenField)repDepartment.Items[ItemC].FindControl("hddUid");
         if (hddUid.Value != "")
         {
-            data.getDataSet("Update [stm_acmast].[dbo].[station]  set isActive = (case when isActive=1 then 0 else 1 end)  where StationID = " + hddUid.Value);
+            data.getDataSet("Update  [station]  set isActive = (case when isActive=1 then 0 else 1 end)  where StationNo = " + hddUid.Value);
             FillData();
         }
 
@@ -64,7 +65,7 @@ public partial class Soft_Station : System.Web.UI.Page
         {
             if (item.Selected)
             {
-                grp += "  or District='" + item.Value + "'";
+                grp += "  or DistrictNO='" + item.Value + "'";
             }
         }
 
@@ -72,7 +73,7 @@ public partial class Soft_Station : System.Web.UI.Page
         DataView view = new DataView(ds.Tables[0]);
         string _RowFilter = "0=0";
         if (drpHeadqtr.SelectedIndex > 0)
-            _RowFilter += " and HeadQtr='" + drpHeadqtr.SelectedValue + "'";
+            _RowFilter += " and HeadQtrNo='" + drpHeadqtr.SelectedValue + "'";
         if (grp != "0=0")
             _RowFilter += " and (" + grp.Replace("0=0  or", "") + ")";
         if (drpstatus.SelectedIndex > 0)

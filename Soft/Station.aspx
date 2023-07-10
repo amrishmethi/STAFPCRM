@@ -71,7 +71,7 @@
                                                     <td style="text-align: left;">
                                                         <asp:CheckBox ID="IsChkLoginApp" runat="server" Checked='<%# Convert.ToBoolean(Eval("isActive"))? true:false%>' AutoPostBack="true" OnCheckedChanged="IsChkLoginApp_CheckedChanged" />
 
-                                                        <asp:HiddenField ID="hddUid" Value='<%#Eval("StationID") %>' runat="server" />
+                                                        <asp:HiddenField ID="hddUid" Value='<%#Eval("StationNo") %>' runat="server" />
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>

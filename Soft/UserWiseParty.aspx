@@ -81,6 +81,10 @@
                                     <asp:ListItem Value="2">With Category</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
+                            <div class="col-md-2">
+                                <br />
+                                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-success" Text="Get Data" OnClick="btnSearch_Click" />
+                            </div>
                             <%--<div class="col-md-2">
                                 <label>Status</label>
                                 <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpStatus_SelectedIndexChanged" AutoPostBack="true">

@@ -29,6 +29,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             gd.fillDepartment(drpDepartment);
             DataSet dsusr = getdata.getHqtrUser();
+            ViewState["tbl1"] = dsusr;
             gd.FillPartyCategory(drpCatg);
             DataView dv = dsusr.Tables[0].DefaultView;
             dv.Sort = "Name";
@@ -54,21 +55,23 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
     }
     public void fillData()
     {
+        ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
+        ViewState["tbl"] = ds.Tables[0];
         DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
 
         string rowFilter = "0=0";
         if (drpheadQtr.SelectedIndex > 0)
         {
-            rowFilter += " and HeadQtr = '" + drpheadQtr.SelectedValue + "'";
+            rowFilter += " and HeadQtrNo = '" + drpheadQtr.SelectedValue + "'";
         }
 
         if (drpDistrict.SelectedIndex > 0)
         {
-            rowFilter += " and District = '" + drpDistrict.SelectedValue + "'";
+            rowFilter += " and DistrictNo = '" + drpDistrict.SelectedValue + "'";
         }
         if (drpStation.SelectedIndex > 0)
         {
-            rowFilter += " and Station = '" + drpStation.SelectedValue + "'";
+            rowFilter += " and StationNo = '" + drpStation.SelectedValue + "'";
         }
         if (drpCatg.SelectedIndex > 0)
         {
@@ -102,24 +105,29 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
 
     protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
-        ViewState["tbl"] = ds.Tables[0];
-        drpheadQtr.DataSource = ds.Tables[0].DefaultView.ToTable(true, "HeadQtr");
-        drpheadQtr.DataTextField = "HeadQtr";
-        drpheadQtr.DataValueField = "HeadQtr";
-        drpheadQtr.DataBind();
-        drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
-        drpDistrict.DataSource = ds.Tables[0].DefaultView.ToTable(true, "District");
+        DataView dv = ((DataSet)ViewState["tbl1"]).Tables[0].DefaultView;
+        dv.RowFilter = "MId=" + drpUser.SelectedValue;
+        dv.Sort = "District";
+        drpDistrict.DataSource = dv.ToTable(true, "District", "DistrictNo");
         drpDistrict.DataTextField = "District";
-        drpDistrict.DataValueField = "District";
+        drpDistrict.DataValueField = "DistrictNo";
         drpDistrict.DataBind();
         drpDistrict.Items.Insert(0, new ListItem("Select", "0"));
-        drpStation.DataSource = ds.Tables[0].DefaultView.ToTable(true, "Station");
-        drpStation.DataTextField = "Station";
-        drpStation.DataValueField = "Station";
-        drpStation.DataBind();
-        drpStation.Items.Insert(0, new ListItem("Select", "0"));
-        fillData();
+        //ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
+        //ViewState["tbl"] = ds.Tables[0];
+        //drpheadQtr.DataSource = ds.Tables[0].DefaultView.ToTable(true, "HeadQtr");
+        //drpheadQtr.DataTextField = "HeadQtr";
+        //drpheadQtr.DataValueField = "HeadQtr";
+        //drpheadQtr.DataBind();
+        //drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
+
+        //drpDistrict.Items.Insert(0, new ListItem("Select", "0"));
+        //drpStation.DataSource = ds.Tables[0].DefaultView.ToTable(true, "Station");
+        //drpStation.DataTextField = "Station";
+        //drpStation.DataValueField = "Station";
+        //drpStation.DataBind();
+        //drpStation.Items.Insert(0, new ListItem("Select", "0"));
+        //fillData();
 
     }
 
@@ -154,15 +162,17 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
 
     protected void drpDistrict_SelectedIndexChanged(object sender, EventArgs e)
     {
-        fillData();
-        DataTable dt = (DataTable)ViewState["tbl"];
-        DataView dv = dt.DefaultView;
-        dv.RowFilter = "District = '" + drpDistrict.SelectedValue + "'";
-        drpStation.DataSource = dv.ToTable(true, "Station");
-        drpStation.DataTextField = "Station";
-        drpStation.DataValueField = "Station";
-        drpStation.DataBind();
-        drpStation.Items.Insert(0, new ListItem("Select", "0"));
+        ////fillData();
+        //DataTable dt = (DataTable)ViewState["tbl"];
+        //DataView dv = dt.DefaultView;
+        //dv.RowFilter = "District = '" + drpDistrict.SelectedValue + "'";
+        //drpStation.DataSource = dv.ToTable(true, "Station");
+        //drpStation.DataTextField = "Station";
+        //drpStation.DataValueField = "Station";
+        //drpStation.DataBind();
+        //drpStation.Items.Insert(0, new ListItem("Select", "0"));
+
+        gd.FillPrimaryStation(drpStation, drpDistrict.SelectedValue);
     }
 
     protected void drpStation_SelectedIndexChanged(object sender, EventArgs e)
@@ -172,30 +182,35 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
 
     protected void drpCatg_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (drpUser.SelectedIndex > 0)
-        {
-            fillData();
-        }
+        //if (drpUser.SelectedIndex > 0)
+        //{
+        //    fillData();
+        //}
     }
 
     protected void drpType_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (drpType.SelectedValue == "1")
-            drpCatg.Enabled = false;
-        else
-            drpCatg.Enabled = true;
-        ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
-        ViewState["tbl"] = ds.Tables[0];
-        fillData();
+        //if (drpType.SelectedValue == "1")
+        //    drpCatg.Enabled = false;
+        //else
+        //    drpCatg.Enabled = true;
+        //ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
+        //ViewState["tbl"] = ds.Tables[0];
+        //fillData();
     }
 
 
 
     protected void chk_CheckedChanged(object sender, EventArgs e)
     {
-        if (drpUser.SelectedIndex > 0)
-        {
-            fillData();
-        }
+        //if (drpUser.SelectedIndex > 0)
+        //{
+        //    fillData();
+        //}
+    }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        fillData();
     }
 }

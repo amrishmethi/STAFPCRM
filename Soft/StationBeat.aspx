@@ -65,7 +65,7 @@
                                             <ItemTemplate>
                                                 <tr class="gradeA">
                                                     <td style="text-align: left;"><%# Container.ItemIndex+1 %>
-                                                        <asp:HiddenField ID="hddUid" Value='<%#Eval("StationID") %>' runat="server" />
+                                                        <asp:HiddenField ID="hddUid" Value='<%#Eval("BeatId") %>' runat="server" />
                                                     </td>
                                                     <%--<td style="text-align: left;">
                                                         <%#Eval("HeadQtr") %> 
@@ -80,9 +80,9 @@
                                                         <%#Eval("Beat") %> 
                                                     </td>
                                                     <td style="text-align: left;">
-                                                        <a href="StationBeatA.aspx?id=<%#Eval("StationID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                        <a href="StationBeatA.aspx?id=<%#Eval("BeatId") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
 
-                                                        <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("StationID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
+                                                        <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("BeatId") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>

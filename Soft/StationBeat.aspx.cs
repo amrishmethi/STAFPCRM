@@ -30,29 +30,29 @@ public partial class Soft_StationBeat : System.Web.UI.Page
         ds = (DataSet)ViewState["HeadQtrDistrict"];
         DataView view = new DataView(ds.Tables[0]);
         view.Sort = "HeadQtr";
-        DataTable HeadQtr = view.ToTable(true, "HeadQtr");
-        Gd.FillData(drpHeadqtr, HeadQtr, "HeadQtr", "HeadQtr");
+        DataTable HeadQtr = view.ToTable(true, "HeadQtr", "HeadQtrNo");
+        Gd.FillData(drpHeadqtr, HeadQtr, "HeadQtr", "HeadQtrNo");
 
         view.Sort = "District";
-        DataTable District = view.ToTable(true, "District");
-        Gd.FillData(drpDistrict, District, "District", "District");
+        DataTable District = view.ToTable(true, "District", "DistrictNo");
+        Gd.FillData(drpDistrict, District, "District", "DistrictNo");
 
         Gd.FillPrimaryStation(drpStation);
     }
-     
+
     public void FillData()
     {
         ds = Gd.FillStationBeat();
         DataView view = new DataView(ds.Tables[0]);
         string _RowFilter = "0=0";
         if (drpHeadqtr.SelectedIndex > 0)
-            _RowFilter += " and HeadQtr='" + drpHeadqtr.SelectedValue + "'";
+            _RowFilter += " and HeadQtrNo='" + drpHeadqtr.SelectedValue + "'";
         if (drpDistrict.SelectedIndex > 0)
-            _RowFilter += " and District='" + drpDistrict.SelectedValue + "'";
+            _RowFilter += " and DistrictNo='" + drpDistrict.SelectedValue + "'";
         if (drpStation.SelectedIndex > 0)
-            _RowFilter += " and Station='" + drpStation.SelectedValue + "'"; 
+            _RowFilter += " and StationId='" + drpStation.SelectedValue + "'";
         if (drpBeat.SelectedIndex > 0)
-            _RowFilter += " and StationId='" + drpBeat.SelectedValue + "'";
+            _RowFilter += " and BeatId='" + drpBeat.SelectedValue + "'";
         view.RowFilter = _RowFilter;
         view.Sort = "station";
         repDepartment.DataSource = view.ToTable();
@@ -65,10 +65,10 @@ public partial class Soft_StationBeat : System.Web.UI.Page
     {
         ds = (DataSet)ViewState["HeadQtrDistrict"];
         DataView view = new DataView(ds.Tables[0]);
-        view.RowFilter = "HeadQtr='" + drpHeadqtr.SelectedValue + "'";
+        view.RowFilter = "HeadQtrNo='" + drpHeadqtr.SelectedValue + "'";
         view.Sort = "District";
-        DataTable District = view.ToTable(true, "District");
-        Gd.FillData(drpDistrict, District, "District", "District");
+        DataTable District = view.ToTable(true, "District", "DistrictNo");
+        Gd.FillData(drpDistrict, District, "District", "DistrictNo");
 
         FillData();
     }
@@ -79,33 +79,33 @@ public partial class Soft_StationBeat : System.Web.UI.Page
         DataView view = new DataView(ds.Tables[0]);
         string _RowFilter = "0=0";
         if (drpHeadqtr.SelectedIndex > 0)
-            _RowFilter += " and HeadQtr='" + drpHeadqtr.SelectedValue + "'";
+            _RowFilter += " and HeadQtrNo='" + drpHeadqtr.SelectedValue + "'";
         if (drpDistrict.SelectedIndex > 0)
-            _RowFilter += " and District='" + drpDistrict.SelectedValue + "'";
+            _RowFilter += " and DistrictNo='" + drpDistrict.SelectedValue + "'";
 
         view.RowFilter = _RowFilter;
         view.Sort = "Station";
-        DataTable District = view.ToTable(true, "Station");
-        Gd.FillData(drpStation, District, "Station", "Station");
+        DataTable District = view.ToTable(true, "Station", "StationNo");
+        Gd.FillData(drpStation, District, "Station", "StationNo");
 
 
         FillData();
     }
-    
+
     protected void drpStation_SelectedIndexChanged(object sender, EventArgs e)
     {
         ds = Gd.FillStationBeat();
         DataView view = new DataView(ds.Tables[0]);
         string _RowFilter = "0=0";
         if (drpDistrict.SelectedIndex > 0)
-            _RowFilter += " and District='" + drpDistrict.SelectedValue + "'";
+            _RowFilter += " and DistrictNo='" + drpDistrict.SelectedValue + "'";
         if (drpStation.SelectedIndex > 0)
-            _RowFilter += " and Station='" + drpStation.SelectedValue + "'";
+            _RowFilter += " and StationId='" + drpStation.SelectedValue + "'";
         view.RowFilter = _RowFilter;
         view.Sort = "station";
 
-        DataTable District = view.ToTable(true, "Beat", "StationId");
-        Gd.FillData(drpBeat, District, "Beat", "StationId");
+        DataTable District = view.ToTable(true, "Beat", "BeatId");
+        Gd.FillData(drpBeat, District, "Beat", "BeatId");
 
         FillData();
     }
@@ -114,7 +114,7 @@ public partial class Soft_StationBeat : System.Web.UI.Page
     {
         if (e.CommandName == "Delete")
         {
-            DataSet dss = master.StationBeat("DELETE", "", "", "", "", e.CommandArgument.ToString()); 
+            DataSet dss = master.StationBeat("DELETE", "", "", "", "", "", e.CommandArgument.ToString());
             if (dss.Tables[0].Rows[0]["Result"].ToString() == "")
             {
                 ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record DELETE Successfully');window.location ='StationBeat.aspx'", true);

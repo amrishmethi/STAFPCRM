@@ -23,7 +23,8 @@ public partial class Soft_LeaveDeduct : System.Web.UI.Page
         Soft = Request.Cookies["STFP"];
         if (!IsPostBack)
         {
-            Gd.FillUser(drpEmployee);
+            Gd.fillDepartment(drpdepartment);
+            Gd.FillUser(drpEmployee,drpdepartment.SelectedValue);
             txtFromDate.Text = txtToDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
             TxtDay.Value = "1";
             if (Request.QueryString["id"] != null)
@@ -33,7 +34,9 @@ public partial class Soft_LeaveDeduct : System.Web.UI.Page
 
     private void FillRecord(string Id)
     {
-        DataSet dss = getdata.IU_LEAVE("SELECT", Id, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        DataSet dss = getdata.IU_LEAVE("SELECT", Id, "0", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+        drpdepartment.SelectedValue = dss.Tables[0].Rows[0]["Dept_Id"].ToString();
+        Gd.FillUser(drpEmployee, drpdepartment.SelectedValue);
         drpEmployee.SelectedValue = dss.Tables[0].Rows[0]["FK_EmpId"].ToString();
         txtFromDate.Text = dss.Tables[0].Rows[0]["Leave_Date"].ToString();
         txtToDate.Text = dss.Tables[0].Rows[0]["LeaveTo_Date"].ToString();
@@ -113,5 +116,11 @@ public partial class Soft_LeaveDeduct : System.Web.UI.Page
         return ApproveLeave;
 
 
+    }
+
+    protected void drpdepartment_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+        Gd.FillUser(drpEmployee, drpdepartment.SelectedValue);
     }
 }

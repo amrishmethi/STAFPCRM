@@ -21,32 +21,10 @@
                     <div class="box-body">
                         <div class="form-group">
 
-                            <div class="col-md-3">
-                                <label>Employee</label>
-                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
+
                             <div class="col-md-3">
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Date From</label>
-                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker" OnTextChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:TextBox>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Date To</label>
-                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker" OnTextChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:TextBox>
-                            </div>
-                            <div class="col-md-2">
-                                <label>IsCheck</label>
-                                <asp:DropDownList ID="drpIsCheck" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
-                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
-                                    <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
-                                    <asp:ListItem Value="0" Text="No"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
@@ -57,15 +35,39 @@
                                     <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
+                            <div class="col-md-3">
+                                <label>Employee</label>
+                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Date From</label>
+                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker">
+                                </asp:TextBox>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Date To</label>
+                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker">
+                                </asp:TextBox>
+                            </div>
+                            <div class="col-md-2">
+                                <label>IsCheck</label>
+                                <asp:DropDownList ID="drpIsCheck" runat="server" CssClass="form-control">
+                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
+                                    <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
+                                    <asp:ListItem Value="0" Text="No"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
 
-                            <%--<div class="col-md-1" style="padding-top: 3px;">
+
+                            <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>--%>
+                            </div>
                             <div class="clearfix">&nbsp;</div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
-                       
+
                     </div>
                 </div>
                 <div class="box box-primary">
@@ -90,10 +92,12 @@
                                             <th style="text-align: left;">Primary party</th>
                                             <th style="text-align: left;">Station</th>
                                             <th style="text-align: left;">Mobile No</th>
-                                            <th style="text-align: left;">Date<br />Time</th>
+                                            <th style="text-align: left;">Date<br />
+                                                Time</th>
                                             <th style="text-align: left;">Location</th>
                                             <th style="text-align: left;">Image</th>
-                                            <th style="text-align: left;">Date<br />Time</th>
+                                            <th style="text-align: left;">Date<br />
+                                                Time</th>
                                             <th style="text-align: left;">Location</th>
                                             <th style="text-align: left;">Next Party</th>
                                             <th style="text-align: left;">Next Station</th>
@@ -109,17 +113,19 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("UserName") %></td>
-                                                           <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("InImage") %>" class="abc1">
+                                                    <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("InImage") %>" class="abc1">
                                                         <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("InImage") %>' Width="50" Height="50" Visible='<%# (Eval("InImage").ToString()=="")?false:true %>' /></a></td>
                                                     <td style="text-align: left;"><%#Eval("Party") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;"><%#Eval("LoginMobile") %></td>
-                                                    <td style="text-align: left;"><%#Eval("CheckDate") %><br /><%#Eval("CheckTime") %></td>
+                                                    <td style="text-align: left;"><%#Eval("CheckDate") %><br />
+                                                        <%#Eval("CheckTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("Place") %></td>
-                                                    
-                                                           <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("OutImage") %>" class="abc1">
+
+                                                    <td><a href="ResizeImage.aspx?imgurl=<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("OutImage") %>" class="abc1">
                                                         <asp:Image runat="server" ImageUrl='<%# "https://app.tadkeshwarfoods.com/CameraPhotos/CheckInOut/" + Eval("OutImage") %>' Width="50" Height="50" Visible='<%# (Eval("OutImage").ToString()=="")?false:true %>' /></a></td>
-                                                    <td style="text-align: left;"><%#Eval("OutDate") %><br /><%#Eval("OutTime") %></td>
+                                                    <td style="text-align: left;"><%#Eval("OutDate") %><br />
+                                                        <%#Eval("OutTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("ChkOutPlace") %></td>
                                                     <td style="text-align: left;"><%#Eval("NextParty") %></td>
                                                     <td style="text-align: left;"><%#Eval("NextStation") %></td>

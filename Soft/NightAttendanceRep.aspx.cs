@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Soft_LeaveDeductRep : System.Web.UI.Page
+public partial class Soft_NightAttendanceRep : System.Web.UI.Page
 {
     private HttpCookie Soft;
     Data data = new Data();
@@ -30,7 +30,7 @@ public partial class Soft_LeaveDeductRep : System.Web.UI.Page
     {
         string _FROMDate = txtFromDate.Text == "" ? "" : data.ConvertToDateTime(txtFromDate.Text).ToString();
         string _ToDate = txtToDate.Text == "" ? "" : data.ConvertToDateTime(txtToDate.Text).ToString();
-        DataSet dss = getdata.IU_LEAVE("SELECT", "0", drpEmployee.SelectedValue, "", "", _FROMDate, _ToDate, "", "", "", "", "", "", "", "", "", "");
+        DataSet dss = getdata.IU_NIGHTATTENDANCE("SELECT", "0", drpEmployee.SelectedValue, drpdepartment.SelectedValue, _FROMDate, _ToDate, "");
         rep.DataSource = dss;
         rep.DataBind();
     }
@@ -39,10 +39,10 @@ public partial class Soft_LeaveDeductRep : System.Web.UI.Page
     {
         if (e.CommandName == "Delete")
         {
-            DataSet dss = getdata.IU_LEAVE("DELETE", e.CommandArgument.ToString(), "0", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+            DataSet dss = getdata.IU_NIGHTATTENDANCE("DELETE", e.CommandArgument.ToString(), "0", "0", "", "", "");
             if (dss.Tables[0].Rows[0]["Result"].ToString() == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record DELETE Successfully');window.location ='LeaveDeductRep.aspx'", true);
+                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record DELETE Successfully');window.location ='NightAttendanceRep.aspx'", true);
             }
         }
     }

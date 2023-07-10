@@ -27,11 +27,12 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
             Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            Gd.FillUser(drpUser);
+            //Gd.FillUser(drpUser);
             Gd.FillPrimaryParty(drpParty);
             Gd.FillPrimaryStation(drpStation);
             Gd.fillDepartment(drpDept);
-            fillData();
+            Gd.FillUser(drpUser, drpDept.SelectedValue, drpStatus.SelectedValue);
+            //fillData();
         }
     }
 
@@ -45,7 +46,7 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
         if (drpStatus.SelectedValue == "Active") { str += " and Status = 'Active'"; }
         else if (drpStatus.SelectedValue == "Non-Active") { str += " and Status = 'Non-Active'"; }
         dv.RowFilter = str;
-
+        dv.Sort = "Employees asc";
         DataTable dtt = dv.ToTable();
         DataRow drr = dtt.NewRow();
         drr["Employees"] = "Total";
@@ -73,7 +74,8 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
 
     protected void drpIsCheck_SelectedIndexChanged(object sender, EventArgs e)
     {
-        fillData();
+        Gd.FillUser(drpUser, drpDept.SelectedValue, drpStatus.SelectedValue);
+        //fillData();
     }
 
     protected void print_Click(object sender, EventArgs e)
@@ -269,5 +271,10 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
 
         }
 
+    }
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        fillData();
     }
 }

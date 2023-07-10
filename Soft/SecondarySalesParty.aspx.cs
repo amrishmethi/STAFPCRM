@@ -28,14 +28,15 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
             Gd.FillParty(drpParty);
             Gd.FillPrimaryStation(drpStation);
             ViewState["station"] = Gd.FillStation();
-            DataSet dsusr = getdata.getHqtrUser();
-            DataView dv = dsusr.Tables[0].DefaultView;
-            dv.Sort = "District";
-            drpheadQtr.DataSource = dv.ToTable(true, "District");
-            drpheadQtr.DataTextField = "District";
-            drpheadQtr.DataValueField = "District";
-            drpheadQtr.DataBind();
-            drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
+            Gd.FillDistrict(drpheadQtr, "0");
+            //DataSet dsusr = getdata.getHqtrUser();
+            //DataView dv = dsusr.Tables[0].DefaultView;
+            //dv.Sort = "District";
+            //drpheadQtr.DataSource = dv.ToTable(true, "District");
+            //drpheadQtr.DataTextField = "District";
+            //drpheadQtr.DataValueField = "District";
+            //drpheadQtr.DataBind();
+            //drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
             //fillData();
         }
     }
@@ -79,12 +80,12 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
         DataView view = new DataView(ds.Tables[0]);
         string _RowFilter = "0=0 and IsActive=1";
         if (drpheadQtr.SelectedIndex > 0)
-            _RowFilter += " and District='" + drpheadQtr.SelectedValue + "'";
+            _RowFilter += " and DistrictNo='" + drpheadQtr.SelectedValue + "'";
 
         view.RowFilter = _RowFilter;
         view.Sort = "Station";
-        DataTable District = view.ToTable(true, "Station");
-        Gd.FillData(drpStation, District, "Station", "Station");
+        DataTable District = view.ToTable(true, "Station", "StationNo");
+        Gd.FillData(drpStation, District, "Station", "StationNo");
     }
 
     protected void tnSearch_Click(object sender, EventArgs e)
@@ -98,15 +99,15 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
         DataView view = new DataView(ds.Tables[0]);
         string _RowFilter = "0=0";
         if (drpheadQtr.SelectedIndex > 0)
-            _RowFilter += " and District='" + drpheadQtr.SelectedValue + "'";
+            _RowFilter += " and DistrictNo='" + drpheadQtr.SelectedValue + "'";
         if (drpStation.SelectedIndex > 0)
-            _RowFilter += " and Station='" + drpStation.SelectedValue + "'";
+            _RowFilter += " and StationId='" + drpStation.SelectedValue + "'";
         view.RowFilter = _RowFilter;
         view.Sort = "station";
 
-        DataTable District = view.ToTable(true, "Beat", "StationId");
-        Gd.FillData(drpBeat, District, "Beat", "StationId");
-        Gd.FillData(drpBeat1, District, "Beat", "StationId");
+        DataTable District = view.ToTable(true, "Beat", "BeatId");
+        Gd.FillData(drpBeat, District, "Beat", "BeatId");
+        Gd.FillData(drpBeat1, District, "Beat", "BeatId");
     }
 
     protected void btnUpdateBeat_Click(object sender, EventArgs e)

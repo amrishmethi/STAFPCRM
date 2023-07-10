@@ -22,43 +22,9 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-
-                            <div class="col-md-3">
-                                <label>Employee</label>
-                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpIsCheck_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Station</label>
-                                <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpIsCheck_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Primary Party</label>
-                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpIsCheck_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Date From</label>
-                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker" OnTextChanged="drpIsCheck_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:TextBox>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Date To</label>
-                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker" OnTextChanged="drpIsCheck_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:TextBox>
-                            </div>
                             <div class="col-md-3">
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpIsCheck_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>IsSales</label>
-                                <asp:DropDownList ID="drpIsCheck" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpIsCheck_SelectedIndexChanged" AutoPostBack="true">
-                                    <asp:ListItem Value="" Text="All"></asp:ListItem>
-                                    <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
-                                    <asp:ListItem Value="0" Text="No"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
@@ -68,6 +34,45 @@
                                     <asp:ListItem Value="Active" Text="Active" Selected="True"></asp:ListItem>
                                     <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Employee</label>
+                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" >
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Station</label>
+                                <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-2">
+                                <label>Primary Party</label>
+                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Date From</label>
+                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker">
+                                </asp:TextBox>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Date To</label>
+                                <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker" >
+                                </asp:TextBox>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label>IsSales</label>
+                                <asp:DropDownList ID="drpIsCheck" runat="server" CssClass="form-control select2" >
+                                    <asp:ListItem Value="" Text="All"></asp:ListItem>
+                                    <asp:ListItem Value="1" Text="Yes"></asp:ListItem>
+                                    <asp:ListItem Value="0" Text="No"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <br />
+                                <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" ValidationGroup="aa" Text="Get Report" OnClick="btnSubmit_Click" />
                             </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
@@ -134,7 +139,7 @@
                                                     <td style="text-align: left;"><%#Eval("PrimaryStation") %></td>
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
                                                     <td>
-                                                        <a href="SalesItemReport.aspx?id=<%#Eval("ID") %>" style='<%#Eval("Employees").ToString()=="Total"?"padding: 1px 6px; font-size: 11px; display:none;":"padding: 1px 6px; font-size: 11px;"%>' class="btn btn-small btn-info  rolese" aria-label="View"><i class="fa fa-eye"></i></a>
+                                                        <a href="SalesItemReport.aspx?id=<%#Eval("ID") %>" style='<%#Eval("Employees").ToString()=="Total"?"padding: 1px 6px; font-size: 11px; display:none;": "padding: 1px 6px; font-size: 11px;"%>' class="btn btn-small btn-info  rolese" aria-label="View"><i class="fa fa-eye"></i></a>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>

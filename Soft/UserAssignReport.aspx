@@ -8,8 +8,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
-        <h1>Employee Assign Report  <asp:Button ID="btnSync" runat="server" CssClass="btn btn-success" Text="Sync Users"
-            OnClick="btnSync_Click" CausesValidation="false" /></h1>
+        <h1>Employee Assign Report 
+            <asp:Button ID="btnSync" runat="server" CssClass="btn btn-success" Text="Sync Users"
+                OnClick="btnSync_Click" CausesValidation="false" /></h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/UserAssignReport.aspx" class="active">Employee Assign Report </a></li>
@@ -21,24 +22,30 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-
-                            <div class="col-md-3">
-                                <label>Employee</label>
-                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
                             <div class="col-md-3">
                                 <label>Department</label>
-                                <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2"  OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                        
-
-<%--
+                            <div class="col-md-2">
+                                <label>
+                                    Employee Status
+                                </label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
+                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Employee</label>
+                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>--%>
+                            </div>
 
                         </div>
                         <div class="clearfix">&nbsp;</div>
@@ -77,7 +84,7 @@
                                                         <asp:CheckBox ID="IsChkLogin" runat="server" Checked='<%# Convert.ToBoolean(Eval("isCrmLogin"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLogin_CheckedChanged" /></td>
                                                     <td style="text-align: center;" class="isLoginVisible">
                                                         <asp:CheckBox ID="IsChkLoginApp" runat="server" Checked='<%# Convert.ToBoolean(Eval("Deactivate"))? false:true %>' AutoPostBack="true" OnCheckedChanged="IsChkLoginApp_CheckedChanged" /></td>
-                                                     <td style="text-align: center;" class="isLoginVisible">
+                                                    <td style="text-align: center;" class="isLoginVisible">
                                                         <asp:CheckBox ID="isCHkWitelist" runat="server" Checked='<%# Convert.ToBoolean(Eval("isWhitelist"))? true:false %>' AutoPostBack="true" OnCheckedChanged="isCHkWitelist_CheckedChanged" /></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("Department") %></td>

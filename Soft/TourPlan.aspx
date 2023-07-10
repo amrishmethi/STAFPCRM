@@ -37,52 +37,59 @@
                 <div class="box-body">
                     <div class="clearfix">&nbsp;</div>
                     <asp:HiddenField ID="hddid" runat="server" />
-                   <%-- <asp:UpdatePanel ID="updt1" runat="server">
+                    <%-- <asp:UpdatePanel ID="updt1" runat="server">
                         <ContentTemplate>--%>
-                            <div class="col-md-4">
-                                <label class="control-label">Employee </label>
-                                <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" Enabled="false" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-4">
-                                <label>HeadQuarter</label>
-                                <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" Enabled="false" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-4">
-                                <label>District</label>
-                                <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="clearfix">&nbsp;</div>
-                            <div class="col-md-4">
-                                <label>Station</label>
-                                <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Tour Date</label>
-                                <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker1">
-                                </asp:TextBox>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Purpose</label>
-                                <asp:TextBox ID="txtPurpose" runat="server" CssClass="form-control">
-                                </asp:TextBox>
-                            </div>
-                            <div class="col-md-3">
-                                <br />
-                                <asp:Button ID="btnsave" runat="server" Text="Save" CssClass="btn btn-success" OnClick="btnsave_Click" />
-                            </div>
-                            <div class="clearfix"></div>
+                    <div class="col-md-4">
+                        <label class="control-label">Employee </label>
+                        <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" Enabled="false" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-4">
+                        <label>HeadQuarter</label>
+                        <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" Enabled="false" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-4">
+                        <label>District</label>
+                        <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2">
+                        </asp:DropDownList>
+                    </div>
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="col-md-4">
+                        <label>Station</label>
+                        <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2">
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Tour Date</label>
+                        <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker1">
+                        </asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Purpose</label>
 
-                       <%-- </ContentTemplate>
+                        <asp:DropDownList ID="txtPurpose" runat="server" CssClass="form-control select2">
+                            <asp:ListItem Value="Secondary Sales">Secondary Sales</asp:ListItem>
+                            <asp:ListItem Value="Client Meet">Client Meet</asp:ListItem>
+                            <asp:ListItem Value="For Payment">For Payment</asp:ListItem>
+                            <asp:ListItem Value="Week Off">Week Off</asp:ListItem>
+                            <asp:ListItem Value="Leave">Leave</asp:ListItem>
+                            <asp:ListItem Value="Other">Other</asp:ListItem>
+
+                        </asp:DropDownList>
+                    </div>
+                    <div class="col-md-3">
+                        <br />
+                        <asp:Button ID="btnsave" runat="server" Text="Save" CssClass="btn btn-success" OnClick="btnsave_Click" />
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <%-- </ContentTemplate>
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="drpUser" EventName="SelectedIndexChanged" />
                             <asp:AsyncPostBackTrigger ControlID="drpheadQtr" EventName="SelectedIndexChanged" /> 
                         </Triggers>
                     </asp:UpdatePanel>--%>
-
                 </div>
             </div>
 

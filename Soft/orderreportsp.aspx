@@ -65,7 +65,7 @@
                                 <label>Report</label>
                                 <asp:DropDownList ID="drpReport" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Text="All Order" Value="All"></asp:ListItem>
-                                    <asp:ListItem Text="Sales" Value="Complete"></asp:ListItem>
+                                    <%--<asp:ListItem Text="Sales" Value="Complete"></asp:ListItem>--%>
                                     <asp:ListItem Text="Pending Order" Value="Pending"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IdentityModel.Protocols.WSTrust;
 using System.Web;
 
 
@@ -66,8 +67,9 @@ public class Master
 
     public DataSet getSubGrpString(string selectedValuee)
     {
-        cmd = new SqlCommand("Select CMsCode from [stm_stmast].[dbo].[CMaster] Where CMsSr='I' and MCMSCode='" + selectedValuee + "'");
-        cmd.CommandType = CommandType.Text;
+        //cmd = new SqlCommand("Select CMsCode from [stm_stmast].[dbo].[CMaster] Where CMsSr='I' and MCMSCode='" + selectedValuee + "'");
+        //cmd.CommandType = CommandType.Text;
+        cmd = new SqlCommand("Proc_cmaster '" + selectedValuee + "' ");
         ds = data.getDataSet(cmd);
         return ds;
     }
@@ -110,17 +112,18 @@ public class Master
         return ds;
     }
 
-    public DataSet getUserDetails(string userid, string dptid)
+    public DataSet getUserDetails(string userid, string dptid, string Status = "ALL")
     {
         cmd = new SqlCommand("PROC_USERDETAILS");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@UserID", userid);
         cmd.Parameters.AddWithValue("@DeptID", dptid);
+        cmd.Parameters.AddWithValue("@Status", Status);
         ds = data.getDataSet(cmd);
         return ds;
     }
 
-    public DataSet getUserReport(string userid, string mobile, string dept, string desg)
+    public DataSet getUserReport(string userid, string mobile, string dept, string desg, string Status)
     {
         cmd = new SqlCommand("PROC_USERDETAILSREPORT");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -128,6 +131,7 @@ public class Master
         cmd.Parameters.AddWithValue("@Mobno", mobile);
         cmd.Parameters.AddWithValue("@deptid", dept);
         cmd.Parameters.AddWithValue("@desgid", desg);
+        cmd.Parameters.AddWithValue("@Status", Status);
         ds = data.getDataSet(cmd);
         return ds;
     }
@@ -238,7 +242,7 @@ public class Master
         return ds;
     }
 
-    public DataSet getSaleOrderReportST(string head, string district, string report, string station, string dt, string dt1,string rate, string party, string Group)
+    public DataSet getSaleOrderReportST(string head, string district, string report, string station, string dt, string dt1, string rate, string party, string Group)
     {
         cmd = new SqlCommand("Proc_SaleOrderReportST");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -256,20 +260,36 @@ public class Master
         return ds;
     }
 
+    public DataSet getSaleSummaryReportST(string head, string district, string report, string station, string dt, string dt1, string rate, string party, string Group)
+    {
+        cmd = new SqlCommand("Proc_SaleSummaryReportST");
+        cmd.CommandType = CommandType.StoredProcedure;
 
+        cmd.Parameters.AddWithValue("@head", head);
+        cmd.Parameters.AddWithValue("@district", district);
+        cmd.Parameters.AddWithValue("@report", report);
+        cmd.Parameters.AddWithValue("@station", station);
+        cmd.Parameters.AddWithValue("@dtFrom", data.YYYYMMDD(dt));
+        cmd.Parameters.AddWithValue("@dtTo", data.YYYYMMDD(dt1));
+        cmd.Parameters.AddWithValue("@rate", rate);
+        cmd.Parameters.AddWithValue("@Party", party);
+        cmd.Parameters.AddWithValue("@Group", Group);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
     public DataSet getHqtrUser()
     {
-        return ds = data.getDataSet("select * from [stm_acmast].[dbo].GETHEADQUARTER order by Name,HEADQTR");
+        return ds = data.getDataSet("select * from GETHEADQUARTER order by Name,HEADQTR");
     }
     public DataSet getHqtrUser1()
     {
-        return ds = data.getDataSet("select * from [stm_acmast].[dbo].GETHEADQUARTER G inner Join [STM_AcMast].[dbo].[Station] S on S.District = G.district inner join [stm_acmast].[dbo].tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 order by Name,G.HEADQTR");
+        return ds = data.getDataSet("select * from GETHEADQUARTER G inner Join  [Station] S on S.DistrictNo = G.districtNo inner join tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 order by Name,G.HEADQTR");
     }
 
 
     public DataSet getHqtrUserDpt(string Dept_Id)
     {
-        string query = "select distinct  G.*,EMP.EMPID from [stm_acmast].[dbo].GETHEADQUARTER G inner join [stm_acmast].[dbo].tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 ";
+        string query = "select distinct  G.*,EMP.EMPID from  GETHEADQUARTER G inner join  tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 ";
         if (Dept_Id != "0")
             query += "and EMP.Dept_Id = " + Dept_Id + " ";
         query += "order by Name,HEADQTR";
@@ -464,6 +484,23 @@ public class Master
     }
 
 
+    public DataSet IU_NIGHTATTENDANCE(string ACTION, string NightAttendance_Id, string FK_EmpId, string Dept_Id, string AttendanceDate, string AttendanceDateTo, string Remarks)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "IU_NIGHTATTENDANCE";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@ACTION", ACTION);
+        cmd.Parameters.AddWithValue("@NightAttendance_Id", NightAttendance_Id);
+        cmd.Parameters.AddWithValue("@FK_EmpId", FK_EmpId);
+        cmd.Parameters.AddWithValue("@Dept_Id", Dept_Id);
+        cmd.Parameters.AddWithValue("@AttendanceDate", AttendanceDate);
+        cmd.Parameters.AddWithValue("@AttendanceDateTo", AttendanceDateTo);
+        cmd.Parameters.AddWithValue("@Remarks", Remarks);
+        DataSet ds = data.getDataSet(cmd);
+        return ds;
+    }
+
     public DataSet getSalesSummaryOrder(string EMPID, string HQTR, string PARTY, string ORDDATE, string TYPE, string DEPT_ID, string EMP_STATUS)
     {
         cmd = new SqlCommand("GETSALESUMMARY_REPORT");
@@ -483,7 +520,8 @@ public class Master
     {
         SqlCommand cmd = new SqlCommand();
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.CommandText = "GETSALLARYDATA_PROC";
+        cmd.CommandText = "GETSALLARYDATA_PROC1";
+        //cmd.CommandText = "GETSALLARYDATA_PROC";
         cmd.Parameters.Clear();
         cmd.Parameters.AddWithValue("@MONTH", _FromDate);
         cmd.Parameters.AddWithValue("@Dept_Id", Dept_Id);
@@ -541,7 +579,7 @@ public class Master
         return dss;
     }
 
-    public DataSet StationBeat(string Action, string STATION, string DISTRICT, string HEADQTR, string BEAT, string STATIONID)
+    public DataSet StationBeat(string Action, string STATION, string DISTRICT, string HEADQTR, string BEAT, string STATIONID,string BEATID)
     {
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = "IU_STATIONBEAT";
@@ -553,6 +591,7 @@ public class Master
         cmd.Parameters.AddWithValue("@HEADQTR", HEADQTR);
         cmd.Parameters.AddWithValue("@BEAT", BEAT);
         cmd.Parameters.AddWithValue("@STATIONID", STATIONID);
+        cmd.Parameters.AddWithValue("@BEATID", BEATID);
         DataSet dss = data.getDataSet(cmd);
         return dss;
     }

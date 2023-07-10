@@ -33,11 +33,11 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
 
     public void fillData(string id)
     {
-        ds = getdata.getSecondarySalesParty("SELECT", id, "0", "SELECT", "", "", "", "0", "");
+        ds = getdata.getSecondarySalesParty("SELECT", id, "0", "SELECT", "", "", "", "0", "0");
         if (ds.Tables[0].Rows.Count > 0)
         {
 
-            drpStation.SelectedValue = ds.Tables[0].Rows[0]["StationName"].ToString();
+            drpStation.SelectedValue = ds.Tables[0].Rows[0]["StationId"].ToString();
             txtParty.Text = ds.Tables[0].Rows[0]["Name"].ToString();
             txtMobile.Text = ds.Tables[0].Rows[0]["MobileNo"].ToString();
             txtWhatsApp.Text = ds.Tables[0].Rows[0]["WhatsUpMobileNo"].ToString();
@@ -84,11 +84,11 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
         DataView view = new DataView(ds1.Tables[0]);
         string _RowFilter = "0=0";
         if (drpStation.SelectedIndex > 0)
-            _RowFilter += " and Station='" + stationId + "'";
+            _RowFilter += " and StationId='" + stationId + "'";
         view.RowFilter = _RowFilter;
         view.Sort = "station";
 
-        DataTable District = view.ToTable(true, "Station", "StationId");
-        Gd.FillData(drpBeat, District, "Station", "StationId");
+        DataTable District = view.ToTable(true, "Beat", "BeatId");
+        Gd.FillData(drpBeat, District, "Beat", "BeatId");
     }
 }

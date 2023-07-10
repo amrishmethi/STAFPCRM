@@ -20,23 +20,24 @@ public partial class Admin_CheckInReport : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-              if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
+            if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
 
             Soft = Request.Cookies["STFP"];
 
             Session["AccessRigthsSet"] = getdata.AccessRights("CheckInReport.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            Gd.FillUser(drpUser);
+          
             Gd.fillDepartment(drpDept);
-            fillData();
+            Gd.FillUser(drpUser, drpDept.SelectedValue, drpStatus.SelectedValue);
+            //fillData();
         }
     }
 
     public void fillData()
     {
         string str = "1=1";
-        ds = getdata.getCheckInDetails(drpUser.SelectedValue,drpDept.SelectedValue, dpFrom.Text.Trim(), dpTo.Text.Trim());
+        ds = getdata.getCheckInDetails(drpUser.SelectedValue, drpDept.SelectedValue, dpFrom.Text.Trim(), dpTo.Text.Trim());
         DataView dv = ds.Tables[0].DefaultView;
         if (drpIsCheck.SelectedValue == "0") { str += " and AddedDate is null"; }
         else if (drpIsCheck.SelectedValue == "1") { str += " and AddedDate is not null"; }
@@ -48,10 +49,10 @@ public partial class Admin_CheckInReport : System.Web.UI.Page
     }
 
 
-    //protected void btnSearch_Click(object sender, EventArgs e)
-    //{
-    //    fillData();
-    //}
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        fillData();
+    }
 
     [WebMethod]
     public static string ControlAccess()
@@ -62,6 +63,6 @@ public partial class Admin_CheckInReport : System.Web.UI.Page
 
     protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
     {
-        fillData();
+        Gd.FillUser(drpUser, drpDept.SelectedValue, drpStatus.SelectedValue);
     }
 }

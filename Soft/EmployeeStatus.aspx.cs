@@ -254,7 +254,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
             DataTable dt_sales = dv.ToTable(true, "Emp_Name", "SALES_VISITED", "SALES_AMT", "CHECKIN_PARTY");
             if (dt_sales.Rows[0]["CHECKIN_PARTY"].ToString() != "")
             {
-                sb.Append("<td>" + txtdate.Text.Trim() + "<br/>(Visits : " + dt_sales.Compute("Sum(SALES_VISITED)", "") + ") <br/>(Amount : " + dt_sales.Compute("Sum(SALES_AMT)","")+"</td>");
+                sb.Append("<td>" + txtdate.Text.Trim() + "<br/>(Visits : " + dt_sales.Compute("Sum(SALES_VISITED)", "") + ") <br/>(Amount : " + dt_sales.Compute("Sum(SALES_AMT)", "") + "</td>");
                 sb.Append("<td>" + dt_sales.Rows[0]["CHECKIN_PARTY"] + " (Primary)</td>");
             }
             else
@@ -374,11 +374,19 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                     string _TotalDistance = "0";
                     string _Travel = "0";
                     string _TotalAmt = "0";
+                    string _NightStay = "0";
+                    string _DAL = "0";
+                    string _OTHER = "0";
+                    string _TourPlan = "";
                     if (dss.Tables[0].Rows.Count > 0)
                     {
                         _TotalDistance = dss.Tables[0].Rows[0]["TotalDistance"].ToString();
                         _Travel = dss.Tables[0].Rows[0]["Amount"].ToString();
+                        _NightStay = dss.Tables[0].Rows[0]["NightStay"].ToString();
+                        _DAL = dss.Tables[0].Rows[0]["DAL"].ToString();
+                        _OTHER = dss.Tables[0].Rows[0]["OTHER"].ToString();
                         _TotalAmt = dss.Tables[0].Rows[0]["NigVal"].ToString();
+                        _TourPlan = dss.Tables[0].Rows[0]["TourPlan"].ToString();
                     }
 
                     DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
@@ -445,6 +453,11 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<td></td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
+                            sb.Append("<td>Tour Plan :    </td>");
+                            sb.Append("<td colspan='3' align='center'>" + _TourPlan + "</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<tr>");
                             sb.Append("<td>Attandance in</td>");
                             sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["Att_DATEIN"].ToString() + " " + dt.Rows[0]["Att_TIMEIN"].ToString() + "</td>");
                             sb.Append("</tr>");
@@ -452,7 +465,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<td>Check in : " + dt.Rows[0]["CHECKIN_PARTY"].ToString() + " </td>");
                             sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["CHECKIN_DATE"].ToString() + " " + dt.Rows[0]["CHECKIN_TIME"].ToString() + "</td>");
                             sb.Append("</tr>");
-                            sb.Append("<tr>");
+                          
                             sb.Append("<td>Secondary sale(Amount)</td>");
 
 
@@ -551,13 +564,31 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<td>&nbsp;</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
-                            sb.Append("<td>Employee travel expenses</td>");
+                            sb.Append("<td>Employee Travel Expenses</td>");
                             sb.Append("<td>&nbsp;</td>");
                             sb.Append("<td>" + _Travel + "</td>");
                             sb.Append("<td>&nbsp;</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
-                            sb.Append("<td>Employee expenses</td>");
+                            sb.Append("<td>Employee Night Stay Expenses</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>" + _NightStay + "</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Employee Daily Expenses</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>" + _DAL + "</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Employee Other Expenses</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>" + _OTHER + "</td>");
+                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("</tr>");
+                            sb.Append("<tr>");
+                            sb.Append("<td>Employee Total Expenses</td>");
                             sb.Append("<td>&nbsp;</td>");
                             sb.Append("<td>" + _TotalAmt + "</td>");
                             sb.Append("<td>&nbsp;</td>");

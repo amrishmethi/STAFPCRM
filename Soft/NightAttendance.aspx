@@ -1,16 +1,16 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="LeaveDeduct.aspx.cs" Inherits="Soft_LeaveDeduct" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="NightAttendance.aspx.cs" Inherits="Soft_NightAttendance" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
-        <h1>Leave Deduct &nbsp;&nbsp;&nbsp;
+        <h1>Night Attendance &nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnBack" runat="server" CssClass="btn btn-danger" Text="Back To List"
             CausesValidation="false" OnClick="btnCancel_Click" />
         </h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/LeaveDeductRep.aspx" class="active">Leave Deduct </a></li>
+            <li><a href="/Soft/NightAttendanceRep.aspx" class="active">Night Attendance </a></li>
         </ol>
     </section>
     <section class="content">
@@ -18,7 +18,7 @@
             <div class="box-body">
                 <div class="col-md-12" style="border-bottom: .5px solid lightgrey;">
                     <h4 class="box-title">
-                        <label>Leave Deduct </label>
+                        <label>Night Attendance </label>
                     </h4>
                     <div class="col-md-4">
                         <label class="control-label">Department <span style="color: #ff0000">*</span></label>
@@ -34,42 +34,9 @@
                     </div>
 
                     <div class="col-md-2">
-                        <label class="control-label">Date From</label>
-                        <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control datepicker" ClientIDMode="Static" onchange="getdays();"></asp:TextBox>
+                        <label class="control-label">Date </label>
+                        <asp:TextBox ID="txtFromDate" runat="server" CssClass="form-control datepicker" ClientIDMode="Static"></asp:TextBox>
                     </div>
-                    <div class="col-md-2">
-                        <label class="control-label">Date To</label>
-                        <asp:TextBox ID="txtToDate" runat="server" CssClass="form-control datepicker" ClientIDMode="Static" onchange="getdays();"></asp:TextBox>
-                    </div>
-                    <div class="clearfix">&nbsp;</div>
-                    <div class="col-md-4">
-                        <label class="control-label">Leave Type</label>
-                        <br />
-                        <asp:DropDownList ID="drpLeaveType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpLeaveType_SelectedIndexChanged" AutoPostBack="true">
-                            <asp:ListItem Text="--Select--" Value="0"></asp:ListItem>
-                            <asp:ListItem Text="Casual Leave" Value="Casual Leave"></asp:ListItem>
-                            <%--<asp:ListItem Text="Sick Leave" Value="2"></asp:ListItem>--%>
-                            <%--<asp:ListItem Text="Paid Leave" Value="Paid Leave"></asp:ListItem>--%>
-                        </asp:DropDownList>
-                    </div>
-                    <div class="col-md-2 hidden">
-                        <label>Remaining Leave</label>
-                        <asp:TextBox ID="txtRemaininig" runat="server" ReadOnly="true" CssClass="form-control"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="control-label">Days</label>
-                        <input id="TxtDay" runat="server" class="form-control" readonly="" />
-                    </div>
-                    <div class="clearfix">&nbsp;</div>
-                    <div class="col-md-4 hidden">
-                        <label class="control-label">Leave</label>
-                        <br />
-                        <asp:RadioButton ID="rbHalfDay" runat="server" Text=" Half Day" GroupName="A" />
-                        &nbsp;&nbsp;&nbsp;
-                        <asp:RadioButton ID="rbFullDay" runat="server" Text="Full Day" GroupName="A" Checked="true" />
-                    </div>
-
-
                     <div class="col-md-4">
                         <label class="control-label">Reason </label>
                         <asp:TextBox ID="txtReason" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
@@ -84,6 +51,7 @@
                                 Text="Cancel" />
                         </div>
                     </div>
+                    <div class="clearfix">&nbsp;</div>
                 </div>
             </div>
         </div>
@@ -98,7 +66,7 @@
             debugger
             $.ajax({
 
-                url: 'LeaveDeduct.aspx/GetDays',
+                url: 'NightAttendance.aspx/GetDays',
                 dataType: "json",
                 data: '{From: "' + dateI1 + '",To: "' + dateI2 + '"}',
                 type: "POST",
@@ -121,7 +89,7 @@
             debugger
             $.ajax({
 
-                url: 'LeaveDeduct.aspx/GetDays',
+                url: 'NightAttendance.aspx/GetDays',
                 dataType: "json",
                 data: '{From: "' + dateI1 + '",To: "' + dateI2 + '"}',
                 type: "POST",
