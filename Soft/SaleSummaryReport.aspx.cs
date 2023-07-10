@@ -10,7 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class Soft_orderreportsp : System.Web.UI.Page
+public partial class Soft_SaleSummaryReport : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
@@ -34,7 +34,6 @@ public partial class Soft_orderreportsp : System.Web.UI.Page
             gd.FillPrimaryParty(drpParty);
             gd.FillPrimaryStation(Drpstation);
             gd.FillGroup1(drpGrp);
-
         }
     }
 
@@ -66,7 +65,12 @@ public partial class Soft_orderreportsp : System.Web.UI.Page
 
     public void fillData()
     {
-        string head = drpHeadQtr.SelectedValue; 
+        // LblFrom.Text = dpFrom.Text;
+        //Lblto.Text = dpTo.Text;
+
+
+
+        string head = drpHeadQtr.SelectedValue;
         string station = Drpstation.SelectedValue;
         string party = drpParty.SelectedItem.Text;
         string rate = Drprate.SelectedValue;
@@ -89,10 +93,74 @@ public partial class Soft_orderreportsp : System.Web.UI.Page
 
 
         }
-        ds = getdata.getSaleOrderReportST(head, district, drpReport.SelectedValue, station, dpFrom.Text, dpTo.Text, rate, party, grp);  
-       
-        rep.DataSource = ds.Tables[0];
-        rep.DataBind();
+
+
+        ds = getdata.getSaleSummaryReportST(head, district, drpReport.SelectedValue, station, dpFrom.Text, dpTo.Text, rate, party, grp);
+
+        if (ds.Tables.Count > 0)
+        {
+            DataTable dt = ds.Tables[0];
+
+            decimal totalPrice = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["ordbag"]));
+            decimal totalPrice1 = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["CWeight"]));
+            decimal totalPrice2 = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Qty"]));
+            decimal totalPrice3 = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["amount"]));
+
+            var groupedData = dt.AsEnumerable()
+                .GroupBy(row => row.Field<string>("cmsname"))
+                .Select(group => new
+                {
+                    cmscname = group.Key,
+                    rows = group.CopyToDataTable(),
+                    totalPrice = group.Sum(row => Convert.ToDecimal(row["ordbag"])),
+                    totalPrice1 = group.Sum(row => Convert.ToDecimal(row["CWeight"])),
+                    totalPrice2 = group.Sum(row => Convert.ToDecimal(row["Qty"])),
+                    totalPrice3 = group.Sum(row => Convert.ToDecimal(row["amount"]))
+
+                })
+                .ToList();
+
+            DataTable mergedTable = new DataTable();
+            mergedTable.Columns.Add("row_num", typeof(string));
+            mergedTable.Columns.Add("HeadQtr", typeof(string));
+            mergedTable.Columns.Add("District", typeof(string));
+            mergedTable.Columns.Add("Station", typeof(string));
+            mergedTable.Columns.Add("acname", typeof(string));
+            mergedTable.Columns.Add("ordbag", typeof(decimal));
+            mergedTable.Columns.Add("CWeight", typeof(decimal));
+            mergedTable.Columns.Add("Qty", typeof(decimal));
+            mergedTable.Columns.Add("amount", typeof(decimal));
+
+            foreach (var item in groupedData)
+            {
+                mergedTable.Rows.Add(DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, item.cmscname + "(" + dpFrom.Text + "-" + dpTo.Text + ")", DBNull.Value, DBNull.Value, DBNull.Value);
+
+                foreach (DataRow row in item.rows.Rows)
+                {
+                    mergedTable.ImportRow(row);
+                }
+
+                DataRow groupFooterRow = mergedTable.NewRow();
+                groupFooterRow["acname"] = "Total";
+                groupFooterRow["ordbag"] = item.totalPrice;
+                groupFooterRow["CWeight"] = item.totalPrice1;
+                groupFooterRow["Qty"] = item.totalPrice2;
+                groupFooterRow["amount"] = item.totalPrice3;
+                mergedTable.Rows.Add(groupFooterRow);
+            }
+
+            DataRow footerRow = mergedTable.NewRow();
+            footerRow["acname"] = "Grand Total";
+            footerRow["ordbag"] = totalPrice;
+            footerRow["CWeight"] = totalPrice1;
+            footerRow["Qty"] = totalPrice2;
+            footerRow["amount"] = totalPrice3;
+            mergedTable.Rows.Add(footerRow);
+
+            rep.DataSource = mergedTable;
+            rep.DataBind();
+        }
+
     }
     
     protected void btnSearch_Click(object sender, EventArgs e)
