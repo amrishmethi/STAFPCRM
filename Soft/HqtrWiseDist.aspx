@@ -6,7 +6,7 @@
     <title>HeadQuarter Wise District(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server"> 
+<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <asp:ScriptManager ID="scpt1" runat="server"></asp:ScriptManager>
     <section class="content-header" style="height: 2.5em;">
         <h1>HeadQuarter Wise District</h1>
@@ -17,84 +17,64 @@
     </section>
     <section class="content">
         <div class="row">
-
             <div class="col-md-12">
-
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-
-<%--                               <asp:UpdatePanel ID="upd" runat="server">
-                    <ContentTemplate>--%>
-                              
                             <div class="col-md-3">
-                                 <asp:RadioButton ID="RadioButton1" runat="server" Text="&nbsp;Employee" GroupName="Filter" Checked="true" OnCheckedChanged="RadioButton1_CheckedChanged" AutoPostBack="true"/> 
+                                <asp:RadioButton ID="RadioButton1" runat="server" Text="&nbsp;Employee" GroupName="Filter" Checked="true" OnCheckedChanged="RadioButton1_CheckedChanged" AutoPostBack="true" />
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                 <asp:RadioButton ID="RadioButton2" runat="server" Text="&nbsp;HeadQuarter" GroupName="Filter" OnCheckedChanged="RadioButton1_CheckedChanged" AutoPostBack="true"/> 
-                               <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:RadioButton ID="RadioButton2" runat="server" Text="&nbsp;HeadQuarter" GroupName="Filter" OnCheckedChanged="RadioButton1_CheckedChanged" AutoPostBack="true" />
+                                <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                           
-                            <%--<div class="col-md-2">
-                                        <label>District</label>
-                                        <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
-                                        </asp:DropDownList>
-                                    </div>--%>
-                            <%--   <div class="col-md-1" style="padding-top: 3px;">
-                                        <div class="clearfix">&nbsp;</div>
-                                        <asp:button id="btnsearch" runat="server" cssclass="btn btn-primary" text="search" onclick="btnsearch_click" />
-                                    </div>--%>
-                             <%--</ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="RadioButton1" EventName="CheckedChanged" />
-                        <asp:AsyncPostBackTrigger ControlID="RadioButton2" EventName="CheckedChanged" />
-                      
-                    </Triggers>
-                </asp:UpdatePanel>--%>
+                            <div class="col-md-1" style="padding-top: 3px;">
+                                <div class="clearfix">&nbsp;</div>
+                                <asp:Button ID="btnsearch" runat="server" CssClass="btn btn-success" Text="Get Data" OnClick="btnsearch_Click" />
+                            </div>
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="clearfix">&nbsp;</div>
                         </div>
-                        <div class="clearfix">&nbsp;</div>
-                        <div class="clearfix">&nbsp;</div>
                     </div>
-                </div>
-                <div class="box box-primary">
-                    <div class="box-body">
-                        <div class="widget-content">
-                            <div class="table-responsive">
-                                <table id="ExportTbl" class="table table-bordered display table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Sr. No.</th>
-                                            <th>Employee</th>
-                                            <th>HeadQuarter</th>
-                                            <th>District</th>
-                                            <th>Station</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <asp:Repeater ID="rep" runat="server">
-                                            <ItemTemplate>
-                                                <tr class="gradeA">
-                                                    <td>
-                                                        <%#Container.ItemIndex+1 %>
-                                                    </td>
-                                                    <td style="text-align: left;"><%#Eval("Employee") %></td>
-                                                    <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
-                                                    <td style="text-align: left;"><%#Eval("District") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Station") %></td>
-                                                   </tr>
-                                            </ItemTemplate>
-
-                                        </asp:Repeater>
-                                    </tbody>
-                                </table>
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <div class="widget-content">
+                                <div class="table-responsive">
+                                    <table id="ExportTbl" class="table table-bordered display table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Sr. No.</th>
+                                                <th>Employee</th>
+                                                <th>HeadQuarter</th>
+                                                <th>District</th>
+                                                <th>Station</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <asp:Repeater ID="rep" runat="server">
+                                                <ItemTemplate>
+                                                    <tr class="gradeA">
+                                                        <td>
+                                                            <%#Container.ItemIndex+1 %>
+                                                        </td>
+                                                        <td style="text-align: left;"><%#Eval("NAME") %></td>
+                                                        <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
+                                                        <td style="text-align: left;"><%#Eval("District") %></td>
+                                                        <td style="text-align: left;"><%#Eval("Station") %></td>
+                                                    </tr>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </section>
@@ -149,4 +129,3 @@
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
-

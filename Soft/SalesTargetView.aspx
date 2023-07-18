@@ -1,15 +1,15 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="SalesTarget.aspx.cs" Inherits="Admin_SalesTarget" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="SalesTargetView.aspx.cs" Inherits="Admin_SalesTargetView" %>
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>Sales Target(STAFP)</title>
+    <title>Sales Target View(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <asp:ScriptManager ID="scpt1" runat="server"></asp:ScriptManager>
     <section class="content-header" style="height: 2.5em;">
-        <h1>Sales Target</h1>
+        <h1>Sales Target View</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/SalesTarget.aspx" class="active">Sales Target</a></li>
@@ -79,12 +79,7 @@
                             <div class="col-md-4">
                                 <br />
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Target"
-                                    ValidationGroup="aa" OnClick="btnSubmit_Click" />
-                                &nbsp;
-                                &nbsp;
-                                &nbsp;
-                                <asp:Button ID="btnSalary" runat="server" CssClass="btn btn-primary" Text="Save Target"
-                                    ValidationGroup="aa" OnClick="btnSalary_Click" />
+                                    ValidationGroup="aa" OnClick="btnSubmit_Click" /> 
                             </div>
 
                         </div>
@@ -100,19 +95,20 @@
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Sr. No.</th>
-                                            <%--<th>Employee</th>--%>
-                                            <%--<th>HeadQuarter</th>--%>
+                                            <th>Sr. No.</th> 
                                             <th>District</th>
                                             <th>Party Category</th>
                                             <th>Party</th>
                                             <th>Station</th>
                                             <th>Powder</th>
+                                            <th>Sale (Powder)</th>
+                                            <th>Remaining (Powder)</th>
                                             <th>BAR/ TUB</th>
-                                            <th>KLEAN BOLD POWDER</th>
-                                            <th>Last Month Sale (Powder)</th>
-                                            <th>Last Month Sale (BAR/ TUB)</th>
-                                            <th>Last Month Sale (KBP)</th>
+                                            <th>Sale (BAR/ TUB)</th>
+                                            <th>Remaining (BAR/ TUB)</th>
+                                            <th>Klean Bold Powder</th>
+                                            <th>Sale (KBP)</th>
+                                            <th>Remaining (KBP)</th>
                                         </tr>
 
                                     </thead>
@@ -122,26 +118,21 @@
                                                 <tr class="gradeA">
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
-                                                        <asp:HiddenField ID="hddId" runat="server" Value='<%#Eval("TargetId") %>' />
-                                                    </td>
-                                                    <%--<td style="text-align: left;"><%#Eval("Employee") %></td>--%>
-                                                    <%--<td style="text-align: left;"><%#Eval("HeadQtr") %></td>--%>
+                                                        <%--<asp:HiddenField ID="hddId" runat="server" Value='<%#Eval("TargetId") %>' />--%>
+                                                    </td> 
                                                     <td style="text-align: left;"><%#Eval("District") %></td>
                                                     <td style="text-align: left;"><%#Eval("PartyCategory") %></td>
                                                     <td style="text-align: left;"><%#Eval("Party") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
-                                                    <td style="text-align: left;">
-                                                        <asp:TextBox ID="txtPowder" CssClass="form-control Powder" runat="server" Text='<%#Eval("Powder") %>' onkeypress="return IsNumericKey(event);"></asp:TextBox></td>
-                                                    <td style="text-align: left;">
-                                                        <asp:TextBox ID="txtBar_Tub" CssClass="form-control Bar_Tub" runat="server" Text='<%#Eval("Bar_Tub") %>' onkeypress="return IsNumericKey(event);"></asp:TextBox>
-                                                    </td>
-                                                    <td style="text-align: left;">
-                                                        <asp:TextBox ID="txtclean" CssClass="form-control clean" runat="server" Text='<%#Eval("KLEAN_BOLD_POWDER") %>' onkeypress="return IsNumericKey(event);"></asp:TextBox>
-                                                    </td>
-
-                                                    <td style="text-align: left;"><%#Eval("Sale_POWDER") %></td>
+                                                    <td style="text-align: left;"><%#Eval("POWDER") %> </td>
+                                                    <td style="text-align: left;"><%#Eval("SALE_POWDER") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Balance_POwder") %></td>
+                                                    <td style="text-align: left;"><%#Eval("BAR_TUB") %> </td>
                                                     <td style="text-align: left;"><%#Eval("Sale_BAR_AND_TUB") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Balance_BT") %></td>
+                                                    <td style="text-align: left;"><%#Eval("KLEAN_BOLD_POWDER") %> </td>
                                                     <td style="text-align: left;"><%#Eval("KLEAN_POWDER") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Balance_KBP") %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -149,22 +140,28 @@
                                     <tfoot>
                                         <tr class="gradeA">
                                             <td></td> 
-                                            <td>Total</td>
                                             <td></td>
+                                            <td>Total</td>
                                             <td></td>
                                             <td></td>
                                             <td>
                                                 <input id="lblPowderTotal" runat="server" value="0" readonly class="form-control" /></td>
                                             <td>
+                                                <input id="lblSale_POWDER" runat="server" value="0" readonly class="form-control" /></td>
+                                            <td>
+                                                <input id="lblBalance_POWDER" runat="server" value="0" readonly class="form-control" /></td>
+                                            <td>
                                                 <input id="lblBar_Tub" runat="server" value="0" readonly class="form-control" /></td>
-                                            <td>
-                                                <input id="lblclean" runat="server" value="0" readonly class="form-control" /></td>
-                                            <td>
-                                                <input id="lblSale_POWDERl" runat="server" value="0" readonly class="form-control" /></td>
                                             <td>
                                                 <input id="lblSale_BAR_AND_TUB" runat="server" value="0" readonly class="form-control" /></td>
                                             <td>
+                                                <input id="lblBalance_BAR_AND_TUB" runat="server" value="0" readonly class="form-control" /></td>
+                                            <td>
+                                                <input id="lblclean" runat="server" value="0" readonly class="form-control" /></td>
+                                            <td>
                                                 <input id="lblKLEAN_POWDER" runat="server" value="0" readonly class="form-control" /></td>
+                                            <td>
+                                                <input id="lblBalanceKLEAN_POWDER" runat="server" value="0" readonly class="form-control" /></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -223,48 +220,6 @@
             });
         })
 
-    </script>
-    <script> 
-
-        $(document).ready(function () {
-            $("#ExportTbl").on('input', '.Powder', function () {
-                var calculated_total_sum = 0;
-
-                $("#ExportTbl .Powder").each(function () {
-                    var get_textbox_value = $(this).val();
-                    if ($.isNumeric(get_textbox_value)) {
-                        calculated_total_sum += parseFloat(get_textbox_value);
-                    }
-                }); 
-                document.getElementById("Body_lblPowderTotal").value = calculated_total_sum;
-            });
-
-            $("#ExportTbl").on('input', '.Bar_Tub', function () {
-                var calculated_total_sum = 0;
-
-                $("#ExportTbl .Bar_Tub").each(function () {
-                    var get_textbox_value = $(this).val();
-                    if ($.isNumeric(get_textbox_value)) {
-                        calculated_total_sum += parseFloat(get_textbox_value);
-                    }
-                });
-                document.getElementById("Body_lblBar_Tub").value = calculated_total_sum;
-            });
-
-            $("#ExportTbl").on('input', '.clean', function () {
-                var calculated_total_sum = 0;
-
-                $("#ExportTbl .clean").each(function () {
-                    var get_textbox_value = $(this).val();
-                    if ($.isNumeric(get_textbox_value)) {
-                        calculated_total_sum += parseFloat(get_textbox_value);
-                    }
-                });
-                document.getElementById("Body_lblclean").value = calculated_total_sum;
-            });
-        });
-
-         
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>

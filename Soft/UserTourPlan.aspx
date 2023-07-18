@@ -24,6 +24,16 @@
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
+                            <div class="col-md-2">
+                                <label>
+                                    Employee Status
+                                </label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
+                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-3">
                                 <label class="control-label">Employee </label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
@@ -38,17 +48,7 @@
                                 <label>District</label>
                                 <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>
-                                    Employee Status
-                                </label>
-                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2">
-                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
-                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
-                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
+                            </div> 
                             <div class="col-md-2">
                                 <label>Date From</label>
                                 <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker1">

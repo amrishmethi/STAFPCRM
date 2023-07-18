@@ -38,7 +38,7 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
 
     public void fillData()
     {
-        ds = getdata.getUserDetails(drpUser.SelectedValue,drpDept.SelectedValue, drpStatus.SelectedValue);
+        ds = getdata.getUserDetails(drpUser.SelectedValue, drpDept.SelectedValue, drpStatus.SelectedValue);
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
@@ -154,7 +154,7 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
         DataSet dsUser1 = syncData.getDataSet("select * FROM [CSinfo].[dbo].[MobileAppUser] where Cast([ModifiedDate] as date)=Cast(getdate() as date)");
         foreach (DataRow drr in dsUser1.Tables[0].Rows)
         {
-            _QBind = " Update  [CSinfo].[dbo].[MobileAppUser] SET [Password]='" + drr["Password"] + "' WHERE id='" + drr["id"] + "' ";
+            _QBind = " Update  [CSinfo].[dbo].[MobileAppUser] SET [Password]='" + drr["Password"] + "',[ModifiedDate]='" + drr["ModifiedDate"] + "' WHERE id='" + drr["id"] + "' ";
             data.executeCommand(_QBind);
         }
     }

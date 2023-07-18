@@ -389,7 +389,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                         _TourPlan = dss.Tables[0].Rows[0]["TourPlan"].ToString();
                     }
 
-                    DataRow drHqtr = master.getHqtrUser().Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
+                    DataRow drHqtr = master.getHqtrUserDpt("0").Tables[0].Select("MId = " + dt.Rows[0]["CRMUserId"]).FirstOrDefault();
 
                     using (StringWriter sw = new StringWriter())
                     {

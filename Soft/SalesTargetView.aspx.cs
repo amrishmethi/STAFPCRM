@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
 using System.Web;
 using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class Admin_SalesTarget : System.Web.UI.Page
+public partial class Admin_SalesTargetView : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
@@ -36,6 +31,7 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
 
             DataSet dsusr = getdata.getHqtrUserDpt(drpDepartment.SelectedValue);
             ViewState["tbl1"] = dsusr;
+
             DataView dv = dsusr.Tables[0].DefaultView;
             if (drpStatus.SelectedIndex > 0)
                 dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
@@ -75,7 +71,7 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
         int year = Convert.ToInt32(mnth.Text.Split('-')[1]);
         string _DD = year + "-" + month + "-01";
 
-        DataView dv = data.getDataSet("Proc_SalesTarget_New '" + drpheadQtr.SelectedValue + "','" + _DD + "','" + drpCatg.SelectedValue + "'").Tables[1].DefaultView;
+        DataView dv = data.getDataSet("Proc_SalesTargetView '" + drpheadQtr.SelectedValue + "','" + _DD + "','" + drpCatg.SelectedValue + "'").Tables[0].DefaultView;
         string rowFilter = "0=0";
         string grp = "";
         foreach (ListItem item in drpDistrict.Items)
@@ -106,12 +102,16 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
         rep.DataSource = dv.ToTable();
         rep.DataBind();
 
-        lblSale_POWDERl.Value = dv.ToTable().Compute("sum(Sale_POWDER)", "").ToString();
+        lblSale_POWDER.Value = dv.ToTable().Compute("sum(Sale_POWDER)", "").ToString();
         lblSale_BAR_AND_TUB.Value = dv.ToTable().Compute("sum(Sale_BAR_AND_TUB)", "").ToString();
         lblKLEAN_POWDER.Value = dv.ToTable().Compute("sum(KLEAN_POWDER)", "").ToString();
         lblPowderTotal.Value = dv.ToTable().Compute("sum(Powder)", "").ToString();
         lblBar_Tub.Value = dv.ToTable().Compute("sum(Bar_Tub)", "").ToString();
         lblclean.Value = dv.ToTable().Compute("sum(KLEAN_BOLD_POWDER)", "").ToString();
+
+        lblBalance_POWDER.Value = dv.ToTable().Compute("sum(Balance_POwder)", "").ToString();
+        lblBalance_BAR_AND_TUB.Value = dv.ToTable().Compute("sum(Balance_BT)", "").ToString();
+        lblBalanceKLEAN_POWDER.Value = dv.ToTable().Compute("sum(Balance_KBP)", "").ToString();
     }
 
     [WebMethod]
@@ -236,22 +236,5 @@ public partial class Admin_SalesTarget : System.Web.UI.Page
     {
         fillData();
     }
-
-    protected void btnSalary_Click(object sender, EventArgs e)
-    {
-        Soft = Request.Cookies["STFP"];
-        for (int i = 0; i < rep.Items.Count; i++)
-        {
-            CheckBox chk = (CheckBox)rep.Items[i].FindControl("chk");
-            HiddenField hddId = (HiddenField)rep.Items[i].FindControl("hddId");
-            TextBox txtPowder = (TextBox)rep.Items[i].FindControl("txtPowder");
-            TextBox txtBar_Tub = (TextBox)rep.Items[i].FindControl("txtBar_Tub");
-            TextBox txtclean = (TextBox)rep.Items[i].FindControl("txtclean");
-            if (txtPowder.Text != "0" || txtBar_Tub.Text != "0")
-            {
-                data.executeCommand("Update tbl_SalesTarget SET IsUpdate=1 ,BAR_TUB='" + txtBar_Tub.Text + "',POWDER='" + txtPowder.Text + "',KLEAN_BOLD_POWDER='" + txtclean.Text + "',Modify_Date=Getdate()  WHERE TargetId=" + hddId.Value);
-            }
-        }
-        ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Sales Target Saved Successfully');window.location ='SalesTarget.aspx'", true);
-    }
+     
 }

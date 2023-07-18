@@ -41,7 +41,7 @@ public partial class Soft_SaleSummaryReport : System.Web.UI.Page
 
     private void bindDrp()
     {
-        DataSet dsusr = getdata.getHqtrUser1();
+        DataSet dsusr = getdata.getHqtrUserDpt("0");
         DataView dv = dsusr.Tables[0].DefaultView;
         dv.Sort = "Name";
         DrpEmployee.DataSource = dv.ToTable(true, "Name");
@@ -159,6 +159,10 @@ public partial class Soft_SaleSummaryReport : System.Web.UI.Page
 
             rep.DataSource = mergedTable;
             rep.DataBind();
+
+            //lblTotalBag.Text = ds.Tables[0].Compute("sum(ordbag)", "").ToString();
+            //lblTotalQty.Text = ds.Tables[0].Compute("sum(qty)", "").ToString();
+            //lblTotalAmt.Text = ds.Tables[0].Compute("sum(amount)", "").ToString();
         }
 
     }
@@ -170,7 +174,7 @@ public partial class Soft_SaleSummaryReport : System.Web.UI.Page
 
     protected void drpHeadQtr_SelectedIndexChanged(object sender, EventArgs e)
     {
-        DataSet dsusr = getdata.getHqtrUser1();
+        DataSet dsusr = getdata.getHqtrUserDpt("0");
         DataView dv = dsusr.Tables[0].DefaultView;
         // Bind data to district dropdown list based on selected HeadQtr
         string selectedHeadQtr = drpHeadQtr.SelectedValue;
@@ -188,7 +192,7 @@ public partial class Soft_SaleSummaryReport : System.Web.UI.Page
 
     protected void DrpEmployee_SelectedIndexChanged(object sender, EventArgs e)
     {
-        DataSet dsusr = getdata.getHqtrUser1();
+        DataSet dsusr = getdata.getHqtrUserDpt("0");
         DataView dv = dsusr.Tables[0].DefaultView;
         // Bind data to district dropdown list based on selected HeadQtr
         string selectedName = DrpEmployee.SelectedValue;
@@ -203,7 +207,7 @@ public partial class Soft_SaleSummaryReport : System.Web.UI.Page
 
     protected void drpDistict_SelectedIndexChanged1(object sender, EventArgs e)
     {
-        DataSet dsusr = getdata.getHqtrUser1();
+        DataSet dsusr = getdata.getHqtrUserDpt("0");
         DataView dv = dsusr.Tables[0].DefaultView;
         // Bind data to district dropdown list based on selected HeadQtr
         string selecteddistrict = drpDistict.SelectedValue;

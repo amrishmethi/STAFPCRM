@@ -24,11 +24,11 @@
 
                             <%--   <asp:UpdatePanel ID="upd" runat="server">
                     <ContentTemplate>--%>
-                                   <div class="col-md-3">
+                            <div class="col-md-3">
                                 <label>Employee</label>
-                               
-                                <asp:DropDownList ID="DrpEmployee" runat="server"  CssClass="form-control select2" OnSelectedIndexChanged="DrpEmployee_SelectedIndexChanged" AutoPostBack="true" >
-                                 </asp:DropDownList>
+
+                                <asp:DropDownList ID="DrpEmployee" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="DrpEmployee_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
                             </div>
 
                             <div class="col-md-3">
@@ -41,26 +41,26 @@
                             </div>
                             <div class="col-md-2">
                                 <label>Distict</label>
-                                                                <asp:ListBox ID="drpDistict" runat="server" OnSelectedIndexChanged="drpDistict_SelectedIndexChanged1"  CssClass="form-control select2" AutoPostBack="true" SelectionMode="Multiple"></asp:ListBox>
+                                <asp:ListBox ID="drpDistict" runat="server" OnSelectedIndexChanged="drpDistict_SelectedIndexChanged1" CssClass="form-control select2" AutoPostBack="true" SelectionMode="Multiple"></asp:ListBox>
 
-                                
-                              
+
+
                             </div>
                             <div class="col-md-2">
                                 <label>Station</label>
-                                <asp:DropDownList ID="Drpstation" runat="server" CssClass="form-control select2" >
+                                <asp:DropDownList ID="Drpstation" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
 
-                                <div class="col-md-2">
+                            <div class="col-md-2">
                                 <label>Rate</label>
                                 <asp:DropDownList ID="Drprate" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Text="With Tax" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="Without Tax" Value="0"></asp:ListItem>
-                                   
+
                                 </asp:DropDownList>
                             </div>
-                             <div class="clearfix">&nbsp;</div>
+                            <div class="clearfix">&nbsp;</div>
                             <div class="col-md-3">
                                 <label>Report</label>
                                 <asp:DropDownList ID="drpReport" runat="server" CssClass="form-control select2">
@@ -70,17 +70,17 @@
                                 </asp:DropDownList>
                             </div>
 
-                               <div class="col-md-2">
+                            <div class="col-md-2">
                                 <label>Party</label>
-                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2" >
+                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
-                                 <div class="col-md-3">
+                            <div class="col-md-3">
                                 <label>Group</label>
                                 <asp:ListBox ID="drpGrp" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
                             </div>
 
-                           
+
                             <div class="col-md-2">
                                 <label>Date From</label>
                                 <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker">
@@ -104,58 +104,70 @@
                                 <div class="table-responsive">
                                     <table id="ExportTbl" class="table table-bordered display table-striped">
 
-                                        
+
                                         <thead>
-                                         
-                                        
-                                            <tr>
-                                              <th style="width:0%;display:none;" >&nbsp;</th>
-                                                <th>Sr. No.</th>                                                            <th>HeadQuarter</th>
+
+
+                                            <tr> 
+                                                <th>Sr. No.</th>
+                                                <th>HeadQuarter</th>
                                                 <th>District</th>
                                                 <th>Station</th>
-                                                <th>Party </th>                                              
+                                                <th>Party </th>
                                                 <th>Order Bag</th>
                                                 <th>packing</th>
                                                 <th>Qty</th>
-                                               <%-- <th>Rate</th>--%>
+                                                <%-- <th>Rate</th>--%>
                                                 <th>Amount</th>
 
                                             </tr>
 
                                         </thead>
                                         <tbody>
-                                          
+
                                             <asp:Repeater ID="rep" runat="server">
                                                 <ItemTemplate>
-                                                       
-                                                    <tr class="gradeA">
-                                                       <td style="width:0%;display:none;">&nbsp;</td>
-                                                        <td>
-                                                         <%--   <%#Container.ItemIndex+1 %>--%> 
 
-<%#Eval("row_num") %>
+                                                    <tr class="gradeA"> 
+                                                        <td>
+                                                               <%#Container.ItemIndex+1 %>
+
+                                                            <%--<%#Eval("row_num") %>--%>
                                                         </td>
-                                                       <%-- <td style="text-align: left;"><%# Eval("acname").ToString() =="Total"?"" : Eval("orddate")  %></td>--%>
+                                                        <%-- <td style="text-align: left;"><%# Eval("acname").ToString() =="Total"?"" : Eval("orddate")  %></td>--%>
                                                         <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
                                                         <td style="text-align: left;"><%#Eval("District") %></td>
                                                         <td style="text-align: left;"><%#Eval("Station") %></td>
                                                         <td style="text-align: left;"><%#Eval("acname") %></td>
-                       <%--<td style="text-align: left;"><%#Eval("cmsname") %></td>
-                        <td style="text-align: left;"><%#Eval("itname") %></td>--%>               <td style="text-align: left;"><%#Eval("ordbag") %></td>
-                           <td style="text-align: left;"><%#Eval("CWeight") %></td>
-                           <td style="text-align: left;"><%#Eval("Qty") %></td>
-                                                      <%--  <td style="text-align: left;"><%#Eval("ordstprate") %></td>--%>
+                                                        <%--<td style="text-align: left;"><%#Eval("cmsname") %></td>
+                        <td style="text-align: left;"><%#Eval("itname") %></td>--%>
+                                                        <td style="text-align: left;"><%#Eval("ordbag") %></td>
+                                                        <td style="text-align: left;"><%#Eval("CWeight") %></td>
+                                                        <td style="text-align: left;"><%#Eval("Qty") %></td>
+                                                        <%--  <td style="text-align: left;"><%#Eval("ordstprate") %></td>--%>
                                                         <td style="text-align: left;"><%#Eval("amount") %></td>
                                                     </tr>
                                                 </ItemTemplate>
-       
+
                                             </asp:Repeater>
-                                        </tbody>                                        
+                                        </tbody>
+                                       <%-- <tfoot>
+                                            <tr>
+                                                <td colspan="5">Total</td>
+                                                <td>
+                                                    <asp:Label ID="lblTotalBag" runat="server"></asp:Label></td>
+                                                <td></td>
+                                                <td>
+                                                    <asp:Label ID="lblTotalQty" runat="server"></asp:Label></td> 
+                                                <td>
+                                                    <asp:Label ID="lblTotalAmt" runat="server"></asp:Label></td>
+                                            </tr>
+                                        </tfoot>--%>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                    
+
                     </div>
                 </div>
             </div>

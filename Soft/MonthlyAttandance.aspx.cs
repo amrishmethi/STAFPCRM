@@ -40,7 +40,6 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
         Gd.FillUser(drpEmployee, drpDepartment.SelectedValue);
     }
 
-
     public void fillAttendance()
     {
         DataColumn c1 = new DataColumn();
@@ -129,7 +128,8 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
         c42.ColumnName = "Leave";
         DataColumn c43 = new DataColumn();
         c43.ColumnName = "NoOfWorkingDays";
-
+        DataColumn c44 = new DataColumn();
+        c44.ColumnName = "NIghtOT";
         dt1.Columns.Add(c1);
         dt1.Columns.Add(c2);
         dt1.Columns.Add(c3);
@@ -173,6 +173,7 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
         dt1.Columns.Add(c41);
         dt1.Columns.Add(c42);
         dt1.Columns.Add(c43);
+        dt1.Columns.Add(c44);
 
         mntyr = (mnth.Text == "") ? DateTime.Now.ToString("MM-yyyy") : mnth.Text;
         month = Convert.ToInt32(mntyr.Split('-')[0]);
@@ -216,134 +217,156 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                     for (int j = 2; j < dt1.Columns.Count - 3; j++)
                     {
                         DataSet dsnext = new DataSet();
-                        if (nextdate <= Convert.ToDateTime(month + "/" + totdays + "/" + year))
+                        if (drpAttendance.SelectedIndex == 0)
                         {
-                            if (nextdate.DayOfWeek.ToString() == "Sunday")
+                            if (nextdate <= Convert.ToDateTime(month + "/" + totdays + "/" + year))
                             {
-                                #region if mark attendance on sunday then show 
-                                dt1.Rows[i][j] = "S";
-                                //if mark attendance on sunday then show 
-                                string query2 = "select Format(AttendancedateIn, 'hh:mm tt') AttendancedateIn,Format(Attendancedateout, 'hh:mm tt') Attendancedateout, IsAttendanceOUT from Attendance   where IsDeleted=0 ANd  Cast(AttendanceDateIN as date)='" + nextdate + "'   ";
-
-                                if (CRMUSERID == "0")
-                                    query2 += " and (EmpID=" + EmpId + " )";
-                                else
-                                    query2 += " and (EmpID=" + EmpId + " or USERID=" + CRMUSERID + ")";
-
-
-                                dsnext = data.getDataSet(query2);
-                                if (dsnext.Tables[0].Rows.Count > 0)
+                                if (nextdate.DayOfWeek.ToString() == "Sunday")
                                 {
-                                    string Mtime = ""; string Etime = ""; TimeSpan ts;
-                                    double hrs = 0; double minutes = 0;
-                                    string duration = "";
+                                    #region if mark attendance on sunday then show 
+                                    dt1.Rows[i][j] = "S";
+                                    //if mark attendance on sunday then show 
+                                    string query2 = "select Format(AttendancedateIn, 'hh:mm tt') AttendancedateIn,Format(Attendancedateout, 'hh:mm tt') Attendancedateout, IsAttendanceOUT from Attendance   where IsDeleted=0 ANd  Cast(AttendanceDateIN as date)='" + nextdate + "'   ";
 
-                                    Mtime = dsnext.Tables[0].Rows[0]["AttendanceDateIN"].ToString();
-                                    if (dsnext.Tables[0].Rows[0]["IsAttendanceOUT"].ToString().ToUpper() == "TRUE")
-                                        Etime = dsnext.Tables[0].Rows[0]["AttendanceDateOut"].ToString();
-
-                                    if (Etime == "" || Etime == null)
-                                    {
-                                        duration = "";
-                                    }
+                                    if (CRMUSERID == "0")
+                                        query2 += " and (EmpID=" + EmpId + " )";
                                     else
+                                        query2 += " and (EmpID=" + EmpId + " or USERID=" + CRMUSERID + ")";
+
+
+                                    dsnext = data.getDataSet(query2);
+                                    if (dsnext.Tables[0].Rows.Count > 0)
                                     {
-                                        DateTime dat1 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Mtime);
-                                        DateTime dat2 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Etime);
-                                        ts = dat2 - dat1;
+                                        string Mtime = ""; string Etime = ""; TimeSpan ts;
+                                        double hrs = 0; double minutes = 0;
+                                        string duration = "";
 
-                                        hrs = dat2.Subtract(dat1).Hours;
-                                        minutes = dat2.Subtract(dat1).Minutes;
+                                        Mtime = dsnext.Tables[0].Rows[0]["AttendanceDateIN"].ToString();
+                                        if (dsnext.Tables[0].Rows[0]["IsAttendanceOUT"].ToString().ToUpper() == "TRUE")
+                                            Etime = dsnext.Tables[0].Rows[0]["AttendanceDateOut"].ToString();
 
-                                        //duration = "(" + hrs + ":" + minutes + "Hours)";
-                                    }
-                                    //dt1.Rows[i][j] = Mtime + "<br />" + Etime + "<br />" + duration;
-                                    dt1.Rows[i][j] = "P";
-                                }
-                                totattend = totattend + 1;
-                                #endregion
-                            }
-                            else
-                            {
-                                string query2 = "select Format(AttendancedateIn, 'hh:mm tt') AttendancedateIn,Format(Attendancedateout, 'hh:mm tt') Attendancedateout, IsAttendanceOUT from Attendance   where IsDeleted=0 ANd  Cast(AttendanceDateIN as date)='" + nextdate + "'   ";
+                                        if (Etime == "" || Etime == null)
+                                        {
+                                            duration = "";
+                                        }
+                                        else
+                                        {
+                                            DateTime dat1 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Mtime);
+                                            DateTime dat2 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Etime);
+                                            ts = dat2 - dat1;
 
-                                if (CRMUSERID == "0")
-                                    query2 += " and (EmpID=" + EmpId + " )";
-                                else
-                                    query2 += " and (EmpID=" + EmpId + " or USERID=" + CRMUSERID + ")";
-                                dsnext = data.getDataSet(query2);
-                                if (dsnext.Tables[0].Rows.Count > 0)
-                                {
-                                    string Mtime = ""; string Etime = ""; TimeSpan ts;
-                                    double hrs = 0; double minutes = 0;
-                                    string duration = "";
+                                            hrs = dat2.Subtract(dat1).Hours;
+                                            minutes = dat2.Subtract(dat1).Minutes;
 
-                                    Mtime = dsnext.Tables[0].Rows[0]["AttendanceDateIN"].ToString();
-                                    if (dsnext.Tables[0].Rows[0]["IsAttendanceOUT"].ToString().ToUpper() == "TRUE")
-                                        Etime = dsnext.Tables[0].Rows[0]["AttendanceDateOut"].ToString();
-
-                                    if (Etime == "" || Etime == null)
-                                    {
-                                        duration = "";
-                                    }
-                                    else
-                                    {
-                                        DateTime dat1 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Mtime);
-                                        DateTime dat2 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Etime);
-                                        ts = dat2 - dat1;
-
-                                        hrs = dat2.Subtract(dat1).Hours;
-                                        minutes = dat2.Subtract(dat1).Minutes;
-
-                                        //duration = "(" + hrs + ":" + minutes + "Hours)";
+                                            //duration = "(" + hrs + ":" + minutes + "Hours)";
+                                        }
+                                        //dt1.Rows[i][j] = Mtime + "<br />" + Etime + "<br />" + duration;
+                                        dt1.Rows[i][j] = "P";
                                     }
                                     totattend = totattend + 1;
-                                    //dt1.Rows[i][j] = Mtime + "<br />" + Etime + "<br />" + duration;
-                                    dt1.Rows[i][j] = "P";
+                                    #endregion
                                 }
                                 else
                                 {
-                                    if (nextdate.ToString("MM/dd/yyyy") == "03/06/2023")
+                                    string query2 = "select Format(AttendancedateIn, 'hh:mm tt') AttendancedateIn,Format(Attendancedateout, 'hh:mm tt') Attendancedateout, IsAttendanceOUT from Attendance   where IsDeleted=0 ANd  Cast(AttendanceDateIN as date)='" + nextdate + "'   ";
+
+                                    if (CRMUSERID == "0")
+                                        query2 += " and (EmpID=" + EmpId + " )";
+                                    else
+                                        query2 += " and (EmpID=" + EmpId + " or USERID=" + CRMUSERID + ")";
+                                    dsnext = data.getDataSet(query2);
+                                    if (dsnext.Tables[0].Rows.Count > 0)
                                     {
-                                        int a = 0;
-                                    }
-                                    string query1 = "GETHOLIDAYLIST_Proc '" + nextdate.ToString("MM/dd/yyyy") + "'  ";
-                                    DataSet dsholiday = data.getDataSet(query1);
-                                    if (dsholiday.Tables[0].Rows.Count > 0)
-                                    {
-                                        DataView dvv = dsholiday.Tables[0].DefaultView;
-                                        dvv.RowFilter = "DATEFROM ='" + nextdate.ToString("MM/dd/yyyy") + "'";
-                                        if (dvv.ToTable().Rows.Count > 0)
+                                        string Mtime = ""; string Etime = ""; TimeSpan ts;
+                                        double hrs = 0; double minutes = 0;
+                                        string duration = "";
+
+                                        Mtime = dsnext.Tables[0].Rows[0]["AttendanceDateIN"].ToString();
+                                        if (dsnext.Tables[0].Rows[0]["IsAttendanceOUT"].ToString().ToUpper() == "TRUE")
+                                            Etime = dsnext.Tables[0].Rows[0]["AttendanceDateOut"].ToString();
+
+                                        if (Etime == "" || Etime == null)
                                         {
-                                            if (dt1.Rows[i][j].ToString() != "P")
-                                                dt1.Rows[i][j] = "HD";
+                                            duration = "";
                                         }
                                         else
                                         {
-                                            dt1.Rows[i][j] = "L";
-                                            totalleave = totalleave + 1;
+                                            DateTime dat1 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Mtime);
+                                            DateTime dat2 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Etime);
+                                            ts = dat2 - dat1;
+
+                                            hrs = dat2.Subtract(dat1).Hours;
+                                            minutes = dat2.Subtract(dat1).Minutes;
+
+                                            //duration = "(" + hrs + ":" + minutes + "Hours)";
                                         }
+                                        totattend = totattend + 1;
+                                        //dt1.Rows[i][j] = Mtime + "<br />" + Etime + "<br />" + duration;
+                                        dt1.Rows[i][j] = "P";
                                     }
                                     else
                                     {
-                                        DataSet dssLeave = data.getDataSet("GETLEAVEOFEMPLOYEE  '" + ds.Tables[0].Rows[i]["EmpId"].ToString() + "','" + nextdate.ToString("MM/dd/yyyy") + "'");
-                                        if (dssLeave.Tables[0].Rows.Count > 0)
+                                        if (nextdate.ToString("MM/dd/yyyy") == "03/06/2023")
                                         {
-                                            totattend = totattend + 1;
-                                            dt1.Rows[i][j] = "PL";
+                                            int a = 0;
+                                        }
+                                        string query1 = "GETHOLIDAYLIST_Proc '" + nextdate.ToString("MM/dd/yyyy") + "'  ";
+                                        DataSet dsholiday = data.getDataSet(query1);
+                                        if (dsholiday.Tables[0].Rows.Count > 0)
+                                        {
+                                            DataView dvv = dsholiday.Tables[0].DefaultView;
+                                            dvv.RowFilter = "DATEFROM ='" + nextdate.ToString("MM/dd/yyyy") + "'";
+                                            if (dvv.ToTable().Rows.Count > 0)
+                                            {
+                                                if (dt1.Rows[i][j].ToString() != "P")
+                                                    dt1.Rows[i][j] = "HD";
+                                            }
+                                            else
+                                            {
+                                                dt1.Rows[i][j] = "L";
+                                                totalleave = totalleave + 1;
+                                            }
                                         }
                                         else
                                         {
-                                            dt1.Rows[i][j] = "L";
-                                            totalleave = totalleave + 1;
+                                            DataSet dssLeave = data.getDataSet("GETLEAVEOFEMPLOYEE  '" + ds.Tables[0].Rows[i]["EmpId"].ToString() + "','" + nextdate.ToString("MM/dd/yyyy") + "'");
+                                            if (dssLeave.Tables[0].Rows.Count > 0)
+                                            {
+                                                totattend = totattend + 1;
+                                                dt1.Rows[i][j] = "PL";
+                                            }
+                                            else
+                                            {
+                                                dt1.Rows[i][j] = "L";
+                                                totalleave = totalleave + 1;
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            nextdate = nextdate.AddDays(1); ;
+                                nextdate = nextdate.AddDays(1); ;
 
+                            }
+                            dsnext.Clear();
                         }
-                        dsnext.Clear();
+                        else
+                        {
+                            if (nextdate <= Convert.ToDateTime(month + "/" + totdays + "/" + year))
+                            {
+                                string query2 = "select AttendanceDate from TBL_NIGHTATTENDANCE   where IsDeleted=0 ANd  Cast(AttendanceDate as date)='" + nextdate + "'   ";
+
+                                query2 += " and (FK_EMPID=" + EmpId + " )";
+
+                                dsnext = data.getDataSet(query2);
+                                if (dsnext.Tables[0].Rows.Count > 0)
+                                {
+                                    dt1.Rows[i][j] = "P";
+                                }
+                                else
+                                    dt1.Rows[i][j] = "L";
+
+                                nextdate = nextdate.AddDays(1); ;
+                            }
+                        }
                     }
 
                     //DataSet dss = master.GetSallary(_DD, drpDepartment.SelectedValue, "0", EmpId, "2", drpStatus.SelectedValue);
@@ -356,8 +379,9 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                     dt1.Rows[i]["HolidayWork"] = dss.Tables[0].Rows[0]["NOOFHolidayWork"].ToString();
                     dt1.Rows[i]["Attandance"] = dss.Tables[0].Rows[0]["NOOFATTANDANCE"].ToString();
                     dt1.Rows[i]["NoOfWorkingDays"] = dss.Tables[0].Rows[0]["TOTALWORKINGDAY"].ToString();
+                    dt1.Rows[i]["NIghtOT"] = dss.Tables[0].Rows[0]["NIghtOT"].ToString();
                     dt1.Rows[i]["PL"] = dss.Tables[0].Rows[0]["PL1"].ToString();
-                    dt1.Rows[i]["Leave"] = dss.Tables[0].Rows[0]["TOTALLEAVE"].ToString(); 
+                    dt1.Rows[i]["Leave"] = dss.Tables[0].Rows[0]["TOTALLEAVE"].ToString();
                 }
             }
         }

@@ -43,13 +43,22 @@
                 //    }
                 //},
                 {
-                    extend: 'excelHtml5',
+                    extend: 'excelHtml5', footer: true,
                     exportOptions: {
-                        columns: ':visible'
-                    }
-                },
+                        columns: ':visible',
+                        format: {
+                            body: function (inner, rowidx, colidx, node) {
+                                if ($(node).children("input").length > 0) {
+                                    return $(node).children("input").first().val();
+                                } else {
+                                    return inner;
+                                }
+                            }
+                        }
+                    } 
+                }, 
                 {
-                    extend: 'pdfHtml5',
+                    extend: 'pdfHtml5', footer: true,
                     exportOptions: {
                         //columns: [0, 1, 2, 5]
                         columns: ':visible',

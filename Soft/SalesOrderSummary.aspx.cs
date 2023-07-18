@@ -30,7 +30,8 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
             mnth.Text = DateTime.Now.ToString("MM-yyyy");
             Session["AccessRigthsSet"] = getdata.AccessRights("SalesOrderSummary.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             Gd.fillDepartment(drpDepartment);
-            Gd.FillUser(drpUser, drpDepartment.SelectedValue);
+            drpDepartment.SelectedValue = drpDepartment.Items.FindByText("SALES").Value;
+            //Gd.FillUser(drpUser, drpDepartment.SelectedValue);
             bindDrp(true, true);
             Gd.FillPrimaryParty(drpParty);
             //Filldata();
@@ -43,6 +44,8 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
         DataView dv = dsusr.Tables[0].DefaultView;
         if (isuser)
         {
+            if (drpStatus.SelectedIndex > 0)
+                dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
             if (drpHeadQtr.SelectedIndex > 0)
                 dv.RowFilter = "HeadQtr='" + drpHeadQtr.SelectedItem.Text + "'";
             dv.Sort = "Name";
@@ -86,6 +89,7 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
             lblPowder.Text = ds.Tables[0].Compute("Sum(POWDER)", "").ToString();
             lblBarTub.Text = ds.Tables[0].Compute("Sum(BAR_AND_TUB)", "").ToString();
             lblTotalAmount.Text = ds.Tables[0].Compute("Sum(AMOUNT)", "").ToString();
+            lblBKBP.Text = ds.Tables[0].Compute("Sum(KBP)", "").ToString();
             lblTotalExp.Text = _TotalExp.ToString("0.00");
             lblTotalCTC.Text = ((_TotalExp / _TotalAmount) * 100).ToString("0.00");
         }
@@ -114,6 +118,10 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
             bindDrp(true, false);
         }
         if (ddl == drpDepartment)
+        {
+            bindDrp(true, false);
+        }
+        if (ddl == drpStatus)
         {
             bindDrp(true, false);
         }

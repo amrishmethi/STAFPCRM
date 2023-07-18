@@ -86,10 +86,6 @@ public class Master
         return ds;
     }
 
-
-
-
-
     public DataSet getAttendanceList(string userid, string deptid, string date)
     {
         cmd = new SqlCommand("PROC_ATTENDANCE");
@@ -112,13 +108,14 @@ public class Master
         return ds;
     }
 
-    public DataSet getUserDetails(string userid, string dptid, string Status = "ALL")
+    public DataSet getUserDetails(string userid, string dptid, string Status = "ALL", string CRMUSERID = "0")
     {
         cmd = new SqlCommand("PROC_USERDETAILS");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@UserID", userid);
         cmd.Parameters.AddWithValue("@DeptID", dptid);
         cmd.Parameters.AddWithValue("@Status", Status);
+        cmd.Parameters.AddWithValue("@CRMUSERID", CRMUSERID);
         ds = data.getDataSet(cmd);
         return ds;
     }
@@ -277,21 +274,21 @@ public class Master
         ds = data.getDataSet(cmd);
         return ds;
     }
-    public DataSet getHqtrUser()
-    {
-        return ds = data.getDataSet("select * from GETHEADQUARTER order by Name,HEADQTR");
-    }
-    public DataSet getHqtrUser1()
-    {
-        return ds = data.getDataSet("select * from GETHEADQUARTER G inner Join  [Station] S on S.DistrictNo = G.districtNo inner join tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 order by Name,G.HEADQTR");
-    }
+    //public DataSet getHqtrUser()
+    //{
+    //    return ds = data.getDataSet("select * from GETHEADQUARTER order by Name,HEADQTR");
+    //}
+    //public DataSet getHqtrUser1()
+    //{
+    //    return ds = data.getDataSet("select * from GETHEADQUARTER G inner Join  [Station] S on S.DistrictNo = G.districtNo inner join tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 order by Name,G.HEADQTR");
+    //}
 
 
     public DataSet getHqtrUserDpt(string Dept_Id)
     {
-        string query = "select distinct  G.*,EMP.EMPID from  GETHEADQUARTER G inner join  tbl_EmpMaster EMP on EMP.CRMUSerId=G.MID and Emp.Delid=0 ";
+        string query = "select * from  GETHEADQUARTER WHERE 0=0 ";
         if (Dept_Id != "0")
-            query += "and EMP.Dept_Id = " + Dept_Id + " ";
+            query += "and  Dept_Id = " + Dept_Id + " ";
         query += "order by Name,HEADQTR";
         return ds = data.getDataSet(query);
     }
@@ -579,7 +576,7 @@ public class Master
         return dss;
     }
 
-    public DataSet StationBeat(string Action, string STATION, string DISTRICT, string HEADQTR, string BEAT, string STATIONID,string BEATID)
+    public DataSet StationBeat(string Action, string STATION, string DISTRICT, string HEADQTR, string BEAT, string STATIONID, string BEATID)
     {
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = "IU_STATIONBEAT";

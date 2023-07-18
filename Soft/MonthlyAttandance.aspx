@@ -26,11 +26,11 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>
                                     Employee 
                                 </label>
@@ -53,8 +53,17 @@
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*" ControlToValidate="mnth" ForeColor="Red" ValidationGroup="Save"></asp:RequiredFieldValidator>
                             </div>
                             <div class="col-md-2">
+                                <label>
+                                    Attendance Type
+                                </label>
+                                <asp:DropDownList ID="drpAttendance" runat="server" CssClass="form-control select2"> 
+                                    <asp:ListItem Text="Day" Value="Day" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="Night" Value="Night"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
                                 <br />
-                                <asp:Button ID="Search" runat="server" ValidationGroup="Save" CssClass="btn btn-lg btn-success" Text="Search" OnClick="Search_Click" />
+                                <asp:Button ID="Search" runat="server" ValidationGroup="Save" CssClass="btn btn-success" Text="Search" OnClick="Search_Click" />
                             </div>
 
                         </div>
@@ -137,10 +146,11 @@
                                             <th>31
                                             </th>
                                             <th style="text-align: left;">Month Days </th>
-                                            <th style="text-align: left;">Attendance</th>
+                                            <th style="text-align: left;">Basic Attendance</th>
                                             <th style="text-align: left;">Sunday Off</th>
                                             <th style="text-align: left;">Holiday Off</th>
                                             <th style="text-align: left;">Sunday Work</th>
+                                            <th style="text-align: left;">Night OT</th>
                                             <th style="text-align: left;">Holiday Work</th>
                                             <th style="text-align: left;">PL</th>
                                             <th style="text-align: left;">NO Of Working Days</th>
@@ -280,6 +290,7 @@
                                                     <td style="text-align: left;"><%#Eval("SundayOFF") %></td>
                                                     <td style="text-align: left;"><%#Eval("HolidayOff") %></td>
                                                     <td style="text-align: left;"><%#Eval("SundayWork") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NIghtOT") %></td>
                                                     <td style="text-align: left;"><%#Eval("HolidayWork") %></td>
                                                     <td style="text-align: left;"><%#Eval("PL") %></td>
                                                     <td style="text-align: left;"><%#Eval("NoOfWorkingDays") %></td>

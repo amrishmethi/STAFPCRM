@@ -21,14 +21,36 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
 
             Soft = Request.Cookies["STFP"];
             Gd.fillDepartment(drpDepartment);
-            Gd.FillUser(drpEmp, drpDepartment.SelectedValue);
+
+            DataSet dsusr = getdata.getHqtrUserDpt(drpDepartment.SelectedValue);
+            ViewState["tbl1"] = dsusr;
+            DataView dv = dsusr.Tables[0].DefaultView;
+            if (drpStatus.SelectedIndex > 0)
+                dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
+            dv.Sort = "Name";
+            drpEmp.DataSource = dv.ToTable(true, "Name", "MId");
+            drpEmp.DataTextField = "Name";
+            drpEmp.DataValueField = "MId";
+            drpEmp.DataBind();
+            drpEmp.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+
             txtDateFrom.Text = DateTime.Now.ToString("dd/MM/yyyy");
             txtDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy");
         }
     }
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Gd.FillUser(drpEmp, drpDepartment.SelectedValue);
+        DataSet dsusr = (DataSet)ViewState["tbl1"];
+        DataView dv = dsusr.Tables[0].DefaultView;
+        if (drpStatus.SelectedIndex > 0)
+            dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
+
+        dv.Sort = "Name";
+        drpEmp.DataSource = dv.ToTable(true, "Name", "MId");
+        drpEmp.DataTextField = "Name";
+        drpEmp.DataValueField = "MId";
+        drpEmp.DataBind();
+        drpEmp.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
     }
     private void GetReport()
     {

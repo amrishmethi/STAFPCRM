@@ -137,7 +137,6 @@
                                                         <td style="text-align: left;"><%#Eval("acname") %></td>
                                                         <td style="text-align: left;"><%#Eval("cmsname") %></td>
                                                         <td style="text-align: left;"><%#Eval("itname") %></td>
-
                                                         <td style="text-align: left;"><%#Eval("ordbag") %></td>
                                                         <td style="text-align: left;"><%#Eval("CWeight") %></td>
                                                         <td style="text-align: left;"><%#Eval("qty") %></td>
@@ -145,9 +144,21 @@
                                                         <td style="text-align: left;"><%#Eval("amount") %></td>
                                                     </tr>
                                                 </ItemTemplate>
-
                                             </asp:Repeater>
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="8">Total</td>
+                                                <td>
+                                                    <asp:Label ID="lblTotalBag" runat="server"></asp:Label></td>
+                                                <td></td>
+                                                <td>
+                                                    <asp:Label ID="lblTotalQty" runat="server"></asp:Label></td>
+                                                <td></td>
+                                                <td>
+                                                    <asp:Label ID="lblTotalAmt" runat="server"></asp:Label></td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>

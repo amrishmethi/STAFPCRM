@@ -122,19 +122,28 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-md-4">
+                           
+                            <div class="col-md-2">
+                                <label>Department</label>
+                                <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                             <div class="col-md-2">
+                                <label>Status</label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true" >
+                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
+                                    <asp:ListItem Value="Active" Text="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                             <div class="col-md-2">
                                 <label>Employee</label>
                                 <asp:DropDownList ID="drpEmp" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-3">
-                                <label>Department</label>
-                                <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" >
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>Head Quarter</label>
-                                <asp:DropDownList ID="drpHqtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpHqtr" runat="server" CssClass="form-control select2" >
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
@@ -145,7 +154,7 @@
                                     <asp:ListItem Value="Exist" Text="Exist"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
-
+                            <div class="clearfix"></div>
                             <div class="col-md-2">
                                 <label>Date From</label>
                                 <asp:TextBox ID="txtDateFrom" runat="server" CssClass="form-control datepicker" >
@@ -165,14 +174,7 @@
                                 </asp:DropDownList>
 
                             </div>
-                            <div class="col-md-2">
-                                <label>Status</label>
-                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" >
-                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
-                                    <asp:ListItem Value="Active" Text="Active" Selected="True"></asp:ListItem>
-                                    <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
+                           
                             <div class="col-md-2">
                                 <label>Show Image</label>
                                 <asp:DropDownList ID="drpImg" runat="server" CssClass="form-control" >

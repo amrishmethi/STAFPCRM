@@ -33,6 +33,16 @@
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
+                            <div class="col-md-2">
+                                <label>
+                                    Employee Status
+                                </label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
+                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-3">
                                 <label>Employee</label>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
@@ -43,35 +53,27 @@
                                 <asp:DropDownList ID="drpHeadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
+                            <div class="clearfix">&nbsp;</div>
                             <div class="col-md-3">
                                 <label>Party</label>
                                 <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                            <div class="clearfix">&nbsp;</div>
+
                             <div class="col-md-2">
                                 <label>Month</label>
                                 <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
                             </div>
-                            <div class="col-md-2">
-                                <label>
-                                    Employee Status
-                                </label>
-                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2">
-                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
-                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
-                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
+
                             <div class="col-md-2">
                                 <label class="control-label">Report Type<span style="color: #ff0000">*</span></label>
                                 <asp:DropDownList ID="drpReport" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Text="EMPLOYEE WISE" Value="EMPLOYEEWISE" Selected="True"></asp:ListItem>
-                                    <asp:ListItem Text="PARTY WISE" Value="PARTYWISE"></asp:ListItem>
-                            <%--        <asp:ListItem Text="DATE WISE" Value="DATEWISE"></asp:ListItem>
+                                    <%--<asp:ListItem Text="PARTY WISE" Value="PARTYWISE"></asp:ListItem>--%>
+                                    <%--        <asp:ListItem Text="DATE WISE" Value="DATEWISE"></asp:ListItem>
                                     <asp:ListItem Text="TARGET WISE" Value="TARGETWISE"></asp:ListItem>--%>
                                 </asp:DropDownList>
-                            </div> 
+                            </div>
                             <div class="col-md-2">
                                 <br />
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Report"
@@ -90,24 +92,31 @@
                                 <table id="ExportTbl" class="table table-bordered display table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: center;" rowspan="2">Sr. No.</th>
-                                            <th style="text-align: center;" rowspan="2">Date</th>
-                                            <th style="text-align: center;" rowspan="2">Employee Name</th>
-                                            <th style="text-align: center;" rowspan="2">Party Name</th>
-                                            <th style="text-align: center;" rowspan="2">Station</th>
-                                            <th style="text-align: center;" colspan="2">Total Sale (Month)</th>
-                                            <th style="text-align: center;" rowspan="2">Total Amount<br />
+                                            <th colspan="3"></th>
+                                            <th style="text-align: center;" colspan="3">Total Sale (Month)</th>
+                                            <th></th>
+                                            <th style="text-align: center;" colspan="2">Salary + Expenses</th>
+                                        </tr>
+
+
+                                        <tr>
+                                            <th style="text-align: center;" >Sr. No.</th>
+                                            <th style="text-align: center;" >Date</th>
+                                            <th style="text-align: center;"  >Employee Name</th>
+                                            <%--<th style="text-align: center;" rowspan="2">Party Name</th>
+                                            <th style="text-align: center;" rowspan="2">Station</th>--%>
+                                            <th>Powder</th>
+                                            <th>Bar/Tub</th>
+                                            <th>KBP</th>
+                                            <th style="text-align: center;" >Total Amount<br />
+                                                (Month)</th> 
+                                            <th>CTC<br />
                                                 (Month)</th>
-                                            <th style="text-align: center;" rowspan="2">CTC<br />
-                                                (Month)</th>
-                                            <th style="text-align: center;" rowspan="2">CTC%
+                                            <th>CTC%
                                                 <br />
                                                 (Month)</th>
                                         </tr>
-                                        <tr>
-                                            <th>Powder</th>
-                                            <th>Bar/Tub</th>
-                                        </tr>
+
                                     </thead>
                                     <tbody>
                                         <asp:Repeater ID="repData" runat="server" OnItemDataBound="repData_ItemDataBound">
@@ -118,10 +127,11 @@
                                                     <td><%#Eval("NAME") %>
                                                         <asp:HiddenField ID="hddcrmId" runat="server" Value='<%#Eval("Id") %>' />
                                                     </td>
-                                                    <td><%#Eval("PARTY") %></td>
-                                                    <td><%#Eval("Station") %></td>
+                                                    <%--  <td><%#Eval("PARTY") %></td>
+                                                    <td><%#Eval("Station") %></td>--%>
                                                     <td><%#Eval("POWDER") %></td>
                                                     <td><%#Eval("BAR_AND_TUB") %></td>
+                                                    <td><%#Eval("KBP") %></td>
                                                     <td>
                                                         <asp:Label ID="lblAmount" runat="server" Text='<%#Eval("AMOUNT") %>'></asp:Label></td>
                                                     <td>
@@ -134,11 +144,13 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th colspan="5">Total</th>
+                                            <th colspan="3">Total</th>
                                             <th>
                                                 <asp:Label ID="lblPowder" runat="server" Text="0"></asp:Label></th>
                                             <th>
-                                                <asp:Label ID="lblBarTub" runat="server" Text="0"></asp:Label></th>
+                                                <asp:Label ID="lblBarTub" runat="server" Text="0"></asp:Label></th> 
+                                            <th>
+                                                <asp:Label ID="lblBKBP" runat="server" Text="0"></asp:Label></th>
                                             <th>
                                                 <asp:Label ID="lblTotalAmount" runat="server" Text="0"></asp:Label></th>
                                             <th>

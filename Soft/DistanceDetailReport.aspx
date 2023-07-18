@@ -24,22 +24,23 @@
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
+                             <div class="col-md-2">
+                                <label>
+                                    Employee Status
+                                </label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
+                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-3">
                                 <label class="control-label">Employee<span style="color: #ff0000">*</span></label>
                                 <asp:Label ID="lblerror" ForeColor="Red" runat="server"></asp:Label>
                                 <asp:DropDownList ID="drpEmp" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-2">
-                                <label>
-                                    Employee Status
-                                </label>
-                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2">
-                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
-                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
-                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
+                           
                             <div class="col-md-2">
                                 <label class="control-label">Date From <span style="color: #ff0000">*</span></label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDateFrom"

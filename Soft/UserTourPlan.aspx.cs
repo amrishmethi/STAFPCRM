@@ -38,12 +38,16 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
 
     private void bindDrp(bool isuser, bool ishqtr, bool isdstrct)
     {
+        string str = "0=0";
         DataSet dsusr = getdata.getHqtrUserDpt(drpDepartment.SelectedValue);
         DataView dv = dsusr.Tables[0].DefaultView;
         if (isuser)
         {
+            if (drpStatus.SelectedIndex > 0)
+                str += " and Status='" + drpStatus.SelectedValue + "'";
             if (drpheadQtr.SelectedIndex > 0)
-                dv.RowFilter = "HeadQtr='" + drpheadQtr.SelectedItem.Text + "'";
+                str += " and HeadQtrNO='" + drpheadQtr.SelectedValue + "'";
+            dv.RowFilter = str;
             dv.Sort = "Name";
             drpUser.DataSource = dv.ToTable(true, "Name", "MId");
             drpUser.DataTextField = "Name";
@@ -54,22 +58,22 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
         if (ishqtr)
         {
             if (drpUser.SelectedIndex > 0)
-                dv.RowFilter = "Name='" + drpUser.SelectedItem.Text + "'";
+                dv.RowFilter = "MId='" + drpUser.SelectedValue + "'";
             dv.Sort = "HeadQtr";
-            drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr");
+            drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNO");
             drpheadQtr.DataTextField = "HeadQtr";
-            drpheadQtr.DataValueField = "HeadQtr";
+            drpheadQtr.DataValueField = "HeadQtrNO";
             drpheadQtr.DataBind();
             drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
         }
         if (isdstrct)
         {
             if (drpUser.SelectedIndex > 0)
-                dv.RowFilter = "Name='" + drpUser.SelectedItem.Text + "'";
-            dv.Sort = "HeadQtr";
-            drpDistrict.DataSource = dv.ToTable(true, "District");
+                dv.RowFilter = "MId='" + drpUser.SelectedValue + "'";
+            dv.Sort = "District";
+            drpDistrict.DataSource = dv.ToTable(true, "District", "DistrictNo");
             drpDistrict.DataTextField = "District";
-            drpDistrict.DataValueField = "District";
+            drpDistrict.DataValueField = "DistrictNo";
             drpDistrict.DataBind();
             drpDistrict.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -86,13 +90,13 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
         DataView dv = ds.Tables[1].DefaultView;
         string _filter = "0=0 ";
         if (drpheadQtr.SelectedIndex > 0)
-            _filter += " and HeadQtr = '" + drpheadQtr.SelectedValue + "'";
+            _filter += " and HeadQtrNo = '" + drpheadQtr.SelectedValue + "'";
         if (drpDepartment.SelectedIndex > 0)
             _filter += " and Dept_Id = '" + drpDepartment.SelectedValue + "'";
         if (drpUser.SelectedIndex > 0)
             _filter += " and CrmUserID= '" + drpUser.SelectedValue + "'";
         if (drpDistrict.SelectedIndex > 0)
-            _filter += " and District = '" + drpDistrict.SelectedValue + "'";
+            _filter += " and DistrictNo = '" + drpDistrict.SelectedValue + "'";
         if (drpStatus.SelectedIndex > 0)
             _filter += " and Status = '" + drpStatus.SelectedValue + "'";
         if (dpFrom.Text != "")
@@ -169,6 +173,10 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
         if (ddl == drpDistrict)
         {
             bindDrp(true, false, true);
+        }
+        if (ddl == drpStatus)
+        {
+            bindDrp(true, false, false);
         }
     }
 }

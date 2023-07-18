@@ -40,11 +40,10 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             Gd.FillUser(drpUser, drpDepartment.SelectedValue);
             bindDrp(true, true);
             Gd.FillPrimaryParty(drpParty);
-            Gd.FillGroup(drpGrp);
-            //Gd.FillPrimaryStation(drpStation);
+            Gd.FillGroup(drpGrp); 
             foreach (ListItem size in drpGrp.Items)
             {//
-                if (size.Value.ToString() == "DISHWAS" || size.Value.ToString() == "POWDER" || size.Value.ToString() == "ARTICLE")
+                if (size.Value.ToString() == "DISHWAS" || size.Value.ToString() == "POWDER" || size.Value.ToString() == "ARTICLE" || size.Value.ToString() == "KLEAN B")
                 {
                     size.Selected = true;
                 }
@@ -61,7 +60,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
         if (isuser)
         {
             if (drpHeadQtr.SelectedIndex > 0)
-                dv.RowFilter = "HeadQtr='" + drpHeadQtr.SelectedItem.Text + "'";
+                dv.RowFilter = "HeadQtrNO='" + drpHeadQtr.SelectedValue + "'";
             dv.Sort = "Name";
             drpUser.DataSource = dv.ToTable(true, "Name", "MId");
             drpUser.DataTextField = "Name";
@@ -72,11 +71,11 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
         if (ishqtr)
         {
             if (drpUser.SelectedIndex > 0)
-                dv.RowFilter = "Name='" + drpUser.SelectedItem.Text + "'";
+                dv.RowFilter = "MId='" + drpUser.SelectedValue+ "'";
             dv.Sort = "HeadQtr";
-            drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr");
+            drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
             drpHeadQtr.DataTextField = "HeadQtr";
-            drpHeadQtr.DataValueField = "HeadQtr";
+            drpHeadQtr.DataValueField = "HeadQtrNo";
             drpHeadQtr.DataBind();
             drpHeadQtr.Items.Insert(0, new ListItem("Select", "0"));
         }

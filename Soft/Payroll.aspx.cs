@@ -39,7 +39,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 }
                 else
                 {
-                    DataSet CrmUser = getdata.getUserDetails(Request.QueryString["uid"], "0");
+                    DataSet CrmUser = getdata.getUserDetails("0","0", "ALL", Request.QueryString["uid"]);
                     if (CrmUser.Tables[0].Rows.Count > 0)
                     {
                         txtemployeename.Text = CrmUser.Tables[0].Rows[0]["Name"].ToString();

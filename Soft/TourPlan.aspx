@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-md-4">
                         <label>District</label>
-                        <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2">
+                        <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
                         </asp:DropDownList>
                     </div>
                     <div class="clearfix">&nbsp;</div>

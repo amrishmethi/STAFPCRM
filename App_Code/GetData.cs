@@ -42,7 +42,7 @@ public class GetData
 
     public void FillEmployee(DropDownList drpEmployee)
     {
-        DataSet dsusr = getdata.getHqtrUser();
+        DataSet dsusr = getdata.getHqtrUserDpt("0");
         drpEmployee.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name", "Mid");
         drpEmployee.DataTextField = "Name";
         drpEmployee.DataValueField = "Mid";
@@ -110,7 +110,7 @@ public class GetData
 
     public void FillDistrict(DropDownList drpdistrict, string HeadQtr)
     {
-        query = "select distinct District,DistrictNO from  [HEADQTRDISTRICT]  WHERE 0=0";
+        query = "select distinct District,DistrictNO from  [HeadQtrWiseDistrict]  WHERE 0=0";
         if (HeadQtr != "0")
             query += " and HeadQtrNo=" + HeadQtr;
         query += " order by District ";
@@ -124,7 +124,7 @@ public class GetData
 
     public void FillHeadQtr(DropDownList drpHEADQTR)
     {
-        query = "select * from  [HEADQTRDISTRICT]  order by HEADQTR ";
+        query = "select distinct HeadQtrNo,HEADQTR from  [HeadQtrWiseDistrict]  order by HEADQTR ";
         ds = data.getDataSet(query);
         drpHEADQTR.DataSource = ds;
         drpHEADQTR.DataTextField = "HEADQTR";
@@ -309,13 +309,13 @@ public class GetData
 
     public DataSet FillHeadQtrDistrict()
     {
-        string query = "SELECT distinct [HeadQtr],[District],DistrictNo,HeadQtrNo FROM [HeadQtrDistrict] order by HeadQtr";
+        string query = "SELECT distinct [HeadQtr],[District],DistrictNo,HeadQtrNo FROM [HeadQtrWiseDistrict] order by HeadQtr";
         return data.getDataSet(query);
     }
 
     public DataSet FillStation()
     {
-        string query = "SELECT * FROM [station] order by station";
+        string query = "SELECT * FROM [GETSTATIONLIST] order by station";
         return data.getDataSet(query);
     }
 

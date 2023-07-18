@@ -36,7 +36,7 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
 
     private void bindDrp(bool isuser, bool ishqtr)
     {
-        DataSet dsusr = getdata.getHqtrUser();
+        DataSet dsusr = getdata.getHqtrUserDpt("0");
         DataView dv = dsusr.Tables[0].DefaultView;
         if (isuser)
         {

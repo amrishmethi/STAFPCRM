@@ -37,7 +37,7 @@ public partial class Soft_SecondarySalesTargetReport : System.Web.UI.Page
 
     public void FillEmployee()
     {
-        DataSet dsusr = getdata.getHqtrUser();
+        DataSet dsusr = getdata.getHqtrUserDpt("0");
         drpEmployee.DataSource = dsusr.Tables[0].DefaultView.ToTable(true, "Name", "Mid");
         drpEmployee.DataTextField = "Name";
         drpEmployee.DataValueField = "Mid";

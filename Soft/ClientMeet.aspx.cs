@@ -1,15 +1,11 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
-using Mailjet.Client.Resources;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Web;
 using System.Web.Services;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -30,44 +26,53 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
             Session["AccessRigthsSet"] = getdata.AccessRights("ClientMeet.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
-            Gd.FillUser(drpEmp);
+            //Gd.FillUser(drpEmp);
             Gd.fillDepartment(drpDept);
 
             txtDateFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             txtDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
 
-            bindDrp(true, true);
-            fillData();
-        }
 
-    }
-
-    private void bindDrp(bool isuser, bool ishqtr)
-    {
-        DataSet dsusr = getdata.getHqtrUser();
-        DataView dv = dsusr.Tables[0].DefaultView;
-        if (isuser)
-        {
-            if (drpHqtr.SelectedIndex > 0)
-                dv.RowFilter = "HeadQtr='" + drpHqtr.SelectedItem.Text + "'";
+            DataSet dsusr = getdata.getHqtrUserDpt(drpDept.SelectedValue);
+            ViewState["tbl1"] = dsusr;
+            DataView dv = dsusr.Tables[0].DefaultView;
+            if (drpStatus.SelectedIndex > 0)
+                dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
             dv.Sort = "Name";
             drpEmp.DataSource = dv.ToTable(true, "Name", "MId");
             drpEmp.DataTextField = "Name";
             drpEmp.DataValueField = "MId";
             drpEmp.DataBind();
             drpEmp.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
-        }
-        if (ishqtr)
-        {
-            if (drpEmp.SelectedIndex > 0)
-                dv.RowFilter = "Name='" + drpEmp.SelectedItem.Text + "'";
+
             dv.Sort = "HeadQtr";
-            drpHqtr.DataSource = dv.ToTable(true, "HeadQtr");
+            drpHqtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
             drpHqtr.DataTextField = "HeadQtr";
-            drpHqtr.DataValueField = "HeadQtr";
+            drpHqtr.DataValueField = "HeadQtrNo";
             drpHqtr.DataBind();
             drpHqtr.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+
+
+            //bindDrp(true, true);
+            //fillData();
         }
+
+    }
+
+
+    protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DataSet dsusr = (DataSet)ViewState["tbl1"];
+        DataView dv = dsusr.Tables[0].DefaultView;
+        if (drpStatus.SelectedIndex > 0)
+            dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
+
+        dv.Sort = "Name";
+        drpEmp.DataSource = dv.ToTable(true, "Name", "MId");
+        drpEmp.DataTextField = "Name";
+        drpEmp.DataValueField = "MId";
+        drpEmp.DataBind();
+        drpEmp.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
     }
 
     public void fillData()
@@ -102,15 +107,26 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
     {
         //fillData();
 
-        DropDownList ddl = sender as DropDownList;
-        if (ddl == drpEmp)
-        {
-            bindDrp(false, true);
-        }
-        if (ddl == drpHqtr)
-        {
-            bindDrp(true, false);
-        }
+        //DropDownList ddl = sender as DropDownList;
+        //if (ddl == drpEmp)
+        //{
+        //    bindDrp(false, true);
+        //}
+        //if (ddl == drpHqtr)
+        //{
+        //    bindDrp(true, false);
+        //}
+
+
+        DataSet dsusr = (DataSet)ViewState["tbl1"];
+        DataView dv = dsusr.Tables[0].DefaultView;
+        dv.RowFilter = "Mid=" + drpEmp.SelectedValue;
+        dv.Sort = "HeadQtr";
+        drpHqtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNO");
+        drpHqtr.DataTextField = "HeadQtr";
+        drpHqtr.DataValueField = "HeadQtrNO";
+        drpHqtr.DataBind();
+        drpHqtr.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
 
     }
     private void GeneratePDF(DataTable dataTable, string Name)
@@ -300,7 +316,7 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
         Panel panel = (Panel)btn.NamingContainer.FindControl("Panel1");
         panel.Visible = !panel.Visible;
     }
-     
+
     protected void rep_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         if (drpImg.SelectedValue == "0")
