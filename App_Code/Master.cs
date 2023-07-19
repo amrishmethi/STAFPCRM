@@ -257,6 +257,35 @@ public class Master
         return ds;
     }
 
+    public DataSet getSaleReportST(string head, string district, string report, string station, string dt, string dt1, string rate, string party, string Group)
+    {
+        cmd = new SqlCommand("PROC_HEADQTRWISESALEST");
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.Parameters.AddWithValue("@head", head);
+        cmd.Parameters.AddWithValue("@district", district);
+        cmd.Parameters.AddWithValue("@report", report);
+        cmd.Parameters.AddWithValue("@station", station);
+        cmd.Parameters.AddWithValue("@dtFrom", data.YYYYMMDD(dt));
+        cmd.Parameters.AddWithValue("@dtTo", data.YYYYMMDD(dt1));
+        cmd.Parameters.AddWithValue("@rate", rate);
+        cmd.Parameters.AddWithValue("@Party", party);
+        cmd.Parameters.AddWithValue("@Group", Group);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+
+    public DataSet ItemStock(string Group, string Type)
+    {
+        cmd = new SqlCommand("PROC_ITEMCURRENTSTOCK");
+        cmd.CommandType = CommandType.StoredProcedure; 
+        cmd.Parameters.AddWithValue("@Group", Group);
+        cmd.Parameters.AddWithValue("@Type", Type);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
     public DataSet getSaleSummaryReportST(string head, string district, string report, string station, string dt, string dt1, string rate, string party, string Group)
     {
         cmd = new SqlCommand("Proc_SaleSummaryReportST");

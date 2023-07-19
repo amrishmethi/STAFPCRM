@@ -97,7 +97,7 @@
                     <div class="box-body">
                         <div class="widget-content">
                             <div class="table-responsive">
-                                <table id="ExportTbl" class="table table-bordered display table-striped">
+                                <table id="Tbl" class="table table-bordered display table-striped">
                                     <thead>
                                         <tr>
                                             <th>Sr. No.</th>
@@ -131,7 +131,7 @@
                                                     <td style="text-align: left;"><%#Eval("Party") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;">
-                                                        <asp:TextBox ID="txtPowder" CssClass="form-control Powder" runat="server" Text='<%#Eval("Powder") %>' onkeypress="return IsNumericKey(event);"></asp:TextBox></td>
+                                                        <asp:TextBox type="text" ID="txtPowder" CssClass="form-control Powder" runat="server" value='<%#Eval("Powder") %>' onkeypress="return IsNumericKey(event);" /></td>
                                                     <td style="text-align: left;">
                                                         <asp:TextBox ID="txtBar_Tub" CssClass="form-control Bar_Tub" runat="server" Text='<%#Eval("Bar_Tub") %>' onkeypress="return IsNumericKey(event);"></asp:TextBox>
                                                     </td>
@@ -148,7 +148,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr class="gradeA">
-                                            <td></td> 
+                                            <td></td>
                                             <td>Total</td>
                                             <td></td>
                                             <td></td>
@@ -227,22 +227,54 @@
     <script> 
 
         $(document).ready(function () {
-            $("#ExportTbl").on('input', '.Powder', function () {
+
+
+            $('#Tbl').DataTable({
+                dom: '<"dt-top-container"<l><"dt-center-in-div"B><f>r>t<ip>',
+                "processing": true,
+                //    "serverSide": true,
+                // paging:false,
+                rowReorder: {
+                    selector: 'td:nth-child(1)'
+                },
+
+                buttons: [
+                    {
+                        extend: 'excelHtml5', footer: true,
+                        exportOptions: {
+                            columns: ':visible',
+                            format: {
+                                body: function (inner, rowidx, colidx, node) {
+                                    if ($(node).children("input").length > 0) {
+                                        return $(node).children("input").first().val();
+                                    } else {
+                                        return inner;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    'colvis'
+                ]
+
+            });
+
+            $("#Tbl").on('input', '.Powder', function () {
                 var calculated_total_sum = 0;
 
-                $("#ExportTbl .Powder").each(function () {
+                $("#Tbl .Powder").each(function () {
                     var get_textbox_value = $(this).val();
                     if ($.isNumeric(get_textbox_value)) {
                         calculated_total_sum += parseFloat(get_textbox_value);
                     }
-                }); 
+                });
                 document.getElementById("Body_lblPowderTotal").value = calculated_total_sum;
             });
 
-            $("#ExportTbl").on('input', '.Bar_Tub', function () {
+            $("#Tbl").on('input', '.Bar_Tub', function () {
                 var calculated_total_sum = 0;
 
-                $("#ExportTbl .Bar_Tub").each(function () {
+                $("#Tbl .Bar_Tub").each(function () {
                     var get_textbox_value = $(this).val();
                     if ($.isNumeric(get_textbox_value)) {
                         calculated_total_sum += parseFloat(get_textbox_value);
@@ -251,10 +283,10 @@
                 document.getElementById("Body_lblBar_Tub").value = calculated_total_sum;
             });
 
-            $("#ExportTbl").on('input', '.clean', function () {
+            $("#Tbl").on('input', '.clean', function () {
                 var calculated_total_sum = 0;
 
-                $("#ExportTbl .clean").each(function () {
+                $("#Tbl .clean").each(function () {
                     var get_textbox_value = $(this).val();
                     if ($.isNumeric(get_textbox_value)) {
                         calculated_total_sum += parseFloat(get_textbox_value);
@@ -264,7 +296,7 @@
             });
         });
 
-         
+
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>

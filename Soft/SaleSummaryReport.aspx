@@ -12,7 +12,7 @@
         <h1>Summary Report (S/T)</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/UserTourPlan.aspx" class="active">Summary Report (S/T)</a></li>
+            <li><a href="/Soft/SaleSummaryReport.aspx" class="active">Summary Report (S/T)</a></li>
         </ol>
     </section>
     <section class="content">

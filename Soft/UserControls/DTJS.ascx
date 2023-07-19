@@ -46,15 +46,15 @@
                     extend: 'excelHtml5', footer: true,
                     exportOptions: {
                         columns: ':visible',
-                        format: {
-                            body: function (inner, rowidx, colidx, node) {
-                                if ($(node).children("input").length > 0) {
-                                    return $(node).children("input").first().val();
-                                } else {
-                                    return inner;
-                                }
-                            }
-                        }
+                        //format: {
+                        //    body: function (inner, rowidx, colidx, node) {
+                        //        if ($(node).children("input").length > 0) {
+                        //            return $(node).children("input").first().val();
+                        //        } else {
+                        //            return inner;
+                        //        }
+                        //    }
+                        //}
                     } 
                 }, 
                 {

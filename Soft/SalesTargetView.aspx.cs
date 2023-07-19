@@ -99,6 +99,7 @@ public partial class Admin_SalesTargetView : System.Web.UI.Page
                 rowFilter += " and (PTCMsNo = '" + drpCatg.SelectedValue + "' or PTCMsNo is null) ";
         }
         dv.RowFilter = rowFilter;
+        dv.Sort = "District,PartyCategory,Party,Station";
         rep.DataSource = dv.ToTable();
         rep.DataBind();
 
@@ -236,5 +237,5 @@ public partial class Admin_SalesTargetView : System.Web.UI.Page
     {
         fillData();
     }
-     
+
 }

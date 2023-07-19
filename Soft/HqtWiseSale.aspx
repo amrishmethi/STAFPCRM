@@ -1,18 +1,18 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="orderreportsp.aspx.cs" Inherits="Soft_orderreportsp" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="HqtWiseSale.aspx.cs" Inherits="Soft_HqtWiseSale" %>
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>Order Report (S/T)(STAFP)</title>
+    <title>HeadQtr Wise Sale Report (S/T)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <asp:ScriptManager ID="scpt1" runat="server"></asp:ScriptManager>
     <section class="content-header" style="height: 2.5em;">
-        <h1>Order Report (S/T)</h1>
+        <h1>HeadQtr Wise Sale Report (S/T)</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/orderreportsp.aspx" class="active">Order Report (S/T)</a></li>
+            <li><a href="/Soft/HqtWiseSale.aspx" class="active">HeadQtr Wise Sale Report (S/T)</a></li>
         </ol>
     </section>
     <section class="content">
@@ -64,9 +64,8 @@
                             <div class="col-md-3">
                                 <label>Report</label>
                                 <asp:DropDownList ID="drpReport" runat="server" CssClass="form-control select2">
-                                    <asp:ListItem Text="All Order" Value="All"></asp:ListItem>
-                                    <%--<asp:ListItem Text="Sales" Value="Complete"></asp:ListItem>--%>
-                                    <asp:ListItem Text="Pending Order" Value="Pending"></asp:ListItem>
+                                    <asp:ListItem Text="Detail" Value="Detail"></asp:ListItem> 
+                                    <asp:ListItem Text="Summary" Value="Summary"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
 

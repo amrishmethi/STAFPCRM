@@ -169,7 +169,7 @@ public class GetData
     }
     public void FillGroup(DropDownList drp)
     {
-        query = "SELECT [CMsCode], [CMsName]   FROM [CMaster] Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
+        query = "SELECT [CMsCode], [CMsName]   FROM [CMaster] Where CMsSr='I'   Order By CMSName";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "CMsName";
@@ -179,7 +179,7 @@ public class GetData
     }
     public void FillGroup(ListBox drp)
     {
-        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
+        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'   Order By CMSName";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "CMsName";
@@ -190,7 +190,7 @@ public class GetData
 
     public void FillGroup1(ListBox drp)
     {
-        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
+        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'   Order By CMSName";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "CMsName";
@@ -211,7 +211,7 @@ public class GetData
 
     public void FillHeadQt(DropDownList drp)
     {
-        query = "SELECT [CMsCode], [CMsName]   FROM  Where CMsSr='I' and CMSValue1='Y' Order By CMSName";
+        query = "SELECT [CMsCode], [CMsName]   FROM  Where CMsSr='I'   Order By CMSName";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "CMsName";
