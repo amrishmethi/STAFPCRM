@@ -54,7 +54,7 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
             action = "UPDATE";
             SecondarySalesPartyid = Request.QueryString["id"].ToString();
         }
-        getdata.getSecondarySalesParty(action, SecondarySalesPartyid, "0", drpStation.SelectedItem.Text, txtParty.Text.Trim(), txtMobile.Text.Trim(), txtWhatsApp.Text.Trim(), "", drpBeat.SelectedValue);
+        getdata.getSecondarySalesParty(action, SecondarySalesPartyid, drpStation.SelectedValue, drpStation.SelectedItem.Text, txtParty.Text.Trim(), txtMobile.Text.Trim(), txtWhatsApp.Text.Trim(), "", drpBeat.SelectedValue);
         Response.Redirect("SecondarySalesParty.aspx");
     }
 

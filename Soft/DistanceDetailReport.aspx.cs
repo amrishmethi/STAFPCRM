@@ -96,6 +96,7 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
                 lblTotalq.Text = dss.Tables[0].Compute("sum(Total)", "").ToString();
                 lblNight.Text = dss.Tables[0].Compute("sum(NightStay)", "").ToString();
                 lblDal.Text = dss.Tables[0].Compute("sum(DAL)", "").ToString();
+                lblOther.Text = dss.Tables[0].Compute("sum(Other)", "").ToString();
             }
         }
         else if (drpReport.SelectedIndex == 2)
@@ -119,6 +120,7 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
                      row["TotalAmt"] = g.Sum(r => r.Field<decimal>("Amount"));
                      row["NightStay"] = g.Sum(r => r.Field<decimal>("NightStay"));
                      row["DAL1"] = g.Sum(r => r.Field<decimal>("DAL1"));
+                     row["Other"] = g.Sum(r => r.Field<decimal>("Other"));
                      row["Total"] = g.Sum(r => r.Field<decimal>("Total"));
                      return row;
                  }).OrderBy(r => r.Field<string>("Emp_Name")).CopyToDataTable<DataRow>();
@@ -136,6 +138,7 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
                     Label2.Text = boundTable.Rows[0]["TotalAmt"].ToString();
                     Label3.Text = boundTable.Compute("sum(NightStay)", "").ToString();
                     Label4.Text = boundTable.Compute("sum(DAL1)", "").ToString();
+                    Label6.Text = boundTable.Compute("sum(Other)", "").ToString();
                     Label5.Text = boundTable.Compute("sum(Total)", "").ToString();
                 }
             }

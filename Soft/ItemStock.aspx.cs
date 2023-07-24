@@ -22,7 +22,7 @@ public partial class Soft_ItemStock : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0]; 
-            gd.FillGroup1(drpGrp);
+            gd.FillGroup(drpGrp);
 
         }
     }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Activities.Expressions;
+using System.Activities.Statements;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -53,13 +55,13 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
         DataSet dss = master.GetSallary(_DD, drpDepartment.SelectedValue, drpDesignation.SelectedValue, drpProjectManager.SelectedValue, drpPf.SelectedValue, drpStatus.SelectedValue);
 
 
-        DataTable mergedTable = new DataTable();        
-        mergedTable.Merge(dss.Tables[0]);        
-        mergedTable.Merge(dss.Tables[1]);       
+        DataTable mergedTable = new DataTable();
+        mergedTable.Merge(dss.Tables[0]);
+        mergedTable.Merge(dss.Tables[1]);
 
         rep.DataSource = mergedTable;
         rep.DataBind();
-         
+
         //Repeater1.DataSource = dss.Tables[1];
         //Repeater1.DataBind();
 
@@ -88,5 +90,23 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
             data.executeCommand("Update TBL_EMPSALARY SET ISDELETE=1,ModifyTime=Getdate() WHERE ID= " + e.CommandArgument.ToString() + "");
             ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Delete Successfully');window.location ='MonthlySallaryRep.aspx'", true);
         }
+    }
+
+    protected void btnSalarySlip_Click(object sender, EventArgs e)
+    {
+        string str = "Select STUFF((Select ',' + Cast(ID as nvarchar(50)) from [GETSALARYSLIP]  WHERE  Format(SALARYMONTH,'MM-yyyy')='" + mnth.Text + "'";
+        if (drpDepartment.SelectedIndex > 0)
+            str += " and Dept_Id=" + drpDepartment.SelectedValue;
+        if (drpProjectManager.SelectedIndex > 0)
+            str += " and EMP_ID=" + drpProjectManager.SelectedValue;
+        if (drpStatus.SelectedIndex > 0)
+            str += " and Status='" + drpStatus.SelectedValue + "'";
+        if (drpPf.SelectedIndex > 0)
+            str += " and Is_PF=" + drpPf.SelectedValue;
+
+        str += " FOR XML PATH('') ), 1, 1, '')";
+        DataSet dss = data.getDataSet(str);
+        Session["SalaryId"] = dss.Tables[0].Rows[0][0].ToString();
+        Response.Write("<script>window.open ('SalarySlip.aspx','_blank');</script>");
     }
 }

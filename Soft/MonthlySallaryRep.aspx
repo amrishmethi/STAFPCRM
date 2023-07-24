@@ -71,6 +71,12 @@
                                 &nbsp;
                                 <asp:Button ID="btnSalary" runat="server" CssClass="btn btn-primary" Text="Salary Generate"
                                     ValidationGroup="aa" OnClick="btnSalary_Click" />
+
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                <asp:Button ID="btnSalarySlip" runat="server" CssClass="btn btn-primary" Text="Salary Slip"
+                                    ValidationGroup="aa" OnClick="btnSalarySlip_Click" />
                             </div>
                         </div>
 
@@ -150,7 +156,7 @@
                                                     <td style="text-align: left;"><%#Eval("LOANAMOUNT") %></td>
                                                     <td style="text-align: left;"><%#Eval("Advance") %></td>
                                                     <td style="text-align: left;"><%#Eval("TDSVALUE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NETSALARY") %></td>
+                                                    <td style="text-align: left;"><a href='<%# "SalarySlip.aspx?Id="+Eval("Id") %>' runat="server" target="_blank"><%#Eval("NETSALARY") %></a></td>
                                                     <td style="text-align: left;"><%#Eval("PF_EMPLOYERVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ESIC_EMPLOYERVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("CTC") %></td>

@@ -85,8 +85,7 @@
                                 &nbsp;
                                 <asp:Button ID="btnSalary" runat="server" CssClass="btn btn-primary" Text="Save Target"
                                     ValidationGroup="aa" OnClick="btnSalary_Click" />
-                            </div>
-
+                            </div> 
                         </div>
 
                         <div class="clearfix">&nbsp;</div>
@@ -255,7 +254,9 @@
                         }
                     },
                     'colvis'
-                ]
+                ],
+                pageLength: -1,
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
 
             });
 

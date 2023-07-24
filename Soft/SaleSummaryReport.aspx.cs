@@ -28,51 +28,42 @@ public partial class Soft_SaleSummaryReport : System.Web.UI.Page
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            //Gd.fillDepartment(drpDepartment);
-            //gd.FillUser(DrpEmployee);
             bindDrp();
             gd.FillPrimaryParty(drpParty);
             gd.FillPrimaryStation(Drpstation);
-            gd.FillGroup1(drpGrp);
+            gd.FillGroup(drpGrp);
         }
-    }
-
-
+    } 
 
     private void bindDrp()
     {
         DataSet dsusr = getdata.getHqtrUserDpt("0");
         DataView dv = dsusr.Tables[0].DefaultView;
         dv.Sort = "Name";
-        DrpEmployee.DataSource = dv.ToTable(true, "Name");
+        DrpEmployee.DataSource = dv.ToTable(true, "Name", "MID");
         DrpEmployee.DataTextField = "Name";
-        DrpEmployee.DataValueField = "Name";
+        DrpEmployee.DataValueField = "MID";
         DrpEmployee.DataBind();
         DrpEmployee.Items.Insert(0, new ListItem("Select", "0"));
         dv.Sort = "HeadQtr";
-       drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr");
+        drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNO");
         drpHeadQtr.DataTextField = "HeadQtr";
-        drpHeadQtr.DataValueField = "HeadQtr";
+        drpHeadQtr.DataValueField = "HeadQtrNO";
         drpHeadQtr.DataBind();
         drpHeadQtr.Items.Insert(0, new ListItem("Select", "0"));
         dv.Sort = "district";
-        drpDistict.DataSource = dv.ToTable(true, "district");
+        drpDistict.DataSource = dv.ToTable(true, "district", "districtNo");
         drpDistict.DataTextField = "district";
-        drpDistict.DataValueField = "district";
+        drpDistict.DataValueField = "districtNo";
         drpDistict.DataBind();
         drpDistict.Items.Insert(0, new ListItem("Select", "0"));
     }
 
     public void fillData()
-    {
-        // LblFrom.Text = dpFrom.Text;
-        //Lblto.Text = dpTo.Text;
-
-
-
+    { 
         string head = drpHeadQtr.SelectedValue;
         string station = Drpstation.SelectedValue;
-        string party = drpParty.SelectedItem.Text;
+        string party = drpParty.SelectedValue;
         string rate = Drprate.SelectedValue;
         string grp = "0";
         foreach (ListItem item in drpGrp.Items)
@@ -89,11 +80,8 @@ public partial class Soft_SaleSummaryReport : System.Web.UI.Page
             if (item.Selected)
             {
                 district += "," + item.Value;
-            }
-
-
-        }
-
+            } 
+        } 
 
         ds = getdata.getSaleSummaryReportST(head, district, drpReport.SelectedValue, station, dpFrom.Text, dpTo.Text, rate, party, grp);
 
@@ -158,15 +146,11 @@ public partial class Soft_SaleSummaryReport : System.Web.UI.Page
             mergedTable.Rows.Add(footerRow);
 
             rep.DataSource = mergedTable;
-            rep.DataBind();
-
-            //lblTotalBag.Text = ds.Tables[0].Compute("sum(ordbag)", "").ToString();
-            //lblTotalQty.Text = ds.Tables[0].Compute("sum(qty)", "").ToString();
-            //lblTotalAmt.Text = ds.Tables[0].Compute("sum(amount)", "").ToString();
+            rep.DataBind(); 
         }
 
     }
-    
+
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         fillData();
@@ -178,17 +162,14 @@ public partial class Soft_SaleSummaryReport : System.Web.UI.Page
         DataView dv = dsusr.Tables[0].DefaultView;
         // Bind data to district dropdown list based on selected HeadQtr
         string selectedHeadQtr = drpHeadQtr.SelectedValue;
-        dv.RowFilter = "HeadQtr = '" + selectedHeadQtr + "'";
+        dv.RowFilter = "HeadQtrNo = '" + selectedHeadQtr + "'";
         dv.Sort = "district";
-        drpDistict.DataSource = dv.ToTable(true, "district");
+        drpDistict.DataSource = dv.ToTable(true, "district", "districtNo");
         drpDistict.DataTextField = "district";
-        drpDistict.DataValueField = "district";
+        drpDistict.DataValueField = "districtNo";
         drpDistict.DataBind();
         drpDistict.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
-
-
+    } 
 
     protected void DrpEmployee_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -196,11 +177,11 @@ public partial class Soft_SaleSummaryReport : System.Web.UI.Page
         DataView dv = dsusr.Tables[0].DefaultView;
         // Bind data to district dropdown list based on selected HeadQtr
         string selectedName = DrpEmployee.SelectedValue;
-        dv.RowFilter = "Name = '" + selectedName + "'";
+        dv.RowFilter = "Mid = '" + selectedName + "'";
         dv.Sort = "HeadQtr";
-        drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr");
+        drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNO");
         drpHeadQtr.DataTextField = "HeadQtr";
-        drpHeadQtr.DataValueField = "HeadQtr";
+        drpHeadQtr.DataValueField = "HeadQtrNO";
         drpHeadQtr.DataBind();
         drpHeadQtr.Items.Insert(0, new ListItem("Select", "0"));
     }
@@ -211,13 +192,12 @@ public partial class Soft_SaleSummaryReport : System.Web.UI.Page
         DataView dv = dsusr.Tables[0].DefaultView;
         // Bind data to district dropdown list based on selected HeadQtr
         string selecteddistrict = drpDistict.SelectedValue;
-        dv.RowFilter = "district = '" + selecteddistrict + "'";
+        dv.RowFilter = "districtNo = '" + selecteddistrict + "'";
         dv.Sort = "Station";
-        Drpstation.DataSource = dv.ToTable(true, "Station");
+        Drpstation.DataSource = dv.ToTable(true, "Station", "StationNo");
         Drpstation.DataTextField = "Station";
-        Drpstation.DataValueField = "Station";
+        Drpstation.DataValueField = "StationNo";
         Drpstation.DataBind();
         Drpstation.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
+    } 
 }

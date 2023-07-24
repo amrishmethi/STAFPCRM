@@ -10,7 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-public partial class Soft_HqtWiseSale : System.Web.UI.Page
+public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
@@ -27,13 +27,13 @@ public partial class Soft_HqtWiseSale : System.Web.UI.Page
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/'); 
+            dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             bindDrp();
             gd.FillPrimaryParty(drpParty);
             gd.FillPrimaryStation(Drpstation);
             gd.FillGroup(drpGrp);
         }
-    } 
+    }
 
     private void bindDrp()
     {
@@ -82,13 +82,13 @@ public partial class Soft_HqtWiseSale : System.Web.UI.Page
                 district += "," + item.Value;
             }
         }
-        ds = getdata.getSaleReportST(head, district, drpReport.SelectedValue, station, dpFrom.Text, dpTo.Text, rate, party, grp);
-        rep.DataSource = ds.Tables[0];
-        rep.DataBind();
+        ds = getdata.getSaleSummaryReportSTHQ(head, district, drpReport.SelectedValue, station, dpFrom.Text, dpTo.Text, rate, party, grp);
+        grdReport.DataSource = ds.Tables[0];
+        grdReport.DataBind();
 
-        lblTotalBag.Text = ds.Tables[0].Compute("sum(ordbag)", "").ToString();
-        lblTotalQty.Text = ds.Tables[0].Compute("sum(qty)", "").ToString();
-        lblTotalAmt.Text = ds.Tables[0].Compute("sum(amount)", "").ToString();
+        //lblTotalBag.Text = ds.Tables[0].Compute("sum(ordbag)", "").ToString();
+        //lblTotalQty.Text = ds.Tables[0].Compute("sum(qty)", "").ToString();
+        //lblTotalAmt.Text = ds.Tables[0].Compute("sum(amount)", "").ToString();
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
@@ -109,7 +109,7 @@ public partial class Soft_HqtWiseSale : System.Web.UI.Page
         drpDistict.DataValueField = "districtNo";
         drpDistict.DataBind();
         drpDistict.Items.Insert(0, new ListItem("Select", "0"));
-    } 
+    }
 
     protected void DrpEmployee_SelectedIndexChanged(object sender, EventArgs e)
     {

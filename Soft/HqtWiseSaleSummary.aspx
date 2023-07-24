@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="HqtWiseSale.aspx.cs" Inherits="Soft_HqtWiseSale" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="HqtWiseSaleSummary.aspx.cs" Inherits="Soft_HqtWiseSaleSummary" %>
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
@@ -22,8 +22,6 @@
                     <div class="box-body">
                         <div class="form-group">
 
-                            <%--   <asp:UpdatePanel ID="upd" runat="server">
-                    <ContentTemplate>--%>
                             <div class="col-md-3">
                                 <label>Employee</label>
 
@@ -64,7 +62,7 @@
                             <div class="col-md-3 hidden">
                                 <label>Report</label>
                                 <asp:DropDownList ID="drpReport" runat="server" CssClass="form-control select2">
-                                    <asp:ListItem Text="Detail" Value="Detail"></asp:ListItem> 
+                                    <asp:ListItem Text="Detail" Value="Detail"></asp:ListItem>
                                     <asp:ListItem Text="Summary" Value="Summary"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
@@ -101,7 +99,18 @@
                         <div class="box-body">
                             <div class="widget-content">
                                 <div class="table-responsive">
-                                    <table id="ExportTbl" class="table table-bordered display table-striped">
+                                    <asp:GridView ID="grdReport" runat="server" CssClass="table table-bordered display table-striped ">
+                                         
+                                    </asp:GridView>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box-primary hidden">
+                        <div class="box-body">
+                            <div class="widget-content">
+                                <div class="table-responsive">
+                                    <table id="ExportTbl" class="table table-bordered display table-striped ">
                                         <thead>
                                             <tr>
                                                 <th>Sr. No.</th>
@@ -116,8 +125,8 @@
                                                 <th>packing</th>
                                                 <th>Qty</th>
                                                 <th>Rate</th>
-                                                <th>Amount</th> 
-                                            </tr> 
+                                                <th>Amount</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                             <asp:Repeater ID="rep" runat="server">
