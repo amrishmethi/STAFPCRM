@@ -11,7 +11,7 @@
         <h1>Secondary Sales Report</h1>
         <ol class="breadcrumb">
             <li>
-                <asp:Button ID="print" runat="server" OnClick="print_Click" CssClass="btn btn-sm btn-info" Text="Print"></asp:Button></li>
+                </li>
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/SecondarySalesReport.aspx" class="active">Secondary Sales Report</a></li>
         </ol>
@@ -73,6 +73,12 @@
                             <div class="col-md-2">
                                 <br />
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" ValidationGroup="aa" Text="Get Report" OnClick="btnSubmit_Click" />
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                <asp:Button ID="print" runat="server" OnClick="print_Click" CssClass="btn  btn-info" Text="Print"></asp:Button>
                             </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>

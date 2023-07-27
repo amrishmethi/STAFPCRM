@@ -92,6 +92,7 @@ public partial class Admin_UpdateSalesOrder : System.Web.UI.Page
             dr["GrpCode"] = drpGroup.SelectedValue;
             dr["Grp"] = drpGroup.SelectedItem.Text;
             dr["ITName"] = drpItem.SelectedItem;
+            dr["ITCode"] = drpItem.SelectedValue;
             dr["OrdQty"] = txtQty.Text;
             dr["OrdStpRate"] = txtRate.Text;
             dt.Rows.Add(dr);
@@ -137,7 +138,7 @@ public partial class Admin_UpdateSalesOrder : System.Web.UI.Page
         DataRow dr = dt.Rows[v - 1];
         drpGroup.SelectedValue = dr["GrpCode"].ToString();
         fillItemDrop();
-        drpItem.SelectedValue = dr["ITName"].ToString();
+        drpItem.SelectedValue = dr["ITCode"].ToString();
         txtQty.Text = Convert.ToDecimal(dr["OrdQty"]).ToString("#0");
         txtRate.Text = Convert.ToDecimal(dr["OrdStpRate"]).ToString("#0.00");
     }

@@ -51,6 +51,12 @@
                                 <asp:TextBox ID="txtDateTo" runat="server" CssClass="form-control datepicker" OnTextChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:TextBox>
                             </div>
+                             <div class="col-md-4">
+                                <br />
+                                <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Target"
+                                    ValidationGroup="aa" OnClick="btnSubmit_Click" /> 
+                            </div>
+                            <div class="clearfix">&nbsp;</div>
                             <%-- <div class="col-md-2">
                                 <label>IsMeet</label>
                                 <asp:DropDownList ID="drpIsMeet" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpEmp_SelectedIndexChanged" AutoPostBack="true">
@@ -59,8 +65,7 @@
                                     <asp:ListItem Value="0" Text="No"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>--%>
-                        </div>
-                        <div class="clearfix">&nbsp;</div>
+                        </div> 
                     </div>
                 </div>
                 <div class="box box-primary">

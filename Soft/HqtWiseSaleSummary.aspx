@@ -6,8 +6,8 @@
     <title>HeadQtr Wise Sale Report (S/T)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
-    <asp:ScriptManager ID="scpt1" runat="server"></asp:ScriptManager>
+<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server"> 
+   
     <section class="content-header" style="height: 2.5em;">
         <h1>HeadQtr Wise Sale Report (S/T)</h1>
         <ol class="breadcrumb">
@@ -91,6 +91,12 @@
                             <div class="col-md-3">
                                 <br />
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" OnClick="btnSearch_Click" Text="Search" />
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                &nbsp;
+                                <asp:Button ID="btnExport" runat="server" CssClass="btn btn-success" OnClick="btnExport_Click" Text="Export To Excel" />
+                                 
                             </div>
                             <div class="clearfix">&nbsp;</div>
                         </div>
@@ -99,72 +105,9 @@
                         <div class="box-body">
                             <div class="widget-content">
                                 <div class="table-responsive">
-                                    <asp:GridView ID="grdReport" runat="server" CssClass="table table-bordered display table-striped ">
-                                         
+                                    <asp:GridView ID="grdReport" ClientIDMode="Static" runat="server" CssClass="table table-bordered display table-striped ">
                                     </asp:GridView>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box box-primary hidden">
-                        <div class="box-body">
-                            <div class="widget-content">
-                                <div class="table-responsive">
-                                    <table id="ExportTbl" class="table table-bordered display table-striped ">
-                                        <thead>
-                                            <tr>
-                                                <th>Sr. No.</th>
-                                                <th>Date</th>
-                                                <th>HeadQuarter</th>
-                                                <th>District</th>
-                                                <th>Station</th>
-                                                <th>Party </th>
-                                                <th>Party Group</th>
-                                                <th>Item Name </th>
-                                                <th>Order Bag</th>
-                                                <th>packing</th>
-                                                <th>Qty</th>
-                                                <th>Rate</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <asp:Repeater ID="rep" runat="server">
-                                                <ItemTemplate>
-                                                    <tr class="gradeA">
-                                                        <td>
-                                                            <%#Container.ItemIndex+1 %>
-                                                        </td>
-                                                        <td style="text-align: left;"><%# Eval("acname").ToString() =="Total"?"" : Eval("orddate")  %></td>
-                                                        <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
-                                                        <td style="text-align: left;"><%#Eval("District") %></td>
-                                                        <td style="text-align: left;"><%#Eval("Station") %></td>
-                                                        <td style="text-align: left;"><%#Eval("acname") %></td>
-                                                        <td style="text-align: left;"><%#Eval("cmsname") %></td>
-                                                        <td style="text-align: left;"><%#Eval("itname") %></td>
-                                                        <td style="text-align: left;"><%#Eval("ordbag") %></td>
-                                                        <td style="text-align: left;"><%#Eval("CWeight") %></td>
-                                                        <td style="text-align: left;"><%#Eval("qty") %></td>
-                                                        <td style="text-align: left;"><%#Eval("ordstprate") %></td>
-                                                        <td style="text-align: left;"><%#Eval("amount") %></td>
-                                                    </tr>
-                                                </ItemTemplate>
-                                            </asp:Repeater>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td colspan="8">Total</td>
-                                                <td>
-                                                    <asp:Label ID="lblTotalBag" runat="server"></asp:Label></td>
-                                                <td></td>
-                                                <td>
-                                                    <asp:Label ID="lblTotalQty" runat="server"></asp:Label></td>
-                                                <td></td>
-                                                <td>
-                                                    <asp:Label ID="lblTotalAmt" runat="server"></asp:Label></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
+                                     
                                 </div>
                             </div>
                         </div>
@@ -179,7 +122,7 @@
         $(document).ready(function () {
             debugger
             $.ajax({
-                url: 'UserWiseParty.aspx/ControlAccess',
+                url: 'HqtWiseSaleSummary.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -188,29 +131,6 @@
                     let text = data.d;
                     const myArray = text.split(",");
 
-                    //document.getElementById("Body_lnkAdd").style.display = myArray[0] == "False" ? "none" : "";
-
-                    //var elements = document.getElementsByClassName("isEditVisible");
-                    //Array.prototype.forEach.call(elements, function (element) {
-                    //    element.style.display = myArray[1] == "False" ? "none" : "inline";
-                    //});
-                    //var elements1 = document.getElementsByClassName("isDelVisible");
-                    //Array.prototype.forEach.call(elements1, function (element) {
-                    //    element.style.display = myArray[2] == "False" ? "none" : "inline";
-                    //});
-                    //var elements2 = document.getElementsByClassName("isAssVisible");
-                    //Array.prototype.forEach.call(elements2, function (element) {
-                    //    element.style.display = myArray[4] == "False" ? "none" : "";
-                    //});
-                    //var elements3 = document.getElementsByClassName("isLoginVisible");
-                    //Array.prototype.forEach.call(elements3, function (element) {
-                    //    element.style.display = myArray[5] == "False" ? "none" : "";
-                    //});
-
-                    //if (myArray[1] == 'False' && myArray[2] == 'False') {
-                    //    document.getElementById("lblAction").innerHTML = "";
-
-                    //}
                     document.getElementsByClassName("buttons-excel")[0].style.display = myArray[3] == "False" ? "none" : "";
                     document.getElementsByClassName("buttons-pdf")[0].style.display = myArray[3] == "False" ? "none" : "";
                 },
@@ -222,6 +142,7 @@
         })
 
     </script>
+      
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
 

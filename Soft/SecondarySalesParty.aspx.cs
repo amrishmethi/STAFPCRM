@@ -28,16 +28,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
             Gd.FillParty(drpParty);
             Gd.FillPrimaryStation(drpStation);
             ViewState["station"] = Gd.FillStation();
-            Gd.FillDistrict(drpheadQtr, "0");
-            //DataSet dsusr = getdata.getHqtrUser();
-            //DataView dv = dsusr.Tables[0].DefaultView;
-            //dv.Sort = "District";
-            //drpheadQtr.DataSource = dv.ToTable(true, "District");
-            //drpheadQtr.DataTextField = "District";
-            //drpheadQtr.DataValueField = "District";
-            //drpheadQtr.DataBind();
-            //drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
-            //fillData();
+            Gd.FillDistrict(drpheadQtr, "0"); 
         }
     }
 

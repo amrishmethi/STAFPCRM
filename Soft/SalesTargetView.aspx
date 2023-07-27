@@ -110,7 +110,6 @@
                                             <th>Sale (KBP)</th>
                                             <th>Remaining (KBP)</th>
                                         </tr>
-
                                     </thead>
                                     <tbody>
                                         <asp:Repeater ID="rep" runat="server">
@@ -186,30 +185,7 @@
                     debugger
                     let text = data.d;
                     const myArray = text.split(",");
-
-                    //document.getElementById("Body_lnkAdd").style.display = myArray[0] == "False" ? "none" : "";
-
-                    //var elements = document.getElementsByClassName("isEditVisible");
-                    //Array.prototype.forEach.call(elements, function (element) {
-                    //    element.style.display = myArray[1] == "False" ? "none" : "inline";
-                    //});
-                    //var elements1 = document.getElementsByClassName("isDelVisible");
-                    //Array.prototype.forEach.call(elements1, function (element) {
-                    //    element.style.display = myArray[2] == "False" ? "none" : "inline";
-                    //});
-                    //var elements2 = document.getElementsByClassName("isAssVisible");
-                    //Array.prototype.forEach.call(elements2, function (element) {
-                    //    element.style.display = myArray[4] == "False" ? "none" : "";
-                    //});
-                    //var elements3 = document.getElementsByClassName("isLoginVisible");
-                    //Array.prototype.forEach.call(elements3, function (element) {
-                    //    element.style.display = myArray[5] == "False" ? "none" : "";
-                    //});
-
-                    //if (myArray[1] == 'False' && myArray[2] == 'False') {
-                    //    document.getElementById("lblAction").innerHTML = "";
-
-                    //}
+                     
                     document.getElementsByClassName("buttons-excel")[0].style.display = myArray[3] == "False" ? "none" : "";
                     document.getElementsByClassName("buttons-pdf")[0].style.display = myArray[3] == "False" ? "none" : "";
                 },

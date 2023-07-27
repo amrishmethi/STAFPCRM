@@ -30,7 +30,7 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
             txtDateFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             txtDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             
-            fillData();
+            //fillData();
         }
     }
 
@@ -41,7 +41,7 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
         if (isuser)
         {
             if (drpHqtr.SelectedIndex > 0)
-                dv.RowFilter = "HeadQtr='" + drpHqtr.SelectedItem.Text + "'";
+                dv.RowFilter = "HeadQtrNo='" + drpHqtr.SelectedValue + "'";
             dv.Sort = "Name";
             drpEmp.DataSource = dv.ToTable(true, "Name", "MId");
             drpEmp.DataTextField = "Name";
@@ -52,11 +52,11 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
         if (ishqtr)
         {
             if (drpEmp.SelectedIndex > 0)
-                dv.RowFilter = "Name='" + drpEmp.SelectedItem.Text + "'";
+                dv.RowFilter = "MId='" + drpEmp.SelectedValue + "'";
             dv.Sort = "HeadQtr";
-            drpHqtr.DataSource = dv.ToTable(true, "HeadQtr");
+            drpHqtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
             drpHqtr.DataTextField = "HeadQtr";
-            drpHqtr.DataValueField = "HeadQtr";
+            drpHqtr.DataValueField = "HeadQtrNo";
             drpHqtr.DataBind();
             drpHqtr.Items.Insert(0, new ListItem("Select", "0"));
         }
@@ -93,7 +93,7 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
 
     protected void drpType_SelectedIndexChanged(object sender, EventArgs e)
     {
-        fillData();
+        //fillData();
         DropDownList ddl = sender as DropDownList;
         if (ddl == drpEmp)
         {
@@ -165,5 +165,10 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
         //Response.Redirect("Print.aspx");
         Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
 
+    }
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        fillData();
     }
 }

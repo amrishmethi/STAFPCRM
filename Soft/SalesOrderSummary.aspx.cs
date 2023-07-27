@@ -132,6 +132,7 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
         if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
         {
             HiddenField hddcrmId = (HiddenField)e.Item.FindControl("hddcrmId");
+            HiddenField hddempId = (HiddenField)e.Item.FindControl("hddempId");
             Label lblExpense = (Label)e.Item.FindControl("lblExpense");
             Label lblAmount = (Label)e.Item.FindControl("lblAmount");
             Label lblCTC = (Label)e.Item.FindControl("lblCTC");
@@ -140,15 +141,37 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
             {
                 int month = Convert.ToInt32(mnth.Text.Split('-')[0]);
                 int year = Convert.ToInt32(mnth.Text.Split('-')[1]);
-                string _DD = month + "/1/" + year;
+                string _DD = month + "/1/" + year; 
+
+                 
+                var startDate = new DateTime(year, month, 1);
+                var endDate = startDate.AddMonths(1).AddDays(-1);
+
+
+
+
+                double _CTC = 0, _Travel = 0, _NSA = 0, _DAL = 0, _Other = 0;
 
                 DataSet dss = getdata.GetSallary(_DD, "0", "0", hddcrmId.Value, "2", "ALL");
                 if (dss.Tables[0].Rows.Count > 0)
-                    lblExpense.Text = (Convert.ToDouble(dss.Tables[0].Rows[0]["CTC"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["CAVALUE"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["NSA"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["Other"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["DAL"])).ToString();
-                else
-                    lblExpense.Text = "0";
-                double _CTC = Convert.ToDouble(lblExpense.Text) * 100 / Convert.ToDouble(lblAmount.Text);
-                lblCTC.Text = _CTC.ToString("0.00");
+                    _CTC = Convert.ToDouble(dss.Tables[0].Rows[0]["CTC"]);
+
+                DataSet dss1 = data.getDataSet("usp_DistanceTravelReort_Summary '" + hddempId.Value + "','" + startDate + "','" + endDate + "','0','ALL'");
+
+                if (dss1.Tables[0].Rows.Count > 0)
+                {
+                    _NSA = Convert.ToDouble(dss1.Tables[0].Compute("sum(NightStay)", ""));
+                    _DAL = Convert.ToDouble(dss1.Tables[0].Compute("sum(DAL1)", ""));
+                    _Other = Convert.ToDouble(dss1.Tables[0].Compute("sum(Other)", ""));
+                    //_Travel = Convert.ToDouble(dss1.Tables[0].Compute("sum(TotalAmt)", ""));
+                    _Travel = Convert.ToDouble(dss1.Tables[0].Rows[0]["TotalAmt"]);
+                }
+
+                lblExpense.Text = (_CTC + _Travel + _NSA + _DAL + _Other).ToString();
+                //lblExpense.Text = (Convert.ToDouble(dss.Tables[0].Rows[0]["CTC"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["CAVALUE"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["NSA"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["Other"]) + Convert.ToDouble(dss.Tables[0].Rows[0]["DAL"])).ToString();
+
+                double _CTC1 = Convert.ToDouble(lblExpense.Text) * 100 / Convert.ToDouble(lblAmount.Text);
+                lblCTC.Text = _CTC1.ToString("0.00");
 
                 _TotalAmount += Convert.ToDouble(lblAmount.Text);
                 _TotalExp += Convert.ToDouble(lblExpense.Text);

@@ -126,6 +126,7 @@
                                                     <td><%#Eval("ORDDATE") %></td>
                                                     <td><%#Eval("NAME") %>
                                                         <asp:HiddenField ID="hddcrmId" runat="server" Value='<%#Eval("Id") %>' />
+                                                        <asp:HiddenField ID="hddempId" runat="server" Value='<%#Eval("CRMUSERID") %>' />
                                                     </td>
                                                     <%--  <td><%#Eval("PARTY") %></td>
                                                     <td><%#Eval("Station") %></td>--%>

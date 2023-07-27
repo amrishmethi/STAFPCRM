@@ -25,7 +25,7 @@
                                 <label>District<span style="color: #ff0000">*</span></label>
 
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpheadQtr"
-                                    ErrorMessage="Must Be Select" ValidationGroup="A" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
+                                    ErrorMessage="Must Be Select" ValidationGroup="A1" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
 
                                 <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
@@ -74,6 +74,7 @@
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">
                                                 <input type='checkbox' id='chkAll' runat='server' onclick='javascript: SelectAllCheckboxes(this);' /></th>
+                                            <th style="text-align: left;">District</th>
                                             <th style="text-align: left;">Station</th>
                                             <th style="text-align: left;">Beat</th>
                                             <th style="text-align: left;">Party</th>
@@ -96,6 +97,7 @@
                                                     </td>
                                                     <%--     <asp:Label ID="lblItem" runat="server" Text='<%#Eval("StationName") %>'></asp:Label>--%>
 
+                                                    <td style="text-align: left;"><%#Eval("District") %></td>
                                                     <td style="text-align: left;"><%#Eval("StationName") %></td>
                                                     <td style="text-align: left;"><%#Eval("Beat") %></td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>

@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Net.NetworkInformation;
+
 public partial class Admin_UpdateCreateDealer : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
@@ -21,9 +23,18 @@ public partial class Admin_UpdateCreateDealer : System.Web.UI.Page
             if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
             
             Admin = Request.Cookies["STFP"];
-            gd.FillStation(drpStation);
-            gd.FillPartyCategory(drpPartyCatg);
-            ViewState["Station"] = drpStation.DataSource;
+
+            DataSet dsusr = master.getHqtrUserDpt("0");
+            ViewState["Station"] = dsusr;
+
+            DataView dv = dsusr.Tables[0].DefaultView;
+            drpStation.DataSource = dv.ToTable(true, "Station", "StationNO");
+            drpStation.DataTextField = "Station";
+            drpStation.DataValueField = "StationNO";
+            drpStation.DataBind();
+            drpStation.Items.Insert(0, new ListItem("Select", "0"));
+             
+            gd.FillPartyCategory(drpPartyCatg); 
             if (Request.QueryString["id"] != null)
             {
                 fillData(Request.QueryString["id"].ToString());
@@ -36,10 +47,10 @@ public partial class Admin_UpdateCreateDealer : System.Web.UI.Page
     {
         ds = master.getCreateDealer("SELECT", id, "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "","0","0");
         txtname.Text = ds.Tables[0].Rows[0]["Name"].ToString();
-        drpStation.SelectedValue = ds.Tables[0].Rows[0]["Station"].ToString();
+        drpStation.SelectedValue = ds.Tables[0].Rows[0]["StationNo"].ToString();
         BindDistrict();
         txtAddress.Text = ds.Tables[0].Rows[0]["Address"].ToString();
-        drpDistrict.SelectedValue = ds.Tables[0].Rows[0]["District"].ToString();
+        drpDistrict.SelectedValue = ds.Tables[0].Rows[0]["DistrictNo"].ToString();
         txtZip.Text = ds.Tables[0].Rows[0]["PinCode"].ToString();
         txtState.Text = ds.Tables[0].Rows[0]["State"].ToString();
         txtContPer.Text = ds.Tables[0].Rows[0]["ContPer"].ToString();
@@ -73,10 +84,10 @@ public partial class Admin_UpdateCreateDealer : System.Web.UI.Page
     {
         DataSet dss = (DataSet)ViewState["Station"];
         DataView dv = dss.Tables[0].DefaultView;
-        dv.RowFilter = "Station = '"+ drpStation.SelectedValue +"'";
+        dv.RowFilter = "StationNo = '"+ drpStation.SelectedValue +"'";
         drpDistrict.DataSource = dv;
         drpDistrict.DataTextField = "District";
-        drpDistrict.DataValueField = "District";
+        drpDistrict.DataValueField = "DistrictNO";
         drpDistrict.DataBind();
         drpDistrict.SelectedIndex = 0;
     }

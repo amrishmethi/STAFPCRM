@@ -58,7 +58,8 @@
                     } 
                 }, 
                 {
-                    extend: 'pdfHtml5', footer: true,
+                    extend: 'pdfHtml5', footer: true, orientation: 'landscape',
+                    pageSize: 'A4',
                     exportOptions: {
                         //columns: [0, 1, 2, 5]
                         columns: ':visible',

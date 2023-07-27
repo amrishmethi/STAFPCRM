@@ -42,7 +42,7 @@ public partial class Soft_TourPlan : System.Web.UI.Page
         drpheadQtr.SelectedValue = dtt.Rows[0]["HeadQtrNo"].ToString();
         bindDrp(false, false, true);
         drpDistrict.SelectedValue = dtt.Rows[0]["DistrictNo"].ToString();
-        Gd.FillPrimaryStation(drpStation);
+        Gd.FillPrimaryStation(drpStation, drpDistrict.SelectedValue);
         drpStation.SelectedValue= dtt.Rows[0]["StationNo"].ToString();
         dpFrom.Text = dtt.Rows[0]["TDate"].ToString();
         txtPurpose.Text = dtt.Rows[0]["Purpose"].ToString();
