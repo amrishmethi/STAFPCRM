@@ -190,11 +190,33 @@ public class GetData
 
     public void FillGroup1(ListBox drp)
     {
-        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'   Order By CMSName";
+        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'  AND CMsValue1='y'   Order By CMSName";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
         drp.DataTextField = "CMsName";
-        drp.DataValueField = "CMsName";
+        drp.DataValueField = "CMsCode";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillMainGroup(ListBox drp)
+    {
+        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'  AND MCMsCode='' and CMsValue1='y'    Order By CMSName";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "CMsName";
+        drp.DataValueField = "CMsCode";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillMainGroup(DropDownList drp)
+    {
+        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'  AND MCMsCode='' and CMsValue1='y'    Order By CMSName";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "CMsName";
+        drp.DataValueField = "CMsCode";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }

@@ -638,4 +638,36 @@ public class Master
         DataSet dss = data.getDataSet(cmd);
         return dss;
     }
+
+
+
+    public DataSet GetPartyList(string DISTRICT, string STATION, string CATEGORY,string PARTY)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "GETPARTYLIST_PROC";
+        //@ NVARCHAR(50)='0',@ NVARCHAR(50)='0',@ NVARCHAR(50)='0' 
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@DISTRICT", DISTRICT);
+        cmd.Parameters.AddWithValue("@STATION", STATION);
+        cmd.Parameters.AddWithValue("@CATEGORY", CATEGORY); 
+        cmd.Parameters.AddWithValue("@PARTY", PARTY); 
+        DataSet dss = data.getDataSet(cmd);
+        return dss;
+    }
+
+    public DataSet GetEmployeList(string DeptId, string Desig_Id, string Rep_Manager, string Status)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "GETEMPLOYEELIST_PROC";
+        //@ NVARCHAR(50)='0',@ NVARCHAR(50)='0',@ NVARCHAR(50)='0' 
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@DeptId", DeptId);
+        cmd.Parameters.AddWithValue("@Desig_Id", Desig_Id);
+        cmd.Parameters.AddWithValue("@Rep_Manager", Rep_Manager);
+        cmd.Parameters.AddWithValue("@Status", Status);
+        DataSet dss = data.getDataSet(cmd); 
+        return dss;
+    }
 }

@@ -130,6 +130,8 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
         c43.ColumnName = "NoOfWorkingDays";
         DataColumn c44 = new DataColumn();
         c44.ColumnName = "NIghtOT";
+        DataColumn c45 = new DataColumn();
+        c45.ColumnName = "TotalOT";
         dt1.Columns.Add(c1);
         dt1.Columns.Add(c2);
         dt1.Columns.Add(c3);
@@ -174,6 +176,7 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
         dt1.Columns.Add(c42);
         dt1.Columns.Add(c43);
         dt1.Columns.Add(c44);
+        dt1.Columns.Add(c45);
 
         mntyr = (mnth.Text == "") ? DateTime.Now.ToString("MM-yyyy") : mnth.Text;
         month = Convert.ToInt32(mntyr.Split('-')[0]);
@@ -343,8 +346,7 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                                         }
                                     }
                                 }
-                                nextdate = nextdate.AddDays(1); ;
-
+                                nextdate = nextdate.AddDays(1); 
                             }
                             dsnext.Clear();
                         }
@@ -368,10 +370,8 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                             }
                         }
                     }
-
-                    //DataSet dss = master.GetSallary(_DD, drpDepartment.SelectedValue, "0", EmpId, "2", drpStatus.SelectedValue);
+                     
                     DataSet dss = data.getDataSet("GETATTENDANCECALCULATION '" + EmpId + "','" + _DD + "'");
-
                     dt1.Rows[i]["TotalDays"] = dss.Tables[0].Rows[0]["NOOFWORKINGDAY"].ToString();
                     dt1.Rows[i]["SundayOFF"] = dss.Tables[0].Rows[0]["ALLOWSUNDAY"].ToString();
                     dt1.Rows[i]["HolidayOff"] = dss.Tables[0].Rows[0]["NoOfHoliday"].ToString();
@@ -382,6 +382,7 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                     dt1.Rows[i]["NIghtOT"] = dss.Tables[0].Rows[0]["NIghtOT"].ToString();
                     dt1.Rows[i]["PL"] = dss.Tables[0].Rows[0]["PL1"].ToString();
                     dt1.Rows[i]["Leave"] = dss.Tables[0].Rows[0]["TOTALLEAVE"].ToString();
+                    dt1.Rows[i]["TotalOT"] = dss.Tables[0].Rows[0]["TotalOT"].ToString();
                 }
             }
         }

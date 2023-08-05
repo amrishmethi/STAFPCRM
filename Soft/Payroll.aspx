@@ -10,7 +10,7 @@
     <section class="content-header" style="height: 2.5em;">
         <h1>HR Details &nbsp;&nbsp;&nbsp;
         <asp:Button ID="btnBack" runat="server" CssClass="btn btn-danger" Text="Back To List"
-            OnClick="btnCancel_Click" CausesValidation="false"/></h1>
+            OnClick="btnCancel_Click" CausesValidation="false" /></h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/AttendanceReport.aspx" class="active">HR Details</a></li>
@@ -110,7 +110,12 @@
                             <asp:ListItem Value="Active" Selected="True">Active</asp:ListItem>
                             <asp:ListItem Value="Non-Active">Non-Active</asp:ListItem>
                         </asp:DropDownList>
+                    </div><div class="clearfix">&nbsp;</div>
+                    <div class="col-md-4">
+                        <label>Group</label>
+                        <asp:ListBox ID="drpGrp" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
                     </div>
+                    <div class="clearfix">&nbsp;</div>
                     <div class="clearfix">&nbsp;</div>
                 </div>
             </div>
@@ -545,7 +550,7 @@
                             <td>
                                 <asp:DropDownList ID="drpOverTime" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Text="No" Value="0"></asp:ListItem>
-                                    <asp:ListItem Text="Yes" Value="1"></asp:ListItem> 
+                                    <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                                 </asp:DropDownList></td>
                             <td>&nbsp;</td>
                         </tr>

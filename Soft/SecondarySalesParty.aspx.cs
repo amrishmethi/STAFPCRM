@@ -28,13 +28,13 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
             Gd.FillParty(drpParty);
             Gd.FillPrimaryStation(drpStation);
             ViewState["station"] = Gd.FillStation();
-            Gd.FillDistrict(drpheadQtr, "0"); 
+            Gd.FillDistrict(drpheadQtr, "0");
         }
     }
 
     public void fillData()
     {
-        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue, drpStation.SelectedValue, drpStation.SelectedItem.Text, "", "", "", drpheadQtr.SelectedValue, drpBeat1.SelectedValue);
+        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue, drpStation.SelectedValue, drpStation.SelectedValue, "", "", "", drpheadQtr.SelectedValue, drpBeat1.SelectedValue);
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }

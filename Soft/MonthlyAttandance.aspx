@@ -56,7 +56,7 @@
                                 <label>
                                     Attendance Type
                                 </label>
-                                <asp:DropDownList ID="drpAttendance" runat="server" CssClass="form-control select2"> 
+                                <asp:DropDownList ID="drpAttendance" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Text="Day" Value="Day" Selected="True"></asp:ListItem>
                                     <asp:ListItem Text="Night" Value="Night"></asp:ListItem>
                                 </asp:DropDownList>
@@ -149,11 +149,12 @@
                                             <th style="text-align: left;">Basic Attendance</th>
                                             <th style="text-align: left;">Sunday Off</th>
                                             <th style="text-align: left;">Holiday Off</th>
+                                            <th style="text-align: left;">PL</th>
+                                            <th style="text-align: left;">Basic Salary</th>
                                             <th style="text-align: left;">Sunday Work</th>
                                             <th style="text-align: left;">Night OT</th>
                                             <th style="text-align: left;">Holiday Work</th>
-                                            <th style="text-align: left;">PL</th>
-                                            <th style="text-align: left;">NO Of Working Days</th>
+                                            <th style="text-align: left;">Over Time</th>
                                             <th style="text-align: left;">Leave</th>
                                         </tr>
                                     </thead>
@@ -289,19 +290,13 @@
                                                     <td style="text-align: left;"><%#Eval("Attandance") %></td>
                                                     <td style="text-align: left;"><%#Eval("SundayOFF") %></td>
                                                     <td style="text-align: left;"><%#Eval("HolidayOff") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PL") %></td>
+                                                    <td style="text-align: left; background-color: Green; color: white"><%#Eval("NoOfWorkingDays") %></td>
                                                     <td style="text-align: left;"><%#Eval("SundayWork") %></td>
                                                     <td style="text-align: left;"><%#Eval("NIghtOT") %></td>
                                                     <td style="text-align: left;"><%#Eval("HolidayWork") %></td>
-                                                    <td style="text-align: left;"><%#Eval("PL") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NoOfWorkingDays") %></td>
+                                                    <td style="text-align: left; background-color: Green; color: white"><%#Eval("TotalOT") %></td>
                                                     <td style="text-align: left;"><%#Eval("Leave") %></td>
-
-                                                    <%--  <td>
-                                                        <asp:Label ID="lbltotAttend" runat="server" Style="padding-left: 5px;" Text='<%#Eval("TotAttend")%>'></asp:Label>
-                                                    </td>
-                                                    <td>
-                                                        <asp:Label ID="lbltotleave" runat="server" Style="padding-left: 5px;" Text='<%#Eval("TotLeave")%>'></asp:Label>
-                                                    </td>--%>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -314,9 +309,9 @@
             </div>
         </div>
         <div class="col-md-12">
-            <h2>Note :   &nbsp;&nbsp;&nbsp;&nbsp; 
-            <h4 style="color: black;">No Of Working Days:&nbsp;&nbsp;   Attendance&nbsp;+&nbsp;Sunday Off&nbsp;+&nbsp;Sunday Work&nbsp;+&nbsp;Holiday Off&nbsp;+&nbsp;Holiday Work&nbsp;+&nbsp; PL</h4>
-            </h2>
+            <h3 style="color: Red;">Note :   &nbsp;&nbsp;&nbsp;&nbsp;  </h3>
+            <h4 style="color: black;">Basic Salary :&nbsp;&nbsp;   Attendance&nbsp;+&nbsp;Sunday Off &nbsp;+&nbsp;Holiday Off&nbsp;+&nbsp; PL</h4>
+            <h4 style="color: black;">Over Time :&nbsp;&nbsp;   Sunday Work &nbsp;+&nbsp;Holiday Work &nbsp;+&nbsp;Night Attandance</h4>
         </div>
     </section>
 </asp:Content>

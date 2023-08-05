@@ -3,16 +3,16 @@
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>HeadQtr Wise Sale Report (S/T)</title>
+    <title>HQ GROUP /party WISE SALE</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server"> 
    
     <section class="content-header" style="height: 2.5em;">
-        <h1>HeadQtr Wise Sale Report (S/T)</h1>
+        <h1>HQ GROUP /party WISE SALE</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/HqtWiseSale.aspx" class="active">HeadQtr Wise Sale Report (S/T)</a></li>
+            <li><a href="/Soft/HqtWiseSale.aspx" class="active">HQ GROUP /party WISE SALE</a></li>
         </ol>
     </section>
     <section class="content">

@@ -156,6 +156,14 @@
                                                 <td><%#Eval("NoOfHoliday") %></td>
                                             </tr>
                                             <tr>
+                                                <td>PL</td>
+                                                <td><%#Eval("PL") %></td>
+                                            </tr>
+                                            <tr style="background-color: green; color: white;">
+                                                <td>Basic Salary </td>
+                                                <td><%#Eval("TOTALWORKINGDAY") %></td>
+                                            </tr>
+                                            <tr>
                                                 <td>Sunday Work</td>
                                                 <td><%#Eval("NOOFSUNDAYWork") %></td>
                                             </tr>
@@ -163,15 +171,12 @@
                                                 <td>Holiday Work </td>
                                                 <td><%#Eval("NOOFHolidayWork") %></td>
                                             </tr>
-                                            <tr>
-                                                <td>PL</td>
-                                                <td><%#Eval("PL") %></td>
+
+                                            <tr style="background-color: green; color: white;">
+                                                <td>Over Time</td>
+                                                <td><%#Eval("TotalOT") %></td>
                                             </tr>
-                                            <tr>
-                                                <td>NO Of Working Days</td>
-                                                <td><%#Eval("TOTALWORKINGDAY") %></td>
-                                            </tr>
-                                            <tr>
+                                            <tr style="background-color: Red; color: white;">
                                                 <td>Leave</td>
                                                 <td><%#Eval("TOTALLEAVE") %></td>
                                             </tr>

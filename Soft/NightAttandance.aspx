@@ -19,8 +19,7 @@
     <section class="content-header" style="height: 2.5em;">
         <h1>Night Attandance 
             <asp:Label ID="lblDate" ClientIDMode="Static" runat="server" Style="float: right"></asp:Label>
-        </h1>
-         
+        </h1> 
     </section>
     <section class="content">
         <div class="row">

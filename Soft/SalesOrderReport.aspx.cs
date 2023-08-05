@@ -40,14 +40,15 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             Gd.FillUser(drpUser, drpDepartment.SelectedValue);
             bindDrp(true, true);
             Gd.FillPrimaryParty(drpParty);
-            Gd.FillGroup(drpGrp); 
+            Gd.FillGroup(drpGrp);
             foreach (ListItem size in drpGrp.Items)
             {//
-                if (size.Value.ToString() == "DISHWAS" || size.Value.ToString() == "POWDER" || size.Value.ToString() == "ARTICLE" || size.Value.ToString() == "KLEAN B")
+                //if (size.Value.ToString() == "DISHWAS" || size.Value.ToString() == "POWDER" || size.Value.ToString() == "ARTICLE" || size.Value.ToString() == "KLEAN B")
+                if (size.Value.ToString() == "ALL IN")
                 {
                     size.Selected = true;
                 }
-            } 
+            }
 
             Filldata();
         }
@@ -71,7 +72,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
         if (ishqtr)
         {
             if (drpUser.SelectedIndex > 0)
-                dv.RowFilter = "MId='" + drpUser.SelectedValue+ "'";
+                dv.RowFilter = "MId='" + drpUser.SelectedValue + "'";
             dv.Sort = "HeadQtr";
             drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
             drpHeadQtr.DataTextField = "HeadQtr";
@@ -196,7 +197,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                     OrderId = hddID.Value;
                 else
                     OrderId += "," + hddID.Value;
-            } 
+            }
         }
 
         GenratePrint(OrderId);

@@ -22,6 +22,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
         Soft = Request.Cookies["STFP"];
         if (!IsPostBack)
         {
+            Gd.FillGroup1(drpGrp);
             Gd.FillCompany(DrpCompanies);
             Gd.fillDepartment(drpDepartment);
             Gd.FillUser(drpProjectManager);
@@ -39,7 +40,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 }
                 else
                 {
-                    DataSet CrmUser = getdata.getUserDetails("0","0", "ALL", Request.QueryString["uid"]);
+                    DataSet CrmUser = getdata.getUserDetails("0", "0", "ALL", Request.QueryString["uid"]);
                     if (CrmUser.Tables[0].Rows.Count > 0)
                     {
                         txtemployeename.Text = CrmUser.Tables[0].Rows[0]["Name"].ToString();
@@ -92,6 +93,18 @@ public partial class Soft_Payroll : System.Web.UI.Page
             drpStatus.SelectedValue = dsGet.Tables[0].Rows[0]["Status"].ToString();
             hddEmpNo.Value = dsGet.Tables[0].Rows[0]["EmpNo"].ToString();
             hddCrmUserId.Value = dsGet.Tables[0].Rows[0]["CRMUserId"].ToString();
+
+            string[] Size = dsGet.Tables[0].Rows[0]["ITEMGROUP"].ToString().Split(',');
+            foreach (ListItem size in drpGrp.Items)
+            {
+                for (int i = 0; i < Size.Length; i++)
+                {
+                    if (size.Value.ToString() == Size[i].Trim().ToString())
+                        size.Selected = true;
+                }
+            }
+
+
         }
         #endregion
 
@@ -406,11 +419,18 @@ public partial class Soft_Payroll : System.Web.UI.Page
     {
         string _Action = Request.QueryString["EmpId"] == null ? "SAVE" : "UPDATE";
         string _EmpId = Request.QueryString["EmpId"] == null ? "0" : Request.QueryString["EmpId"];
-
+        string grp = "0";
+        foreach (ListItem item in drpGrp.Items)
+        {
+            if (item.Selected)
+            {
+                grp += "," + item.Value;
+            }
+        }
         string _UserId = Soft["UserId"];
         string DOL = (chkDOL.Checked) ? txtDateOfLeaving.Text : "";
         string DOJ = txtDOJ.Text;
-        DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), DOJ, DOL, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, hddCrmUserId.Value, _UserId, chkAttandance.Checked.ToString());
+        DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), DOJ, DOL, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, hddCrmUserId.Value, _UserId, chkAttandance.Checked.ToString(), grp.ToString());
         if (DsMain.Tables[0].Rows.Count > 0)
         {
             if (DsMain.Tables[0].Rows[0]["Result"].ToString() == "")

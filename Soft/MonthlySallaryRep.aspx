@@ -105,6 +105,7 @@
                                             <th style="text-align: left;">Employee Name</th>
                                             <th style="text-align: left;">Net Salary</th>
                                             <th style="text-align: left;">No Of Working Days</th>
+                                            <th style="text-align: left;">OT Days</th>
                                             <th style="text-align: left;">Basic Salary</th>
                                             <th style="text-align: left;">House Rent Allowance</th>
                                             <th style="text-align: left;">Other Allowance</th>
@@ -142,6 +143,7 @@
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
                                                     <td style="text-align: left;"><%#Eval("NOOFWORKINGDAY") %>/<%#Eval("TotalWorkingDay") %></td>
+                                                    <td style="text-align: left;"><%#Eval("TotalOT") %></td>
                                                     <td style="text-align: left;"><a href='<%# "ShowPopup.aspx?EMP_ID="+Eval("EMP_ID") %>' runat="server" class="abc1"><%#Eval("BASIC_SALARYVALUE") %></a></td>
                                                     <td style="text-align: left;"><%#Eval("HRAVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("OAVALUE") %></td>
@@ -156,7 +158,7 @@
                                                     <td style="text-align: left;"><%#Eval("LOANAMOUNT") %></td>
                                                     <td style="text-align: left;"><%#Eval("Advance") %></td>
                                                     <td style="text-align: left;"><%#Eval("TDSVALUE") %></td>
-                                                    <td style="text-align: left;"><a href='<%# "SalarySlip.aspx?Id="+Eval("Id") %>' runat="server" target="_blank"><%#Eval("NETSALARY") %></a></td>
+                                                    <td style="text-align: left;"><a href='<%#Eval("_URL") %>' runat="server" target="_blank"><%#Eval("NETSALARY") %></a></td>
                                                     <td style="text-align: left;"><%#Eval("PF_EMPLOYERVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ESIC_EMPLOYERVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("CTC") %></td>
