@@ -144,7 +144,7 @@
                                             <td style="text-align: left;"><%#Eval("DEPT_NAME") %></td>
                                             <td style="text-align: left;"><%#Eval("DESG_NAME") %></td>
                                             <td style="text-align: left;"><%#Eval("Emp_Code") %></td>
-                                            <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
+                                            <td style="text-align: left;"><asp:Label ID="lblParty" runat="server" Text='<%#Eval("Emp_Name") %>'></asp:Label></td>
                                             <td style="text-align: left;"><%#Eval("REP_MANAGERNAME") %></td>
                                             <td style="text-align: left;"><%#Eval("ItemGroups") %></td>
                                             <td style="text-align: left;">
@@ -157,40 +157,54 @@
                                     </FooterTemplate>
                                 </asp:Repeater>
                                 <asp:LinkButton Text="" ID="lnkFake" runat="server" />
+                                <asp:LinkButton Text="" ID="LinkButton1" runat="server" />
                                 <cc1:ModalPopupExtender ID="mpe" runat="server" PopupControlID="pnlPopup" TargetControlID="lnkFake"
                                     CancelControlID="btnClose" BackgroundCssClass="modalBackground">
                                 </cc1:ModalPopupExtender>
                                 <asp:Panel ID="pnlPopup" runat="server" CssClass="modalPopup" Style="display: none;">
                                     <div class="header">
-                                        Group
+                                        <asp:Label ID="lblHead" runat="server"></asp:Label>
                                     </div>
+
                                     <div class="body">
-                                        <asp:Repeater ID="repsku" runat="server">
-                                            <HeaderTemplate>
-                                                <table style="width: 100%; height: 500px; overflow-y: scroll; display: block; overflow-x: auto;">
-                                                    <tr>
-                                                        <th style="width: 10%;">Sr. No.</th>
-                                                        <th style="vertical-align: middle; text-align: center; text-transform: none !important; width: 15%;" class="headerchk"></th>
-                                                        <th style="width: 20%;">Group Name</th>
-                                                    </tr>
-                                            </HeaderTemplate>
-                                            <ItemTemplate>
-                                                <tr>
-                                                    <td><%#Container.ItemIndex+1 %> 
-                                                    </td>
-                                                    <td style="vertical-align: middle; text-align: center; text-transform: none !important;" class="itemchk">
-                                                        <asp:CheckBox ID="chkItems" runat="server" Checked='<%#Convert.ToBoolean(Eval("chk")) %>' /></td>
-                                                    <asp:HiddenField ID="hddCmsCode" runat="server" Value='<%#Eval("CmsCode") %>' />
-                                                    <asp:HiddenField ID="hddPartyId" runat="server" Value='<%#Eval("PartyId") %>' />
-                                                    <td>
-                                                        <asp:Label ID="lblLotNo" runat="server" Text='<%# Eval("CMSName") %>' />
-                                                    </td>
-                                                </tr>
-                                            </ItemTemplate>
-                                            <FooterTemplate>
-                                                </table>
-                                            </FooterTemplate>
-                                        </asp:Repeater>
+                                        <asp:UpdatePanel ID="updd" runat="server">
+                                            <ContentTemplate>
+                                                <div class="col-md-6">
+
+                                                    <asp:DropDownList ID="lstGrp" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="lstGrp_SelectedIndexChanged"></asp:DropDownList>
+                                                </div>
+                                                <asp:Repeater ID="repsku" runat="server">
+                                                    <HeaderTemplate>
+                                                        <table style="width: 100%; height: 500px; overflow-y: scroll; display: block; overflow-x: auto;">
+                                                            <tr>
+                                                                <th style="width: 10%;">Sr. No.</th>
+                                                                <th style="vertical-align: middle; text-align: center; text-transform: none !important; width: 20%;" class="headerchk"></th>
+                                                                <th style="width: 50%;">Group Name</th>
+                                                            </tr>
+                                                    </HeaderTemplate>
+                                                    <ItemTemplate>
+                                                        <tr>
+                                                            <td><%#Container.ItemIndex+1 %> 
+                                                            </td>
+                                                            <td style="vertical-align: middle; text-align: center; text-transform: none !important;" class="itemchk">
+                                                                <asp:CheckBox ID="chkItems" runat="server" Checked='<%#Convert.ToBoolean(Eval("chk")) %>' OnCheckedChanged="chkItems_CheckedChanged" AutoPostBack="true" /></td>
+                                                            <asp:HiddenField ID="hddCmsCode" runat="server" Value='<%#Eval("CmsCode") %>' />
+                                                            <asp:HiddenField ID="hddPartyId" runat="server" Value='<%#Eval("PartyId") %>' />
+                                                            <td>
+                                                                <asp:Label ID="lblLotNo" runat="server" Text='<%# Eval("CMSName") %>' />
+                                                            </td>
+                                                        </tr>
+                                                    </ItemTemplate>
+                                                    <FooterTemplate>
+                                                        </table>
+                                                    </FooterTemplate>
+                                                </asp:Repeater>
+                                            </ContentTemplate>
+                                            <Triggers>
+                                                <asp:AsyncPostBackTrigger ControlID="lstGrp" EventName="SelectedIndexChanged" />
+                                                <%--<asp:AsyncPostBackTrigger ControlID="chkItems" EventName="CheckedChanged" />--%>
+                                            </Triggers>
+                                        </asp:UpdatePanel>
                                     </div>
                                     <div class="footer" align="right">
                                         <asp:Button ID="btnApply" runat="server" Text="Apply Changes" CssClass="btn btn-sm btn-primary" OnClick="btnApply_Click" />
@@ -210,7 +224,7 @@
      
 
 
-    <script type="text/javascript">
+<%--    <script type="text/javascript">
         var controlid = "";
         var prm = Sys.WebForms.PageRequestManager.getInstance();
 
@@ -222,7 +236,7 @@
         function prm_EndRequest(sender, args) {
             $('.select2').addClass('select2');
         }
-    </script>
+    </script>--%>
 
     <script type="text/javascript">
         debugger

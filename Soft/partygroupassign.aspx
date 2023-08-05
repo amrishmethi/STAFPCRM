@@ -138,7 +138,8 @@
                                             <td style="text-align: left;"><%#Eval("District") %></td>
                                             <td style="text-align: left;"><%#Eval("Station") %></td>
                                             <td style="text-align: left;"><%#Eval("PartyCategory") %></td>
-                                            <td style="text-align: left;"><%#Eval("Party") %></td>
+                                            <td style="text-align: left;">
+                                                <asp:Label ID="lblParty" runat="server" Text='<%#Eval("Party") %>'></asp:Label></td>
                                             <td style="text-align: left;"><%#Eval("ItemGroups") %></td>
                                             <td style="text-align: left;">
                                                 <asp:LinkButton ID="btnConfirmY" CommandArgument='<%# Eval("ID")  %>' CommandName="Confirm" runat="server" Style="padding: 1px 6px; font-size: 11px;" CssClass="btn btn-small btn-success fa fa-check" aria-label="View" OnClick="btnConfirmY_Click"></asp:LinkButton>
@@ -155,25 +156,23 @@
                                 </cc1:ModalPopupExtender>
                                 <asp:Panel ID="pnlPopup" runat="server" CssClass="modalPopup" Style="display: none;">
                                     <div class="header">
-                                        Group
+                                        <asp:Label ID="lblHead" runat="server"></asp:Label>
                                     </div>
 
                                     <div class="body">
                                         <asp:UpdatePanel ID="updd" runat="server">
                                             <ContentTemplate>
-                                                <div class="form-group">
-                                                    <div class="col-md-6">
-                                                        <label>Group</label>
-                                                        <asp:DropDownList ID="lstGrp" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="lstGrp_SelectedIndexChanged"></asp:DropDownList>
-                                                    </div>
+                                                <div class="col-md-6">
+
+                                                    <asp:DropDownList ID="lstGrp" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="lstGrp_SelectedIndexChanged"></asp:DropDownList>
                                                 </div>
                                                 <asp:Repeater ID="repsku" runat="server">
                                                     <HeaderTemplate>
-                                                        <table id="ExportTbl" style="width: 100%; height: 500px; overflow-y: scroll; display: block; overflow-x: auto;">
+                                                        <table style="width: 100%; height: 500px; overflow-y: scroll; display: block; overflow-x: auto;">
                                                             <tr>
                                                                 <th style="width: 10%;">Sr. No.</th>
-                                                                <th style="vertical-align: middle; text-align: center; text-transform: none !important; width: 15%;" class="headerchk"></th>
-                                                                <th style="width: 20%;">Group Name</th>
+                                                                <th style="vertical-align: middle; text-align: center; text-transform: none !important; width: 20%;" class="headerchk"></th>
+                                                                <th style="width: 50%;">Group Name</th>
                                                             </tr>
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
@@ -181,7 +180,7 @@
                                                             <td><%#Container.ItemIndex+1 %> 
                                                             </td>
                                                             <td style="vertical-align: middle; text-align: center; text-transform: none !important;" class="itemchk">
-                                                                <asp:CheckBox ID="chkItems" runat="server" Checked='<%#Convert.ToBoolean(Eval("chk")) %>' OnCheckedChanged="chkItems_CheckedChanged" /></td>
+                                                                <asp:CheckBox ID="chkItems" runat="server" Checked='<%#Convert.ToBoolean(Eval("chk")) %>' OnCheckedChanged="chkItems_CheckedChanged" AutoPostBack="true" /></td>
                                                             <asp:HiddenField ID="hddCmsCode" runat="server" Value='<%#Eval("CmsCode") %>' />
                                                             <asp:HiddenField ID="hddPartyId" runat="server" Value='<%#Eval("PartyId") %>' />
                                                             <td>
@@ -196,6 +195,7 @@
                                             </ContentTemplate>
                                             <Triggers>
                                                 <asp:AsyncPostBackTrigger ControlID="lstGrp" EventName="SelectedIndexChanged" />
+                                                <%--<asp:AsyncPostBackTrigger ControlID="chkItems" EventName="CheckedChanged" />--%>
                                             </Triggers>
                                         </asp:UpdatePanel>
                                     </div>

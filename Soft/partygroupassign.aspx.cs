@@ -93,7 +93,6 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
 
         ViewState["PartyList"] = dsusr.Tables[0];
         ViewState["GroupList"] = dsusr.Tables[1];
-        ViewState["Code"] = dsusr.Tables[2];
 
         rep.DataSource = dsusr;
         rep.DataBind();
@@ -102,13 +101,16 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
 
     protected void btnConfirmY_Click(object sender, EventArgs e)
     {
-        //gd.FillMainGroup(lstGrp);
+        gd.FillMainGroup(lstGrp);
+
+
 
         RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
         string id = (item.FindControl("hddEnqID") as HiddenField).Value;
+        string lblParty = (item.FindControl("lblParty") as Label).Text;
         string hddGroups = (item.FindControl("hddGroups") as HiddenField).Value;
 
-
+        lblHead.Text = lblParty;
 
         DataTable dtable = ((DataTable)ViewState["GroupList"]);
         foreach (DataRow drr in dtable.Rows)
@@ -127,38 +129,33 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
 
     protected void btnApply_Click(object sender, EventArgs e)
     {
-        string value = "";
+        string CMSCode = "", CMSName = "";
         HiddenField hddAssID = new HiddenField();
-        foreach (RepeaterItem item in repsku.Items)
-        {
-            HiddenField hddCmsCode = (HiddenField)item.FindControl("hddCmsCode");
-            hddAssID = (HiddenField)item.FindControl("hddPartyId");
-            CheckBox chkItems = item.FindControl("chkItems") as CheckBox;
-            if (chkItems.Checked)
-            {
-                value += hddCmsCode.Value + ",";
-            }
-        }
 
 
-        DataTable dtable1 = ((DataTable)ViewState["Code"]);
+        DataTable dtable1 = ((DataTable)ViewState["GroupList"]);
         foreach (DataRow drr in dtable1.Rows)
         {
-            
+            if (drr["Chk"].ToString() == "1")
+            {
+                CMSCode += drr["CMSCode"].ToString() + ",";
+                CMSName += drr["CMSName"].ToString() + ",";
+            }
         }
+        hddAssID.Value = dtable1.Rows[0]["PartyID"].ToString();
+        data.executeCommand("Update ACCOUNT set ItemGroup='" + CMSCode.Substring(0, CMSCode.Length - 1) + "' where id='" + hddAssID.Value.ToString() + "'");
 
-        data.executeCommand("Update ACCOUNT set ItemGroup='" + value.Substring(0, value.Length - 1) + "' where id='" + hddAssID.Value.ToString() + "'");
-
-
-
-        DataTable dtable = ((DataTable)ViewState["GroupList"]);
+        DataTable dtable = ((DataTable)ViewState["PartyList"]);
         foreach (DataRow drr in dtable.Rows)
         {
             if (drr["Id"].ToString() == hddAssID.Value.ToString())
-                drr["ITEMGROUP"] = value.Substring(0, value.Length - 1);
+            {
+                drr["ITEMGROUP"] = CMSCode.Substring(0, CMSCode.Length - 1);
+                drr["ITEMGROUPS"] = CMSName.Substring(0, CMSName.Length - 1);
+            }
         }
         dtable.AcceptChanges();
-        ViewState["GroupList"] = dtable;
+        ViewState["PartyList"] = dtable;
         rep.DataSource = dtable;
         rep.DataBind();
     }
@@ -169,28 +166,24 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
         DataView dv = dtable.DefaultView;
         if (lstGrp.SelectedIndex > 0)
             dv.RowFilter = "MCMsCode='" + lstGrp.SelectedValue + "'";
-
-
         repsku.DataSource = dv.ToTable(); ;
         repsku.DataBind();
     }
 
     protected void chkItems_CheckedChanged(object sender, EventArgs e)
     {
-        DataTable dtable1 = ((DataTable)ViewState["Code"]);
+        DataTable dtable = ((DataTable)ViewState["GroupList"]);
         foreach (RepeaterItem item in repsku.Items)
         {
             HiddenField hddCmsCode = (HiddenField)item.FindControl("hddCmsCode");
             CheckBox chkItems = item.FindControl("chkItems") as CheckBox;
-            if (chkItems.Checked)
+            foreach (DataRow drr in dtable.Rows)
             {
-                DataRow drr = dtable1.NewRow();
-                drr["Code"] = hddCmsCode.Value;
-                dtable1.Rows.Add(drr);
+                if (drr["CMSCode"].ToString() == hddCmsCode.Value)
+                    drr["chk"] = chkItems.Checked;
             }
         }
-
-        dtable1.AcceptChanges();
-        ViewState["Code"] = dtable1;
+        dtable.AcceptChanges();
+        ViewState["GroupList"] = dtable;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Mailjet.Client.Resources;
+using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
@@ -29,22 +30,7 @@ public partial class Soft_Employeegroupassign : System.Web.UI.Page
             //FillRecords();
         }
     }
-
-    private void FillRecords()
-    {
-        string grp = "0";
-        foreach (ListItem item in drpGrp.Items)
-        {
-            if (item.Selected)
-            {
-                grp += "," + item.Value;
-            }
-        }
-        DataSet dsusr = getdata.GetEmployeList(drpDepartment.SelectedValue, drpDesignation.SelectedValue, drpProjectManager.SelectedValue, drpStatus.SelectedValue);
-        ViewState["PartyList"] = dsusr;
-        rep.DataSource = dsusr;
-        rep.DataBind();
-    }
+     
 
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -60,25 +46,42 @@ public partial class Soft_Employeegroupassign : System.Web.UI.Page
                 grp += "," + item.Value;
             }
         }
-        FillRecords(); 
+        DataSet dsusr = getdata.GetEmployeList(drpDepartment.SelectedValue, drpDesignation.SelectedValue, drpProjectManager.SelectedValue, drpStatus.SelectedValue);
+        ViewState["PartyList"] = dsusr.Tables[0];
+        ViewState["GroupList"] = dsusr.Tables[1];
+        rep.DataSource = dsusr;
+        rep.DataBind();
     }
 
+    protected void lstGrp_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DataTable dtable = ((DataTable)ViewState["GroupList"]);
+        DataView dv = dtable.DefaultView;
+        if (lstGrp.SelectedIndex > 0)
+            dv.RowFilter = "MCMsCode='" + lstGrp.SelectedValue + "'";
+        repsku.DataSource = dv.ToTable(); ;
+        repsku.DataBind();
+    }
 
     protected void btnConfirmY_Click(object sender, EventArgs e)
     {
+        Gd.FillMainGroup(lstGrp);
+
         RepeaterItem item = (sender as LinkButton).NamingContainer as RepeaterItem;
         string id = (item.FindControl("hddEnqID") as HiddenField).Value;
+        string lblParty = (item.FindControl("lblParty") as Label).Text;
         string hddGroups = (item.FindControl("hddGroups") as HiddenField).Value;
 
+        lblHead.Text = lblParty;
 
-
-        DataTable dtable = ((DataSet)ViewState["PartyList"]).Tables[1];
+        DataTable dtable = ((DataTable)ViewState["GroupList"]);
         foreach (DataRow drr in dtable.Rows)
         {
             drr["PartyID"] = id;
             drr["chk"] = (hddGroups.Split(',').Contains(drr["CMsCode"])) ? "1" : "0";
         }
         dtable.AcceptChanges();
+        ViewState["GroupList"] = dtable;
         repsku.DataSource = dtable;
         repsku.DataBind();
         mpe.Show();
@@ -88,31 +91,51 @@ public partial class Soft_Employeegroupassign : System.Web.UI.Page
 
     protected void btnApply_Click(object sender, EventArgs e)
     {
-        string value = "";
+        string CMSCode = "", CMSName = "";
         HiddenField hddAssID = new HiddenField();
-        foreach (RepeaterItem item in repsku.Items)
+
+
+        DataTable dtable1 = ((DataTable)ViewState["GroupList"]);
+        foreach (DataRow drr in dtable1.Rows)
         {
-            HiddenField hddCmsCode = (HiddenField)item.FindControl("hddCmsCode");
-            hddAssID = (HiddenField)item.FindControl("hddPartyId");
-            CheckBox chkItems = item.FindControl("chkItems") as CheckBox;
-            if (chkItems.Checked)
+            if (drr["Chk"].ToString() == "1")
             {
-                value += hddCmsCode.Value + ",";
+                CMSCode += drr["CMSCode"].ToString() + ",";
+                CMSName += drr["CMSName"].ToString() + ",";
             }
         }
+        hddAssID.Value = dtable1.Rows[0]["PartyID"].ToString();
+        data.executeCommand("Update tbl_EMPMaster set ItemGroup='" + CMSCode.Substring(0, CMSCode.Length - 1) + "' where EMPID='" + hddAssID.Value.ToString() + "'");
 
-        data.executeCommand("Update tbl_EMPMaster set ItemGroup='" + value.Substring(0, value.Length - 1) + "' where EMPID='" + hddAssID.Value.ToString() + "'");
-
-
-
-        DataTable dtable = ((DataSet)ViewState["PartyList"]).Tables[0];
+        DataTable dtable = ((DataTable)ViewState["PartyList"]);
         foreach (DataRow drr in dtable.Rows)
         {
             if (drr["EMPId"].ToString() == hddAssID.Value.ToString())
-                drr["ITEMGROUP"] = value.Substring(0, value.Length - 1);
+            {
+                drr["ITEMGROUP"] = CMSCode.Substring(0, CMSCode.Length - 1);
+                drr["ITEMGROUPS"] = CMSName.Substring(0, CMSName.Length - 1);
+            }
         }
         dtable.AcceptChanges();
+        ViewState["PartyList"] = dtable;
         rep.DataSource = dtable;
-        rep.DataBind();
+        rep.DataBind(); 
+    }
+
+    protected void chkItems_CheckedChanged(object sender, EventArgs e)
+    {
+        DataTable dtable = ((DataTable)ViewState["GroupList"]);
+        foreach (RepeaterItem item in repsku.Items)
+        {
+            HiddenField hddCmsCode = (HiddenField)item.FindControl("hddCmsCode");
+            CheckBox chkItems = item.FindControl("chkItems") as CheckBox;
+            foreach (DataRow drr in dtable.Rows)
+            {
+                if (drr["CMSCode"].ToString() == hddCmsCode.Value)
+                    drr["chk"] = chkItems.Checked;
+            }
+        }
+        dtable.AcceptChanges();
+        ViewState["GroupList"] = dtable;
     }
 }
