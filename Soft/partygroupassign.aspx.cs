@@ -1,11 +1,14 @@
 ﻿using Mailjet.Client.Resources;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Ocsp;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
+using System.Web.Services.Protocols;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -15,7 +18,7 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
     Master getdata = new Master();
     GetData gd = new GetData();
     Data data = new Data();
-    private HttpCookie Soft;
+    public System.Web.HttpCookie Soft;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -28,6 +31,7 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
             gd.FillPartyCategory(drpCatg);
             gd.FillMainGroup(lstGrp);
             gd.FillGroup1(drpGrp);
+            gd.FillAccount(drpParty);
 
 
             DataSet dsusr = getdata.getHqtrUserDpt("0");
@@ -89,7 +93,7 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
                 grp += "," + item.Value;
             }
         }
-        DataSet dsusr = getdata.GetPartyList(drpDistrict.SelectedValue, drpStation.SelectedValue, drpCatg.SelectedValue, grp);
+        DataSet dsusr = getdata.GetPartyList(drpDistrict.SelectedValue, drpStation.SelectedValue, drpCatg.SelectedValue, drpParty.SelectedValue);
 
         ViewState["PartyList"] = dsusr.Tables[0];
         ViewState["GroupList"] = dsusr.Tables[1];
@@ -143,15 +147,26 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
             }
         }
         hddAssID.Value = dtable1.Rows[0]["PartyID"].ToString();
-        data.executeCommand("Update ACCOUNT set ItemGroup='" + CMSCode.Substring(0, CMSCode.Length - 1) + "' where id='" + hddAssID.Value.ToString() + "'");
+        if (CMSCode.Length == 0)
+        {
+            CMSCode = "";
+            CMSName = "";
+        }
+        else
+        {
+            CMSCode = CMSCode.Substring(0, CMSCode.Length - 1);
+            CMSName = CMSName.Substring(0, CMSName.Length - 1);
+        }
+
+        data.executeCommand("Update ACCOUNT set ItemGroup=  '" + CMSCode + "' where id='" + hddAssID.Value.ToString() + "'");
 
         DataTable dtable = ((DataTable)ViewState["PartyList"]);
         foreach (DataRow drr in dtable.Rows)
         {
             if (drr["Id"].ToString() == hddAssID.Value.ToString())
             {
-                drr["ITEMGROUP"] = CMSCode.Substring(0, CMSCode.Length - 1);
-                drr["ITEMGROUPS"] = CMSName.Substring(0, CMSName.Length - 1);
+                drr["ITEMGROUP"] = CMSCode;
+                drr["ITEMGROUPS"] = CMSName;
             }
         }
         dtable.AcceptChanges();
@@ -170,6 +185,7 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
         repsku.DataBind();
     }
 
+
     protected void chkItems_CheckedChanged(object sender, EventArgs e)
     {
         DataTable dtable = ((DataTable)ViewState["GroupList"]);
@@ -185,5 +201,6 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
         }
         dtable.AcceptChanges();
         ViewState["GroupList"] = dtable;
+
     }
 }

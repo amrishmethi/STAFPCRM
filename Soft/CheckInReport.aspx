@@ -80,7 +80,7 @@
                                             <th style="text-align: left;" rowspan="2">Sr. No.</th>
                                             <th style="text-align: left;" rowspan="2">Employee</th>
                                             <th style="text-align: center;" colspan="6">CheckIn</th>
-                                            <th style="text-align: center;" colspan="5">CheckOut</th>
+                                            <th style="text-align: center;" colspan="4">CheckOut</th>
 
                                             <%--<th style="text-align: left;" rowspan="2">WhatsApp No</th>--%>
                                             <%--<th>--%>
@@ -99,7 +99,7 @@
                                             <th style="text-align: left;">Date<br />
                                                 Time</th>
                                             <th style="text-align: left;">Location</th>
-                                            <th style="text-align: left;">Next Party</th>
+                                            <%--<th style="text-align: left;">Next Party</th>--%>
                                             <th style="text-align: left;">Next Station</th>
                                             <%--<th style="text-align: left;">Next Station</th>--%>
                                             <%--<label id="lblAction">Action</label>--%>
@@ -127,7 +127,7 @@
                                                     <td style="text-align: left;"><%#Eval("OutDate") %><br />
                                                         <%#Eval("OutTime") %></td>
                                                     <td style="text-align: left;"><%#Eval("ChkOutPlace") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NextParty") %></td>
+                                                    <%--<td style="text-align: left;"><%#Eval("NextParty") %></td>--%>
                                                     <td style="text-align: left;"><%#Eval("NextStation") %></td>
                                                     <%--<td style="text-align: left;"><%#Eval("WhatsAppNo") %></td>--%>
                                                     <%--<td style="text-align: left;">

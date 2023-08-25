@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
@@ -41,9 +42,10 @@ public partial class Soft_StationBeat : System.Web.UI.Page
     }
 
     public void FillData()
-    {
-        ds = Gd.FillStationBeat();
-        DataView view = new DataView(ds.Tables[0]);
+    { 
+        DataSet dss = master.StationBeat("select", drpStation.SelectedValue, drpDistrict.SelectedValue, drpHeadqtr.SelectedValue, "", drpStation.SelectedValue, "0");
+
+        DataView view = new DataView(dss.Tables[0]);
         string _RowFilter = "0=0";
         if (drpHeadqtr.SelectedIndex > 0)
             _RowFilter += " and HeadQtrNo='" + drpHeadqtr.SelectedValue + "'";
@@ -94,7 +96,8 @@ public partial class Soft_StationBeat : System.Web.UI.Page
 
     protected void drpStation_SelectedIndexChanged(object sender, EventArgs e)
     {
-        ds = Gd.FillStationBeat();
+        DataSet ds = master.StationBeat("select", drpStation.SelectedValue, drpDistrict.SelectedValue, drpHeadqtr.SelectedValue, "", drpStation.SelectedValue, "0");
+
         DataView view = new DataView(ds.Tables[0]);
         string _RowFilter = "0=0";
         if (drpDistrict.SelectedIndex > 0)

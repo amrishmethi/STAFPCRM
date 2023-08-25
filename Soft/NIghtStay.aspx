@@ -6,8 +6,7 @@
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
+  
     <section class="content-header" style="height: 2.5em;">
 
         <h1><a id="lnkAdd" runat="server" href="/Soft/NightStayA.aspx" class="btn btn-primary">Add Night Stay</a>

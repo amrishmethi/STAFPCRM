@@ -1,18 +1,19 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="HqtWiseSaleSummary.aspx.cs" Inherits="Soft_HqtWiseSaleSummary" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="secondarysalesreports.aspx.cs" Inherits="Soft_secondarysalesreports" %>
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>HQ GROUP /party WISE SALE</title>
+    <title>Secondary Sales Reports(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server"> 
-   
+<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
+
     <section class="content-header" style="height: 2.5em;">
-        <h1>HQ GROUP /party WISE SALE</h1>
+        <h1>Secondary Sales Reports</h1>
         <ol class="breadcrumb">
+            <li></li>
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/HqtWiseSale.aspx" class="active">HQ GROUP /party WISE SALE</a></li>
+            <li><a href="/Soft/SecondarySalesReports.aspx" class="active">Secondary Sales Reports</a></li>
         </ol>
     </section>
     <section class="content">
@@ -21,60 +22,45 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-
+                            <div class="col-md-3">
+                                <label>Department</label>
+                                <asp:DropDownList ID="drpDept" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDept_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Status</label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpDept_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
+                                    <asp:ListItem Value="Active" Text="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-3">
                                 <label>Employee</label>
-
-                                <asp:DropDownList ID="DrpEmployee" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="DrpEmployee_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:ListBox ID="drpUser" runat="server" CssClass="form-control select2" SelectionMode="Multiple" >
+                                </asp:ListBox>
+                            </div>
+                            <div class="col-md-3 hidden">
+                                <label>HeadQtr</label>
+                                <asp:DropDownList ID="drpHeadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpHeadQtr_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-
-                            <div class="col-md-3">
-                                <label>HeadQuarter</label>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="*" InitialValue="0"
-                                    Font-Bod="true" ForeColor="Red" Font-Size="Large" ControlToValidate="drpHeadQtr"></asp:RequiredFieldValidator>
-
-                                <asp:DropDownList ID="drpHeadQtr" runat="server" OnSelectedIndexChanged="drpHeadQtr_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Distict</label>
-                                <asp:ListBox ID="drpDistict" runat="server" OnSelectedIndexChanged="drpDistict_SelectedIndexChanged1" CssClass="form-control select2" AutoPostBack="true" SelectionMode="Multiple"></asp:ListBox>
-
-
-
-                            </div>
+                             
                             <div class="col-md-2">
                                 <label>Station</label>
-                                <asp:DropDownList ID="Drpstation" runat="server" CssClass="form-control select2">
+                                <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
-
-                            <div class="col-md-2">
-                                <label>Rate</label>
-                                <asp:DropDownList ID="Drprate" runat="server" CssClass="form-control select2">
-                                    <asp:ListItem Text="With Tax" Value="1"></asp:ListItem>
-                                    <asp:ListItem Text="Without Tax" Value="0"></asp:ListItem>
-
-                                </asp:DropDownList>
-                            </div>
-                            <div class="clearfix">&nbsp;</div>
-                            <div class="col-md-3 hidden">
-                                <label>Report</label>
-                                <asp:DropDownList ID="drpReport" runat="server" CssClass="form-control select2">
-                                    <asp:ListItem Text="Detail" Value="Detail"></asp:ListItem>
-                                    <asp:ListItem Text="Summary" Value="Summary"></asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
-                             <div class="col-md-2">
+                              <div class="col-md-2">
                                 <label>Report Type</label>
                                 <asp:DropDownList ID="drpReportType" runat="server" CssClass="form-control">
                                     <asp:ListItem Text="Main Group" Value="1"></asp:ListItem>
                                     <asp:ListItem Text="Sub Group" Value="0"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-2">
-                                <label>Party</label>
+                             <div class="clearfix">&nbsp;</div>
+                            <div class="col-md-3">
+                                <label>Primary Party</label>
                                 <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
@@ -82,8 +68,7 @@
                                 <label>Group</label>
                                 <asp:ListBox ID="drpGrp" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
                             </div>
-
-
+                           
                             <div class="col-md-2">
                                 <label>Date From</label>
                                 <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker">
@@ -102,7 +87,7 @@
                                 &nbsp;
                                 &nbsp;
                                 <asp:Button ID="btnExport" runat="server" CssClass="btn btn-success" OnClick="btnExport_Click" Text="Export To Excel" />
-                                 
+
                             </div>
                             <div class="clearfix">&nbsp;</div>
                         </div>
@@ -113,7 +98,7 @@
                                 <div class="table-responsive">
                                     <asp:GridView ID="grdReport" ClientIDMode="Static" runat="server" CssClass="table table-bordered display table-striped ">
                                     </asp:GridView>
-                                     
+
                                 </div>
                             </div>
                         </div>
@@ -148,7 +133,7 @@
         })
 
     </script>
-      
+
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
 

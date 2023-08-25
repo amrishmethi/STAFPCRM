@@ -72,7 +72,7 @@ public partial class Admin_SecondarySalesCustomize : System.Web.UI.Page
                     OrderId += "," + hddEmpID.Value;
             }
         }
-        
+        Session["TermsId"] = "";
         GenratePrint(OrderId, ((Button)sender).ID == "btnPrintSummary" ? true:false);
        
     }

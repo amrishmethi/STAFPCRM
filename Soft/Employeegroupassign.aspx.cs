@@ -104,16 +104,27 @@ public partial class Soft_Employeegroupassign : System.Web.UI.Page
                 CMSName += drr["CMSName"].ToString() + ",";
             }
         }
+
+        if (CMSCode.Length == 0)
+        {
+            CMSCode = "";
+            CMSName = "";
+        }
+        else
+        {
+            CMSCode = CMSCode.Substring(0, CMSCode.Length - 1);
+            CMSName = CMSName.Substring(0, CMSName.Length - 1);
+        }
         hddAssID.Value = dtable1.Rows[0]["PartyID"].ToString();
-        data.executeCommand("Update tbl_EMPMaster set ItemGroup='" + CMSCode.Substring(0, CMSCode.Length - 1) + "' where EMPID='" + hddAssID.Value.ToString() + "'");
+        data.executeCommand("Update tbl_EMPMaster set ItemGroup='" + CMSCode + "' where EMPID='" + hddAssID.Value.ToString() + "'");
 
         DataTable dtable = ((DataTable)ViewState["PartyList"]);
         foreach (DataRow drr in dtable.Rows)
         {
             if (drr["EMPId"].ToString() == hddAssID.Value.ToString())
             {
-                drr["ITEMGROUP"] = CMSCode.Substring(0, CMSCode.Length - 1);
-                drr["ITEMGROUPS"] = CMSName.Substring(0, CMSName.Length - 1);
+                drr["ITEMGROUP"] = CMSCode;
+                drr["ITEMGROUPS"] = CMSName;
             }
         }
         dtable.AcceptChanges();

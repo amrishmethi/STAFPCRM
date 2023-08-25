@@ -24,12 +24,12 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
 
             Soft = Request.Cookies["STFP"];
             Session["AccessRigthsSet"] = getdata.AccessRights("CreateDealer.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-            
+
             Gd.FillUser(drpEmp);
             bindDrp(true, true);
             txtDateFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             txtDateTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            
+
             //fillData();
         }
     }
@@ -63,13 +63,13 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
     }
     public void fillData()
     {
-        ds = getdata.getCreateDealer("SELECT","0","","","","","","","","","","","","",drpType.SelectedValue,"",txtDateFrom.Text.Trim(),txtDateTo.Text.Trim(), drpEmp.SelectedValue, drpHqtr.SelectedValue);
+        ds = getdata.getCreateDealer("SELECT", "0", "", "", "", "", "", "", "", "", "", "", "", "", drpType.SelectedValue, "", txtDateFrom.Text.Trim(), txtDateTo.Text.Trim(), drpEmp.SelectedValue, drpHqtr.SelectedValue);
         DataView dv = ds.Tables[0].DefaultView;
         //if (drpIsMeet.SelectedValue == "0") { dv.RowFilter = " AddedDate is null"; }
         //else if (drpIsMeet.SelectedValue == "1") { dv.RowFilter = "AddedDate <> ''"; }
 
-        
-     
+
+
         ViewState["tbl"] = dv.ToTable();
         Session["ClientMeet"] = dv.ToString();
 
@@ -114,7 +114,7 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
         datatable.Columns.Add("Sr. No.");
         datatable.Columns.Add("DateTime");
         datatable.Columns.Add("Employee");
-         datatable.Columns.Add("Head Quarter");
+        datatable.Columns.Add("Head Quarter");
         datatable.Columns.Add("Name");
         datatable.Columns.Add("Station");
         datatable.Columns.Add("Address");
@@ -125,8 +125,8 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
         datatable.Columns.Add("GST No");
         datatable.Columns.Add("Gst Type");
         datatable.Columns.Add("Mobile");
-       // datatable.Columns.Add("Mobile No");
-        datatable.Columns.Add("WhatsApp No");   
+        // datatable.Columns.Add("Mobile No");
+        datatable.Columns.Add("WhatsApp No");
         datatable.Columns.Add("Transport");
         datatable.Columns.Add("Party Type");
         datatable.Columns.Add("Party Category");
@@ -138,7 +138,7 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
             DataRow _row = datatable.NewRow();
             _row["Sr. No."] = datatable.Rows.Count + 1;
             _row["DateTime"] = dr["cdDATE"];
-            _row["Employee"] = dr["Employee"];           
+            _row["Employee"] = dr["Employee"];
             _row["Head Quarter"] = dr["HeadQtr"];
             _row["Name"] = dr["Name"];
             _row["Station"] = dr["Station"];
@@ -154,14 +154,15 @@ public partial class Admin_CreateDealer : System.Web.UI.Page
             _row["WhatsApp No"] = dr["WhatsAppNo"];
             _row["Party Type"] = dr["Transport"];
             _row["Party Category"] = dr["PartyCatg"];
-         // _row["Meet Type"] = dr["ClientMeetType"];
-         //    _row["Image"] = dr["Image"];
+            // _row["Meet Type"] = dr["ClientMeetType"];
+            //    _row["Image"] = dr["Image"];
             datatable.Rows.Add(_row);
         }
         //GeneratePDF(datatable, "ClientMeet");
         Session["GridData"] = datatable;
         Session["Title"] = "Create Dealer";
         Session["DateRange"] = "(Date as on " + txtDateFrom.Text + " - " + txtDateTo.Text + ")";
+        Session["TermsId"] = "";
         //Response.Redirect("Print.aspx");
         Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
 

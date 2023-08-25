@@ -12,14 +12,13 @@
     </style>
 </head>
 <body onload="window.print()">
-
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <asp:Repeater ID="repData" runat="server">
             <ItemTemplate>
                 <tr>
                     <td>&nbsp;</td>
                 </tr>
-                <tr class="page">
+                <tr>
                     <td align="center">
                         <table width="750" border="0" cellspacing="0" cellpadding="0">
                             <tr>
@@ -166,24 +165,12 @@
                             </tr>
                         </table>
                     </td>
-
-
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td colspan="4"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" align="center">Computer Generated Pay Slip</td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;</td>
-                    </tr>
                 </tr>
+
+                <tr>
+                    <td colspan="4" align="center">Computer Generated Pay Slip</td>
+                </tr>
+                <tr class="page"></tr>
             </ItemTemplate>
         </asp:Repeater>
     </table>

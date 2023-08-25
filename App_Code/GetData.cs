@@ -96,9 +96,7 @@ public class GetData
     }
 
     public void FillPrimaryParty(DropDownList drp)
-    {
-
-
+    { 
         query = "select AcName + '(' + AcStation + ')' AS AcName, AcCode from  ACCOUNT order by ACNAME ";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
@@ -341,7 +339,7 @@ public class GetData
         return data.getDataSet(query);
     }
 
-    public DataSet FillStationBeat()
+    public DataSet FillStationBeat1()
     {
         string query = "SELECT * FROM [stationBeat] WHere isDelete=0 order by station";
         return data.getDataSet(query);
@@ -363,5 +361,25 @@ public class GetData
         drp.DataValueField = ValueField;
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillAccount(DropDownList drp)
+    {
+        ds = data.getDataSet("GETPARTYLIST_PROC");
+        drp.DataSource = ds;
+        drp.DataTextField = "PARTY";
+        drp.DataValueField = "ID";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillTerms(DropDownList drpTerms)
+    {
+        ds = getdata.TermsCondition("Select", "0", "", "");
+        drpTerms.DataSource = ds;
+        drpTerms.DataTextField = "Heading";
+        drpTerms.DataValueField = "ID";
+        drpTerms.DataBind();
+        drpTerms.Items.Insert(0, new ListItem("Select", "0"));
     }
 }

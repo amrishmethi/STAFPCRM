@@ -90,12 +90,12 @@
                                     <asp:DropDownList ID="drpDesignation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                                 </div>
                                 <div class="col-md-3">
-                                    <label>Reporting Manager</label>
-                                    <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                                    <label>Employee</label>
+                                    <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2"></asp:DropDownList>
                                 </div>
                                 <div class="col-md-2">
                                     <label>Status</label>
-                                    <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control">
                                         <asp:ListItem Value="" Text="Select"></asp:ListItem>
                                         <asp:ListItem Value="Active" Text="Active" Selected="True"></asp:ListItem>
                                         <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
@@ -144,7 +144,8 @@
                                             <td style="text-align: left;"><%#Eval("DEPT_NAME") %></td>
                                             <td style="text-align: left;"><%#Eval("DESG_NAME") %></td>
                                             <td style="text-align: left;"><%#Eval("Emp_Code") %></td>
-                                            <td style="text-align: left;"><asp:Label ID="lblParty" runat="server" Text='<%#Eval("Emp_Name") %>'></asp:Label></td>
+                                            <td style="text-align: left;">
+                                                <asp:Label ID="lblParty" runat="server" Text='<%#Eval("Emp_Name") %>'></asp:Label></td>
                                             <td style="text-align: left;"><%#Eval("REP_MANAGERNAME") %></td>
                                             <td style="text-align: left;"><%#Eval("ItemGroups") %></td>
                                             <td style="text-align: left;">
@@ -169,9 +170,13 @@
                                     <div class="body">
                                         <asp:UpdatePanel ID="updd" runat="server">
                                             <ContentTemplate>
-                                                <div class="col-md-6">
-
-                                                    <asp:DropDownList ID="lstGrp" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="lstGrp_SelectedIndexChanged"></asp:DropDownList>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <asp:DropDownList ID="lstGrp" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="lstGrp_SelectedIndexChanged"></asp:DropDownList>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <asp:CheckBox ID="ChkIte" runat="server" Text="Select All" onclick='javascript: SelectAllCheckboxes(this);' AutoPostBack="true" />
+                                                    </div>
                                                 </div>
                                                 <asp:Repeater ID="repsku" runat="server">
                                                     <HeaderTemplate>
@@ -202,7 +207,8 @@
                                             </ContentTemplate>
                                             <Triggers>
                                                 <asp:AsyncPostBackTrigger ControlID="lstGrp" EventName="SelectedIndexChanged" />
-                                                <%--<asp:AsyncPostBackTrigger ControlID="chkItems" EventName="CheckedChanged" />--%>
+
+                                                <asp:AsyncPostBackTrigger ControlID="ChkIte" EventName="CheckedChanged" />
                                             </Triggers>
                                         </asp:UpdatePanel>
                                     </div>
@@ -221,57 +227,37 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     var cksku =""; 
+ <script type="text/javascript">
+     //  const { each } = require("jquery");
+
+     function SelectAllCheckboxes(spanChk) {
+         debugger
+         // Added as ASPX uses SPAN for checkbox
+
+         var oItem = spanChk.children;
+         var theBox = (spanChk.type == "checkbox") ?
+             spanChk : spanChk.children.item[0];
+         xState = theBox.checked;
+         elm = theBox.form.elements;
+         var n = 0;
+         for (i = 0; i < elm.length; i++)
+             if (elm[i].type == "checkbox" &&
+                 elm[i].id != theBox.id) {
+                 //elm[i].click();
+
+                 if (elm[i].checked != xState)
+                     /*elm[i].click();*/
+                     elm[i].checked = xState;
+
+                 n++;
+             }
+         //document.getElementById("Body_lblchkno").innerHTML = n;
+     }
+
+ </script>
+
      
-
-
-<%--    <script type="text/javascript">
-        var controlid = "";
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
-
-        prm.add_initializeRequest(prm_InitializeRequest);
-        prm.add_endRequest(prm_EndRequest);
-        function prm_InitializeRequest(sender, args) {
-            $('.select2').select2("destroy");
-        }
-        function prm_EndRequest(sender, args) {
-            $('.select2').addClass('select2');
-        }
-    </script>--%>
-
-    <script type="text/javascript">
-        debugger
-        var __count = 0;
-        $(document).ready(function () {
-
-            var chkAll = $('.headerchk :checkbox');
-            var $checkboxes = $('.itemchk :checkbox');
-            chkAll.change(function () {
-                debugger
-                //Check header and item's checboxes on click of header checkbox
-
-                if (chkAll.is(':checked')) {
-                    $checkboxes.attr('checked', 'checked');
-                    __count = $checkboxes.length;
-                }
-                else {
-                    $checkboxes.removeAttr('checked');
-                }
-                //chkItem.prop('checked', $(this).is(':checked'));
-            });
-            var chkItem = $(".itemchk").change(function () {
-                debugger
-                //If any of the item's checkbox is unchecked then also uncheck header's checkbox
-                chkAll.prop('checked', chkItem.filter(':not(:checked)').length == 0);
-                __count = 0;
-                for (var i = 0; i < $checkboxes.length; i++) {
-                    if ($checkboxes[i].checked) {
-                        __count++;
-                    }
-
-                }
-            });
-        });
-    </script>
+    
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
 

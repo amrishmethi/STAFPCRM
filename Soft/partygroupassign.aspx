@@ -98,6 +98,11 @@
                                 <asp:DropDownList ID="drpCatg" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
+                            <div class="col-md-2">
+                                <label>Party </label>
+                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-4">
                                 <label>Group</label>
                                 <asp:ListBox ID="drpGrp" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
@@ -162,9 +167,15 @@
                                     <div class="body">
                                         <asp:UpdatePanel ID="updd" runat="server">
                                             <ContentTemplate>
-                                                <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <asp:DropDownList ID="lstGrp" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="lstGrp_SelectedIndexChanged"></asp:DropDownList>
+                                                    </div>
 
-                                                    <asp:DropDownList ID="lstGrp" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="lstGrp_SelectedIndexChanged"></asp:DropDownList>
+                                                    <div class="col-md-6">
+                                                        <asp:CheckBox ID="ChkIte" runat="server" Text="Select All" onclick='javascript: SelectAllCheckboxes(this);' AutoPostBack="true" />
+                                                    </div>
+
                                                 </div>
                                                 <asp:Repeater ID="repsku" runat="server">
                                                     <HeaderTemplate>
@@ -195,7 +206,7 @@
                                             </ContentTemplate>
                                             <Triggers>
                                                 <asp:AsyncPostBackTrigger ControlID="lstGrp" EventName="SelectedIndexChanged" />
-                                                <%--<asp:AsyncPostBackTrigger ControlID="chkItems" EventName="CheckedChanged" />--%>
+                                                <asp:AsyncPostBackTrigger ControlID="ChkIte" EventName="CheckedChanged" />
                                             </Triggers>
                                         </asp:UpdatePanel>
                                     </div>
@@ -215,55 +226,36 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     var cksku =""; 
      
-
-        
-    <%--<script type="text/javascript">
-        var controlid = "";
-        var prm = Sys.WebForms.PageRequestManager.getInstance();
-
-        prm.add_initializeRequest(prm_InitializeRequest);
-        prm.add_endRequest(prm_EndRequest);
-        function prm_InitializeRequest(sender, args) {
-            $('.select2').select2("destroy");
-        }
-        function prm_EndRequest(sender, args) {
-            $('.select2').addClass('select2');
-        }
-    </script>--%>
     <script type="text/javascript">
-        debugger
-        var __count = 0;
-        $(document).ready(function () {
+        //  const { each } = require("jquery");
 
-            var chkAll = $('.headerchk :checkbox');
-            var $checkboxes = $('.itemchk :checkbox');
-            chkAll.change(function () {
-                debugger
-                //Check header and item's checboxes on click of header checkbox
+        function SelectAllCheckboxes(spanChk) {
+            debugger
+            // Added as ASPX uses SPAN for checkbox
 
-                if (chkAll.is(':checked')) {
-                    $checkboxes.attr('checked', 'checked');
-                    __count = $checkboxes.length;
-                }
-                else {
-                    $checkboxes.removeAttr('checked');
-                }
-                //chkItem.prop('checked', $(this).is(':checked'));
-            });
-            var chkItem = $(".itemchk").change(function () {
-                debugger
-                //If any of the item's checkbox is unchecked then also uncheck header's checkbox
-                chkAll.prop('checked', chkItem.filter(':not(:checked)').length == 0);
-                __count = 0;
-                for (var i = 0; i < $checkboxes.length; i++) {
-                    if ($checkboxes[i].checked) {
-                        __count++;
-                    }
+            var oItem = spanChk.children;
+            var theBox = (spanChk.type == "checkbox") ?
+                spanChk : spanChk.children.item[0];
+            xState = theBox.checked;
+            elm = theBox.form.elements;
+            var n = 0;
+            for (i = 0; i < elm.length; i++)
+                if (elm[i].type == "checkbox" &&
+                    elm[i].id != theBox.id) {
+                    //elm[i].click();
 
+                    if (elm[i].checked != xState)
+                        /*elm[i].click();*/
+                        elm[i].checked = xState;
+
+                    n++;
                 }
-            });
-        });
+            //document.getElementById("Body_lblchkno").innerHTML = n;
+        }
+
     </script>
+
+
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mailjet.Client.Resources;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.IdentityModel.Protocols.WSTrust;
@@ -23,7 +24,7 @@ public class Master
         //
     }
 
-    public DataSet getSecondarySalesParty(string action, string id, string stationid, string station, string name, string mobile, string whatsapp, string hqtr, string Beat)
+    public DataSet getSecondarySalesParty(string action, string id, string stationid, string station, string name, string mobile, string whatsapp, string hqtr, string Beat, string HeadQtr, string USerId = "0")
     {
         cmd = new SqlCommand("PROC_SECONDARYPARTY");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -36,6 +37,8 @@ public class Master
         cmd.Parameters.AddWithValue("@WHATSUPMOBILENO", whatsapp);
         cmd.Parameters.AddWithValue("@HQD", hqtr);
         cmd.Parameters.AddWithValue("@BeatId", Beat);
+        cmd.Parameters.AddWithValue("@HeadQtr", HeadQtr);
+        cmd.Parameters.AddWithValue("@USerId", USerId);
         ds = data.getDataSet(cmd);
         return ds;
     }
@@ -275,7 +278,7 @@ public class Master
         return ds;
     }
 
-    public DataSet getSaleSummaryReportSTHQ(string head, string district, string report, string station, string dt, string dt1, string rate, string party, string Group)
+    public DataSet getSaleSummaryReportSTHQ(string head, string district, string report, string station, string dt, string dt1, string rate, string party, string Group, string GROUPWISE)
     {
         cmd = new SqlCommand("PROC_HEADQTRWISESALESUMMARY_ST");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -289,6 +292,7 @@ public class Master
         cmd.Parameters.AddWithValue("@rate", rate);
         cmd.Parameters.AddWithValue("@Party", party);
         cmd.Parameters.AddWithValue("@Group", Group);
+        cmd.Parameters.AddWithValue("@GROUPWISE", GROUPWISE);
         ds = data.getDataSet(cmd);
         return ds;
     }
@@ -296,7 +300,7 @@ public class Master
     public DataSet ItemStock(string Group, string Type)
     {
         cmd = new SqlCommand("PROC_ITEMCURRENTSTOCK");
-        cmd.CommandType = CommandType.StoredProcedure; 
+        cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@Group", Group);
         cmd.Parameters.AddWithValue("@Type", Type);
         ds = data.getDataSet(cmd);
@@ -311,6 +315,23 @@ public class Master
         cmd.Parameters.AddWithValue("@head", head);
         cmd.Parameters.AddWithValue("@district", district);
         cmd.Parameters.AddWithValue("@report", report);
+        cmd.Parameters.AddWithValue("@station", station);
+        cmd.Parameters.AddWithValue("@dtFrom", data.YYYYMMDD(dt));
+        cmd.Parameters.AddWithValue("@dtTo", data.YYYYMMDD(dt1));
+        cmd.Parameters.AddWithValue("@rate", rate);
+        cmd.Parameters.AddWithValue("@Party", party);
+        cmd.Parameters.AddWithValue("@Group", Group);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+    public DataSet getSaleSummaryReportSTDynamic(string head, string district, string report, string station, string dt, string dt1, string rate, string party, string Group)
+    {
+        cmd = new SqlCommand("PROC_SALESUMMARYREPORTST_DYNAMIC");
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        cmd.Parameters.AddWithValue("@head", head);
+        cmd.Parameters.AddWithValue("@district", district);
+        cmd.Parameters.AddWithValue("@GROUPWISE", report);
         cmd.Parameters.AddWithValue("@station", station);
         cmd.Parameters.AddWithValue("@dtFrom", data.YYYYMMDD(dt));
         cmd.Parameters.AddWithValue("@dtTo", data.YYYYMMDD(dt1));
@@ -641,17 +662,16 @@ public class Master
 
 
 
-    public DataSet GetPartyList(string DISTRICT, string STATION, string CATEGORY,string PARTY)
+    public DataSet GetPartyList(string DISTRICT, string STATION, string CATEGORY, string PARTY)
     {
         SqlCommand cmd = new SqlCommand();
         cmd.CommandText = "GETPARTYLIST_PROC";
-        //@ NVARCHAR(50)='0',@ NVARCHAR(50)='0',@ NVARCHAR(50)='0' 
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.Clear();
         cmd.Parameters.AddWithValue("@DISTRICT", DISTRICT);
         cmd.Parameters.AddWithValue("@STATION", STATION);
-        cmd.Parameters.AddWithValue("@CATEGORY", CATEGORY); 
-        cmd.Parameters.AddWithValue("@PARTY", PARTY); 
+        cmd.Parameters.AddWithValue("@CATEGORY", CATEGORY);
+        cmd.Parameters.AddWithValue("@PARTY", PARTY);
         DataSet dss = data.getDataSet(cmd);
         return dss;
     }
@@ -667,7 +687,65 @@ public class Master
         cmd.Parameters.AddWithValue("@Desig_Id", Desig_Id);
         cmd.Parameters.AddWithValue("@Rep_Manager", Rep_Manager);
         cmd.Parameters.AddWithValue("@Status", Status);
-        DataSet dss = data.getDataSet(cmd); 
+        DataSet dss = data.getDataSet(cmd);
         return dss;
+    }
+
+    public DataSet TermsCondition(string ACTION, string ID, string HEADING, string DESCRIPTION)
+    {
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "PROC_TERMSCONDITION";
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@ACTION", ACTION);
+        cmd.Parameters.AddWithValue("@ID", ID);
+        cmd.Parameters.AddWithValue("@HEADING", HEADING);
+        cmd.Parameters.AddWithValue("@DESCRIPTION", DESCRIPTION);
+        DataSet dss = data.getDataSet(cmd);
+        return dss;
+    }
+
+
+    public DataSet getProductList(string sgrp)
+    {
+        cmd = new SqlCommand("PROC_PRODUCTLIST");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.Clear();
+        cmd.Parameters.AddWithValue("@Grp", sgrp);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+
+
+    public DataSet getSecondarySaleSummaryReportDynamic(string HEAD, string USERID, string DEPTID, string station, string dt, string dt1, string party, string Group, string GROUPWISE)
+    {
+        cmd = new SqlCommand("PROC_SECONDARYSALESREPOR_DYNAMIC");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@HEAD", HEAD);
+        cmd.Parameters.AddWithValue("@USERID", USERID);
+        cmd.Parameters.AddWithValue("@DEPTID", DEPTID);
+        cmd.Parameters.AddWithValue("@STATION", station);
+        cmd.Parameters.AddWithValue("@DATEFROM", data.YYYYMMDD(dt));
+        cmd.Parameters.AddWithValue("@DATETO", data.YYYYMMDD(dt1));
+        cmd.Parameters.AddWithValue("@PARTY", party);
+        cmd.Parameters.AddWithValue("@GROUP", Group);
+        cmd.Parameters.AddWithValue("@GROUPWISE", GROUPWISE);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+
+    public DataSet GetSaleTargetReport(string DEPT_ID, string STATUS, string USERID, string HEADQTR, string TARGETDATE)
+    {
+        cmd = new SqlCommand("PROC_SALETARGETVIEW");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@DEPT_ID", DEPT_ID);
+        cmd.Parameters.AddWithValue("@STATUS", STATUS);
+        cmd.Parameters.AddWithValue("@USERID", USERID);
+        cmd.Parameters.AddWithValue("@HEADQTR", HEADQTR);
+        cmd.Parameters.AddWithValue("@TARGETDATE", TARGETDATE);
+        ds = data.getDataSet(cmd);
+        return ds;
     }
 }

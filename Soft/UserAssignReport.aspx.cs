@@ -139,7 +139,7 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
     {
         string QBind = " INSERT INTO [csinfo].[dbo].[MobileAppUser] ([id],[Name],[MobileNo],[Password],[ExpiryDate],[Deactivate],[RegNo],[AppSoftCode],[UserType],[CreateDate],[ModifiedDate],[isCrmLogin])";
         string _QBind = "";
-        DataSet dsUser = syncData.getDataSet("select * FROM [CSinfo].[dbo].[MobileAppUser]");
+        DataSet dsUser = syncData.getDataSet("select * FROM [CSinfo].[dbo].[MobileAppUser] where regno=111");
         foreach (DataRow drr in dsUser.Tables[0].Rows)
         {
             if (!data.Exist("select * FROM [CSinfo].[dbo].[MobileAppUser] WHERE ID=" + drr["ID"]))

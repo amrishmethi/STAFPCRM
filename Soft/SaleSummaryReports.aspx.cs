@@ -1,26 +1,26 @@
 ﻿using Spire.Xls;
 using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Text;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Xml.Linq;
 
-
-public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
+public partial class Soft_SaleSummaryReports : System.Web.UI.Page
 {
-
+    DataTable dtCustom = new DataTable();
+    Workbook workbook1 = new Workbook();
     DataSet ds = new DataSet();
     Master getdata = new Master();
     GetData gd = new GetData();
     Data data = new Data();
-    private HttpCookie Soft;
-    DataTable dtCustom = new DataTable();
-    Workbook workbook1 = new Workbook();
     bool a = false;
+    private HttpCookie Soft;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -30,7 +30,7 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-            dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
+            //dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             bindDrp();
             gd.FillPrimaryParty(drpParty);
@@ -86,14 +86,14 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
                 district += "," + item.Value;
             }
         }
-        ds = getdata.getSaleSummaryReportSTHQ(head, district, drpReport.SelectedValue, station, dpFrom.Text, dpTo.Text, rate, party, grp, drpReportType.SelectedValue);
 
+        ds = getdata.getSaleSummaryReportSTDynamic(head, district, drpReportType.SelectedValue, station, dpFrom.Text, dpTo.Text, rate, party, grp);
         if (ds.Tables[0].Rows.Count > 0)
         {
             CreateTable(ds.Tables[0].Columns);
             DataView dvv = ds.Tables[0].DefaultView;
 
-            DataTable dvvr = dvv.ToTable(true, "District", "Station", "AcName");
+            DataTable dvvr = dvv.ToTable(true, "HEADQTR", "DISTRICT", "Station", "AcName");
             int SNo = 1;
 
             foreach (DataRow row in dvvr.Rows)
@@ -101,37 +101,37 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
                 int _Total = 0;
                 DataRow drrr = dtCustom.NewRow();
                 drrr["SNo"] = SNo++;
-                //drrr["HeadQtr"] = row["HeadQtr"];
-                drrr["District"] = row["District"];
-                drrr["Station"] = row["Station"];
+                drrr["HEADQTR"] = row["HEADQTR"];
+                drrr["DISTRICT"] = row["DISTRICT"];
                 drrr["AcName"] = row["AcName"];
+                drrr["Station"] = row["Station"];
                 drrr["AMOUNT"] = ds.Tables[0].AsEnumerable()
-                    .Where(myRow => myRow.Field<string>("District") == row["District"].ToString())
+                    .Where(myRow => myRow.Field<string>("HEADQTR") == row["HEADQTR"].ToString())
+                    .Where(myRow => myRow.Field<string>("DISTRICT") == row["DISTRICT"].ToString())
                     .Where(myRow => myRow.Field<string>("Station") == row["Station"].ToString())
                     .Where(myRow => myRow.Field<string>("AcName") == row["AcName"].ToString())
                     .Sum(myRow => myRow.Field<decimal>("AMOUNT"));
 
                 foreach (DataRow cc in ds.Tables[1].Rows)
                 {
-                    if (cc[0].ToString() != "")
-                    {
-                        drrr[cc[0].ToString()] = ds.Tables[0].AsEnumerable()
-                        .Where(myRow => myRow.Field<string>("District") == row["District"].ToString())
-                        .Where(myRow => myRow.Field<string>("Station") == row["Station"].ToString())
-                        .Where(myRow => myRow.Field<string>("AcName") == row["AcName"].ToString())
-                        .Sum(myRow => myRow.Field<Int32?>(cc[0].ToString()));
+                    drrr[cc[0].ToString()] = ds.Tables[0].AsEnumerable()
+                    .Where(myRow => myRow.Field<string>("HEADQTR") == row["HEADQTR"].ToString())
+                    .Where(myRow => myRow.Field<string>("DISTRICT") == row["DISTRICT"].ToString())
+                    .Where(myRow => myRow.Field<string>("Station") == row["Station"].ToString())
+                    .Where(myRow => myRow.Field<string>("AcName") == row["AcName"].ToString())
+                    .Sum(myRow => myRow.Field<Int32?>(cc[0].ToString()));
 
-                        _Total += Convert.ToInt32(ds.Tables[0].AsEnumerable()
-                        .Where(myRow => myRow.Field<string>("District") == row["District"].ToString())
-                        .Where(myRow => myRow.Field<string>("Station") == row["Station"].ToString())
-                        .Where(myRow => myRow.Field<string>("AcName") == row["AcName"].ToString())
-                        .Sum(myRow => myRow.Field<Int32?>(cc[0].ToString())));
+                    _Total += Convert.ToInt32(ds.Tables[0].AsEnumerable()
+                    .Where(myRow => myRow.Field<string>("HEADQTR") == row["HEADQTR"].ToString())
+                    .Where(myRow => myRow.Field<string>("DISTRICT") == row["DISTRICT"].ToString())
+                    .Where(myRow => myRow.Field<string>("Station") == row["Station"].ToString())
+                    .Where(myRow => myRow.Field<string>("AcName") == row["AcName"].ToString())
+                    .Sum(myRow => myRow.Field<Int32?>(cc[0].ToString())));
 
 
-                        cc[1] = ds.Tables[0].AsEnumerable()
-                       .Sum(myRow => myRow.Field<Int32?>(cc[0].ToString()));
-                        ds.Tables[1].AcceptChanges();
-                    }
+                    cc[1] = ds.Tables[0].AsEnumerable()
+                   .Sum(myRow => myRow.Field<Int32?>(cc[0].ToString()));
+                    ds.Tables[1].AcceptChanges();
                 }
                 drrr["Total"] = _Total;
                 dtCustom.Rows.Add(drrr);
@@ -149,7 +149,7 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
             drrr1["Total"] = ds.Tables[1].Compute("sum(Qty)", "");
             dtCustom.Rows.Add(drrr1);
 
-            ViewState["SaleSUmmary"] = dtCustom;
+            ViewState["HQPendingOrderSummary"] = dtCustom;
             grdReport.DataSource = dtCustom;
             grdReport.DataBind();
         }
@@ -167,7 +167,6 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
         }
         dtCustom.Columns.Add("Total");
     }
-
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
@@ -195,11 +194,11 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
         DataView dv = dsusr.Tables[0].DefaultView;
         // Bind data to district dropdown list based on selected HeadQtr
         string selectedName = DrpEmployee.SelectedValue;
-        dv.RowFilter = "MID = '" + selectedName + "'";
+        dv.RowFilter = "Mid = '" + selectedName + "'";
         dv.Sort = "HeadQtr";
-        drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
+        drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNO");
         drpHeadQtr.DataTextField = "HeadQtr";
-        drpHeadQtr.DataValueField = "HeadQtrNo";
+        drpHeadQtr.DataValueField = "HeadQtrNO";
         drpHeadQtr.DataBind();
         drpHeadQtr.Items.Insert(0, new ListItem("Select", "0"));
     }
@@ -212,18 +211,16 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
         string selecteddistrict = drpDistict.SelectedValue;
         dv.RowFilter = "districtNo = '" + selecteddistrict + "'";
         dv.Sort = "Station";
-        Drpstation.DataSource = dv.ToTable(true, "Station", "StationNO");
+        Drpstation.DataSource = dv.ToTable(true, "Station", "StationNo");
         Drpstation.DataTextField = "Station";
-        Drpstation.DataValueField = "StationNO";
+        Drpstation.DataValueField = "StationNo";
         Drpstation.DataBind();
         Drpstation.Items.Insert(0, new ListItem("Select", "0"));
     }
 
-
-
     public void DownLoadFile()
     {
-        DataTable dtt = (DataTable)ViewState["SaleSUmmary"];
+        DataTable dtt = (DataTable)ViewState["HQPendingOrderSummary"];
         string Dpath = "";
         EXcelDownload(dtt);
         string url1 = HttpContext.Current.Request.Url.AbsoluteUri;
@@ -232,7 +229,7 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
         else
             Dpath = "E:\\SSCOMP\\STAFPCRM\\ExcelDownload\\Format.xlsx";
         workbook1.SaveToFile(Dpath);
-        string ff = "SaleSummary.xlsx";
+        string ff = "HQPendingOrderSummary.xlsx";
         string filePath = "ExcelDownload/Format.xlsx";
         Response.ContentType = "application/excel";
         Response.AddHeader("Content-Disposition", "attachment;filename=\"" + ff + "\"");
@@ -254,7 +251,7 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
         workbook1.LoadFromFile(path);
         a = true;
         Worksheet worksheet = workbook1.Worksheets[0];
-        worksheet.Range[1, 1].Text = "Sale Summary Report of " + drpHeadQtr.SelectedItem.Text;
+        worksheet.Range[1, 1].Text = "HQ Pending Order Summary Report of " + drpHeadQtr.SelectedItem.Text;
         worksheet.Range[2, 1].Text = "Date As On " + dpFrom.Text + " To " + dpTo.Text;
 
         worksheet.Range[1, 1, 1, iRowCnt].Merge(true);
@@ -309,5 +306,4 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
     {
         DownLoadFile();
     }
-
 }

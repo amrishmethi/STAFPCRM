@@ -8,7 +8,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
-        <h1>Price List&nbsp;<asp:LinkButton style="display:inline;" ID="lnkDownloadPDF" runat="server" CssClass="btn btn-sm btn-success" OnClick="lnkDownloadPDF_Click">Print</asp:LinkButton></h1>
+        <h1>Price List&nbsp;<asp:LinkButton Style="display: inline;" ID="lnkDownloadPDF" runat="server" CssClass="btn btn-sm btn-success" OnClick="lnkDownloadPDF_Click">Print</asp:LinkButton></h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
             <li><a href="/Soft/PriceList.aspx" class="active">Price List </a></li>
@@ -20,7 +20,7 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <label>Group</label>
                                 <%--<asp:DropDownList ID="drpGroup" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpGroup_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>--%>
@@ -29,9 +29,13 @@
                             <div class="col-md-2">
                                 <label>State</label>
                                 <asp:DropDownList ID="drpState" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpGroup_SelectedIndexChanged" AutoPostBack="true">
-                                    <asp:ListItem Text="Local State" Value="0"/>
-                                    <asp:ListItem Text="Out of State" Value="1"/>
+                                    <asp:ListItem Text="Local State" Value="0" />
+                                    <asp:ListItem Text="Out of State" Value="1" />
                                 </asp:DropDownList>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Terms Condition</label>
+                                <asp:DropDownList ID="drpTerms" runat="server" CssClass="form-control select2"></asp:DropDownList>
                             </div>
                             <%--    <div class="col-md-2">
                                 <label>Date To</label>
@@ -40,11 +44,10 @@
                             </div>--%>
 
 
-<%--                            <div class="col-md-1" style="padding-top: 3px;">
+                            <%--                            <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
                             </div>--%>
-
                         </div>
                         <div class="clearfix">&nbsp;</div>
                         <div class="clearfix">&nbsp;</div>
@@ -59,12 +62,12 @@
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">Item Name</th>
-                                           <th style="text-align: left;">Rate Per Kg</th>
+                                            <th style="text-align: left;">Rate Per Kg</th>
                                             <th style="text-align: left;">Rate Per Pc</th>
                                             <th style="text-align: left;">Carton Pack(Per Pc)</th>
                                             <th style="text-align: left;">Amount (Per Bag/Case)</th>
                                             <th style="text-align: left;">MRP(Per Pc)</th>
-                                         </tr>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <asp:Repeater ID="rep" runat="server">
@@ -76,9 +79,9 @@
                                                     <td style="text-align: left;"><%#Eval("itname") %></td>
                                                     <td style="text-align: left;"><%#Eval("SalesOrderRate") %></td>
                                                     <td style="text-align: left;"><%#Eval("tRate") %></td>
-                                                     <td style="text-align: left;"><%#Eval("itpacking") %></td>
+                                                    <td style="text-align: left;"><%#Eval("itpacking") %></td>
                                                     <td style="text-align: left;"><%#Eval("BagRate") %></td>
-                                                    
+
                                                     <td style="text-align: left;"><%#Eval("MRP") %></td>
                                                 </tr>
                                             </ItemTemplate>
@@ -139,7 +142,7 @@
                 }
             });
         })
-      
+
 
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />

@@ -53,11 +53,9 @@
                         <div class="col-md-4">
                             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" Text="Save" ValidationGroup="A" OnClick="btnSave_Click"/>
                             <asp:Button ID="btnBack" runat="server" CssClass="btn btn-danger" Text="Back To List" OnClick="btnBack_Click" />
-
                         </div>
                         <div class="clearfix">&nbsp;</div>
                         <div class="clearfix">&nbsp;</div>
-
                     </div>
                 </div>
             </div>

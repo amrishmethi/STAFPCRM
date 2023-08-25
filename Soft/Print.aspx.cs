@@ -2,6 +2,7 @@
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
 using System;
+using System.Activities.Statements;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -13,16 +14,20 @@ using System.Web.UI.WebControls;
 
 public partial class Soft_Print : System.Web.UI.Page
 {
+    Master master = new Master();
     protected void Page_Load(object sender, EventArgs e)
     {
         lblHeading.Text = Session["Title"].ToString();
         lblDateRng.Text = Session["DateRange"].ToString();
         CreateTableHTML((DataTable)Session["GridData"]);
 
-
+        DataSet dss = master.TermsCondition("Select", Session["TermsId"].ToString(), "", "");
+        if (dss.Tables[0].Rows.Count == 1)
+        {
+            lblTermsHeading.Text = "Terms & Condition";
+            lblTerms.Text = dss.Tables[0].Rows[0]["Description"].ToString();
+        }
     }
-
-
 
     private void CreateTableHTML(DataTable tbl)
     {
@@ -44,7 +49,7 @@ public partial class Soft_Print : System.Web.UI.Page
         //strHTML.Append("<tr style='height:2px;background-color:silver;'>");
         //strHTML.Append("<td style='text-align: left;' colspan='" + tbl.Columns.Count + "'></td>");
         //strHTML.Append("</tr>");
-        decimal totSecSales = 0, totTrgtAmt = 0,totAchivePer = 0;
+        decimal totSecSales = 0, totTrgtAmt = 0, totAchivePer = 0;
         int totVisits = 0, totTrgtVisit = 0, totProdVisit = 0, totNonProdVisit = 0;
         for (int r = 0; r < tbl.Rows.Count; r++)
         {
@@ -57,7 +62,7 @@ public partial class Soft_Print : System.Web.UI.Page
                 totVisits += Convert.ToInt32(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][6].ToString());
                 totProdVisit += Convert.ToInt32(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][7].ToString());
                 totNonProdVisit += Convert.ToInt32(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][8].ToString());
-                totAchivePer += Convert.ToDecimal(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][9].ToString().Replace('%',' ').Trim());
+                totAchivePer += Convert.ToDecimal(tbl.Rows[r][6].ToString() == "" ? "0" : tbl.Rows[r][9].ToString().Replace('%', ' ').Trim());
                 if (r < tbl.Rows.Count - 1)
                 {
                     if (brkStr != tbl.Rows[r + 1][2].ToString())
@@ -99,13 +104,12 @@ public partial class Soft_Print : System.Web.UI.Page
                     strHTML.Append("<td>&nbsp;</td>");
                     strHTML.Append("<td>&nbsp;</td>");
                     strHTML.Append("</tr>");
-                    totSecSales = totTrgtVisit = 0; totTrgtAmt = totVisits = 0; totProdVisit = 0; totNonProdVisit = 0; totAchivePer=0;  
+                    totSecSales = totTrgtVisit = 0; totTrgtAmt = totVisits = 0; totProdVisit = 0; totNonProdVisit = 0; totAchivePer = 0;
                 }
             }
         }
 
         strHTML.Append("</tbody>");
-        strHTML.Append("</table>");
         bindTable.InnerHtml = strHTML.ToString();
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="SaleSummaryReport.aspx.cs" Inherits="Soft_SaleSummaryReport" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="SaleSummaryReports.aspx.cs" Inherits="Soft_SaleSummaryReports" %>
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
@@ -12,7 +12,7 @@
         <h1>HQ PENDING ORDER SUMMARY (S/T)</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/SaleSummaryReport.aspx" class="active">HQ PENDING ORDER SUMMARY(S/T)</a></li>
+            <li><a href="/Soft/SaleSummaryReports.aspx" class="active">HQ PENDING ORDER SUMMARY(S/T)</a></li>
         </ol>
     </section>
     <section class="content">
@@ -22,8 +22,6 @@
                     <div class="box-body">
                         <div class="form-group">
 
-                            <%--   <asp:UpdatePanel ID="upd" runat="server">
-                    <ContentTemplate>--%>
                             <div class="col-md-3">
                                 <label>Employee</label>
 
@@ -42,9 +40,6 @@
                             <div class="col-md-2">
                                 <label>Distict</label>
                                 <asp:ListBox ID="drpDistict" runat="server" OnSelectedIndexChanged="drpDistict_SelectedIndexChanged1" CssClass="form-control select2" AutoPostBack="true" SelectionMode="Multiple"></asp:ListBox>
-
-
-
                             </div>
                             <div class="col-md-2">
                                 <label>Station</label>
@@ -52,7 +47,7 @@
                                 </asp:DropDownList>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-2 hidden">
                                 <label>Rate</label>
                                 <asp:DropDownList ID="Drprate" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Text="With Tax" Value="1"></asp:ListItem>
@@ -61,7 +56,7 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="clearfix">&nbsp;</div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 hidden">
                                 <label>Report</label>
                                 <asp:DropDownList ID="drpReport" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Text="All" Value="All"></asp:ListItem>
@@ -69,7 +64,13 @@
                                     <asp:ListItem Text="Pending" Value="Pending"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
-
+                            <div class="col-md-2">
+                                <label>Report Type</label>
+                                <asp:DropDownList ID="drpReportType" runat="server" CssClass="form-control">
+                                    <asp:ListItem Text="Main Group" Value="1"></asp:ListItem>
+                                    <asp:ListItem Text="Sub Group" Value="0"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-2">
                                 <label>Party</label>
                                 <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
@@ -94,6 +95,11 @@
                             <div class="col-md-4">
                                 <br />
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" OnClick="btnSearch_Click" Text="Search" />
+                                &nbsp;
+ &nbsp;
+ &nbsp;
+ &nbsp;
+ <asp:Button ID="btnExport" runat="server" CssClass="btn btn-success" OnClick="btnExport_Click" Text="Export To Excel" />
                             </div>
                             <div class="clearfix">&nbsp;</div>
                         </div>
@@ -102,68 +108,8 @@
                         <div class="box-body">
                             <div class="widget-content">
                                 <div class="table-responsive">
-                                    <table id="ExportTbl" class="table table-bordered display table-striped">
-
-
-                                        <thead>
-
-
-                                            <tr> 
-                                                <th>Sr. No.</th>
-                                                <th>HeadQuarter</th>
-                                                <th>District</th>
-                                                <th>Station</th>
-                                                <th>Party </th>
-                                                <th>Order Bag</th>
-                                                <th>packing</th>
-                                                <th>Qty</th>
-                                                <%-- <th>Rate</th>--%>
-                                                <th>Amount</th>
-
-                                            </tr>
-
-                                        </thead>
-                                        <tbody>
-
-                                            <asp:Repeater ID="rep" runat="server">
-                                                <ItemTemplate>
-
-                                                    <tr class="gradeA"> 
-                                                        <td>
-                                                               <%#Container.ItemIndex+1 %>
-
-                                                            <%--<%#Eval("row_num") %>--%>
-                                                        </td>
-                                                        <%-- <td style="text-align: left;"><%# Eval("acname").ToString() =="Total"?"" : Eval("orddate")  %></td>--%>
-                                                        <td style="text-align: left;"><%#Eval("HeadQtr") %></td>
-                                                        <td style="text-align: left;"><%#Eval("District") %></td>
-                                                        <td style="text-align: left;"><%#Eval("Station") %></td>
-                                                        <td style="text-align: left;"><%#Eval("acname") %></td>
-                                                        <%--<td style="text-align: left;"><%#Eval("cmsname") %></td>
-                        <td style="text-align: left;"><%#Eval("itname") %></td>--%>
-                                                        <td style="text-align: left;"><%#Eval("ordbag") %></td>
-                                                        <td style="text-align: left;"><%#Eval("CWeight") %></td>
-                                                        <td style="text-align: left;"><%#Eval("Qty") %></td>
-                                                        <%--  <td style="text-align: left;"><%#Eval("ordstprate") %></td>--%>
-                                                        <td style="text-align: left;"><%#Eval("amount") %></td>
-                                                    </tr>
-                                                </ItemTemplate>
-
-                                            </asp:Repeater>
-                                        </tbody>
-                                       <%-- <tfoot>
-                                            <tr>
-                                                <td colspan="5">Total</td>
-                                                <td>
-                                                    <asp:Label ID="lblTotalBag" runat="server"></asp:Label></td>
-                                                <td></td>
-                                                <td>
-                                                    <asp:Label ID="lblTotalQty" runat="server"></asp:Label></td> 
-                                                <td>
-                                                    <asp:Label ID="lblTotalAmt" runat="server"></asp:Label></td>
-                                            </tr>
-                                        </tfoot>--%>
-                                    </table>
+                                    <asp:GridView ID="grdReport" ClientIDMode="Static" runat="server" CssClass="table table-bordered display table-striped ">
+                                    </asp:GridView>
                                 </div>
                             </div>
                         </div>

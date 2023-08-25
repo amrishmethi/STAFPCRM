@@ -28,37 +28,39 @@ public partial class Admin_HqtrWiseDist : System.Web.UI.Page
 
             DataSet dsusr = getdata.getHqtrUserDpt("0");
             ViewState["tbl"] = dsusr.Tables[0];
-            if (RadioButton1.Checked)
-            {
-                DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
-                dv.Sort = "Name";
-                drpUser.DataSource = dv.ToTable(true, "Name", "MId");
-                drpUser.DataTextField = "Name";
-                drpUser.DataValueField = "MId";
-                drpUser.DataBind();
-                drpUser.Items.Insert(0, new ListItem("Select", "0"));
+            //if (RadioButton1.Checked)
+            //{
+            DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
+            if (drpStatus.SelectedIndex > 0)
+                dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
+            dv.Sort = "Name";
+            drpUser.DataSource = dv.ToTable(true, "Name", "MId");
+            drpUser.DataTextField = "Name";
+            drpUser.DataValueField = "MId";
+            drpUser.DataBind();
+            drpUser.Items.Insert(0, new ListItem("Select", "0"));
 
-                dv.Sort = "HeadQtr";
-                drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
-                drpheadQtr.DataTextField = "HeadQtr";
-                drpheadQtr.DataValueField = "HeadQtrNo";
-                drpheadQtr.DataBind();
-                drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
-            }
+            dv.Sort = "HeadQtr";
+            drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
+            drpheadQtr.DataTextField = "HeadQtr";
+            drpheadQtr.DataValueField = "HeadQtrNo";
+            drpheadQtr.DataBind();
+            drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
+            //}
         }
     }
 
     public void fillData()
     {
-        DataSet dsusr = getdata.getHqtrUserDpt("0");
-        ViewState["tbl"] = dsusr.Tables[0];
+        //DataSet dsusr = getdata.getHqtrUserDpt("0");
+        //ViewState["tbl"] = dsusr.Tables[0];
         string str = "0=0  ";
         DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
 
         if (drpUser.SelectedIndex > 0)
         {
             str += "and MId = '" + drpUser.SelectedValue + "'";
-        } 
+        }
         if (drpheadQtr.SelectedIndex > 0)
         {
             str += " and HeadQtrNo = '" + drpheadQtr.SelectedValue + "'";
@@ -84,59 +86,70 @@ public partial class Admin_HqtrWiseDist : System.Web.UI.Page
 
     protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (RadioButton1.Checked)
-        {
-            DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
-            dv.RowFilter = "MId = " + drpUser.SelectedValue;
-            drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
-            drpheadQtr.DataTextField = "HeadQtr";
-            drpheadQtr.DataValueField = "HeadQtrNo";
-            drpheadQtr.DataBind();
-            drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
-        }
+        //if (RadioButton1.Checked)
+        //{
+        DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
+        dv.RowFilter = "MId = " + drpUser.SelectedValue;
+        drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
+        drpheadQtr.DataTextField = "HeadQtr";
+        drpheadQtr.DataValueField = "HeadQtrNo";
+        drpheadQtr.DataBind();
+        drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
+        //}
     }
 
     protected void drpheadQtr_SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (RadioButton2.Checked)
-        {
-            DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
-            dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
-            drpUser.DataSource = dv.ToTable(true, "Name", "MId");
-            drpUser.DataTextField = "Name";
-            drpUser.DataValueField = "MId";
-            drpUser.DataBind();
-            drpUser.Items.Insert(0, new ListItem("Select", "0"));
-        }
+        ////if (RadioButton2.Checked)
+        ////{
+        //    DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
+        //    dv.RowFilter = "HeadQtr = '" + drpheadQtr.SelectedValue + "'";
+        //    drpUser.DataSource = dv.ToTable(true, "Name", "MId");
+        //    drpUser.DataTextField = "Name";
+        //    drpUser.DataValueField = "MId";
+        //    drpUser.DataBind();
+        //    drpUser.Items.Insert(0, new ListItem("Select", "0"));
+        ////}
     }
 
     protected void RadioButton1_CheckedChanged(object sender, EventArgs e)
     {
-        DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
-        if (RadioButton1.Checked)
-        {
-            dv.Sort = "Name";
-            drpUser.DataSource = dv.ToTable(true, "Name", "MId");
-            drpUser.DataTextField = "Name";
-            drpUser.DataValueField = "MId";
-            drpUser.DataBind();
-            drpUser.Items.Insert(0, new ListItem("Select", "0"));
-            drpheadQtr.Items.Clear();
-            drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
-        }
-        else if (RadioButton2.Checked)
-        {
-            dv.Sort = "HeadQtr";
-            drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
-            drpheadQtr.DataTextField = "HeadQtr";
-            drpheadQtr.DataValueField = "HeadQtrNo";
-            drpheadQtr.DataBind();
-            drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
-            drpUser.Items.Clear();
-            drpUser.Items.Insert(0, new ListItem("Select", "0"));
-        }
+        //DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
+        //if (RadioButton1.Checked)
+        //{
+        //    dv.Sort = "Name";
+        //    drpUser.DataSource = dv.ToTable(true, "Name", "MId");
+        //    drpUser.DataTextField = "Name";
+        //    drpUser.DataValueField = "MId";
+        //    drpUser.DataBind();
+        //    drpUser.Items.Insert(0, new ListItem("Select", "0"));
+        //    drpheadQtr.Items.Clear();
+        //    drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
+        //}
+        //else if (RadioButton2.Checked)
+        //{
+        //    dv.Sort = "HeadQtr";
+        //    drpheadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
+        //    drpheadQtr.DataTextField = "HeadQtr";
+        //    drpheadQtr.DataValueField = "HeadQtrNo";
+        //    drpheadQtr.DataBind();
+        //    drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
+        //    drpUser.Items.Clear();
+        //    drpUser.Items.Insert(0, new ListItem("Select", "0"));
+        //}
     }
-
+    protected void drpDept_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DataView dv = ((DataTable)ViewState["tbl"]).DefaultView; 
+        if (drpStatus.SelectedIndex > 0)
+            dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
+        dv.Sort = "Name";
+        drpUser.DataSource = dv.ToTable(true, "Name", "MID");
+        drpUser.DataTextField = "Name";
+        drpUser.DataValueField = "MID";
+        drpUser.DataBind();
+        drpUser.Items.Insert(0, new ListItem("Select", "0"));
+    }
     protected void btnsearch_Click(object sender, EventArgs e)
     {
         fillData();

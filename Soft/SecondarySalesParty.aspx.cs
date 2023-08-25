@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Web;
 using System.Web.Services;
@@ -26,15 +27,39 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
 
             Session["AccessRigthsSet"] = getdata.AccessRights("SecondarySalesParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             Gd.FillParty(drpParty);
+
+            DataSet dsusr = getdata.getHqtrUserDpt("0");
+            ViewState["tbl1"] = dsusr;
+            bindDrp();
             Gd.FillPrimaryStation(drpStation);
             ViewState["station"] = Gd.FillStation();
-            Gd.FillDistrict(drpheadQtr, "0");
+            Gd.FillDistrict(drpheadQtr, "0"); 
         }
+    }
+
+    private void bindDrp()
+    {
+        DataSet dsusr = (DataSet)ViewState["tbl1"];
+        DataView dv = dsusr.Tables[0].DefaultView;
+        
+        dv.Sort = "Name";
+        drpUser.DataSource = dv.ToTable(true, "Name", "MID");
+        drpUser.DataTextField = "Name";
+        drpUser.DataValueField = "MID";
+        drpUser.DataBind();
+        drpUser.Items.Insert(0, new ListItem("Select", "0"));
+        dv.Sort = "HeadQtr";
+        drpHeadqtr1.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNO");
+        drpHeadqtr1.DataTextField = "HeadQtr";
+        drpHeadqtr1.DataValueField = "HeadQtrNO";
+        drpHeadqtr1.DataBind();
+        drpHeadqtr1.Items.Insert(0, new ListItem("Select", "0"));
+
     }
 
     public void fillData()
     {
-        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue, drpStation.SelectedValue, drpStation.SelectedValue, "", "", "", drpheadQtr.SelectedValue, drpBeat1.SelectedValue);
+        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue, drpStation.SelectedValue, drpStation.SelectedValue, "", "", "", drpheadQtr.SelectedValue, drpBeat1.SelectedValue, drpHeadqtr1.SelectedValue, drpUser.SelectedValue);
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
@@ -47,7 +72,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
         }
         if (e.CommandName == "Delete")
         {
-            ds = getdata.getSecondarySalesParty("DELETE", e.CommandArgument.ToString(), "", "", "", "", "", "", "");
+            ds = getdata.getSecondarySalesParty("DELETE", e.CommandArgument.ToString(), "", "", "", "", "", "", "", "0");
             if (ds.Tables[0].Rows[0]["STATUS"].ToString() == "1")
             {
                 ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Deleted Successfully......')", true);
@@ -86,7 +111,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
 
     protected void drpStation_SelectedIndexChanged1(object sender, EventArgs e)
     {
-        ds = Gd.FillStationBeat();
+        DataSet ds = getdata.StationBeat("select", drpStation.SelectedValue, "0","0", "", drpStation.SelectedValue, "0");
         DataView view = new DataView(ds.Tables[0]);
         string _RowFilter = "0=0";
         if (drpheadQtr.SelectedIndex > 0)
@@ -114,5 +139,31 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
         }
         ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Beat Update Successfully');window.location ='SecondarySalesParty.aspx'", true);
 
+    }
+
+    protected void drpHeadqtr1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DataView dv = ((DataSet)ViewState["tbl1"]).Tables[0].DefaultView;
+        dv.RowFilter = "HEadQtrNo=" + drpHeadqtr1.SelectedValue;
+        dv.Sort = "District";
+        drpheadQtr.DataSource = dv.ToTable(true, "District", "DistrictNo");
+        drpheadQtr.DataTextField = "District";
+        drpheadQtr.DataValueField = "DistrictNo";
+        drpheadQtr.DataBind();
+        drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    protected void drpUser_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DataSet dsusr = (DataSet)ViewState["tbl1"];
+        DataView dv = dsusr.Tables[0].DefaultView;
+        if (drpUser.SelectedIndex > 0)
+            dv.RowFilter = " MID='" + drpUser.SelectedValue + "'";
+        dv.Sort = "HeadQtr";
+        drpHeadqtr1.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNO");
+        drpHeadqtr1.DataTextField = "HeadQtr";
+        drpHeadqtr1.DataValueField = "HeadQtrNO";
+        drpHeadqtr1.DataBind();
+        drpHeadqtr1.Items.Insert(0, new ListItem("Select", "0"));
     }
 }

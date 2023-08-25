@@ -21,13 +21,23 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
+                            <div class="col-md-2">
+                                <label>Status</label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpDept_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Value="" Text="Select"></asp:ListItem>
+                                    <asp:ListItem Value="Active" Text="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-3">
-                                <asp:RadioButton ID="RadioButton1" runat="server" Text="&nbsp;Employee" GroupName="Filter" Checked="true" OnCheckedChanged="RadioButton1_CheckedChanged" AutoPostBack="true" />
+                                <label>Employee</label>
+                                <%--<asp:RadioButton ID="RadioButton1" runat="server" Text="&nbsp;Employee" GroupName="Filter" Checked="true" OnCheckedChanged="RadioButton1_CheckedChanged" AutoPostBack="true" />--%>
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <asp:RadioButton ID="RadioButton2" runat="server" Text="&nbsp;HeadQuarter" GroupName="Filter" OnCheckedChanged="RadioButton1_CheckedChanged" AutoPostBack="true" />
+                                <label>HeadQuarter</label>
+                                <%--<asp:RadioButton ID="RadioButton2" runat="server" Text="&nbsp;HeadQuarter" GroupName="Filter" OnCheckedChanged="RadioButton1_CheckedChanged" AutoPostBack="true" />--%>
                                 <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>

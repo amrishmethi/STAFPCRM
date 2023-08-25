@@ -25,12 +25,10 @@ public partial class Admin_PriceList : System.Web.UI.Page
 
             Soft = Request.Cookies["STFP"];
             Session["AccessRigthsSet"] = getdata.AccessRights("PriceList.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-            //   Gd.FillUser(drpUser);
+       
 
             Gd.FillGroup(drpGroup);
-
-            //   ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert(" + ds.Tables[0].Rows[0][0].ToString() + ")", true);
-            //   ViewState["Tbl"] = ds;
+            Gd.FillTerms(drpTerms); 
             fillData();
         }
     }
@@ -85,7 +83,7 @@ public partial class Admin_PriceList : System.Web.UI.Page
         datatable.Columns.Add("Carton Pack Per Pc");
         datatable.Columns.Add("Amount Per Bag/Case");
         datatable.Columns.Add("MRP Per Pc");
-       
+
 
         foreach (DataRow dr in ((DataTable)ViewState["tbl"]).Rows)
         {
@@ -97,10 +95,10 @@ public partial class Admin_PriceList : System.Web.UI.Page
             _row["Carton Pack Per Pc"] = dr["itpacking"];
             _row["Amount Per Bag/Case"] = dr["BagRate"];
             _row["MRP Per Pc"] = dr["MRP"];
-           
+
             datatable.Rows.Add(_row);
         }
-       
+
         Session["GridData"] = datatable;
         Session["Title"] = "Price List";
         string strGrp = "";
@@ -108,13 +106,14 @@ public partial class Admin_PriceList : System.Web.UI.Page
         {
             if (item.Selected)
             {
-                if(strGrp == "")  
-                strGrp= item.Text;
+                if (strGrp == "")
+                    strGrp = item.Text;
                 else
-                strGrp+= ", "+ item.Text;
+                    strGrp += ", " + item.Text;
             }
         }
-            Session["DateRange"] = "("+strGrp+")";
+        Session["DateRange"] = "(" + strGrp + ")";
+        Session["TermsId"] = drpTerms.SelectedValue;
         //Response.Redirect("Print.aspx");
         Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
     }

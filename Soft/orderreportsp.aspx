@@ -3,16 +3,16 @@
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>Order Report (S/T)(STAFP)</title>
+    <title>HQ ORDER DETAILS(S/T)(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <asp:ScriptManager ID="scpt1" runat="server"></asp:ScriptManager>
     <section class="content-header" style="height: 2.5em;">
-        <h1>Order Report (S/T)</h1>
+        <h1>HQ ORDER DETAILS(S/T)</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/orderreportsp.aspx" class="active">Order Report (S/T)</a></li>
+            <li><a href="/Soft/orderreportsp.aspx" class="active">HQ ORDER DETAILS (S/T)</a></li>
         </ol>
     </section>
     <section class="content">

@@ -42,11 +42,11 @@
             <table style="width: 100%; padding-right: 15px; border-spacing: 0px;">
 
                 <tr style="padding: 0px; margin-top: -10px; margin-bottom: -10px;">
-                    <td style="text-align: left;padding: 0px;">
+                    <td style="text-align: left; padding: 0px;">
                         <img src="../../img/logo.jpg" height="80px"><br />
 
                     </td>
-                    <td style="text-align: right;padding: 0px;">
+                    <td style="text-align: right; padding: 0px;">
                         <p style="font-size: 12px;">
                             <strong style="font-size: 18px;">Shree Tadkeshwar Agro Food Product</strong>
                             <br />
@@ -61,7 +61,7 @@
                     </td>
                 </tr>
                 <tr style="padding: 0px; margin-top: -10px; margin-bottom: -10px;">
-                    <td colspan="2" style="padding: 0px;" >
+                    <td colspan="2" style="padding: 0px;">
                         <asp:Label ID="lblHeading" runat="server" Style="font-size: 20px; color: firebrick;"></asp:Label>
                         <asp:Label ID="lblDateRng" runat="server"></asp:Label></td>
                 </tr>
@@ -69,12 +69,11 @@
         </div>
 
         <div class="page-footer">
-            <span style="font-size: 8px; margin-top:-10px;"><%= System.DateTime.Now.ToString() %></span>
+            <span style="font-size: 8px; margin-top: -10px;"><%= System.DateTime.Now.ToString() %></span>
         </div>
 
 
-        <table style="width:100%;">
-
+        <table style="width: 100%;">
             <thead>
                 <tr>
                     <td>
@@ -85,11 +84,11 @@
             </thead>
 
             <tbody>
-                <tr style="align:center;">
+                <tr style="align: center;">
                     <td>
                         <div id="bindTable" runat="server"></div>
                     </td>
-                </tr>
+                </tr> 
             </tbody>
 
             <tfoot>
@@ -101,6 +100,16 @@
                 </tr>
             </tfoot>
         </table>
+        <div>
+            <table style="width: 100%; padding-right: 15px; border-spacing: 0px;">
+ 
+                <tr style="padding: 0px; margin-top: -10px; margin-bottom: -10px;">
+                    <td colspan="2" style="padding: 0px;">
+                        <asp:Label ID="lblTermsHeading" runat="server" Style="font-size: 20px; color: firebrick;"></asp:Label>
+                        <asp:Label ID="lblTerms" runat="server"></asp:Label></td>
+                </tr>
+            </table>
+        </div>
     </form>
 </body>
 </html>
