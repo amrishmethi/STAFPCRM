@@ -17,7 +17,7 @@
                             <label>Menu Name</label>
                             <asp:TextBox ID="txtMenuName" runat="server" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="txtMenuName"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red"  ValidationGroup="MM" ControlToValidate="txtMenuName"></asp:RequiredFieldValidator>
                         </div>
 
                         <div class="col-md-3">
@@ -29,14 +29,14 @@
                             <label>Link</label>
                             <asp:TextBox ID="txtLink" runat="server" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="txtLink"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red"  ValidationGroup="MM" ControlToValidate="txtLink"></asp:RequiredFieldValidator>
                         </div>
 
                         <div class="col-md-2">
                             <label>Position</label>
                             <asp:TextBox ID="txtPosition" runat="server" CssClass="form-control" onkeypress="return IsNumeric(event,0);"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="txtPosition"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red"  ValidationGroup="MM" ControlToValidate="txtPosition"></asp:RequiredFieldValidator>
                             <span id="error" style="color: Red; display: none" class="numerror">* Input digits (0 - 9)</span>
                         </div>
                         <div class="box-body">

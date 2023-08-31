@@ -20,12 +20,12 @@
                         <div class="clearfix">&nbsp;</div>
                         <div class="col-md-4">
                             <label>Employee</label>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" InitialValue="0" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="drpEmployee"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" InitialValue="0" Font-Bold="true" ForeColor="Red"  ControlToValidate="drpEmployee"></asp:RequiredFieldValidator>
                             <asp:DropDownList ID="drpEmployee" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmployee_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                         </div>
                         <div class="col-md-4">
                             <label>Apply Date</label>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtDate"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" Font-Bold="true" ForeColor="Red"  ControlToValidate="txtDate"></asp:RequiredFieldValidator>
                             <asp:TextBox ID="txtDate" runat="server" CssClass="form-control datepicker2"></asp:TextBox>
                             <asp:HiddenField ID="hddMainId" runat="server" Value="0" />
                         </div>
@@ -47,17 +47,17 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Amount From</label><span style="color: Red; display: none" class="error">* Input digits (0 - 9)</span>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtAmountFrom" ValidationGroup="txtt"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" Font-Bold="true" ForeColor="Red"  ControlToValidate="txtAmountFrom" ValidationGroup="txtt"></asp:RequiredFieldValidator>
                                     <asp:TextBox ID="txtAmountFrom" runat="server" CssClass="form-control" onkeypress="return IsDecimal(event,0);"></asp:TextBox>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Amount To</label><span style="color: Red; display: none" class="error">* Input digits (0 - 9)</span>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*" InitialValue="0" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtAmountTo" ValidationGroup="txtt"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*" InitialValue="0" Font-Bold="true" ForeColor="Red"  ControlToValidate="txtAmountTo" ValidationGroup="txtt"></asp:RequiredFieldValidator>
                                     <asp:TextBox ID="txtAmountTo" runat="server" CssClass="form-control" onkeypress="return IsDecimal(event,1);"></asp:TextBox>
                                 </div>
                                 <div class="col-md-3">
                                     <label>Incentive (%)</label><span style="color: Red; display: none" class="error">* Input digits (0 - 9)</span>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="*" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtIncentive" ValidationGroup="txtt"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="*" Font-Bold="true" ForeColor="Red"  ControlToValidate="txtIncentive" ValidationGroup="txtt"></asp:RequiredFieldValidator>
                                     <asp:TextBox ID="txtIncentive" runat="server" CssClass="form-control" onkeypress="return IsDecimal(event,2);"></asp:TextBox>
                                 </div>
                                 <div class="col-md-3">
@@ -124,14 +124,14 @@
                             <label>Min Visit</label>
                             <span id="error" style="color: Red; display: none" class="numerror">* Input digits (0 - 9)</span>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtMinVisit" ValidationGroup="txttq"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red"  ControlToValidate="txtMinVisit" ValidationGroup="txttq"></asp:RequiredFieldValidator>
                             <asp:TextBox ID="txtMinVisit" runat="server" CssClass="form-control" onkeypress="return IsNumeric(event,2);"></asp:TextBox>
                         </div>
                         <div class="col-md-3 hidden">
                             <label>Amount</label>
                             <span id="error3" style="color: Red; display: none" class="error">* Input digits (0 - 9)</span>
                             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtMinVisit" ValidationGroup="txttq"></asp:RequiredFieldValidator>--%>
+                                Font-Bold="true" ForeColor="Red"  ControlToValidate="txtMinVisit" ValidationGroup="txttq"></asp:RequiredFieldValidator>--%>
                             <asp:TextBox ID="txtAmount" runat="server" CssClass="form-control" Text="0" onkeypress="return IsDecimal(event,0);"></asp:TextBox>
                         </div>
                         <div class="col-md-6" style="text-align: center;">

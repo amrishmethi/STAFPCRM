@@ -80,6 +80,16 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
+    public void FillPartyCategory(ListBox drp)
+    {
+        query = "Select MsNo,MsName from MastByNo Where MsSr='PTC' Order By Msname ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "MsName";
+        drp.DataValueField = "MsNo";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
 
     public void FillPrimaryStation(DropDownList drp, string DistrictNo = "0")
     {
@@ -96,7 +106,7 @@ public class GetData
     }
 
     public void FillPrimaryParty(DropDownList drp)
-    { 
+    {
         query = "select AcName + '(' + AcStation + ')' AS AcName, AcCode from  ACCOUNT order by ACNAME ";
         ds = data.getDataSet(query);
         drp.DataSource = ds;
@@ -131,8 +141,6 @@ public class GetData
         drpHEADQTR.Items.Insert(0, new ListItem("Select", "0"));
     }
 
-
-
     public void FillStation(DropDownList drp)
     {
         query = "select * from [STATION] order by Station ";
@@ -153,7 +161,6 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
-
 
     public void FillUser(DropDownList drp)
     {
@@ -280,8 +287,6 @@ public class GetData
         drpDesignation.DataBind();
         drpDesignation.Items.Insert(0, new ListItem("Select", "0"));
     }
-
-
     public void FillUser(DropDownList drp, string De_Id, string status = "Active", string Desg_Id = "0")
     {
         query = "select * from [tbl_EmpMaster] where Delid=0   ";
@@ -324,8 +329,6 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
-
-
 
     public DataSet FillHeadQtrDistrict()
     {
@@ -381,5 +384,16 @@ public class GetData
         drpTerms.DataValueField = "ID";
         drpTerms.DataBind();
         drpTerms.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillBookType(DropDownList drpBookType)
+    {
+        string query = "SELECT * FROM [BookMast] order by BKName";
+        ds = data.getDataSet(query);
+        drpBookType.DataSource = ds;
+        drpBookType.DataTextField = "BKName";
+        drpBookType.DataValueField = "BKisno";
+        drpBookType.DataBind();
+        drpBookType.Items.Insert(0, new ListItem("Select", "0"));
     }
 }

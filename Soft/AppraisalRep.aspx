@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server"> 
+<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <section class="content-header" style="height: 2.5em;">
         <h1><a id="lnkAdd" runat="server" href="/Soft/AppraisalAdd.aspx" class="btn btn-primary">Add Appraisal</a>
         </h1>
@@ -24,10 +24,6 @@
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
-                            <div class="col-md-3">
-                                <label>Employee</label>
-                                <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
-                            </div>
                             <div class="col-md-2">
                                 <label>Employee Status</label>
                                 <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
@@ -36,6 +32,11 @@
                                     <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
+                            <div class="col-md-3">
+                                <label>Employee</label>
+                                <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </div>
+
                             <div class="col-md-2">
                                 <label>Appraisal Status</label>
                                 <asp:DropDownList ID="drpAppraisalStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">

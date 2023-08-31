@@ -22,6 +22,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
         Soft = Request.Cookies["STFP"];
         if (!IsPostBack)
         {
+            Gd.FillPartyCategory(drpCategory);
             Gd.FillGroup1(drpGrp);
             Gd.FillCompany(DrpCompanies);
             Gd.fillDepartment(drpDepartment);
@@ -94,16 +95,24 @@ public partial class Soft_Payroll : System.Web.UI.Page
             hddEmpNo.Value = dsGet.Tables[0].Rows[0]["EmpNo"].ToString();
             hddCrmUserId.Value = dsGet.Tables[0].Rows[0]["CRMUserId"].ToString();
 
-            string[] Size = dsGet.Tables[0].Rows[0]["ITEMGROUP"].ToString().Split(',');
+            string[] _ITEMGROUP = dsGet.Tables[0].Rows[0]["ITEMGROUP"].ToString().Split(',');
             foreach (ListItem size in drpGrp.Items)
             {
-                for (int i = 0; i < Size.Length; i++)
+                for (int i = 0; i < _ITEMGROUP.Length; i++)
                 {
-                    if (size.Value.ToString() == Size[i].Trim().ToString())
+                    if (size.Value.ToString() == _ITEMGROUP[i].Trim().ToString())
                         size.Selected = true;
                 }
             }
-
+            string[] _PARTYCATEGORY = dsGet.Tables[0].Rows[0]["PARTYCATEGORY"].ToString().Split(',');
+            foreach (ListItem size in drpCategory.Items)
+            {
+                for (int i = 0; i < _PARTYCATEGORY.Length; i++)
+                {
+                    if (size.Value.ToString() == _PARTYCATEGORY[i].Trim().ToString())
+                        size.Selected = true;
+                }
+            }
 
         }
         #endregion
@@ -419,7 +428,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
     {
         string _Action = Request.QueryString["EmpId"] == null ? "SAVE" : "UPDATE";
         string _EmpId = Request.QueryString["EmpId"] == null ? "0" : Request.QueryString["EmpId"];
-        string grp = "0";
+        string grp = "";
         foreach (ListItem item in drpGrp.Items)
         {
             if (item.Selected)
@@ -427,10 +436,20 @@ public partial class Soft_Payroll : System.Web.UI.Page
                 grp += "," + item.Value;
             }
         }
+        string Cat = "";
+        foreach (ListItem item in drpCategory.Items)
+        {
+            if (item.Selected)
+            {
+                Cat += "," + item.Value;
+            }
+        }
+
+
         string _UserId = Soft["UserId"];
         string DOL = (chkDOL.Checked) ? txtDateOfLeaving.Text : "";
         string DOJ = txtDOJ.Text;
-        DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), DOJ, DOL, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, hddCrmUserId.Value, _UserId, chkAttandance.Checked.ToString(), grp.ToString());
+        DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), DOJ, DOL, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, hddCrmUserId.Value, _UserId, chkAttandance.Checked.ToString(), grp.ToString(),Cat.ToString());
         if (DsMain.Tables[0].Rows.Count > 0)
         {
             if (DsMain.Tables[0].Rows[0]["Result"].ToString() == "")

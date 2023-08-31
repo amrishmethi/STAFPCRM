@@ -9,8 +9,7 @@ using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
-
-
+using System.Net;
 
 public partial class Soft_SalesOrder_Report : System.Web.UI.Page
 {
@@ -137,6 +136,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                 rep1.DataBind();
             }
         }
+          
     }
 
 
@@ -162,7 +162,19 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
         }
     }
 
-
+    protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        DataSet dsusr = getdata.getHqtrUserDpt(drpDepartment.SelectedValue);
+        DataView dv = dsusr.Tables[0].DefaultView;
+        if (drpStatus.SelectedIndex > 0)
+            dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
+        dv.Sort = "Name";
+        drpUser.DataSource = dv.ToTable(true, "Name", "MID");
+        drpUser.DataTextField = "Name";
+        drpUser.DataValueField = "MID";
+        drpUser.DataBind();
+        drpUser.Items.Insert(0, new ListItem("Select", "0"));
+    }
     protected void drpType_SelectedIndexChanged(object sender, EventArgs e)
     {
         Filldata();

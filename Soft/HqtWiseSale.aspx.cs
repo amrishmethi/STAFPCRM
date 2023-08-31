@@ -27,7 +27,11 @@ public partial class Soft_HqtWiseSale : System.Web.UI.Page
 
             Session["AccessRigthsSet"] = getdata.AccessRights("UserWiseParty.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
-            dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/'); 
+            dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
+
+            DataSet dsusr = getdata.getHqtrUserDpt("0");
+            ViewState["tbl"] = dsusr.Tables[0];
+
             bindDrp();
             gd.FillPrimaryParty(drpParty);
             gd.FillPrimaryStation(Drpstation);
@@ -37,8 +41,7 @@ public partial class Soft_HqtWiseSale : System.Web.UI.Page
 
     private void bindDrp()
     {
-        DataSet dsusr = getdata.getHqtrUserDpt("0");
-        DataView dv = dsusr.Tables[0].DefaultView;
+        DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
         dv.Sort = "Name";
         DrpEmployee.DataSource = dv.ToTable(true, "Name", "MID");
         DrpEmployee.DataTextField = "Name";
@@ -98,26 +101,33 @@ public partial class Soft_HqtWiseSale : System.Web.UI.Page
 
     protected void drpHeadQtr_SelectedIndexChanged(object sender, EventArgs e)
     {
-        DataSet dsusr = getdata.getHqtrUserDpt("0");
-        DataView dv = dsusr.Tables[0].DefaultView;
+
+        DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
         // Bind data to district dropdown list based on selected HeadQtr
-        string selectedHeadQtr = drpHeadQtr.SelectedValue;
-        dv.RowFilter = "HeadQtrNo = '" + selectedHeadQtr + "'";
+        if (drpHeadQtr.SelectedIndex > 0)
+        {
+            string selectedHeadQtr = drpHeadQtr.SelectedValue;
+            dv.RowFilter = "HeadQtrNo = '" + selectedHeadQtr + "'";
+        }
+
         dv.Sort = "district";
         drpDistict.DataSource = dv.ToTable(true, "district", "districtNo");
         drpDistict.DataTextField = "district";
         drpDistict.DataValueField = "districtNo";
         drpDistict.DataBind();
         drpDistict.Items.Insert(0, new ListItem("Select", "0"));
-    } 
+    }
 
     protected void DrpEmployee_SelectedIndexChanged(object sender, EventArgs e)
     {
-        DataSet dsusr = getdata.getHqtrUserDpt("0");
-        DataView dv = dsusr.Tables[0].DefaultView;
+        DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
         // Bind data to district dropdown list based on selected HeadQtr
-        string selectedName = DrpEmployee.SelectedValue;
-        dv.RowFilter = "MID = '" + selectedName + "'";
+        if (DrpEmployee.SelectedIndex > 0)
+        {
+            string selectedName = DrpEmployee.SelectedValue;
+            dv.RowFilter = "MID = '" + selectedName + "'";
+        }
+
         dv.Sort = "HeadQtr";
         drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
         drpHeadQtr.DataTextField = "HeadQtr";
@@ -128,11 +138,13 @@ public partial class Soft_HqtWiseSale : System.Web.UI.Page
 
     protected void drpDistict_SelectedIndexChanged1(object sender, EventArgs e)
     {
-        DataSet dsusr = getdata.getHqtrUserDpt("0");
-        DataView dv = dsusr.Tables[0].DefaultView;
+        DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
         // Bind data to district dropdown list based on selected HeadQtr
-        string selecteddistrict = drpDistict.SelectedValue;
-        dv.RowFilter = "districtNo = '" + selecteddistrict + "'";
+        if (drpDistict.SelectedIndex > 0)
+        {
+            string selecteddistrict = drpDistict.SelectedValue;
+            dv.RowFilter = "districtNo = '" + selecteddistrict + "'";
+        }
         dv.Sort = "Station";
         Drpstation.DataSource = dv.ToTable(true, "Station", "StationNO");
         Drpstation.DataTextField = "Station";

@@ -26,7 +26,7 @@
                     <div class="col-md-4">
                         <label class="control-label">Company<span style="color: #ff0000">*</span></label>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="DrpCompanies"
-                            ErrorMessage=" Please Select Company" ValidationGroup="aa" InitialValue="0"></asp:RequiredFieldValidator>
+                            ErrorMessage=" Please Select Company" ValidationGroup="aa" InitialValue="0" ForeColor="Red"></asp:RequiredFieldValidator>
                         <asp:DropDownList ID="DrpCompanies" runat="server" CssClass="form-control select2">
                         </asp:DropDownList>
 
@@ -37,7 +37,7 @@
                             <div class="col-md-4">
                                 <label class="control-label">Department<span style="color: #ff0000">*</span></label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="drpDepartment"
-                                    ErrorMessage="Please Select" ValidationGroup="aa" InitialValue="0"></asp:RequiredFieldValidator>
+                                    ErrorMessage="Please Select" ValidationGroup="aa" InitialValue="0" ForeColor="Red"></asp:RequiredFieldValidator>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" AutoPostBack="true" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged"></asp:DropDownList>
                                 <asp:HiddenField ID="hddEmpNo" runat="server" />
                             </div>
@@ -110,10 +110,19 @@
                             <asp:ListItem Value="Active" Selected="True">Active</asp:ListItem>
                             <asp:ListItem Value="Non-Active">Non-Active</asp:ListItem>
                         </asp:DropDownList>
-                    </div><div class="clearfix">&nbsp;</div>
+                    </div>
+                    <div class="clearfix">&nbsp;</div>
                     <div class="col-md-4">
-                        <label>Group</label>
+                        <label>Group   <span style="color: #ff0000">*</span></label>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator25" runat="server" ControlToValidate="drpGrp"
+                            ErrorMessage="Please Select Group" ValidationGroup="aa" InitialValue="" ForeColor="Red"></asp:RequiredFieldValidator>
                         <asp:ListBox ID="drpGrp" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Category   <span style="color: #ff0000">*</span></label>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator26" runat="server" ControlToValidate="drpCategory"
+                            ErrorMessage="Please Select Category" ValidationGroup="aa" InitialValue="" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:ListBox ID="drpCategory" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
                     </div>
                     <div class="clearfix">&nbsp;</div>
                     <div class="clearfix">&nbsp;</div>

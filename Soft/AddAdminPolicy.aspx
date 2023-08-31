@@ -20,20 +20,20 @@
                             <label>Date</label>
                             <asp:TextBox ID="dpDate" runat="server" CssClass="form-control datepicker"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="dpDate"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red"  ValidationGroup="MM" ControlToValidate="dpDate"></asp:RequiredFieldValidator>
                         </div>
                         <div class="col-md-6 ">
                             <label>Policy Name</label>
                             <asp:TextBox ID="txtName" runat="server" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="txtName"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red"  ValidationGroup="MM" ControlToValidate="txtName"></asp:RequiredFieldValidator>
                         </div>
                         <div class="col-md-8 ">
                             <label>Policy Description</label>
                             <%--<asp:TextBox ID="txtPolicyname" runat="server" CssClass="form-control" TextMode="MultiLine"></asp:TextBox>--%>
                           <CKEditor:CKEditorControl ID="txtPolicyDesc" BasePath="../ckeditor/" runat="server"></CKEditor:CKEditorControl>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="txtPolicyDesc"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red"  ValidationGroup="MM" ControlToValidate="txtPolicyDesc"></asp:RequiredFieldValidator>
                         </div>
                         <div class="clearfix">&nbsp;</div>
                         <div class="col-md-1 ">

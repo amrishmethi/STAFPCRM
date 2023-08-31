@@ -84,21 +84,29 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)
-    {
-        string grp = "0";
+    { 
+        DataSet dsusr = getdata.GetPartyList(drpDistrict.SelectedValue, drpStation.SelectedValue, drpCatg.SelectedValue, drpParty.SelectedValue);
+
+        DataTable dt = new DataTable();
         foreach (ListItem item in drpGrp.Items)
         {
             if (item.Selected)
             {
-                grp += "," + item.Value;
+                DataView dttt = dsusr.Tables[0].DefaultView;
+                dttt.RowFilter = " ItemGroup like '%" + item.Value + "%'";
+                dt.Merge(dttt.ToTable());
             }
         }
-        DataSet dsusr = getdata.GetPartyList(drpDistrict.SelectedValue, drpStation.SelectedValue, drpCatg.SelectedValue, drpParty.SelectedValue);
 
-        ViewState["PartyList"] = dsusr.Tables[0];
+        if (dt.Rows.Count == 0)
+        {
+            dt = dsusr.Tables[0];
+        }
+
+        ViewState["PartyList"] = dt;
         ViewState["GroupList"] = dsusr.Tables[1];
 
-        rep.DataSource = dsusr;
+        rep.DataSource = dt;
         rep.DataBind();
     }
 

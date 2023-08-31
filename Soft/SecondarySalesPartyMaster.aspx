@@ -21,19 +21,19 @@
                         <div class="col-md-4">
                             <label>Sales Station</label>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*"
-                            InitialValue="0" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="drpStation"></asp:RequiredFieldValidator>
+                            InitialValue="0" Font-Bold="true" ForeColor="Red"  ControlToValidate="drpStation"></asp:RequiredFieldValidator>
                             <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                           </div>
                          <div class="col-md-4">
                             <label>Sales Beat</label>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*"
-                            InitialValue="0" Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="drpBeat"></asp:RequiredFieldValidator>
+                            InitialValue="0" Font-Bold="true" ForeColor="Red"  ControlToValidate="drpBeat"></asp:RequiredFieldValidator>
                             <asp:DropDownList ID="drpBeat" runat="server" CssClass="form-control select2"></asp:DropDownList>
                           </div>
                         <div class="col-md-4">
                             <label>Sales Party</label>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*"
-                             Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtParty"></asp:RequiredFieldValidator>
+                             Font-Bold="true" ForeColor="Red"  ControlToValidate="txtParty"></asp:RequiredFieldValidator>
                             <asp:TextBox ID="txtParty" runat="server" CssClass="form-control"></asp:TextBox>
                           </div>
 
@@ -42,7 +42,7 @@
                         <div class="col-md-4">
                             <label>Mobile No</label>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*"
-                             Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtMobile"></asp:RequiredFieldValidator>
+                             Font-Bold="true" ForeColor="Red"  ControlToValidate="txtMobile"></asp:RequiredFieldValidator>
                             <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control"></asp:TextBox>
                           </div>    
                         
@@ -50,7 +50,7 @@
                         <div class="col-md-4">
                             <label>WhatsApp No</label>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="*"
-                             Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtWhatsApp"></asp:RequiredFieldValidator>
+                             Font-Bold="true" ForeColor="Red"  ControlToValidate="txtWhatsApp"></asp:RequiredFieldValidator>
                             <asp:TextBox ID="txtWhatsApp" runat="server" CssClass="form-control"></asp:TextBox>
                           </div>
                         

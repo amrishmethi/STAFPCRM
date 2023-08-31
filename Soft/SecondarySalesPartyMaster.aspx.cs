@@ -80,7 +80,7 @@ public partial class Admin_SecondarySalesParty_Master : System.Web.UI.Page
     private void Beat(string stationId)
     {
 
-        DataSet ds1 = Gd.FillStationBeat();
+        DataSet ds1 = Gd.FillStationBeat1();
         DataView view = new DataView(ds1.Tables[0]);
         string _RowFilter = "0=0";
         if (drpStation.SelectedIndex > 0)

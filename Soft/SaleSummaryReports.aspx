@@ -30,9 +30,9 @@
                             </div>
 
                             <div class="col-md-3">
-                                <label>HeadQuarter</label>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="*" InitialValue="0"
-                                    Font-Bod="true" ForeColor="Red" Font-Size="Large" ControlToValidate="drpHeadQtr"></asp:RequiredFieldValidator>
+                                <label>HeadQuarter <span style="color: #ff0000">*</span></label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="Please Select" InitialValue="0"
+                                    Font-Bod="true" ForeColor="Red"  ControlToValidate="drpHeadQtr"></asp:RequiredFieldValidator>
 
                                 <asp:DropDownList ID="drpHeadQtr" runat="server" OnSelectedIndexChanged="drpHeadQtr_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2">
                                 </asp:DropDownList>
@@ -92,6 +92,7 @@
                                 <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker">
                                 </asp:TextBox>
                             </div>
+                            <div class="clearfix">&nbsp;</div>
                             <div class="col-md-4">
                                 <br />
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" OnClick="btnSearch_Click" Text="Search" />

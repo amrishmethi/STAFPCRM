@@ -36,7 +36,7 @@ public partial class Soft_AppraisalRep : System.Web.UI.Page
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
         FillRecords();
-        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue);
+        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue, drpStatus.SelectedValue);
     }
 
     private void FillRecords()

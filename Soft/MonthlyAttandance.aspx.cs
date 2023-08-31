@@ -32,12 +32,12 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
         {
             mnth.Text = DateTime.Now.ToString("MM-yyyy");
             Gd.fillDepartment(drpDepartment);
-            Gd.FillUser(drpEmployee, drpDepartment.SelectedValue);
+            Gd.FillUser(drpEmployee, drpDepartment.SelectedValue, drpStatus.SelectedValue);
         }
     }
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Gd.FillUser(drpEmployee, drpDepartment.SelectedValue);
+        Gd.FillUser(drpEmployee, drpDepartment.SelectedValue, drpStatus.SelectedValue);
     }
 
     public void fillAttendance()
@@ -346,7 +346,7 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                                         }
                                     }
                                 }
-                                nextdate = nextdate.AddDays(1); 
+                                nextdate = nextdate.AddDays(1);
                             }
                             dsnext.Clear();
                         }
@@ -370,7 +370,7 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                             }
                         }
                     }
-                     
+
                     DataSet dss = data.getDataSet("GETATTENDANCECALCULATION '" + EmpId + "','" + _DD + "'");
                     dt1.Rows[i]["TotalDays"] = dss.Tables[0].Rows[0]["NOOFWORKINGDAY"].ToString();
                     dt1.Rows[i]["SundayOFF"] = dss.Tables[0].Rows[0]["ALLOWSUNDAY"].ToString();

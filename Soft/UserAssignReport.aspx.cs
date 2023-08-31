@@ -154,7 +154,7 @@ public partial class Admin_UserAssignReport : System.Web.UI.Page
         DataSet dsUser1 = syncData.getDataSet("select * FROM [CSinfo].[dbo].[MobileAppUser] where Cast([ModifiedDate] as date)=Cast(getdate() as date)");
         foreach (DataRow drr in dsUser1.Tables[0].Rows)
         {
-            _QBind = " Update  [CSinfo].[dbo].[MobileAppUser] SET [Password]='" + drr["Password"] + "',[ModifiedDate]='" + drr["ModifiedDate"] + "' WHERE id='" + drr["id"] + "' ";
+            _QBind = " Update  [CSinfo].[dbo].[MobileAppUser] SET [Name]= '" + drr["Name"] + "',[Password]='" + drr["Password"] + "',[ModifiedDate]='" + drr["ModifiedDate"] + "' WHERE id='" + drr["id"] + "' ";
             data.executeCommand(_QBind);
         }
     }

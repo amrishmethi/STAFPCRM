@@ -6,8 +6,8 @@
     <title>HQ GROUP /party WISE SALE</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server"> 
-   
+<asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
+
     <section class="content-header" style="height: 2.5em;">
         <h1>HQ GROUP /party WISE SALE</h1>
         <ol class="breadcrumb">
@@ -30,9 +30,9 @@
                             </div>
 
                             <div class="col-md-3">
-                                <label>HeadQuarter</label>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="*" InitialValue="0"
-                                    Font-Bod="true" ForeColor="Red" Font-Size="Large" ControlToValidate="drpHeadQtr"></asp:RequiredFieldValidator>
+                                <label>HeadQuarter <span style="color: #ff0000">*</span></label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="Please Select" InitialValue="0"
+                                    Font-Bod="true" ForeColor="Red" ControlToValidate="drpHeadQtr"></asp:RequiredFieldValidator>
 
                                 <asp:DropDownList ID="drpHeadQtr" runat="server" OnSelectedIndexChanged="drpHeadQtr_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2">
                                 </asp:DropDownList>
@@ -66,7 +66,7 @@
                                     <asp:ListItem Text="Summary" Value="Summary"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
-                             <div class="col-md-2">
+                            <div class="col-md-2">
                                 <label>Report Type</label>
                                 <asp:DropDownList ID="drpReportType" runat="server" CssClass="form-control">
                                     <asp:ListItem Text="Main Group" Value="1"></asp:ListItem>
@@ -102,7 +102,7 @@
                                 &nbsp;
                                 &nbsp;
                                 <asp:Button ID="btnExport" runat="server" CssClass="btn btn-success" OnClick="btnExport_Click" Text="Export To Excel" />
-                                 
+
                             </div>
                             <div class="clearfix">&nbsp;</div>
                         </div>
@@ -113,7 +113,7 @@
                                 <div class="table-responsive">
                                     <asp:GridView ID="grdReport" ClientIDMode="Static" runat="server" CssClass="table table-bordered display table-striped ">
                                     </asp:GridView>
-                                     
+
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
         })
 
     </script>
-      
+
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
 

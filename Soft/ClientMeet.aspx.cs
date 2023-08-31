@@ -66,7 +66,8 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
         DataView dv = dsusr.Tables[0].DefaultView;
         if (drpStatus.SelectedIndex > 0)
             dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
-
+        if (drpDept.SelectedIndex > 0)
+            dv.RowFilter = " Dept_Id='" + drpDept.SelectedValue + "'";
         dv.Sort = "Name";
         drpEmp.DataSource = dv.ToTable(true, "Name", "MId");
         drpEmp.DataTextField = "Name";

@@ -34,7 +34,7 @@
                             <div class="col-md-3">
                                 <label>HeadQuarter</label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="*" InitialValue="0"
-                                    Font-Bod="true" ForeColor="Red" Font-Size="Large" ControlToValidate="drpHeadQtr"></asp:RequiredFieldValidator>
+                                    Font-Bod="true" ForeColor="Red"  ControlToValidate="drpHeadQtr"></asp:RequiredFieldValidator>
 
                                 <asp:DropDownList ID="drpHeadQtr" runat="server" OnSelectedIndexChanged="drpHeadQtr_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2">
                                 </asp:DropDownList>

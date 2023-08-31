@@ -50,10 +50,8 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
         int year = Convert.ToInt32(mnth.Text.Split('-')[1]);
         string _DD = year + "-" + month + "-01";
 
-
         string _FromDate = DateTime.Now.ToString("yyyy") + "-" + drpMonth.SelectedValue + "-01";
         DataSet dss = master.GetSallary(_DD, drpDepartment.SelectedValue, drpDesignation.SelectedValue, drpProjectManager.SelectedValue, drpPf.SelectedValue, drpStatus.SelectedValue);
-
 
         DataTable mergedTable = new DataTable();
         mergedTable.Merge(dss.Tables[0]);

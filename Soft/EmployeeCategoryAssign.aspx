@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="Employeegroupassign.aspx.cs" Inherits="Soft_Employeegroupassign" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="EmployeeCategoryAssign.aspx.cs" Inherits="Soft_EmployeeCategoryAssign" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>Employee Group Assign (STAFP)</title>
+    <title>Employee Category Assign (STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
     <style>
         .zoom:hover {
@@ -66,10 +66,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <asp:ScriptManager ID="scpt1" runat="server"></asp:ScriptManager>
     <section class="content-header" style="height: 2.5em;">
-        <h1>Group Assign (Employee)</h1>
+        <h1>Category Assign (Employee)</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/Employeegroupassign.aspx" class="active">Group Assign (Employee)</a></li>
+            <li><a href="/Soft/EmployeeCategoryassign.aspx" class="active">Category Assign (Employee)</a></li>
         </ol>
     </section>
     <section class="content">
@@ -104,8 +104,8 @@
                             </div>
                             <div class="clearfix"></div>
                             <div class="col-md-4">
-                                <label>Group</label>
-                                <asp:ListBox ID="drpGrp" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
+                                <label>Category</label>
+                                <asp:ListBox ID="drpCategory" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
                             </div>
                             <div class="col-md-2">
                                 <br />
@@ -130,7 +130,7 @@
                                                 <th style="text-align: left;">Emp Code</th>
                                                 <th style="text-align: left;">Emp Name</th>
                                                 <th style="text-align: left;">Rep Manager</th>
-                                                <th style="text-align: left;">Group</th>
+                                                <th style="text-align: left;">Catgory</th>
                                                 <th style="text-align: left;">Assign</th>
                                             </tr>
                                     </HeaderTemplate>
@@ -139,7 +139,7 @@
                                             <td>
                                                 <%#Container.ItemIndex+1 %>
                                                 <asp:HiddenField ID="hddEnqID" Value='<%# Eval("EmpId")  %>' runat="server" />
-                                                <asp:HiddenField ID="hddGroups" Value='<%# Eval("ItemGroup")  %>' runat="server" />
+                                                <asp:HiddenField ID="hddGroups" Value='<%# Eval("PARTYCATEGORYS")  %>' runat="server" />
                                             </td>
                                             <td style="text-align: left;"><%#Eval("DEPT_NAME") %></td>
                                             <td style="text-align: left;"><%#Eval("DESG_NAME") %></td>
@@ -147,7 +147,7 @@
                                             <td style="text-align: left;">
                                                 <asp:Label ID="lblParty" runat="server" Text='<%#Eval("Emp_Name") %>'></asp:Label></td>
                                             <td style="text-align: left;"><%#Eval("REP_MANAGERNAME") %></td>
-                                            <td style="text-align: left;"><%#Eval("ItemGroups") %></td>
+                                            <td style="text-align: left;"><%#Eval("PARTYCATEGORYS") %></td>
                                             <td style="text-align: left;">
                                                 <asp:LinkButton ID="btnConfirmY" CommandArgument='<%# Eval("EmpId")  %>' CommandName="Confirm" runat="server" Style="padding: 1px 6px; font-size: 11px;" CssClass="btn btn-small btn-success fa fa-check" aria-label="View" OnClick="btnConfirmY_Click"></asp:LinkButton>
                                             </td>
@@ -170,7 +170,7 @@
                                     <div class="body">
                                         <asp:UpdatePanel ID="updd" runat="server">
                                             <ContentTemplate>
-                                                <div class="row">
+                                                <div class="row hidden">
                                                     <div class="col-md-6">
                                                         <asp:DropDownList ID="lstGrp" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="lstGrp_SelectedIndexChanged"></asp:DropDownList>
                                                     </div>
@@ -184,7 +184,7 @@
                                                             <tr>
                                                                 <th style="width: 10%;">Sr. No.</th>
                                                                 <th style="vertical-align: middle; text-align: center; text-transform: none !important; width: 20%;" class="headerchk"></th>
-                                                                <th style="width: 50%;">Group Name</th>
+                                                                <th style="width: 50%;">Category Name</th>
                                                             </tr>
                                                     </HeaderTemplate>
                                                     <ItemTemplate>
@@ -193,10 +193,10 @@
                                                             </td>
                                                             <td style="vertical-align: middle; text-align: center; text-transform: none !important;" class="itemchk">
                                                                 <asp:CheckBox ID="chkItems" runat="server" Checked='<%#Convert.ToBoolean(Eval("chk")) %>' OnCheckedChanged="chkItems_CheckedChanged" AutoPostBack="true" /></td>
-                                                            <asp:HiddenField ID="hddCmsCode" runat="server" Value='<%#Eval("CmsCode") %>' />
+                                                            <asp:HiddenField ID="hddMSNO" runat="server" Value='<%#Eval("MSNO") %>' />
                                                             <asp:HiddenField ID="hddPartyId" runat="server" Value='<%#Eval("PartyId") %>' />
                                                             <td>
-                                                                <asp:Label ID="lblLotNo" runat="server" Text='<%# Eval("CMSName") %>' />
+                                                                <asp:Label ID="lblMSNAME" runat="server" Text='<%# Eval("MSNAME") %>' />
                                                             </td>
                                                         </tr>
                                                     </ItemTemplate>

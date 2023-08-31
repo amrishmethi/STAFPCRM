@@ -24,7 +24,7 @@
                         <div class="col-md-4">
                             <label>Sales Station</label>
                              <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*"
-                             Font-Bold="true" ForeColor="Red" Font-Size="Large" ControlToValidate="txtStation"></asp:RequiredFieldValidator>
+                             Font-Bold="true" ForeColor="Red"  ControlToValidate="txtStation"></asp:RequiredFieldValidator>
                             <asp:TextBox ID="txtStation" runat="server" CssClass="form-control"></asp:TextBox>
                           </div>
 

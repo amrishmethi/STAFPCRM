@@ -20,7 +20,7 @@ public partial class Soft_PayrollRep : System.Web.UI.Page
         {
             Gd.fillDepartment(drpDepartment);
             Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue);
-            Gd.FillUser(drpProjectManager);
+            Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue, drpStatus.SelectedValue, drpDesignation.SelectedValue);
             FillRecords();
         }
     }
@@ -36,7 +36,7 @@ public partial class Soft_PayrollRep : System.Web.UI.Page
             query += " and Rep_Manager='" + drpProjectManager.SelectedValue + "'";
         if (drpStatus.SelectedIndex > 0)
             query += " and Status='" + drpStatus.SelectedValue + "'";
-            dsResult = data.getDataSet(query);
+        dsResult = data.getDataSet(query);
         rep.DataSource = dsResult;
         rep.DataBind();
     }
@@ -53,6 +53,7 @@ public partial class Soft_PayrollRep : System.Web.UI.Page
 
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
+        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue, drpStatus.SelectedValue, drpDesignation.SelectedValue);
         FillRecords();
     }
 

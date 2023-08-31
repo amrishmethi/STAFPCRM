@@ -20,7 +20,7 @@
                             <label>Document</label>
                             <asp:TextBox ID="txtDocumentname" runat="server" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="txtDocumentname"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red"  ValidationGroup="MM" ControlToValidate="txtDocumentname"></asp:RequiredFieldValidator>
                         </div>
                         <div class="col-md-4 ">
                             <br />

@@ -31,14 +31,6 @@
                                 <label>Designation</label>
                                 <asp:DropDownList ID="drpDesignation" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
-                            <div class="col-md-3">
-                                <label>Reporting Manager</label>
-                                <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
-                            </div>
-                            <%-- <div class="col-md-3" style="padding-top: 3px;">
-                                <div class="clearfix">&nbsp;</div>
-                                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
-                            </div>--%>
                             <div class="col-md-2">
                                 <label>Status</label>
                                 <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
@@ -47,6 +39,14 @@
                                     <asp:ListItem Value="Non-Active" Text="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
+                            <div class="col-md-3">
+                                <label>Reporting Manager</label>
+                                <asp:DropDownList ID="drpProjectManager" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </div>
+                            <%-- <div class="col-md-3" style="padding-top: 3px;">
+                                <div class="clearfix">&nbsp;</div>
+                                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
+                            </div>--%>
                         </div>
                         <div class="clearfix">&nbsp;</div>
 
@@ -105,9 +105,11 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="6" style="text-align:right;"><strong>Total</strong></td>
-                                            <td><strong><asp:Label ID="lblTotInHand" runat="server"></asp:Label></strong></td>
-                                            <td><strong><asp:Label ID="lblTotNetSal" runat="server"></asp:Label></strong></td>
+                                            <td colspan="6" style="text-align: right;"><strong>Total</strong></td>
+                                            <td><strong>
+                                                <asp:Label ID="lblTotInHand" runat="server"></asp:Label></strong></td>
+                                            <td><strong>
+                                                <asp:Label ID="lblTotNetSal" runat="server"></asp:Label></strong></td>
                                             <td>&nbsp;</td>
                                             <td>&nbsp;</td>
                                         </tr>

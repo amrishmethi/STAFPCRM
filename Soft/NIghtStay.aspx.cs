@@ -53,7 +53,7 @@ public partial class Soft_NIghtStay : System.Web.UI.Page
     }
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue);
+        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue,drpStatus.SelectedValue);
         FillRecords();
     }
 

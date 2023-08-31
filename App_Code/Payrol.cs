@@ -22,7 +22,7 @@ public class Payrol
     }
 
 
-    public DataSet Emp_Main(string ACTION, string EMPID, string COMP_ID, string EMP_CODE, string EMP_NAME, string DEPT_ID, string DESIG_ID, string REP_MANAGER, string DOJ, string DOL, string PANNO, string PF_ACNO, string ESI_ACNO, string STATUS, string EMPNO, string CRMUSERID, string CREATEUSER, string ATTANDANCEBY, string ITEMGROUP)
+    public DataSet Emp_Main(string ACTION, string EMPID, string COMP_ID, string EMP_CODE, string EMP_NAME, string DEPT_ID, string DESIG_ID, string REP_MANAGER, string DOJ, string DOL, string PANNO, string PF_ACNO, string ESI_ACNO, string STATUS, string EMPNO, string CRMUSERID, string CREATEUSER, string ATTANDANCEBY, string ITEMGROUP,string PARTYCATEGORY)
     {
         cmd = new SqlCommand("IU_EMPMASTER");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -45,6 +45,7 @@ public class Payrol
         cmd.Parameters.AddWithValue("@CREATEUSER", CREATEUSER);
         cmd.Parameters.AddWithValue("@ATTANDANCEBY", ATTANDANCEBY);
         cmd.Parameters.AddWithValue("@ITEMGROUP", ITEMGROUP);
+        cmd.Parameters.AddWithValue("@PARTYCATEGORY", PARTYCATEGORY);
         ds = data.getDataSet(cmd);
         return ds;
     }

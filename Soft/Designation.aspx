@@ -20,13 +20,13 @@
                             <label>Department</label>
                             <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2"></asp:DropDownList>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" InitialValue="0" ControlToValidate="drpDepartment"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red"  ValidationGroup="MM" InitialValue="0" ControlToValidate="drpDepartment"></asp:RequiredFieldValidator>
                         </div>
                         <div class="col-md-3 ">
                             <label>Designation</label>
                             <asp:TextBox ID="txtDepartmentname" runat="server" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red" Font-Size="Large" ValidationGroup="MM" ControlToValidate="txtDepartmentname"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red"  ValidationGroup="MM" ControlToValidate="txtDepartmentname"></asp:RequiredFieldValidator>
                         </div>
                         <div class="col-md-4 ">
                             <br />

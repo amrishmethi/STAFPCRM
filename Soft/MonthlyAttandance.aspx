@@ -32,21 +32,22 @@
                             </div>
                             <div class="col-md-2">
                                 <label>
-                                    Employee 
-                                </label>
-                                <asp:DropDownList ID="drpEmployee" runat="server" CssClass="form-control select2">
-                                </asp:DropDownList>
-                            </div>
-                            <div class="col-md-2">
-                                <label>
                                     Employee Status
                                 </label>
-                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2">
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
                                     <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
                                     <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
                                 </asp:DropDownList>
                             </div>
+                            <div class="col-md-2">
+                                <label>
+                                    Employee 
+                                </label>
+                                <asp:DropDownList ID="drpEmployee" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
+
                             <div class="col-md-2">
                                 <label>Month</label>
                                 <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
