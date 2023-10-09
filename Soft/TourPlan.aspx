@@ -41,12 +41,12 @@
                         <ContentTemplate>--%>
                     <div class="col-md-4">
                         <label class="control-label">Employee </label>
-                        <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" Enabled="false" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
+                        <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                         </asp:DropDownList>
                     </div>
                     <div class="col-md-4">
                         <label>HeadQuarter</label>
-                        <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" Enabled="false" OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
+                        <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2"  OnSelectedIndexChanged="drpheadQtr_SelectedIndexChanged" AutoPostBack="true">
                         </asp:DropDownList>
                     </div>
                     <div class="col-md-4">

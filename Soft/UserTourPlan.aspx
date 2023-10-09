@@ -48,21 +48,25 @@
                                 <label>District</label>
                                 <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
-                            </div> 
+                            </div>
                             <div class="col-md-2">
                                 <label>Date From</label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please Select" InitialValue=""
+                                    Font-Bod="true" ForeColor="Red" ControlToValidate="dpFrom" ValidationGroup="MM"></asp:RequiredFieldValidator>
                                 <asp:TextBox ID="dpFrom" runat="server" CssClass="form-control datepicker1">
                                 </asp:TextBox>
                             </div>
                             <div class="col-md-2">
                                 <label>Date To</label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="Please Select" InitialValue=""
+                                    Font-Bod="true" ForeColor="Red" ControlToValidate="dpTo" ValidationGroup="MM"></asp:RequiredFieldValidator>
                                 <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker1">
                                 </asp:TextBox>
                             </div>
 
                             <div class="col-md-1" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
-                                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
+                                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" ValidationGroup="MM" OnClick="btnSearch_Click" />
                             </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
@@ -113,7 +117,7 @@
 
 
 
-                                                        <a href="TourPlan.aspx?id=<%#Eval("TID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                        <a href="<%# Eval("TDate").ToString()==""?"TourPlan.aspx?EMPid="+ Eval("CRMUSERID") :"TourPlan.aspx?id="+ Eval("TID")  %>  " style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese abc" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
 
                                                         <asp:LinkButton ID="LinkButton1" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger" CommandArgument='<%#Eval("TID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
                                                     </td>
@@ -134,14 +138,14 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <script type="text/javascript">
         $(document).ready(function () {
-            debugger
+
             $.ajax({
                 url: 'UserTourPlan.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+
                     let text = data.d;
                     const myArray = text.split(",");
 

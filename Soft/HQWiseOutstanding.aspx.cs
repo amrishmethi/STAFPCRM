@@ -32,7 +32,7 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
 
             DataSet dsusr = getdata.getHqtrUserDpt("0");
-            ViewState["tbl"] = dsusr;
+            ViewState["tbl"] = dsusr.Tables[0];
             DataView dv = dsusr.Tables[0].DefaultView;
             //dv.RowFilter = " Status='Active'";
             dv.Sort = "Name";
@@ -60,6 +60,7 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
             gd.FillPrimaryStation(Drpstation);
             gd.FillPartyCategory(drpPartyCategory);
             gd.FillBookType(drpBookType);
+            gd.FillAccountGroup(drpAccountGrp);
         }
     }
 
@@ -134,6 +135,7 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@DATEFROM", data.YYYYMMDD(dpFrom.Text));
         cmd.Parameters.AddWithValue("@DATETO", data.YYYYMMDD(dpTo.Text));
         cmd.Parameters.AddWithValue("@ReportType", drpReport.SelectedValue);
+        cmd.Parameters.AddWithValue("@ACGrp", drpAccountGrp.SelectedValue);
         DataSet dss = data.getDataSet(cmd);
         if (dss.Tables[0].Rows.Count > 0)
         {
@@ -142,30 +144,19 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
 
             decimal totalPrice = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["GLAMOUNT"]));
             decimal totalPrice1 = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["GLOSAMT"]));
-
-            //var groupedData = dt.AsEnumerable()
-            //    .GroupBy(row => row.Field<string>("acname", "ACCREDITDY"))
-            //    .Select(group => new
-            //    {
-            //        acname = group.Key.,
-            //        ACCREDITDY = group.Key,
-            //        rows = group.CopyToDataTable(),
-            //        totalPrice = group.Sum(row => Convert.ToDecimal(row["GLAMOUNT"])),
-            //        totalPrice1 = group.Sum(row => Convert.ToDecimal(row["GLOSAMT"]))
-            //    })
-            //    .ToList();
-
+             
             var groupedData = from row in dt.AsEnumerable()
-                          group row by new { acname = row.Field<string>("acname"), ACCREDITDY = row.Field<string>("ACCREDITDY") }
+                              group row by new { acname = row.Field<string>("acname"), ACCREDITDY = row.Field<string>("ACCREDITDY"), Station = row.Field<string>("Station") }
                           into grp
-                          select new
-                          {
-                              ACCREDITDY = grp.Key.ACCREDITDY,
-                              acname = grp.Key.acname,
-                              rows = grp.CopyToDataTable(),
-                              totalPrice = grp.Sum(row => Convert.ToDecimal(row["GLAMOUNT"])),
-                              totalPrice1 = grp.Sum(row => Convert.ToDecimal(row["GLOSAMT"]))
-                          };
+                              select new
+                              {
+                                  ACCREDITDY = grp.Key.ACCREDITDY,
+                                  acname = grp.Key.acname,
+                                  Station = grp.Key.Station,
+                                  rows = grp.CopyToDataTable(),
+                                  totalPrice = grp.Sum(row => Convert.ToDecimal(row["GLAMOUNT"])),
+                                  totalPrice1 = grp.Sum(row => Convert.ToDecimal(row["GLOSAMT"]))
+                              };
             groupedData.ToList();
 
             DataTable mergedTable = new DataTable();
@@ -181,12 +172,13 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
             mergedTable.Columns.Add("DUEAMT", typeof(decimal));
             mergedTable.Columns.Add("DUEDATE", typeof(string));
             mergedTable.Columns.Add("DUEDAY", typeof(string));
+            mergedTable.Columns.Add("COLOR", typeof(string));
             mergedTable.Columns.Add("MM", typeof(string));
 
 
             foreach (var item in groupedData)
             {
-                mergedTable.Rows.Add(DBNull.Value, DBNull.Value, DBNull.Value, item.acname + " As On " + dpFrom.Text + " (" + item.ACCREDITDY + ")", DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value);
+                //mergedTable.Rows.Add(DBNull.Value, DBNull.Value, item.Station, item.acname + " As On " + dpFrom.Text + " (" + item.ACCREDITDY + ")", DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value);
 
                 foreach (DataRow row in item.rows.Rows)
                 {
@@ -194,22 +186,25 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
                 }
 
                 DataRow groupFooterRow = mergedTable.NewRow();
-                groupFooterRow["acname"] = "Total";
-                groupFooterRow["BILLAMT"] = item.totalPrice > 0 ? item.totalPrice : item.totalPrice * -1;
-                groupFooterRow["DUEAMT"] = item.totalPrice1 > 0 ? item.totalPrice1 : item.totalPrice1 * -1;
+                groupFooterRow["Station"] = item.Station;
+                groupFooterRow["acname"] = item.acname + " As On " + dpFrom.Text + " (" + item.ACCREDITDY + ")";
+                groupFooterRow["VOCID"] = "Total";
+                groupFooterRow["BILLAMT"] = item.totalPrice > 0 ? item.totalPrice.ToString("0.00") : (item.totalPrice * -1).ToString("0.00");
+                groupFooterRow["DUEAMT"] = item.totalPrice1 > 0 ? item.totalPrice1.ToString("0.00") : (item.totalPrice1 * -1).ToString("0.00");
                 groupFooterRow["MM"] = item.totalPrice1 > 0 ? "CR" : "DR";
                 mergedTable.Rows.Add(groupFooterRow);
             }
 
-            DataRow footerRow = mergedTable.NewRow();
-            footerRow["acname"] = "Grand Total";
-            footerRow["BILLAMT"] = totalPrice > 0 ? totalPrice : totalPrice * -1;
-            footerRow["DUEAMT"] = totalPrice1 > 0 ? totalPrice1 : totalPrice1 * -1;
+            DataRow footerRow = mergedTable.NewRow(); 
+            footerRow["VOCID"] = "Grand Total";
+            footerRow["BILLAMT"] = totalPrice > 0 ? totalPrice.ToString("0.00") : (totalPrice * -1).ToString("0.00");
+            footerRow["DUEAMT"] = totalPrice1 > 0 ? totalPrice1.ToString("0.00") : (totalPrice1 * -1).ToString("0.00");
             footerRow["MM"] = totalPrice1 > 0 ? "CR" : "DR";
             mergedTable.Rows.Add(footerRow);
 
-
-            rep.DataSource = mergedTable;
+            DataView dvv = mergedTable.DefaultView;
+            dvv.Sort = "Station,acname";
+            rep.DataSource = dvv.ToTable();
             rep.DataBind();
         }
     }

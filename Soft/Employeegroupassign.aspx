@@ -231,7 +231,7 @@
      //  const { each } = require("jquery");
 
      function SelectAllCheckboxes(spanChk) {
-         debugger
+       
          // Added as ASPX uses SPAN for checkbox
 
          var oItem = spanChk.children;

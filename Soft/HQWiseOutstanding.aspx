@@ -29,7 +29,7 @@
                             <div class="col-md-3">
                                 <label>HeadQuarter <span style="color: #ff0000">*</span></label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="Please Select" InitialValue="0"
-                                    Font-Bod="true" ForeColor="Red"  ControlToValidate="drpHeadQtr"></asp:RequiredFieldValidator>
+                                    Font-Bod="true" ForeColor="Red" ControlToValidate="drpHeadQtr"></asp:RequiredFieldValidator>
                                 <asp:DropDownList ID="drpHeadQtr" runat="server" OnSelectedIndexChanged="drpHeadQtr_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
@@ -48,6 +48,11 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="clearfix">&nbsp;</div>
+                            <div class="col-md-2">
+                                <label>Account Group</label>
+                                <asp:DropDownList ID="drpAccountGrp" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-2">
                                 <label>Book Type</label>
                                 <asp:DropDownList ID="drpBookType" runat="server" CssClass="form-control select2">
@@ -75,9 +80,9 @@
                                 <asp:TextBox ID="dpTo" runat="server" CssClass="form-control datepicker">
                                 </asp:TextBox>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <br />
-                                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" OnClick="btnSearch_Click" Text="Search" />
+                                <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" OnClick="btnSearch_Click" Text="Get Data" />
                             </div>
                             <div class="clearfix">&nbsp;</div>
                         </div>
@@ -106,20 +111,20 @@
                                     <tbody>
                                         <asp:Repeater ID="rep" runat="server">
                                             <ItemTemplate>
-                                                <tr class="gradeA">
+                                                <tr class="gradeA" style="color: <%# Eval("color") %>">
                                                     <td>
-                                                        <%#Container.ItemIndex+1 %>
+                                                        <%#Container.ItemIndex+1  %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("District") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
-                                                    <td style='<%# Eval("acname").ToString().Contains("As On")==true ? "text-align: left;font-weight: bold;": "text-align: center;" %>'><%# Eval("acname") %></td>
+                                                    <td style='<%#Eval("acname").ToString().Contains("As On")==true ? "text-align: left;font-weight: bold;": "text-align: center;" %>'><%# Eval("acname") %></td>
 
                                                     <td style="text-align: left;"><%#Eval("VOCDATE") %></td>
                                                     <td style="text-align: left;"><%#Eval("VOCID") %></td>
                                                     <td style='<%# Eval("acname").ToString().Contains("Total")==true ? "text-align: left;font-weight: bold;": "text-align: left;" %>'><%# Eval("BILLAMT") +" "+Eval("MM") %>   </td>
                                                     <td style='<%# Eval("acname").ToString().Contains("Total")==true ? "text-align: left;font-weight: bold;": "text-align: left;" %>'><%# Eval("DUEAMT") +" "+Eval("MM") %>   </td>
                                                     <td style="text-align: left;"><%#Eval("DUEDATE") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DUEDAY") %></td>
+                                                    <td style="text-align: left;"><%# Eval("DUEDAY") %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>

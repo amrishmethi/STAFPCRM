@@ -21,17 +21,28 @@ public partial class Soft_TourPlan : System.Web.UI.Page
         {
             if (Request.QueryString["ID"] != null)
             {
-                FillData(Request.QueryString["ID"]);
+                FillData(Request.QueryString["ID"], "TourId");
+                drpheadQtr.Enabled = false;
+                drpUser.Enabled = false;
+            }
+            if (Request.QueryString["EMPID"] != null)
+            {
+                FillData(Request.QueryString["EMPID"], "USERID");
+                drpheadQtr.Enabled = false;
+                drpUser.Enabled = false;
             }
         }
     }
 
-    private void FillData(string Id)
+    private void FillData(string Id, string _Type)
     {
         ds = getdata.getUserTourPlan(drpUser.SelectedValue, "");
         DataView dv = ds.Tables[1].DefaultView;
         string _filter = "0=0 ";
-        _filter += " and TID= '" + Id + "'";
+        if (_Type == "TourId")
+            _filter += " and TID= '" + Id + "'";
+        if (_Type == "USERID")
+            _filter += " and CRMUSERID= '" + Id + "'";
         dv.RowFilter = _filter;
 
         DataTable dtt = dv.ToTable();
@@ -41,11 +52,14 @@ public partial class Soft_TourPlan : System.Web.UI.Page
         bindDrp(false, true, false);
         drpheadQtr.SelectedValue = dtt.Rows[0]["HeadQtrNo"].ToString();
         bindDrp(false, false, true);
-        drpDistrict.SelectedValue = dtt.Rows[0]["DistrictNo"].ToString();
-        Gd.FillPrimaryStation(drpStation, drpDistrict.SelectedValue);
-        drpStation.SelectedValue= dtt.Rows[0]["StationNo"].ToString();
-        dpFrom.Text = dtt.Rows[0]["TDate"].ToString();
-        txtPurpose.Text = dtt.Rows[0]["Purpose"].ToString();
+        if (_Type == "TourId")
+        {
+            drpDistrict.SelectedValue = dtt.Rows[0]["DistrictNo"].ToString();
+            Gd.FillPrimaryStation(drpStation, drpDistrict.SelectedValue);
+            drpStation.SelectedValue = dtt.Rows[0]["StationNo"].ToString();
+            dpFrom.Text = dtt.Rows[0]["TDate"].ToString();
+            txtPurpose.Text = dtt.Rows[0]["Purpose"].ToString();
+        }
     }
 
     private void bindDrp(bool isuser, bool ishqtr, bool isdstrct)
@@ -121,14 +135,14 @@ public partial class Soft_TourPlan : System.Web.UI.Page
 
     protected void btnsave_Click(object sender, EventArgs e)
     {
-        string sqlcom = "Update [TourPlan] set District='" + drpDistrict.SelectedItem.Text + "', Station='" + drpStation.SelectedItem.Text + "',DistrictNo='" + drpDistrict.SelectedValue+ "', StationNo='" + drpStation.SelectedValue + "', TDate='" + data.YYYYMMDD(dpFrom.Text.Trim()) + "' , Purpose='" + txtPurpose.Text.Trim() + "' where Id=" + Request.QueryString["Id"].ToString() + "";
+        string sqlcom = "Update [TourPlan] set District='" + drpDistrict.SelectedItem.Text + "', Station='" + drpStation.SelectedItem.Text + "',DistrictNo='" + drpDistrict.SelectedValue + "', StationNo='" + drpStation.SelectedValue + "', TDate='" + data.YYYYMMDD(dpFrom.Text.Trim()) + "' , Purpose='" + txtPurpose.Text.Trim() + "' where Id=" + Request.QueryString["Id"].ToString() + "";
         data.executeCommand(sqlcom);
 
         Page.ClientScript.RegisterStartupScript(typeof(Page), "close", string.Format("<script type='text/javascript'>{0}</script>", "parent.location.href='UserTourPlan.aspx'; parent.$.fancybox.close() ;"));
     }
 
     protected void drpDistrict_SelectedIndexChanged(object sender, EventArgs e)
-    {  
+    {
         DataView dv = ((DataSet)ViewState["tbl1"]).Tables[0].DefaultView;
         dv.RowFilter = "DistrictNo=" + drpDistrict.SelectedValue;
         dv.Sort = "Station";

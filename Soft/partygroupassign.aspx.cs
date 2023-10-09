@@ -31,7 +31,8 @@ public partial class Soft_PartyAssign : System.Web.UI.Page
             gd.FillPartyCategory(drpCatg);
             gd.FillMainGroup(lstGrp);
             gd.FillGroup1(drpGrp);
-            gd.FillAccount(drpParty);
+            //gd.FillAccount(drpParty);
+            gd.FillPrimaryParty(drpParty);
 
 
             DataSet dsusr = getdata.getHqtrUserDpt("0");

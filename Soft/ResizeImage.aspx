@@ -42,7 +42,7 @@
         <script src="../content/plugins/datepicker/bootstrap-datepicker.js"></script>
         <script type="text/javascript">
             $(window).load(function () {
-                debugger
+              
                 const queryString = window.location.search;
                 const urlParams = new URLSearchParams(queryString);
                 const imgurl = urlParams.get('imgurl');

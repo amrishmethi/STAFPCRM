@@ -208,10 +208,11 @@ public partial class Admin_SalesTargets : System.Web.UI.Page
             DataView dvv = ((DataSet)ViewState["TargetData"]).Tables[0].DefaultView;
             dvv.RowFilter = "UserId='" + hddMID.Value + "' and HeadQtr='" + HddHeadQtrNo.Value + "'";
             DataTable dtt = dvv.ToTable();
-            
-            foreach (DataRow drr in dss.Tables[0].Rows)
-                drr["Qty"] = dtt.Rows[0][drr["Name"].ToString()];
-
+            if (dtt.Rows.Count > 0)
+            {
+                foreach (DataRow drr in dss.Tables[0].Rows)
+                    drr["Qty"] = dtt.Rows[0][drr["Name"].ToString()];
+            }
 
             dss.Tables[0].AcceptChanges();
             repd.DataSource = dss;

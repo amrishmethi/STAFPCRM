@@ -7,7 +7,7 @@
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
-      <section class="content-header" style="height: 2.5em;">
+    <section class="content-header" style="height: 2.5em;">
         <h1><a id="lnkAdd" runat="server" href="/Soft/AddAdminPolicy.aspx" class="btn btn-primary">Add Admin Policy</a>
         </h1>
         <ol class="breadcrumb">
@@ -47,14 +47,13 @@
                                                     <%#Eval("Policy_Head") %>
                                                 </td>
                                                 <td id="lblAction" style="text-align: left;">
-                                                      <div class="isEditVisible" style="display: inline;">
-                                                    <a href="AddAdminPolicy.aspx?id=<%#Eval("Policy_Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
-                                                          </div>
+                                                    <div class="isEditVisible" style="display: inline;">
+                                                        <a href="AddAdminPolicy.aspx?id=<%#Eval("Policy_Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                    </div>
                                                     <div class="isDelVisible" style="display: inline;">
-                                                    <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"
-                                                        CommandArgument='<%#Eval("Policy_Id") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
-
-                                                        </div>
+                                                        <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"
+                                                            CommandArgument='<%#Eval("Policy_Id") %>'><i class="fa fa-trash-o"></i></asp:LinkButton> 
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </ItemTemplate>
@@ -70,7 +69,7 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
-        <script type="text/javascript">
+    <script type="text/javascript">
 
         $(document).ready(function () {
 
@@ -80,7 +79,7 @@
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+
                     let text = data.d;
                     const myArray = text.split(",");
 
@@ -108,7 +107,7 @@
                 }
             });
         })
- 
-        </script>
-      <uc1:DTJS runat="server" ID="DTJS" />
+
+    </script>
+    <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>

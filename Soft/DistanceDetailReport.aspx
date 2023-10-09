@@ -93,7 +93,6 @@
                                             <th style="text-align: left;">Daily Allowance</th>
                                             <th style="text-align: left;">Other</th>
                                             <th style="text-align: left;">Total</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -154,6 +153,8 @@
                                             <th style="text-align: left;">S No.</th>
                                             <th style="text-align: left;">Employee Name</th>
                                             <th style="text-align: left;">Travel Date</th>
+                                            <th style="text-align: left;">Place IN</th>
+                                            <th style="text-align: left;">Place Out</th>
                                             <th style="text-align: left;">Distance in KM</th>
                                             <th style="text-align: left;">Rate Per KM</th>
                                             <th style="text-align: left;">Amount</th>
@@ -172,6 +173,8 @@
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("Emp_NAME") %></td>
                                                     <td style="text-align: left;"><%#Eval("TravelDate") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PlaceIn") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PlaceOut") %></td>
                                                     <td style="text-align: left;"><%#Eval("Distance") %></td>
                                                     <td style="text-align: left;"><%#Eval("Rate") %></td>
                                                     <td style="text-align: left;"><%#Eval("Amount") %></td>
@@ -185,7 +188,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr class="gradeA">
-                                            <th colspan="3" style="text-align: right;">Total Distance</th>
+                                            <th colspan="5" style="text-align: right;">Total Distance</th>
                                             <td>
                                                 <asp:Label ID="lblTotalKM" runat="server"></asp:Label></td>
                                             <td>&nbsp;</td>

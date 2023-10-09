@@ -263,14 +263,14 @@
             var specialKeys = new Array();
             specialKeys.push(8);
             function IsNumeric(e, i) {
-                debugger
+              
                 var keyCode = e.which ? e.which : e.keyCode
                 var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
                 document.getElementsByClassName("numerror")[i].style.display = ret ? "none" : "inline";
                 return ret;
             }
             function IsDecimal(e, i) {
-                debugger
+              
                 var keyCode = e.which ? e.which : e.keyCode
                 var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1 || keyCode == 46 || keyCode == 8);
                 document.getElementsByClassName('error')[i].style.display = ret ? "none" : "inline";
@@ -283,7 +283,7 @@
                 return true;
             }
             function IsNumericKey(e) {
-                debugger
+              
                 var charCode = (e.which) ? e.which : e.keyCode;
                 if ((charCode < 46 || charCode > 57) )
                     return false;

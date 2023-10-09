@@ -58,7 +58,7 @@
     </script>
     <script type="text/javascript">
         function SelectCheckID() {
-            debugger
+          
 
             var str = "";
             var aa = document.querySelectorAll("input[type=checkbox]");

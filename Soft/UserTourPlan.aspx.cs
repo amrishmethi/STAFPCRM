@@ -87,25 +87,29 @@ public partial class Admin_UserTourPlan : System.Web.UI.Page
     {
 
         ds = getdata.getUserTourPlan(drpUser.SelectedValue, "");
-        DataView dv = ds.Tables[1].DefaultView;
-        string _filter = "0=0 ";
-        if (drpheadQtr.SelectedIndex > 0)
-            _filter += " and HeadQtrNo = '" + drpheadQtr.SelectedValue + "'";
-        if (drpDepartment.SelectedIndex > 0)
-            _filter += " and Dept_Id = '" + drpDepartment.SelectedValue + "'";
-        if (drpUser.SelectedIndex > 0)
-            _filter += " and CrmUserID= '" + drpUser.SelectedValue + "'";
-        if (drpDistrict.SelectedIndex > 0)
-            _filter += " and DistrictNo = '" + drpDistrict.SelectedValue + "'";
-        if (drpStatus.SelectedIndex > 0)
-            _filter += " and Status = '" + drpStatus.SelectedValue + "'";
-        if (dpFrom.Text != "")
-            _filter += " and TDate1>='" + data.ConvertToDateTime(dpFrom.Text) + "'";
-        if (dpTo.Text != "")
-            _filter += " and  TDate1<='" + data.ConvertToDateTime(dpTo.Text) + "'";
-        dv.RowFilter = _filter;
-        dv.Sort = "Emp_Name,TDate";
-        rep.DataSource = dv.ToTable();
+        //DataView dv = ds.Tables[1].DefaultView;
+        //string _filter = "0=0 ";
+        //if (drpheadQtr.SelectedIndex > 0)
+        //    _filter += " and HeadQtrNo = '" + drpheadQtr.SelectedValue + "'";
+        //if (drpDepartment.SelectedIndex > 0)
+        //    _filter += " and Dept_Id = '" + drpDepartment.SelectedValue + "'";
+        //if (drpUser.SelectedIndex > 0)
+        //    _filter += " and CrmUserID= '" + drpUser.SelectedValue + "'";
+        //if (drpDistrict.SelectedIndex > 0)
+        //    _filter += " and DistrictNo = '" + drpDistrict.SelectedValue + "'";
+        //if (drpStatus.SelectedIndex > 0)
+        //    _filter += " and Status = '" + drpStatus.SelectedValue + "'";
+        //if (dpFrom.Text != "")
+        //    _filter += " and TDate1>='" + data.ConvertToDateTime(dpFrom.Text) + "'";
+        //if (dpTo.Text != "")
+        //    _filter += " and  TDate1<='" + data.ConvertToDateTime(dpTo.Text) + "'";
+        //dv.RowFilter = _filter;
+        //dv.Sort = "Emp_Name,TDate";
+        //rep.DataSource = dv.ToTable();
+        //rep.DataBind();
+
+        DataSet dataSet = getdata.getUserTourPlanN(drpheadQtr.SelectedValue, drpDepartment.SelectedValue, drpUser.SelectedValue, drpDistrict.SelectedValue, drpStatus.SelectedValue, data.ConvertToDateTime(dpFrom.Text).ToString(), data.ConvertToDateTime(dpTo.Text).ToString());
+        rep.DataSource = dataSet;
         rep.DataBind();
 
     }

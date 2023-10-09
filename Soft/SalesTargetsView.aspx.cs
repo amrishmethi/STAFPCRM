@@ -101,8 +101,8 @@ public partial class Admin_SalesTargetsView : System.Web.UI.Page
             Dt1.Rows.Add(drrrr1);
             DataRow drrrr2 = Dt1.NewRow();
             drrrr2["Grpp"] = ff + "_B";
-            Dt1.Rows.Add(drrrr2); 
-        } 
+            Dt1.Rows.Add(drrrr2);
+        }
 
         ViewState["dtMain"] = Dt;
         ViewState["dtColumns"] = Dt1;
@@ -121,7 +121,7 @@ public partial class Admin_SalesTargetsView : System.Web.UI.Page
         drpUser.DataBind();
         drpUser.Items.Insert(0, new ListItem("Select", "0"));
     }
-    
+
     public void fillData()
     {
         DataSet ds = getdata.GetSaleTargetReport(drpDepartment.SelectedValue, drpStatus.SelectedValue, drpUser.SelectedValue, drpheadQtr.SelectedValue, mnth.Text);
@@ -164,35 +164,38 @@ public partial class Admin_SalesTargetsView : System.Web.UI.Page
             dvTarget.RowFilter = "HEADQTR='" + HddHeadQtrNo.Value + "'";
             DataTable dtTarget1 = dvTarget.ToTable();
 
-            DataView dvSale = dtSale.DefaultView;
-            dvSale.RowFilter = "HEADQTRNO='" + HddHeadQtrNo.Value + "'";
-            DataTable dtSale1 = dvSale.ToTable();
-
-            DataView dvvv = dss.Tables[0].DefaultView;
-            dvvv.Sort = "NAME";
-            DataTable dttNew = dvvv.ToTable();
-            int _Sale = 0, _Target = 0;
-            foreach (DataRow drr in dttNew.Rows)
+            if (dtTarget1.Rows.Count > 0)
             {
-                if (drr["EntryType"].ToString() == "Target")
-                {
-                    _Target = Convert.ToInt32(dtTarget1.Rows[0][drr["Name"].ToString()]);
-                    drr["Qty"] = _Target;
-                }
-                if (drr["EntryType"].ToString() == "Sale")
-                {  
-                    _Sale = Convert.ToInt32(dtSale1.AsEnumerable()
-                        .Where(myRow => myRow.Field<string>("CMSNAME") == drr["Name"].ToString().Replace('_', ' '))
-                        .Sum(myRow => myRow.Field<Int32?>("ORDBAG")));
-                    drr["Qty"] = _Sale;
-                }
-                if (drr["EntryType"].ToString() == "Bal")
-                    drr["Qty"] = _Target - _Sale;
-            } 
+                DataView dvSale = dtSale.DefaultView;
+                dvSale.RowFilter = "HEADQTRNO='" + HddHeadQtrNo.Value + "'";
+                DataTable dtSale1 = dvSale.ToTable();
 
-            dttNew.AcceptChanges();
-            repd.DataSource = dttNew;
-            repd.DataBind();
+                DataView dvvv = dss.Tables[0].DefaultView;
+                dvvv.Sort = "NAME";
+                DataTable dttNew = dvvv.ToTable();
+                int _Sale = 0, _Target = 0;
+                foreach (DataRow drr in dttNew.Rows)
+                {
+                    if (drr["EntryType"].ToString() == "Target")
+                    {
+                        _Target = Convert.ToInt32(dtTarget1.Compute("Sum([" + drr["Name"].ToString() + "])", ""));
+                        drr["Qty"] = _Target;
+                    }
+                    if (drr["EntryType"].ToString() == "Sale")
+                    {
+                        _Sale = Convert.ToInt32(dtSale1.AsEnumerable()
+                            .Where(myRow => myRow.Field<string>("CMSNAME") == drr["Name"].ToString().Replace('_', ' '))
+                            .Sum(myRow => myRow.Field<Int32?>("ORDBAG")));
+                        drr["Qty"] = _Sale;
+                    }
+                    if (drr["EntryType"].ToString() == "Bal")
+                        drr["Qty"] = _Target - _Sale;
+                }
+
+                dttNew.AcceptChanges();
+                repd.DataSource = dttNew;
+                repd.DataBind();
+            }
         }
     }
 }

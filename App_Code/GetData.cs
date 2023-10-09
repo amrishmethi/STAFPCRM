@@ -1,15 +1,12 @@
-﻿using System;
+﻿
+using System;
 using System.Data;
-using System.Configuration;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
-using System.Data.Odbc;
 using System.Data.SqlClient;
-using Org.BouncyCastle.Asn1.X509;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls; 
 
 /// <summary>
 /// Summary description for GetData
@@ -366,9 +363,9 @@ public class GetData
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
 
-    public void FillAccount(DropDownList drp)
+    public void FillAccount(DropDownList drp, string CatId = "0")
     {
-        ds = data.getDataSet("GETPARTYLIST_PROC");
+        ds = data.getDataSet("GETPARTYLIST_PROC 0,0," + CatId);
         drp.DataSource = ds;
         drp.DataTextField = "PARTY";
         drp.DataValueField = "ID";
@@ -396,4 +393,15 @@ public class GetData
         drpBookType.DataBind();
         drpBookType.Items.Insert(0, new ListItem("Select", "0"));
     }
+
+    public void FillAccountGroup(DropDownList drp)
+    {
+        ds = data.getDataSet("Select Scisno, ScMisno,scName from Schedule");
+        drp.DataSource = ds;
+        drp.DataTextField = "scName";
+        drp.DataValueField = "Scisno";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+     
 }

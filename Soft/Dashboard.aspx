@@ -169,7 +169,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
     </script>
     <script type="text/javascript">  
         function getcityname(latvalue, longvalue) {
-            debugger
+          
             var geocoder;
             geocoder = new google.maps.Geocoder();
             var latlng = new google.maps.LatLng(latvalue, longvalue);
@@ -210,7 +210,7 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6v5-2uaq_wusHDktM9ILcqIr
     </script>
     <script type="text/javascript"> 
         $("#Body_linkloc").click(function () {
-            debugger
+          
             this.href = 'checkInOut.aspx?loc=' + document.getElementById('demo').innerHTML
         });
     </script>

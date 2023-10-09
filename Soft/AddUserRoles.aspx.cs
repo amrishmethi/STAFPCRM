@@ -32,7 +32,7 @@ public partial class Admin_AddUserRoles : System.Web.UI.Page
     }
     public void FillPages()
     {
-        ds = data.getDataSet("select * from tbl_Menu where ParentId=0 and isdelete = 0 order by MenuId");
+        ds = data.getDataSet("select * from tbl_Menu where ParentId=0 and isdelete = 0 order by Position");
         GRD.DataSource = ds;
         GRD.DataBind();
     }

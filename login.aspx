@@ -188,7 +188,7 @@
 
         <script type='text/javascript'>
             function Pass() {
-                debugger
+              
                 if ($('txtpass').attr('type', 'text'));
                 $('txtpass').attr('type', 'text')
             }

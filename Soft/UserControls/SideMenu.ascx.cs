@@ -8,8 +8,8 @@ public partial class Admin_UserControls_SideMenu : System.Web.UI.UserControl
 {
     DataSet ds = new DataSet();
     Data data = new Data();
-     HttpCookie Admin;
-     string query="";
+    HttpCookie Admin;
+    string query = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -17,11 +17,11 @@ public partial class Admin_UserControls_SideMenu : System.Web.UI.UserControl
         {
             //if (Request.Params["BuiltIn"] != null)
             //{
-                Admin = Request.Cookies["STFP"];
+            Admin = Request.Cookies["STFP"];
 
-                if (!(Admin.Values["Type"].ToString().ToLower().Equals("admin"))) { menu(); }
-                else { fillData(); }
-           // }
+            if (!(Admin.Values["Type"].ToString().ToLower().Equals("admin"))) { menu(); }
+            else { fillData(); }
+            // }
         }
     }
     public void menu()
@@ -32,12 +32,12 @@ public partial class Admin_UserControls_SideMenu : System.Web.UI.UserControl
         //str += "Dashboard</span></a></li>";
         //if (Admin.Values["Type"].ToString() != "Admin1")
         //{
-            query = "select tbl_Menu.*,(select count(*) from tbl_Menu as p inner join tbl_EmpRoles as r on p.MenuId = r.PageID where p.ParentId = tbl_Menu.MenuId and r.UserId = " + Admin.Values["UserId"].ToString() + ") as cc " +
-               " from tbl_Menu inner join tbl_EmpRoles on tbl_menu.MenuId = tbl_EmpRoles.PageID where tbl_Menu.ParentId = 0 and tbl_EmpRoles.UserId=" + Admin.Values["UserId"].ToString() + "";
-            query += " and tbl_menu.isDelete=0";
-         //   if (s == true)
-         //       query += " and IsMobile=1";
-            query += " order by tbl_menu.Position";
+        query = "select tbl_Menu.*,(select count(*) from tbl_Menu as p inner join tbl_EmpRoles as r on p.MenuId = r.PageID where p.ParentId = tbl_Menu.MenuId and r.UserId = " + Admin.Values["UserId"].ToString() + ") as cc " +
+           " from tbl_Menu inner join tbl_EmpRoles on tbl_menu.MenuId = tbl_EmpRoles.PageID where tbl_Menu.ParentId = 0 and tbl_EmpRoles.UserId=" + Admin.Values["UserId"].ToString() + "";
+        query += " and tbl_menu.isDelete=0";
+        //   if (s == true)
+        //       query += " and IsMobile=1";
+        query += " order by tbl_menu.Position";
         //}
         //else
         //{
@@ -52,17 +52,18 @@ public partial class Admin_UserControls_SideMenu : System.Web.UI.UserControl
                 str += "<li class=\"treeview\">";
                 str += "<a href=\"" + ds.Tables[0].Rows[i]["MenuLink"].ToString() + "\"><i class=\"fa fa-angle-right\"></i>";
                 str += "<span>" + ds.Tables[0].Rows[i]["MenuName"].ToString() + "</span>";
-                    if (Convert.ToInt32(ds.Tables[0].Rows[i]["cc"]) != 0) {
+                if (Convert.ToInt32(ds.Tables[0].Rows[i]["cc"]) != 0)
+                {
                     str += "<span class='label label-important'>" + ds.Tables[0].Rows[i]["cc"].ToString() + "</span>";
                 }
-                    str += "</a>";
+                str += "</a>";
                 //if (Admin.Values["Type"].ToString() != "Admin1")
                 //{
-                    query = "select tbl_Menu.* from tbl_Menu inner join tbl_EmpRoles on tbl_Menu.MenuId=tbl_EmpRoles.PageID where tbl_Menu.ParentId=" + ds.Tables[0].Rows[i]["MenuId"].ToString() + "";
-                    query += " and tbl_EmpRoles.UserId=" + Admin.Values["UserId"].ToString() + " and tbl_Menu.isDelete=0 ";
-                    //if (s == true)
-                    //    query += " and IsMobile=1";
-                    query += " order by tbl_Menu.Position";
+                query = "select tbl_Menu.* from tbl_Menu inner join tbl_EmpRoles on tbl_Menu.MenuId=tbl_EmpRoles.PageID where tbl_Menu.ParentId=" + ds.Tables[0].Rows[i]["MenuId"].ToString() + "";
+                query += " and tbl_EmpRoles.UserId=" + Admin.Values["UserId"].ToString() + " and tbl_Menu.isDelete=0 ";
+                //if (s == true)
+                //    query += " and IsMobile=1";
+                query += " order by tbl_Menu.Position";
                 //}
                 //else
                 //{

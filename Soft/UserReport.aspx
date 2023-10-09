@@ -117,14 +117,14 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <script type="text/javascript">
         $(document).ready(function () {
-            debugger
+          
             $.ajax({
                 url: 'UserReport.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+                  
                     let text = data.d;
                     const myArray = text.split(",");
 

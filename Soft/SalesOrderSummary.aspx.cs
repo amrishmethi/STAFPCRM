@@ -141,9 +141,9 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
             {
                 int month = Convert.ToInt32(mnth.Text.Split('-')[0]);
                 int year = Convert.ToInt32(mnth.Text.Split('-')[1]);
-                string _DD = month + "/1/" + year; 
+                string _DD = month + "/1/" + year;
 
-                 
+
                 var startDate = new DateTime(year, month, 1);
                 var endDate = startDate.AddMonths(1).AddDays(-1);
 
@@ -153,8 +153,10 @@ public partial class Soft_SalesOrderSummary : System.Web.UI.Page
                 double _CTC = 0, _Travel = 0, _NSA = 0, _DAL = 0, _Other = 0;
 
                 DataSet dss = getdata.GetSallary(_DD, "0", "0", hddcrmId.Value, "2", "ALL");
-                if (dss.Tables[0].Rows.Count > 0)
-                    _CTC = Convert.ToDouble(dss.Tables[0].Rows[0]["CTC"]);
+                DataView dvv = dss.Tables[0].DefaultView;
+                dvv.RowFilter = "ISapprove=1";
+                if (dvv.ToTable().Rows.Count > 0)
+                    _CTC = Convert.ToDouble(dvv.ToTable().Rows[0]["CTC"]);
 
                 DataSet dss1 = data.getDataSet("usp_DistanceTravelReort_Summary '" + hddempId.Value + "','" + startDate + "','" + endDate + "','0','ALL'");
 

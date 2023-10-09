@@ -95,7 +95,7 @@
         function getdays() {
             var dateI1 = document.getElementById("txtFromDate").value;
             var dateI2 = document.getElementById("txtToDate").value;
-            debugger
+          
             $.ajax({
 
                 url: 'LeaveDeduct.aspx/GetDays',
@@ -104,7 +104,7 @@
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+                  
                     $('#Body_TxtDay').val(data.d);
                 },
                 error: function (response) {
@@ -118,7 +118,7 @@
         $(document).ready(function () {
             var dateI1 = document.getElementById("txtFromDate").value;
             var dateI2 = document.getElementById("txtToDate").value;
-            debugger
+          
             $.ajax({
 
                 url: 'LeaveDeduct.aspx/GetDays',
@@ -127,7 +127,7 @@
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+                  
                     $('#Body_TxtDay').val(data.d);
                 },
                 error: function (response) {

@@ -99,14 +99,14 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
      <script type="text/javascript">
         $(document).ready(function () {
-            debugger
+          
             $.ajax({
                 url: 'UserWiseParty.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+                  
                     let text = data.d;
                     const myArray = text.split(","); 
                     document.getElementsByClassName("buttons-excel")[0].style.display = myArray[3] == "False" ? "none" : "";

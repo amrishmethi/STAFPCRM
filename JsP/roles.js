@@ -6,7 +6,7 @@
         dataType: "json",
 
         success: function (msg) {
-            debugger
+          
             alert("Hello");
             $('.roles').css('display', 'none');
         }

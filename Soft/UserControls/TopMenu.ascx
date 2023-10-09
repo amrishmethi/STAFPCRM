@@ -7,13 +7,14 @@
         <span class="logo-lg"><b>STAFP</b></span>
     </a>
     <nav class="navbar navbar-static-top">
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" onclick="DOSO()">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" onclick="DOSO()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa fa-clock-o" style="color: black;"></i>&nbsp;&nbsp;&nbsp;<label id= "lblUpdate" runat="server"></label> 
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </a>
         <div class="navbar-custom-menu">
+
             <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
                 <%--<li class="dropdown messages-menu">--%>
@@ -209,7 +210,7 @@
             </ul>
           </li>--%>
                 <li>
-                    <p style="color: white; margin-top: revert;">
+                    <p style="color: white; margin-top: revert;">     
                         <asp:Label ID="lblName" runat="server"></asp:Label>
                     </p>
                 </li>

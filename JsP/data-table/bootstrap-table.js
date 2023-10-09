@@ -1117,7 +1117,7 @@
                 var checked = column.visible ? ' checked="checked"' : '';
 
                 if (column.switchable) {
-                    debugger
+                  
                     if (column.title.trim() != "Action") {
                     html.push(sprintf('<li role="menuitem">' +
                         '<label><input type="checkbox" data-field="%s" value="%s"%s> %s</label>' +

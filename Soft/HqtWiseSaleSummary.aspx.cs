@@ -33,7 +33,7 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
             dpFrom.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             dpTo.Text = DateTime.Now.ToString("dd/MM/yyyy").Replace('-', '/');
             DataSet dsusr = getdata.getHqtrUserDpt("0");
-            ViewState["tbl"] = dsusr;
+            ViewState["tbl"] = dsusr.Tables[0];
             bindDrp();
             gd.FillPrimaryParty(drpParty);
             gd.FillPrimaryStation(Drpstation);
@@ -184,7 +184,7 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
             string selectedHeadQtr = drpHeadQtr.SelectedValue;
             dv.RowFilter = "HeadQtrNo = '" + selectedHeadQtr + "'";
         }
-       
+
         dv.Sort = "district";
         drpDistict.DataSource = dv.ToTable(true, "district", "districtNo");
         drpDistict.DataTextField = "district";
@@ -202,7 +202,7 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
             string selectedName = DrpEmployee.SelectedValue;
             dv.RowFilter = "MID = '" + selectedName + "'";
         }
-      
+
         dv.Sort = "HeadQtr";
         drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
         drpHeadQtr.DataTextField = "HeadQtr";
@@ -230,93 +230,22 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
 
 
 
-    public void DownLoadFile()
-    {
-        DataTable dtt = (DataTable)ViewState["SaleSUmmary"];
-        string Dpath = "";
-        EXcelDownload(dtt);
-        string url1 = HttpContext.Current.Request.Url.AbsoluteUri;
-        if (url1.Contains("localhost"))
-            Dpath = Server.MapPath("//ExcelDownload//Format.xlsx");
-        else
-            Dpath = "E:\\SSCOMP\\STAFPCRM\\ExcelDownload\\Format.xlsx";
-        workbook1.SaveToFile(Dpath);
-        string ff = "SaleSummary.xlsx";
-        string filePath = "ExcelDownload/Format.xlsx";
-        Response.ContentType = "application/excel";
-        Response.AddHeader("Content-Disposition", "attachment;filename=\"" + ff + "\"");
-        Response.TransmitFile(Dpath);
-        Response.End();
-
-    }
-
-    private void EXcelDownload(DataTable dtt)
-    {
-
-        string path = "";
-        string url1 = HttpContext.Current.Request.Url.AbsoluteUri;
-        if (url1.Contains("localhost"))
-            path = Server.MapPath("//Excel//Format.xlsx");
-        else
-            path = "E:\\SSCOMP\\STAFPCRM\\Excel\\Format.xlsx";
-        int iRowCnt = dtt.Columns.Count;
-        workbook1.LoadFromFile(path);
-        a = true;
-        Worksheet worksheet = workbook1.Worksheets[0];
-        worksheet.Range[1, 1].Text = "Sale Summary Report of " + drpHeadQtr.SelectedItem.Text;
-        worksheet.Range[2, 1].Text = "Date As On " + dpFrom.Text + " To " + dpTo.Text;
-
-        worksheet.Range[1, 1, 1, iRowCnt].Merge(true);
-        worksheet.Range[1, 1].Style.Font.FontName = "Calibri";
-        worksheet.Range[1, 1].Style.Font.IsBold = true;
-        worksheet.Range[1, 1].Style.Font.Size = 20;
-        worksheet.Range[1, 1].HorizontalAlignment = HorizontalAlignType.Center;
-
-        worksheet.Range[2, 1, 2, iRowCnt].Merge(true);
-        worksheet.Range[2, 1].Style.Font.FontName = "Calibri";
-        worksheet.Range[2, 1].Style.Font.IsBold = true;
-        worksheet.Range[2, 1].Style.Font.Size = 16;
-        worksheet.Range[2, 1].HorizontalAlignment = HorizontalAlignType.Center;
-        worksheet.Range[1, 1].AutoFitColumns();
-        worksheet.Range[1, 1].AutoFitRows();
-        worksheet.Range[2, 1].AutoFitColumns();
-        worksheet.Range[2, 1].AutoFitRows();
-
-        worksheet.Range[3, 1, 3, iRowCnt].BorderAround(LineStyleType.Thin);
-        worksheet.Range[3, 1, 3, iRowCnt].BorderInside(LineStyleType.Thin);
-        for (int i = 1; i < dtt.Columns.Count + 1; i++)
-        {
-            worksheet.Range[3, i].Text = dtt.Columns[i - 1].ColumnName.ToUpper();
-            worksheet.Range[3, i].Style.Font.FontName = "Calibri";
-            worksheet.Range[3, i].Style.Font.IsBold = true;
-            worksheet.Range[3, i].Style.Font.Size = 12;
-        }
-
-        int _cnt;
-        for (int i = 0; i < dtt.Rows.Count; i++)
-        {
-            _cnt = 0;
-            for (int j = 0; j < dtt.Columns.Count; j++)
-            {
-                _cnt++;
-                try
-                {
-                    worksheet.Range[i + 4, _cnt].Text = dtt.Rows[i][j].ToString().Trim();
-                }
-                catch { }
-            }
-        }
-        worksheet.AllocatedRange.BorderAround(LineStyleType.Thin);
-        worksheet.AllocatedRange.BorderInside(LineStyleType.Thin);
-        worksheet.AutoFitColumn(iRowCnt);
-        worksheet.AutoFitRow(dtt.Rows.Count);
-        worksheet.AllocatedRange.AutoFitColumns();
-        worksheet.AllocatedRange.AutoFitRows();
-    }
-
     protected void btnExport_Click(object sender, EventArgs e)
     {
-        DownLoadFile();
+        Response.Clear();
+        Response.Buffer = true;
+        Response.ClearContent();
+        Response.ClearHeaders();
+        Response.Charset = "";
+        string FileName = "HQ_GROUP_PARTY_WISE_SALES_REPORT.xls";
+        StringWriter strwritter = new StringWriter();
+        HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
+        Response.Cache.SetCacheability(HttpCacheability.NoCache);
+        Response.ContentType = "application/vnd.ms-excel";
+        Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
+        grdReport.RenderControl(htmltextwrtter);
+        Response.Write(strwritter.ToString());
+        Response.End();
     }
 
 }

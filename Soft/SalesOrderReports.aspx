@@ -215,7 +215,7 @@
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+                  
                     let text = data.d;
                     const myArray = text.split(",");
 
@@ -247,7 +247,7 @@
     </script>
     <script>
         //function Print_Div() {
-        //    debugger
+        //  
         //    var restorepage = $('body').html();
         //    var divContents = document.getElementById("Body_tblBlock").innerHTML;
         //    var a = window.open('', '', 'height=500, width=500');
@@ -264,7 +264,7 @@
         //    $('body').html(restorepage);
         //}
         function Print_Div() {
-            debugger
+          
             var restorepage = $('body').html();
             var printcontent = $('#Body_tblBlock').clone();
             $('body').empty().html(printcontent);

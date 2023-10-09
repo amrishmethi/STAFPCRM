@@ -250,7 +250,7 @@
                                                         <script>
                                                             // Get the modal
                                                             function imgclick(e) {
-                                                                debugger
+                                                              
                                                                 var modal = document.getElementById("myModal");
 
                                                                 // Get the image and insert it inside the modal - use its "alt" text as a caption
@@ -306,14 +306,14 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <script type="text/javascript">
         $(document).ready(function () {
-            debugger
+          
             $.ajax({
                 url: 'ClientMeet.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+                  
                     let text = data.d;
                     const myArray = text.split(",");
 

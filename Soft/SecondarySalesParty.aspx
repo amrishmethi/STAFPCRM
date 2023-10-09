@@ -38,7 +38,7 @@
                             <div class="col-md-3">
                                 <label>District<span style="color: #ff0000">*</span></label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="drpheadQtr"
-                                    ErrorMessage="Must Be Select" ValidationGroup="A1" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
+                                    ErrorMessage="Must Be Select" ValidationGroup="A12" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
                                 <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpStation_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
@@ -154,7 +154,7 @@
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+                  
                     let text = data.d;
                     const myArray = text.split(",");
 

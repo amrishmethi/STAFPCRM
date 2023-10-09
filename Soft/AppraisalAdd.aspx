@@ -98,7 +98,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <script>
         function getValue(th) {
-            debugger
+          
             var _STR = th.id;
 
             const myArray = _STR.split("_");

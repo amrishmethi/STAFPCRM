@@ -64,10 +64,13 @@ public partial class Admin_ClientMeet : System.Web.UI.Page
     {
         DataSet dsusr = (DataSet)ViewState["tbl1"];
         DataView dv = dsusr.Tables[0].DefaultView;
+        string _FIlter = "0=0";
         if (drpStatus.SelectedIndex > 0)
-            dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
+            _FIlter += " and Status='" + drpStatus.SelectedValue + "'";
         if (drpDept.SelectedIndex > 0)
-            dv.RowFilter = " Dept_Id='" + drpDept.SelectedValue + "'";
+            _FIlter += " and Dept_Id='" + drpDept.SelectedValue + "'";
+
+        dv.RowFilter = _FIlter;
         dv.Sort = "Name";
         drpEmp.DataSource = dv.ToTable(true, "Name", "MId");
         drpEmp.DataTextField = "Name";

@@ -953,7 +953,7 @@
 
     <script> 
         function OptionsSelected(me, valuee, valuee2) {
-            debugger
+          
             if (document.getElementById(me.id).checked) {
                 document.getElementById(valuee).disabled = false;
                 if (valuee2 != '')
@@ -979,7 +979,7 @@
         }
 
         function OnSelected(me, valuee1, valuee2) {
-            debugger
+          
             var value = me.selectedIndex;
             if (value > 1) {
                 document.getElementById(valuee1).disabled = false;
@@ -1052,7 +1052,7 @@
 
     <script>
         function getValue(rd, BSValue, BSValue1, BSValue2, BSValue3) {
-            debugger
+          
             var str = rd + "Fixed";
             var str1 = rd + "Per";
             var BSFixed = document.getElementById(str).checked;

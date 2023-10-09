@@ -123,7 +123,7 @@ function getProduct() {
 
 };
 function SveNext(th) {
-    debugger
+  
     var Date = $('#Body_txtDate').val();
     var RequestNo = $('#Body_txtRequestNo').val();
     var FileId = $("[id*=Body_FileId]").val();
@@ -192,7 +192,7 @@ function FillDetails(mid) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
-            debugger
+          
             var dd = $.parseJSON(data.d);
             if (data.d == 'Wrong') {
                 alert('Wrong Entry !!!!!');

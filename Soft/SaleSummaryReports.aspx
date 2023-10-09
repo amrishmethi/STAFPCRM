@@ -32,7 +32,7 @@
                             <div class="col-md-3">
                                 <label>HeadQuarter <span style="color: #ff0000">*</span></label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="Please Select" InitialValue="0"
-                                    Font-Bod="true" ForeColor="Red"  ControlToValidate="drpHeadQtr"></asp:RequiredFieldValidator>
+                                    Font-Bod="true" ForeColor="Red" ControlToValidate="drpHeadQtr"></asp:RequiredFieldValidator>
 
                                 <asp:DropDownList ID="drpHeadQtr" runat="server" OnSelectedIndexChanged="drpHeadQtr_SelectedIndexChanged" AutoPostBack="true" CssClass="form-control select2">
                                 </asp:DropDownList>
@@ -124,14 +124,14 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <script type="text/javascript">
         $(document).ready(function () {
-            debugger
+          
             $.ajax({
                 url: 'UserWiseParty.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                    debugger
+                  
                     let text = data.d;
                     const myArray = text.split(",");
 

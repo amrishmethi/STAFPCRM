@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IdentityModel.Protocols.WSTrust;
 using System.Web;
+using System.Web.Services.Description;
 
 
 public class Master
@@ -89,13 +90,14 @@ public class Master
         return ds;
     }
 
-    public DataSet getAttendanceList(string userid, string deptid, string date)
+    public DataSet getAttendanceList(string userid, string deptid, string datefrom, string dateto)
     {
         cmd = new SqlCommand("PROC_ATTENDANCE");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@UserID", userid);
         cmd.Parameters.AddWithValue("@DeptID", deptid);
-        cmd.Parameters.AddWithValue("@CheckinDateFrom", data.YYYYMMDD(date));
+        cmd.Parameters.AddWithValue("@CheckinDateFrom", data.YYYYMMDD(datefrom));
+        cmd.Parameters.AddWithValue("@CheckinDateTo", data.YYYYMMDD(dateto));
 
         ds = data.getDataSet(cmd);
         return ds;
@@ -197,6 +199,21 @@ public class Master
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@UserID", userid);
         cmd.Parameters.AddWithValue("@type", type);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+    public DataSet getUserTourPlanN(string HEADQTR, string DEPT_ID, string CRMUSERID, string DISTRICTNO, string STATUS, string DATEFROM, string DATETO)
+    { 
+        cmd = new SqlCommand("PROC_USERTOURPLAN_NEW");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@HEADQTR", HEADQTR);
+        cmd.Parameters.AddWithValue("@DEPT_ID", DEPT_ID);
+        cmd.Parameters.AddWithValue("@CRMUSERID", CRMUSERID);
+        cmd.Parameters.AddWithValue("@DISTRICTNO", DISTRICTNO);
+        cmd.Parameters.AddWithValue("@STATUS", STATUS);
+        cmd.Parameters.AddWithValue("@DATEFROM", DATEFROM);
+        cmd.Parameters.AddWithValue("@DATETO", DATETO);
         ds = data.getDataSet(cmd);
         return ds;
     }
@@ -716,8 +733,6 @@ public class Master
         return ds;
     }
 
-
-
     public DataSet getSecondarySaleSummaryReportDynamic(string HEAD, string USERID, string DEPTID, string station, string dt, string dt1, string party, string Group, string GROUPWISE)
     {
         cmd = new SqlCommand("PROC_SECONDARYSALESREPOR_DYNAMIC");
@@ -745,6 +760,20 @@ public class Master
         cmd.Parameters.AddWithValue("@USERID", USERID);
         cmd.Parameters.AddWithValue("@HEADQTR", HEADQTR);
         cmd.Parameters.AddWithValue("@TARGETDATE", TARGETDATE);
+        ds = data.getDataSet(cmd);
+        return ds;
+    }
+
+
+    public DataSet getDailySaleSummaryReportSTHQ(string dt, string dt1, string Group, string GROUPWISE,string REPORTTYPE)
+    {
+        cmd = new SqlCommand("PROC_HEADQTRWISEDAILYSALESUMMARY_ST");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@dtFrom", data.YYYYMMDD(dt));
+        cmd.Parameters.AddWithValue("@dtTo", data.YYYYMMDD(dt1));
+        cmd.Parameters.AddWithValue("@Group", Group);
+        cmd.Parameters.AddWithValue("@GROUPWISE", GROUPWISE);
+        cmd.Parameters.AddWithValue("@REPORTTYPE", REPORTTYPE);
         ds = data.getDataSet(cmd);
         return ds;
     }

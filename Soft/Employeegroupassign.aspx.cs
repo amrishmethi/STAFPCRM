@@ -98,8 +98,6 @@ public partial class Soft_Employeegroupassign : System.Web.UI.Page
         mpe.Show();
     }
 
-
-
     protected void btnApply_Click(object sender, EventArgs e)
     {
         string CMSCode = "", CMSName = "";
