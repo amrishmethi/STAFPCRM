@@ -85,6 +85,7 @@
                             <div class="col-md-2">
                                 <br />
                                 <asp:Button ID="btnTarget" runat="server" CssClass="btn btn-success" Text="Save Target" OnClick="btnTarget_Click" />
+                                <%--<asp:Button ID="btnExport" runat="server" CssClass="btn btn-success" Text="Export" OnClick="btnExport_Click" />--%>
                             </div>
                         </div>
 
@@ -114,19 +115,20 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("Party") %>
-                                                        <asp:HiddenField ID="hddWHATSAPPNO" runat="server" Value='<%# Eval("PARTYID") %>' />
+                                                        <%--<asp:HiddenField ID="hddWHATSAPPNO" runat="server" Value='<%# Eval("PARTYID") %>' />--%>
                                                     </td>
 
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;">
-                                                        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                                        <input type="text" id="txtRep" runat="server" name="office" value='<%#Eval("TARGETQTY")%>' onchange="txtRep_TextChanged(this);" />
+                                                        <%--<asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                                             <ContentTemplate>
                                                                 <asp:TextBox ID='txtRep' runat="server" CssClass="form-control" onkeypress="return IsNumericKey(event);" Text='<%#Eval("TARGETQTY")%>' OnTextChanged="txtRep_TextChanged" AutoPostBack="true"></asp:TextBox>
                                                             </ContentTemplate>
                                                             <Triggers>
                                                                 <asp:AsyncPostBackTrigger ControlID="txtRep" EventName="TextChanged" />
                                                             </Triggers>
-                                                        </asp:UpdatePanel>
+                                                        </asp:UpdatePanel>--%>
                                                     </td>
                                                 </tr>
                                             </ItemTemplate>
@@ -145,5 +147,23 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
 
     <uc1:DTJS runat="server" ID="DTJS" />
+    <script>
+        function txtRep_TextChanged(e) {
+
+            var id = e.id;
+            var id1 = e.value;
+            $.ajax({
+                type: 'POST',
+                url: "TargetPartyWise.aspx/txtRep_TextChanged",
+                data: '{Id: "' + id + '" ,Val: "' + id1 + '" }',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+                    document.getElementById("Body_rep_txtRep_" + response.d.split(',')[0]).value = response.d.split(',')[1];
+                }
+            });
+
+        }
+    </script>
 </asp:Content>
 

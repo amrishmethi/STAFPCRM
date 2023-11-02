@@ -45,20 +45,20 @@
                                 <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 hidden">
                                 <label>District</label>
                                 <asp:DropDownList ID="drpDistrict" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDistrict_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 hidden">
                                 <label>Station</label>
                                 <asp:DropDownList ID="drpStation" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>Party Category </label>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select" InitialValue="0"
-                                    Font-Bod="true" ForeColor="Red" ControlToValidate="drpCatg" ValidationGroup="aa"></asp:RequiredFieldValidator>
+                                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please Select" InitialValue="0"
+                                    Font-Bod="true" ForeColor="Red" ControlToValidate="drpCatg" ValidationGroup="aa"></asp:RequiredFieldValidator>--%>
                                 <asp:DropDownList ID="drpCatg" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpCatg_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label>Item Group</label>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select" InitialValue="0"
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select" InitialValue=""
                                     Font-Bod="true" ForeColor="Red" ControlToValidate="lstGroup" ValidationGroup="aa"></asp:RequiredFieldValidator>
                                 <asp:ListBox ID="lstGroup" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
                             </div>
@@ -80,12 +80,11 @@
                                 <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-2">
                                 <br />
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Report"
                                     ValidationGroup="aa" OnClick="btnSubmit_Click" />
                             </div>
-
                         </div>
 
                         <div class="clearfix">&nbsp;</div>
@@ -101,7 +100,9 @@
                                         <tr>
                                             <th>Sr. No.</th>
                                             <th>Party</th>
-                                            <th>Station</th>
+                                            <th>Mobile</th> 
+                                            <th>STATION</th> 
+                                            <th>CATEGORY</th> 
                                             <th>Target</th>
                                             <th>Sale</th>
                                             <th>Balance</th>
@@ -112,11 +113,13 @@
                                             <ItemTemplate>
                                                 <tr>
                                                     <td><%# Container.ItemIndex+1%></td>
-                                                    <td><%#Eval("ACNAME") %></td>
-                                                    <td><%#Eval("Station") %></td>
-                                                    <td><%#Eval("TARGETQTY") %></td>
-                                                    <td><%#Eval("ORDBAG") %></td>
-                                                    <td><%#Eval("PENDING") %></td>
+                                                    <td><%#Eval("Party") %></td>
+                                                    <td><%#Eval("MObile") %></td> 
+                                                    <td><%#Eval("STATION") %></td> 
+                                                    <td><%#Eval("CATEGORY") %></td> 
+                                                    <td><%#Eval("Target") %></td>
+                                                    <td><%#Eval("Sale") %></td>
+                                                    <td><%#Eval("Balance") %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>

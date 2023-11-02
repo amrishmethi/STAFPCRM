@@ -28,7 +28,8 @@ public partial class Admin_SalesTargetsView : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
 
             gd.fillDepartment(drpDepartment);
-
+            gd.FillGroup1(drpGrp);
+            gd.FillPartyCategory(drpCatg);
             mnth.Text = DateTime.Now.ToString("MM-yyyy");
 
 
@@ -51,63 +52,24 @@ public partial class Admin_SalesTargetsView : System.Web.UI.Page
             drpheadQtr.DataBind();
             drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
 
-            DataSet dss = data.getDataSet("SELECT * from SaleTargetGroupList_View  ");
-            ViewState["Columns"] = dss;
-
-            createTable();
+            CreateTable();
 
         }
     }
 
-    public void createTable()
+    public void CreateTable()
     {
-        dtGrp.Columns.Add("sText");
-
-        DataSet dss = (DataSet)ViewState["Columns"];
-
-        DataView dvv = dss.Tables[0].DefaultView;
-        dvv.RowFilter = "Display=1";
-        dvv.Sort = "SS";
-
-
-        foreach (DataRow drr in dvv.ToTable().Rows)
+        if (ViewState["Target"] == null)
         {
-            DataRow dr = dtGrp.NewRow();
-            dr["sText"] = drr["SS"];
-            dtGrp.Rows.Add(dr);
+            Dt.Columns.Add("EMP_NAME");
+            Dt.Columns.Add("HeadQtr");
+            Dt.Columns.Add("Target", typeof(int));
+            Dt.Columns.Add("Sale", typeof(int));
+            Dt.Columns.Add("Balance", typeof(int));
+
+            ViewState["Target"] = Dt;
         }
-        repHead.DataSource = dtGrp;
-        repHead.DataBind();
-
-        repHead1.DataSource = dtGrp;
-        repHead1.DataBind();
-
-        Dt1.Columns.Add("Grpp");
-
-        Dt.Columns.Add("HeadQtr", typeof(string));
-        Dt.Columns.Add("Employee", typeof(string));
-        for (int k = 0; k < dtGrp.Rows.Count; k++)
-        {
-            string ff = dtGrp.Rows[k]["sText"].ToString();
-            Dt.Columns.Add(ff + "_T", typeof(string));
-            Dt.Columns.Add(ff + "_S", typeof(string));
-            Dt.Columns.Add(ff + "_B", typeof(string));
-
-            DataRow drrrr = Dt1.NewRow();
-            drrrr["Grpp"] = ff + "_T";
-            Dt1.Rows.Add(drrrr);
-            DataRow drrrr1 = Dt1.NewRow();
-            drrrr1["Grpp"] = ff + "_S";
-            Dt1.Rows.Add(drrrr1);
-            DataRow drrrr2 = Dt1.NewRow();
-            drrrr2["Grpp"] = ff + "_B";
-            Dt1.Rows.Add(drrrr2);
-        }
-
-        ViewState["dtMain"] = Dt;
-        ViewState["dtColumns"] = Dt1;
     }
-
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
         DataSet dsusr = (DataSet)ViewState["tbl1"];
@@ -124,9 +86,45 @@ public partial class Admin_SalesTargetsView : System.Web.UI.Page
 
     public void fillData()
     {
-        DataSet ds = getdata.GetSaleTargetReport(drpDepartment.SelectedValue, drpStatus.SelectedValue, drpUser.SelectedValue, drpheadQtr.SelectedValue, mnth.Text);
-        ViewState["Saletarget"] = ds;
-        repDetail.DataSource = ds.Tables[0];
+        DataSet ds = getdata.GetSaleTargetReport(drpDepartment.SelectedValue, drpStatus.SelectedValue, drpUser.SelectedValue, drpheadQtr.SelectedValue, mnth.Text, drpCatg.SelectedValue);
+
+        DataView dvv = ds.Tables[0].DefaultView;
+        DataTable dtt = dvv.ToTable(true, "EMP_NAME", "HQNAME");
+
+
+        DataTable dtt2 = (DataTable)ViewState["Target"];
+        dtt2.Rows.Clear();
+        foreach (DataRow drr in dtt.Rows)
+        {
+            DataRow dr = dtt2.NewRow();
+            dr["EMP_NAME"] = drr["EMP_NAME"];
+            dr["HeadQtr"] = drr["HQNAME"];
+            int _Target = 0, _Sale = 0;
+            foreach (ListItem item in drpGrp.Items)
+            {
+                if (item.Selected)
+                {
+                    _Target += Convert.ToInt32(ds.Tables[0].AsEnumerable().Where(x => x["HQNAME"].ToString() == drr["HQNAME"].ToString()).Where(x => x["EMP_NAME"].ToString() == drr["EMP_NAME"].ToString()).Sum(r => r.Field<Int64?>("" + item.ToString().Replace(" ", "_") + "") ?? 0));
+                    _Sale += Convert.ToInt32(ds.Tables[1].AsEnumerable().Where(x => x["HEADQTR"].ToString() == drr["HQNAME"].ToString()).Where(x => x["CMSNAME"].ToString() == item.ToString()).Sum(x => x.Field<int>("ORDBAG")));
+                }
+            }
+            dr["Target"] = _Target;
+            dr["Sale"] = _Sale;
+            dr["Balance"] = _Target - _Sale;
+            dtt2.Rows.Add(dr);
+        }
+        if (dtt2.Rows.Count > 0)
+        {
+            DataRow dr = dtt2.NewRow();
+            dr["EMP_NAME"] = "Total";
+            dr["HeadQtr"] = "";
+            dr["Target"] = dtt2.Compute("sum(Target)", "");
+            dr["Sale"] = dtt2.Compute("sum(Sale)", "");
+            dr["Balance"] = dtt2.Compute("sum(Balance)", "");
+            dtt2.Rows.Add(dr);
+        }
+        dtt2.AcceptChanges();
+        repDetail.DataSource = dtt2;
         repDetail.DataBind();
     }
 
@@ -148,54 +146,5 @@ public partial class Admin_SalesTargetsView : System.Web.UI.Page
         fillData();
     }
 
-    protected void repDetail_ItemDataBound(object sender, RepeaterItemEventArgs e)
-    {
-        if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-        {
-            Repeater repd = (Repeater)e.Item.FindControl("repDetail1");
-            DataSet dss = (DataSet)ViewState["Columns"];
 
-            HiddenField HddHeadQtrNo = (HiddenField)e.Item.FindControl("HddHeadQtrNo");
-            DataSet dsdata = ((DataSet)ViewState["Saletarget"]);
-            DataTable dtTarget = dsdata.Tables[0];
-            DataTable dtSale = dsdata.Tables[1];
-
-            DataView dvTarget = dtTarget.DefaultView;
-            dvTarget.RowFilter = "HEADQTR='" + HddHeadQtrNo.Value + "'";
-            DataTable dtTarget1 = dvTarget.ToTable();
-
-            if (dtTarget1.Rows.Count > 0)
-            {
-                DataView dvSale = dtSale.DefaultView;
-                dvSale.RowFilter = "HEADQTRNO='" + HddHeadQtrNo.Value + "'";
-                DataTable dtSale1 = dvSale.ToTable();
-
-                DataView dvvv = dss.Tables[0].DefaultView;
-                dvvv.Sort = "NAME";
-                DataTable dttNew = dvvv.ToTable();
-                int _Sale = 0, _Target = 0;
-                foreach (DataRow drr in dttNew.Rows)
-                {
-                    if (drr["EntryType"].ToString() == "Target")
-                    {
-                        _Target = Convert.ToInt32(dtTarget1.Compute("Sum([" + drr["Name"].ToString() + "])", ""));
-                        drr["Qty"] = _Target;
-                    }
-                    if (drr["EntryType"].ToString() == "Sale")
-                    {
-                        _Sale = Convert.ToInt32(dtSale1.AsEnumerable()
-                            .Where(myRow => myRow.Field<string>("CMSNAME") == drr["Name"].ToString().Replace('_', ' '))
-                            .Sum(myRow => myRow.Field<Int32?>("ORDBAG")));
-                        drr["Qty"] = _Sale;
-                    }
-                    if (drr["EntryType"].ToString() == "Bal")
-                        drr["Qty"] = _Target - _Sale;
-                }
-
-                dttNew.AcceptChanges();
-                repd.DataSource = dttNew;
-                repd.DataBind();
-            }
-        }
-    }
 }

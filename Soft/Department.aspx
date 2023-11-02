@@ -20,13 +20,13 @@
                             <label>Department Code</label>
                             <asp:TextBox ID="txtCode" runat="server" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red"  ValidationGroup="MM" ControlToValidate="txtCode"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red" ValidationGroup="MM" ControlToValidate="txtCode"></asp:RequiredFieldValidator>
                         </div>
                         <div class="col-md-3 ">
                             <label>Department Name</label>
                             <asp:TextBox ID="txtDepartmentname" runat="server" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*"
-                                Font-Bold="true" ForeColor="Red"  ValidationGroup="MM" ControlToValidate="txtDepartmentname"></asp:RequiredFieldValidator>
+                                Font-Bold="true" ForeColor="Red" ValidationGroup="MM" ControlToValidate="txtDepartmentname"></asp:RequiredFieldValidator>
                         </div>
                         <div class="col-md-4 ">
                             <br />
@@ -62,7 +62,6 @@
                                                         <%#Eval("DEPT_NAME") %> 
                                                     </td>
                                                     <td style="text-align: left;">
-
                                                         <a href="Department.aspx?id=<%#Eval("DEPT_ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
 
                                                         <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"

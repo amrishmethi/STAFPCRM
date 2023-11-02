@@ -28,6 +28,12 @@ public partial class Soft_Payroll : System.Web.UI.Page
             Gd.fillDepartment(drpDepartment);
             Gd.FillUser(drpProjectManager);
             Gd.fillDocument(drpDocument);
+            Gd.FillAccountGroup(drpAccountGroup);
+            Gd.FillAccounts(drpAccount, "0", drpAccountGroup.SelectedValue);
+            Gd.FillAccountGroup(drpaccountGroupLoan);
+            Gd.FillAccounts(drpAccountLoan, "0", drpaccountGroupLoan.SelectedValue);
+            Gd.FillAccountGroup(drpaccountGroupTravel);
+            Gd.FillAccounts(drpAccountTravel, "0", drpaccountGroupTravel.SelectedValue);
             if (Request.QueryString["EmpId"] != null)
             {
                 FillEmp_Data(Request.QueryString["EmpId"]);
@@ -94,6 +100,19 @@ public partial class Soft_Payroll : System.Web.UI.Page
             drpStatus.SelectedValue = dsGet.Tables[0].Rows[0]["Status"].ToString();
             hddEmpNo.Value = dsGet.Tables[0].Rows[0]["EmpNo"].ToString();
             hddCrmUserId.Value = dsGet.Tables[0].Rows[0]["CRMUserId"].ToString();
+            
+            drpAccountGroup.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNTGROUP"].ToString();
+            Gd.FillAccounts(drpAccount, "0", drpAccountGroup.SelectedValue);
+            drpAccount.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNT"].ToString();
+                       
+            drpaccountGroupLoan.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNTGROUPLOAN"].ToString();
+            Gd.FillAccounts(drpAccountLoan, "0", drpaccountGroupLoan.SelectedValue);
+            drpAccountLoan.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNTLOAN"].ToString();
+              
+            drpaccountGroupTravel.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNTGROUPTRAVEL"].ToString();
+            Gd.FillAccounts(drpAccountTravel, "0", drpaccountGroupTravel.SelectedValue);
+            drpAccountTravel.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNTTRAVEL"].ToString();
+
 
             string[] _ITEMGROUP = dsGet.Tables[0].Rows[0]["ITEMGROUP"].ToString().Split(',');
             foreach (ListItem size in drpGrp.Items)
@@ -449,7 +468,7 @@ public partial class Soft_Payroll : System.Web.UI.Page
         string _UserId = Soft["UserId"];
         string DOL = (chkDOL.Checked) ? txtDateOfLeaving.Text : "";
         string DOJ = txtDOJ.Text;
-        DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), DOJ, DOL, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, hddCrmUserId.Value, _UserId, chkAttandance.Checked.ToString(), grp.ToString(),Cat.ToString());
+        DataSet DsMain = payroll.Emp_Main(_Action, _EmpId, DrpCompanies.SelectedValue.ToString(), txtEmpCode.Text, txtemployeename.Text, drpDepartment.SelectedValue.ToString(), drpDesignation.SelectedValue.ToString(), drpProjectManager.SelectedValue.ToString(), DOJ, DOL, txtpanno.Text, txtPFCode.Text, txtESICode.Text, drpStatus.SelectedItem.Text, hddEmpNo.Value, hddCrmUserId.Value, _UserId, chkAttandance.Checked.ToString(), grp.ToString(), Cat.ToString(), drpAccount.SelectedValue, drpAccountGroup.SelectedValue, drpAccountLoan.SelectedValue, drpaccountGroupLoan.SelectedValue, drpAccountTravel.SelectedValue, drpaccountGroupTravel.SelectedValue);
         if (DsMain.Tables[0].Rows.Count > 0)
         {
             if (DsMain.Tables[0].Rows[0]["Result"].ToString() == "")
@@ -622,5 +641,22 @@ public partial class Soft_Payroll : System.Web.UI.Page
         DataTable dtNeww = dvv.ToTable();
         rep.DataSource = dtNeww;
         rep.DataBind();
+    }
+
+    protected void drpAccountGroup_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Gd.FillAccounts(drpAccount, "0", drpAccountGroup.SelectedValue);
+    }
+
+     
+
+    protected void drpaccountGroupLoan_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Gd.FillAccounts(drpAccountLoan, "0", drpaccountGroupLoan.SelectedValue);
+    } 
+    
+    protected void drpaccountGroupTravel_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Gd.FillAccounts(drpAccountTravel, "0", drpaccountGroupTravel.SelectedValue);
     }
 }

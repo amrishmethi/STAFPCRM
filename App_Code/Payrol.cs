@@ -22,7 +22,7 @@ public class Payrol
     }
 
 
-    public DataSet Emp_Main(string ACTION, string EMPID, string COMP_ID, string EMP_CODE, string EMP_NAME, string DEPT_ID, string DESIG_ID, string REP_MANAGER, string DOJ, string DOL, string PANNO, string PF_ACNO, string ESI_ACNO, string STATUS, string EMPNO, string CRMUSERID, string CREATEUSER, string ATTANDANCEBY, string ITEMGROUP,string PARTYCATEGORY)
+    public DataSet Emp_Main(string ACTION, string EMPID, string COMP_ID, string EMP_CODE, string EMP_NAME, string DEPT_ID, string DESIG_ID, string REP_MANAGER, string DOJ, string DOL, string PANNO, string PF_ACNO, string ESI_ACNO, string STATUS, string EMPNO, string CRMUSERID, string CREATEUSER, string ATTANDANCEBY, string ITEMGROUP,string PARTYCATEGORY, string ACCOUNT, string ACCOUNTGROUP, string ACCOUNTLOAN, string ACCOUNTGROUPLOAN, string ACCOUNTTRAVEL, string ACCOUNTGROUPTRAVEL)
     {
         cmd = new SqlCommand("IU_EMPMASTER");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -46,6 +46,12 @@ public class Payrol
         cmd.Parameters.AddWithValue("@ATTANDANCEBY", ATTANDANCEBY);
         cmd.Parameters.AddWithValue("@ITEMGROUP", ITEMGROUP);
         cmd.Parameters.AddWithValue("@PARTYCATEGORY", PARTYCATEGORY);
+        cmd.Parameters.AddWithValue("@ACCOUNT", ACCOUNT);
+        cmd.Parameters.AddWithValue("@ACCOUNTGROUP", ACCOUNTGROUP); 
+        cmd.Parameters.AddWithValue("@ACCOUNTLOAN", ACCOUNTLOAN);
+        cmd.Parameters.AddWithValue("@ACCOUNTGROUPLOAN", ACCOUNTGROUPLOAN);
+        cmd.Parameters.AddWithValue("@ACCOUNTTRAVEL", ACCOUNTTRAVEL);
+        cmd.Parameters.AddWithValue("@ACCOUNTGROUPTRAVEL", ACCOUNTGROUPTRAVEL);
         ds = data.getDataSet(cmd);
         return ds;
     }

@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Soft_partyacbal : System.Web.UI.Page
+public partial class Soft_PAYROLLBAL : System.Web.UI.Page
 {
     DataSet ds = new DataSet();
     Master getdata = new Master();
@@ -25,9 +25,8 @@ public partial class Soft_partyacbal : System.Web.UI.Page
             if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
 
             Soft = Request.Cookies["STFP"];
-
-            gd.FillPrimaryStation(DrpStation);
-            gd.FillAccounts(DrpParty);
+            gd.fillDepartment(drpDepartment);
+            gd.FillAccountGroup(DrpParty);
         }
     }
 
@@ -35,18 +34,21 @@ public partial class Soft_partyacbal : System.Web.UI.Page
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        string query = "Select * from GetPartyAccountBalance_View WHERE 0=0";
-        if (DrpStation.SelectedIndex > 0)
-            query += " and stationNo=" + DrpStation.SelectedValue;
-        if (DrpParty.SelectedIndex > 0)
-            query += " and Id=" + DrpParty.SelectedValue;
+        string query = "select * from EMPLOYEECURRENTBALANCE_VIEW WHERE 0=0 ";
 
-        query += " order by ACName";
+        if (DrpParty.SelectedIndex > 0)
+            query += " and ACCOUNTGROUP=" + DrpParty.SelectedValue;
+        if (drpDepartment.SelectedIndex > 0)
+            query += " and Dept_Id=" + drpDepartment.SelectedValue;
+        if (drpStatus.SelectedIndex > 0)
+            query += " and Status='" + drpStatus.Text+"'";
+
+        query += " order by emp_Name";
         DataSet dss = data.getDataSet(query);
         rep.DataSource = dss;
         rep.DataBind();
 
-        lblCrTotal.Value = dss.Tables[0].Compute("sum(CR1)","").ToString();
-        lblDrTotal.Value = dss.Tables[0].Compute("sum(DR1)","").ToString();
+        lblDrTotal.Value = dss.Tables[0].Compute("sum(DR)", "").ToString();
+        lblCrTotal.Value = dss.Tables[0].Compute("sum(CR)", "").ToString();
     }
 }

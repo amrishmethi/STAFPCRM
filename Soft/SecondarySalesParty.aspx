@@ -57,6 +57,11 @@
                                 <label>Party</label>
                                 <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
+                            </div>  
+                            <div class="col-md-2">
+                                <label>Mobile</label>
+                                <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control">
+                                </asp:TextBox>
                             </div>
                             <div class="col-md-2">
                                 <br />

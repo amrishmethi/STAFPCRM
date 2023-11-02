@@ -40,17 +40,29 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-3">
-                                <label>HeadQuarter</label> 
+                                <label>HeadQuarter</label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="drpheadQtr"
+                                    ErrorMessage="Please Select" ValidationGroup="aa" ForeColor="Red" InitialValue="0"></asp:RequiredFieldValidator>
                                 <asp:DropDownList ID="drpheadQtr" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
-
-                            <div class="col-md-2">
+                            <div class="col-md-2 hidden">
                                 <label>Month</label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="mnth"
                                     ErrorMessage="Please Select" ValidationGroup="aa" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
                                 <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
                             </div>
+                            <div class="col-md-2">
+                                <label>Party Category</label>
+                                <asp:DropDownList ID="drpCatg" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpCatg_SelectedIndexChanged" AutoPostBack="true">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Party</label>
+                                <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
+
 
                             <div class="col-md-4">
                                 <br />
@@ -76,8 +88,10 @@
                                     <thead>
                                         <tr>
                                             <th>Sr. No.</th>
-                                            <th>Employee</th>
-                                            <th>HeadQuarter</th>
+                                            <th>Party</th>
+                                            <th>Station</th>
+                                            <th>Category</th>
+                                            <th>Whatsapp NO</th>
                                             <asp:Repeater ID="repHead" runat="server">
                                                 <ItemTemplate>
                                                     <th><%#Eval("sText") %></th>
@@ -90,24 +104,32 @@
                                             <ItemTemplate>
                                                 <tr>
                                                     <td><%# Container.ItemIndex+1 %></td>
-                                                    <td><%# Eval("Name") %>
-                                                        <asp:HiddenField ID="hddMID" runat="server" Value='<%# Eval("MID") %>' />
+                                                    <td> 
+                                                        <input id="txtParty" style="width:250px;" readonly value='<%#Eval("PARTY")%>' />
+                                                        <asp:HiddenField ID="hddMID" runat="server" Value='<%# Eval("PARTYID") %>' />
                                                     </td>
-                                                    <td><%# Eval("HEADQTR") %>
-                                                         <asp:HiddenField ID="HddHeadQtrNo" runat="server" Value='<%# Eval("HeadQtrNo") %>' />
+                                                    <td><%# Eval("STATION") %></td>
+                                                    <td> 
+                                                        <input id="txtCat" style="width:250px;"  readonly value='<%#Eval("PARTYCATEGORY")%>' />
+                                                        <asp:HiddenField ID="HddHeadQtrNo" runat="server" Value='<%# Eval("PTCMSNO") %>' />
+                                                        
+                                                    </td>
+                                                    <td><%# Eval("Whatsappno") %>
+                                                        <asp:HiddenField ID="HddNo" runat="server" Value='<%# Eval("Whatsappno") %>' />
                                                     </td>
                                                     <asp:Repeater ID="repd" runat="server">
                                                         <ItemTemplate>
                                                             <td>
-                                                                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                                                                    <ContentTemplate>
-                                                                        <asp:TextBox ID='txtRep' ClientIDMode="Static" runat="server" CssClass="form-control" onkeypress="return IsNumericKey(event);" Text='<%#Eval("Qty")%>' OnTextChanged="txtRep_TextChanged" AutoPostBack="true"></asp:TextBox>
-                                                                         <asp:HiddenField ID="hddSizeVal" runat="server" Value='<%#Eval("SS")%>'></asp:HiddenField>
-                                                                    </ContentTemplate>
+                                                                <input id="txtRep" runat="server" class="form-control" onkeypress="return IsNumericKey(event);" value='<%#Eval("Qty")%>' onchange="txtRep_TextChanged(this);" />
+                                                                <%--<asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                                                    <ContentTemplate>--%>
+                                                                <%--<asp:TextBox ID='txtRep' ClientIDMode="Static" runat="server" CssClass="form-control" onkeypress="return IsNumericKey(event);" Text='<%#Eval("Qty")%>' OnTextChanged="txtRep_TextChanged" AutoPostBack="true"></asp:TextBox>--%>
+                                                                <%--<asp:HiddenField ID="hddSizeVal" runat="server" Value='<%#Eval("SS")%>'></asp:HiddenField>--%>
+                                                                <%--</ContentTemplate>
                                                                     <Triggers>
                                                                         <asp:AsyncPostBackTrigger ControlID="txtRep" EventName="TextChanged" />
                                                                     </Triggers>
-                                                                </asp:UpdatePanel>
+                                                                </asp:UpdatePanel>--%>
                                                             </td>
                                                         </ItemTemplate>
                                                     </asp:Repeater>
@@ -115,7 +137,18 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </tbody>
-
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5"></td>
+                                            <asp:Repeater ID="RepFoot" runat="server">
+                                                <ItemTemplate>
+                                                    <td>
+                                                        <input id="txtTotal" runat="server" class="form-control" readonly value='<%#Eval("Qty")%>' />
+                                                    </td>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -129,7 +162,7 @@
 
     <script> 
 
-        $(document).ready(function () { 
+        $(document).ready(function () {
             $('#Tbl').DataTable({
                 dom: '<"dt-top-container"<l><"dt-center-in-div"B><f>r>t<ip>',
                 "processing": true,
@@ -202,5 +235,25 @@
 
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
+
+    <script>
+        function txtRep_TextChanged(e) {
+
+            var id = e.id;
+            var id1 = e.value;
+
+            $.ajax({
+                type: 'POST',
+                url: "SalesTargets.aspx/txtRep_TextChanged",
+                data: '{Id: "' + id + '" ,Val: "' + id1 + '" }',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+                    document.getElementById("Body_RepFoot_txtTotal_" + response.d.split(',')[0]).value = response.d.split(',')[1];
+                }
+            });
+
+        }
+    </script>
 </asp:Content>
 

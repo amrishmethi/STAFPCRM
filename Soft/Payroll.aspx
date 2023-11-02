@@ -113,23 +113,80 @@
                     </div>
                     <div class="clearfix">&nbsp;</div>
                     <div class="col-md-4">
-                        <label>Group   <span style="color: #ff0000">*</span></label>
+                        <label>Item Group   <span style="color: #ff0000">*</span></label>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator25" runat="server" ControlToValidate="drpGrp"
                             ErrorMessage="Please Select Group" ValidationGroup="aa" InitialValue="" ForeColor="Red"></asp:RequiredFieldValidator>
                         <asp:ListBox ID="drpGrp" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
                     </div>
                     <div class="col-md-4">
-                        <label>Category   <span style="color: #ff0000">*</span></label>
+                        <label>Item Category   <span style="color: #ff0000">*</span></label>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator26" runat="server" ControlToValidate="drpCategory"
                             ErrorMessage="Please Select Category" ValidationGroup="aa" InitialValue="" ForeColor="Red"></asp:RequiredFieldValidator>
                         <asp:ListBox ID="drpCategory" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
+                    </div>
+
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="clearfix">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="col-md-12" style="border-bottom: .5px solid lightgrey;">
+                    <h4 class="box-title">
+                        <label>Advance Salary</label>
+                    </h4>
+                    <div class="col-md-4">
+                        <label>Account Group <span style="color: #ff0000">*</span></label>
+                        <asp:RequiredFieldValidator ID="RequiredFiesldValidator26" runat="server" ControlToValidate="drpAccountGroup"
+                            ErrorMessage="Please Select Category" ValidationGroup="aa" InitialValue="" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:DropDownList ID="drpAccountGroup" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpAccountGroup_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Account   <span style="color: #ff0000">*</span></label>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator27" runat="server" ControlToValidate="drpAccount"
+                            ErrorMessage="Please Select Category" ValidationGroup="aa" InitialValue="" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:DropDownList ID="drpAccount" runat="server" CssClass="form-control select2"></asp:DropDownList>
+                    </div>
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="clearfix">&nbsp;</div>
+                    <h4 class="box-title">
+                        <label>Loan</label>
+                    </h4>
+                    <div class="col-md-4">
+                        <label>Account Group <%--<span style="color: #ff0000">*</span>--%></label>
+                        <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator28" runat="server" ControlToValidate="drpaccountGroupLoan"
+                            ErrorMessage="Please Select Category" ValidationGroup="aa1" InitialValue="" ForeColor="Red"></asp:RequiredFieldValidator>--%>
+                        <asp:DropDownList ID="drpaccountGroupLoan" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpaccountGroupLoan_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Account   <%--<span style="color: #ff0000">*</span>--%></label>
+                        <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator29" runat="server" ControlToValidate="drpAccountLoan"
+                            ErrorMessage="Please Select Category" ValidationGroup="aa1" InitialValue="" ForeColor="Red"></asp:RequiredFieldValidator>--%>
+                        <asp:DropDownList ID="drpAccountLoan" runat="server" CssClass="form-control select2"></asp:DropDownList>
+                    </div>
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="clearfix">&nbsp;</div>
+                    <h4 class="box-title">
+                        <label>Travel</label>
+                    </h4>
+                    <div class="col-md-4">
+                        <label>Account Group <%--<span style="color: #ff0000">*</span>--%></label>
+                        <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator28Travel" runat="server" ControlToValidate="drpaccountGroupTravel"
+                            ErrorMessage="Please Select Category" ValidationGroup="aa1" InitialValue="" ForeColor="Red"></asp:RequiredFieldValidator>--%>
+                        <asp:DropDownList ID="drpaccountGroupTravel" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpaccountGroupTravel_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Account  <%-- <span style="color: #ff0000">*</span>--%></label>
+                        <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator29Travel" runat="server" ControlToValidate="drpAccountTravel"
+                            ErrorMessage="Please Select Category" ValidationGroup="aa1" InitialValue="" ForeColor="Red"></asp:RequiredFieldValidator>--%>
+                        <asp:DropDownList ID="drpAccountTravel" runat="server" CssClass="form-control select2"></asp:DropDownList>
                     </div>
                     <div class="clearfix">&nbsp;</div>
                     <div class="clearfix">&nbsp;</div>
                 </div>
             </div>
         </div>
-
         <div class="box box-primary">
             <div class="box-body">
                 <div class="col-md-12" style="border-bottom: .5px solid lightgrey;">
@@ -953,7 +1010,7 @@
 
     <script> 
         function OptionsSelected(me, valuee, valuee2) {
-          
+
             if (document.getElementById(me.id).checked) {
                 document.getElementById(valuee).disabled = false;
                 if (valuee2 != '')
@@ -979,7 +1036,7 @@
         }
 
         function OnSelected(me, valuee1, valuee2) {
-          
+
             var value = me.selectedIndex;
             if (value > 1) {
                 document.getElementById(valuee1).disabled = false;
@@ -1052,7 +1109,7 @@
 
     <script>
         function getValue(rd, BSValue, BSValue1, BSValue2, BSValue3) {
-          
+
             var str = rd + "Fixed";
             var str1 = rd + "Per";
             var BSFixed = document.getElementById(str).checked;

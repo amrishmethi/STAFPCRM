@@ -22,17 +22,16 @@
                     </h4>
                     <div class="col-md-4">
                         <label class="control-label">Employee <span style="color: #ff0000">*</span></label>
-
-                        <asp:DropDownList ID="drpEmployee" runat="server" CssClass="form-control select2">
+                        <asp:DropDownList ID="drpEmployee" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpEmployee_SelectedIndexChanged" AutoPostBack="true">
                         </asp:DropDownList>
                     </div>
                     <div class="col-md-4">
                         <label class="control-label">Loan Amount</label>
-                        <asp:TextBox ID="txtLoanAmount" runat="server" CssClass="form-control" onkeypress="return IsNumericKey(event);"></asp:TextBox>
+                        <asp:TextBox ID="txtLoanAmount" runat="server" Enabled="false"  ClientIDMode="Static"  CssClass="form-control" onkeypress="return IsNumericKey(event);"></asp:TextBox>
                     </div>
                     <div class="col-md-2">
                         <label class="control-label">No Of Installment</label>
-                        <asp:TextBox ID="txtNoOfInstallment" runat="server" CssClass="form-control" onkeypress="return IsNumericKey(event);"></asp:TextBox>
+                        <asp:TextBox ID="txtNoOfInstallment" runat="server" CssClass="form-control" ClientIDMode="Static" onkeypress="return IsNumericKey(event);" onchange="noofinstallment();"></asp:TextBox>
                     </div>
                     <div class="col-md-2">
                         <label class="control-label">Rate Per Anum</label>
@@ -41,7 +40,7 @@
                     <div class="clearfix">&nbsp;</div>
                     <div class="col-md-4">
                         <label class="control-label">Installment Amount</label>
-                        <asp:TextBox ID="txtInstallmentAmount" runat="server" CssClass="form-control" onkeypress="return IsNumericKey(event);"></asp:TextBox>
+                        <input id="txtInstallmentAmount" runat="server" class="form-control" clientidmode="Static"  onkeypress="return IsNumericKey(event);" readonly  />
                     </div>
                     <div class="col-md-4">
                         <label class="control-label">Loan Date</label>
@@ -67,5 +66,16 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
+    <script>
+        function noofinstallment() {
+            
+            var NoOfInstallment = document.getElementById("txtNoOfInstallment").value ;
+            var LoanAmount = document.getElementById("txtLoanAmount").value;
+            
+            var insAmt = parseInt(LoanAmount) / parseInt(NoOfInstallment);
+            
+            document.getElementById("txtInstallmentAmount").value = insAmt.toFixed(2);
+        }
+    </script>
 </asp:Content>
 

@@ -204,7 +204,7 @@ public class Master
     }
 
     public DataSet getUserTourPlanN(string HEADQTR, string DEPT_ID, string CRMUSERID, string DISTRICTNO, string STATUS, string DATEFROM, string DATETO)
-    { 
+    {
         cmd = new SqlCommand("PROC_USERTOURPLAN_NEW");
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@HEADQTR", HEADQTR);
@@ -751,7 +751,7 @@ public class Master
     }
 
 
-    public DataSet GetSaleTargetReport(string DEPT_ID, string STATUS, string USERID, string HEADQTR, string TARGETDATE)
+    public DataSet GetSaleTargetReport(string DEPT_ID, string STATUS, string USERID, string HEADQTR, string TARGETDATE, string CatID="0", string PartyId = "0")
     {
         cmd = new SqlCommand("PROC_SALETARGETVIEW");
         cmd.CommandType = CommandType.StoredProcedure;
@@ -760,12 +760,14 @@ public class Master
         cmd.Parameters.AddWithValue("@USERID", USERID);
         cmd.Parameters.AddWithValue("@HEADQTR", HEADQTR);
         cmd.Parameters.AddWithValue("@TARGETDATE", TARGETDATE);
+        cmd.Parameters.AddWithValue("@CatID", CatID);
+        cmd.Parameters.AddWithValue("@PartyId", PartyId);
         ds = data.getDataSet(cmd);
         return ds;
     }
 
 
-    public DataSet getDailySaleSummaryReportSTHQ(string dt, string dt1, string Group, string GROUPWISE,string REPORTTYPE)
+    public DataSet getDailySaleSummaryReportSTHQ(string dt, string dt1, string Group, string GROUPWISE, string REPORTTYPE)
     {
         cmd = new SqlCommand("PROC_HEADQTRWISEDAILYSALESUMMARY_ST");
         cmd.CommandType = CommandType.StoredProcedure;

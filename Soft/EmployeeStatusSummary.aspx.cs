@@ -1,12 +1,8 @@
-﻿using Spire.Pdf.Tables;
-using System;
-using System.Activities.Expressions;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -65,8 +61,18 @@ public partial class Soft_EmployeeStatusSummary : System.Web.UI.Page
         cmd.Parameters.AddWithValue("@EMPID", drpUser.SelectedValue);
         cmd.Parameters.AddWithValue("@DT", data.ConvertToDateTime(dtFrom.Text));
         cmd.Parameters.AddWithValue("@DTTO", data.ConvertToDateTime(dtTo.Text));
-        DataSet ds = data.SP_getDataSet(cmd); 
-        grdReport.DataSource = ds;
+        DataSet ds = data.SP_getDataSet(cmd);
+
+        DataTable dtt = ds.Tables[0];
+        //DataRow drr = dtt.NewRow();
+        //drr["EMP NAME"] = "Total";
+        //drr["TOTAL SECONDARY"] = Convert.ToInt32(ds.Tables[0].AsEnumerable().Sum(r => r.Field<Int64?>("TOTAL SECONDARY") ?? 0));    
+        //drr["PRODUCTIVE SECONDARY"] = ds.Tables[0].Compute("sum(PRODUCTIVE SECONDARY)", "");
+        //drr["CLIENT MEET"] = ds.Tables[0].Compute("sum(CLIENT MEET)", "");
+        //drr["CREATE DELAER"] = ds.Tables[0].Compute("sum(CREATE DELAER)", "");
+        //drr["ORDER QTY"] = ds.Tables[0].Compute("sum(ORDER QTY)", "");
+        //dtt.Rows.Add(drr);
+        grdReport.DataSource = dtt;
         grdReport.DataBind();
     }
 

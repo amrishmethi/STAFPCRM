@@ -168,19 +168,19 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td>
-                                                        <asp:Label ID="lblName" runat="server" Text='<%#Eval("EmployeeName")%>'></asp:Label>
+                                                       <%#Eval("EmployeeName")%>
                                                     </td>
                                                     <td style='<%# Eval("Dat1")=="S"||Eval("Dat1")=="HD"?"background-color: Orange; color:white": Eval("Dat1")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
-                                                        <asp:Label runat="server" Text=' <%# Eval("Dat1") %>'></asp:Label>
+                                                         <%#Eval("Dat1") %> 
                                                     </td>
                                                     <td style='<%# Eval("Dat2")=="S"||Eval("Dat2")=="HD"?"background-color: Orange; color:white": Eval("Dat2")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
-                                                        <asp:Label runat="server" Text=' <%#Eval("Dat2") %>   '></asp:Label>
+                                                         <%#Eval("Dat2") %> 
                                                     </td>
                                                     <td style='<%# Eval("Dat3")=="S"||Eval("Dat3")=="HD"?"background-color: Orange; color:white": Eval("Dat3")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
-                                                        <asp:Label runat="server" Text=' <%#Eval("Dat3") %>  '></asp:Label>
+                                                       <%#Eval("Dat3") %> 
                                                     </td>
                                                     <td style='<%# Eval("Dat4")=="S"||Eval("Dat4")=="HD"?"background-color: Orange; color:white": Eval("Dat4")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
-                                                        <asp:Label runat="server" Text=' <%#Eval("Dat4") %>  '></asp:Label>
+                                                         <%#Eval("Dat4") %> 
                                                     </td>
                                                     <td style='<%# Eval("Dat5")=="S"||Eval("Dat5")=="HD"?"background-color: Orange; color:white": Eval("Dat5")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat5") %>                                                            

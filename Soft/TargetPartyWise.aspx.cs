@@ -1,15 +1,10 @@
-﻿using Org.BouncyCastle.Ocsp;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
 using System.Web;
 using System.Web.Services;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 public partial class Admin_TargetPartyWise : System.Web.UI.Page
@@ -90,8 +85,8 @@ public partial class Admin_TargetPartyWise : System.Web.UI.Page
         dtt.Rows.Add(drr);
 
         dtt.AcceptChanges();
-        ViewState["tbl"] = dtt;
-        DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
+        Session["tbl"] = dtt;
+        DataView dv = ((DataTable)Session["tbl"]).DefaultView;
         dv.Sort = "Party";
         rep.DataSource = dv.ToTable();
         rep.DataBind();
@@ -175,7 +170,7 @@ public partial class Admin_TargetPartyWise : System.Web.UI.Page
                 grp += "," + item.Value;
             }
         }
-        DataTable Dt = (DataTable)ViewState["tbl"];
+        DataTable Dt = (DataTable)Session["tbl"];
         DataView dv = Dt.DefaultView;
         //dv.RowFilter = "TARGETQTY>0 and TARGETID";
 
@@ -186,8 +181,7 @@ public partial class Admin_TargetPartyWise : System.Web.UI.Page
             {
                 if (drr["TARGETID"].ToString() == "0")
                 {
-                    if (drr["TARGETQTY"].ToString() == "0")
-                        query = "insert into tbl_SaleTargetPartyWise (PartyId,GroupId,Qty,MobileNo) values('" + drr["PartyId"] + "','" + grp + "','" + drr["TARGETQTY"] + "','" + drr["WHATSAPPNO"] + "')";
+                    query = "insert into tbl_SaleTargetPartyWise (PartyId,GroupId,Qty,MobileNo) values('" + drr["PartyId"].ToString().Trim() + "','" + grp + "','" + drr["TARGETQTY"] + "','" + drr["WHATSAPPNO"] + "')";
                 }
                 else
                 {
@@ -205,22 +199,27 @@ public partial class Admin_TargetPartyWise : System.Web.UI.Page
         gd.FillAccount(drpParty, drpCatg.SelectedValue);
     }
 
-    protected void txtRep_TextChanged(object sender, EventArgs e)
-    { 
-        DataTable Dt = (DataTable)ViewState["tbl"];
-        RepeaterItem item1 = ((TextBox)sender).NamingContainer as RepeaterItem; 
-        HiddenField hddWHATSAPPNO = (HiddenField)item1.FindControl("hddWHATSAPPNO");
-        TextBox txtRep = (TextBox)item1.FindControl("txtRep"); 
+    [WebMethod]
+    public static string txtRep_TextChanged(string Id, string Val)
+    {
+        DataTable Dt = (DataTable)HttpContext.Current.Session["tbl"];
 
-        DataRow drr = Dt.Select("PARTYID='" + hddWHATSAPPNO.Value.ToString() + "'").FirstOrDefault();
-        drr["TARGETQTY"] = txtRep.Text;
+
+        //RepeaterItem item1 = ((TextBox)sender).NamingContainer as RepeaterItem;
+        //HiddenField hddWHATSAPPNO = (HiddenField).FindControl("hddWHATSAPPNO");
+        //TextBox txtRep = (TextBox)item1.FindControl("txtRep");
+        int _ID = Convert.ToInt32(Id.Split('_')[3]);
+        DataRow drr = Dt.Rows[_ID];
+        drr["TARGETQTY"] = Val;
         Dt.AcceptChanges();
-        ViewState["tbl"] = Dt;
+        HttpContext.Current.Session["tbl"] = Dt;
         int j = Dt.Rows.Count - 1;
+        int _total = Convert.ToInt32(Dt.Compute("sum(TARGETQTY)", "Party<>'Total'"));
+        return j +"," + _total;
+        //TextBox txtRep1 = (TextBox)rep.Items[j].FindControl("txtRep");
 
-        TextBox txtRep1 = (TextBox)rep.Items[j].FindControl("txtRep");
-
-        txtRep1.Text = Dt.Compute("sum(TARGETQTY)", "Party<>'Total'").ToString();
+        //txtRep1.Text = Dt.Compute("sum(TARGETQTY)", "Party<>'Total'").ToString();
 
     }
+     
 }

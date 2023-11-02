@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls; 
+using System.Web.UI.WebControls;
 
 /// <summary>
 /// Summary description for GetData
@@ -24,6 +24,24 @@ public class GetData
         //
         // TODO: Add constructor logic here
         //
+    }
+
+    public DataSet FillHeadQtrDistrict()
+    {
+        string query = "SELECT distinct [HeadQtr],[District],DistrictNo,HeadQtrNo FROM [HeadQtrWiseDistrict] order by HeadQtr";
+        return data.getDataSet(query);
+    }
+
+    public DataSet FillStation()
+    {
+        string query = "SELECT * FROM [GETSTATIONLIST] order by station";
+        return data.getDataSet(query);
+    }
+
+    public DataSet FillStationBeat1()
+    {
+        string query = "SELECT * FROM [stationBeat] WHere isDelete=0 order by station";
+        return data.getDataSet(query);
     }
 
     public void FillCompany(DropDownList DrpCompanies)
@@ -169,6 +187,17 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
+
+    public void FillLOanUser(DropDownList drp)
+    {
+        query = "select * from [tbl_EmpMaster] where Delid=0 and accountLoan!=0 order by Emp_Name ";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "Emp_Name";
+        drp.DataValueField = "EmpId";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
     public void FillGroup(DropDownList drp)
     {
         query = "SELECT [CMsCode], [CMsName]   FROM [CMaster] Where CMsSr='I'   Order By CMSName";
@@ -179,39 +208,7 @@ public class GetData
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
-    public void FillGroup(ListBox drp)
-    {
-        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'   Order By CMSName";
-        ds = data.getDataSet(query);
-        drp.DataSource = ds;
-        drp.DataTextField = "CMsName";
-        drp.DataValueField = "CMsCode";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
-    public void FillGroup1(ListBox drp)
-    {
-        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'  AND CMsValue1='y'   Order By CMSName";
-        ds = data.getDataSet(query);
-        drp.DataSource = ds;
-        drp.DataTextField = "CMsName";
-        drp.DataValueField = "CMsCode";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
-    public void FillMainGroup(ListBox drp)
-    {
-        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'  AND MCMsCode='' and CMsValue1='y'    Order By CMSName";
-        ds = data.getDataSet(query);
-        drp.DataSource = ds;
-        drp.DataTextField = "CMsName";
-        drp.DataValueField = "CMsCode";
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
+   
     public void FillMainGroup(DropDownList drp)
     {
         query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'  AND MCMsCode='' and CMsValue1='y'    Order By CMSName";
@@ -327,34 +324,8 @@ public class GetData
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
 
-    public DataSet FillHeadQtrDistrict()
-    {
-        string query = "SELECT distinct [HeadQtr],[District],DistrictNo,HeadQtrNo FROM [HeadQtrWiseDistrict] order by HeadQtr";
-        return data.getDataSet(query);
-    }
-
-    public DataSet FillStation()
-    {
-        string query = "SELECT * FROM [GETSTATIONLIST] order by station";
-        return data.getDataSet(query);
-    }
-
-    public DataSet FillStationBeat1()
-    {
-        string query = "SELECT * FROM [stationBeat] WHere isDelete=0 order by station";
-        return data.getDataSet(query);
-    }
-
+   
     public void FillData(DropDownList drp, DataTable ds, string TextField, string ValueField)
-    {
-        drp.DataSource = ds;
-        drp.DataTextField = TextField;
-        drp.DataValueField = ValueField;
-        drp.DataBind();
-        drp.Items.Insert(0, new ListItem("Select", "0"));
-    }
-
-    public void FillData(ListBox drp, DataTable ds, string TextField, string ValueField)
     {
         drp.DataSource = ds;
         drp.DataTextField = TextField;
@@ -394,14 +365,83 @@ public class GetData
         drpBookType.Items.Insert(0, new ListItem("Select", "0"));
     }
 
+    public void FillBookType(ListBox drpBookType)
+    {
+        string query = "SELECT * FROM [BookMast] order by BKName";
+        ds = data.getDataSet(query);
+        drpBookType.DataSource = ds;
+        drpBookType.DataTextField = "BKName";
+        drpBookType.DataValueField = "BKisno";
+        drpBookType.DataBind();
+        drpBookType.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
     public void FillAccountGroup(DropDownList drp)
     {
-        ds = data.getDataSet("Select Scisno, ScMisno,scName from Schedule");
+        ds = data.getDataSet("Select Scisno, ScMisno,scName from Schedule order by scName");
         drp.DataSource = ds;
         drp.DataTextField = "scName";
         drp.DataValueField = "Scisno";
         drp.DataBind();
         drp.Items.Insert(0, new ListItem("Select", "0"));
     }
-     
+
+    public void FillAccounts(DropDownList drp, string CatId = "0", string GroupId = "0")
+    {
+        string query = "Select Accode+'-'+ACNAME As ACNAME, ID from ACCOUNT where 0=0";
+        if (CatId != "0")
+            query += " and PTCMSNO='" + CatId + "'";
+        if (GroupId != "0")
+            query += " and AcScIsno=" + GroupId;
+        query += " order by Acname";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "ACNAME";
+        drp.DataValueField = "ID";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillData(ListBox drp, DataTable ds, string TextField, string ValueField)
+    {
+        drp.DataSource = ds;
+        drp.DataTextField = TextField;
+        drp.DataValueField = ValueField;
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillGroup(ListBox drp)
+    {
+        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'   Order By CMSName";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "CMsName";
+        drp.DataValueField = "CMsCode";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillGroup1(ListBox drp)
+    {
+        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'  AND CMsValue1='y'   Order By CMSName";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "CMsName";
+        drp.DataValueField = "CMsCode";
+        drp.DataBind();
+        //drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
+    public void FillMainGroup(ListBox drp)
+    {
+        query = "SELECT [CMsCode], [CMsName]   FROM  [CMaster] Where CMsSr='I'  AND MCMsCode='' and CMsValue1='y'    Order By CMSName";
+        ds = data.getDataSet(query);
+        drp.DataSource = ds;
+        drp.DataTextField = "CMsName";
+        drp.DataValueField = "CMsCode";
+        drp.DataBind();
+        drp.Items.Insert(0, new ListItem("Select", "0"));
+    }
+
 }

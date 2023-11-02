@@ -51,8 +51,9 @@
                                             <th style="text-align: left;">Employee</th>
                                             <th style="text-align: left;">Loan Amount</th>
                                             <th style="text-align: left;">No Of Installment </th>
-                                            <th style="text-align: left;">Interest Rate</th>
+                                            <th style="text-align: left;">EMI</th>
                                             <th style="text-align: left;">Loan Deduct From</th>
+                                            <th style="text-align: left;">Ramaining Loan Amount</th>
                                             <th>
                                                 <label id="lblAction">Action</label></th>
                                         </tr>
@@ -68,8 +69,9 @@
                                                     <td style="text-align: left;"><%#Eval("EMP_NAME") %></td>
                                                     <td style="text-align: left;"><%#Eval("amount") %></td>
                                                     <td style="text-align: left;"><%#Eval("Installments") %></td>
-                                                    <td style="text-align: left;"><%#Eval("InsRate") %></td>
+                                                    <td style="text-align: left;"><%#Eval("InstAmount") %></td>
                                                     <td style="text-align: left;"><%#Eval("LoanDeductDate1") %></td>
+                                                    <td style="text-align: left;"><%#Convert.ToDecimal(Eval("amount"))-Convert.ToDecimal(Eval("LOANAMOUNT")) %></td>
                                                     <td style="text-align: left;">
                                                         <a href="LoanEntry.aspx?id=<%#Eval("Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
 

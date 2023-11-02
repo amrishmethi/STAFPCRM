@@ -94,7 +94,7 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
             CreateTable(ds.Tables[0].Columns);
             DataView dvv = ds.Tables[0].DefaultView;
 
-            DataTable dvvr = dvv.ToTable(true, "District", "Station", "AcName");
+            DataTable dvvr = dvv.ToTable(true, "District", "Station", "AcName", "WhatsAppNo");
             int SNo = 1;
 
             foreach (DataRow row in dvvr.Rows)
@@ -106,6 +106,7 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
                 drrr["District"] = row["District"];
                 drrr["Station"] = row["Station"];
                 drrr["AcName"] = row["AcName"];
+                drrr["WhatsAppNo"] = row["WhatsAppNo"];
                 drrr["AMOUNT"] = ds.Tables[0].AsEnumerable()
                     .Where(myRow => myRow.Field<string>("District") == row["District"].ToString())
                     .Where(myRow => myRow.Field<string>("Station") == row["Station"].ToString())

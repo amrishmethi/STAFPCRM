@@ -25,6 +25,11 @@
                                 <label>Group</label>
                                 <asp:ListBox ID="drpGroup" runat="server" CssClass="form-control select2" SelectionMode="Multiple" Width="100%"></asp:ListBox>
                             </div>
+                            <div class="col-md-3">
+                                <label>Image Base Pah</label>
+                                <asp:TextBox ID="txtbasepath" runat="server" Text=""
+                                    Enabled="false" CssClass="form-control"></asp:TextBox>
+                            </div>
                             <div class="col-md-3" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" Text="Search" OnClick="btnSearch_Click" />
@@ -62,14 +67,14 @@
                                                     <td style="text-align: left;">
                                                         <asp:UpdatePanel ID="uu" runat="server">
                                                             <ContentTemplate>
-                                                                <asp:TextBox ID="txtUrl" runat="server" Text='<%#Eval("ITEMIMAGE") %>' Enabled='<%#Convert.ToBoolean(Eval("ISEDIT")) %>' CssClass="form-control" OnTextChanged="txtUrl_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                                <asp:TextBox ID="txtUrl" runat="server" Text='<%#Eval("ITEMIMAGE") %>' CssClass="form-control" OnTextChanged="txtUrl_TextChanged" AutoPostBack="true"></asp:TextBox>
                                                             </ContentTemplate>
                                                             <Triggers>
                                                                 <asp:AsyncPostBackTrigger ControlID="txtUrl" EventName="TextChanged" />
                                                             </Triggers>
                                                         </asp:UpdatePanel>
                                                     </td>
-                                                    <td><a href='<%#Eval("ITEMIMAGE") %>' style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox" runat="server" visible='<%#!Convert.ToBoolean(Eval("ISEDIT")) %>'><i class="fa fa-eye"></i></a></td>
+                                                    <td><a href='<%#Eval("imageurl") %>' target="_blank" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox" runat="server" visible='<%#!Convert.ToBoolean(Eval("ISEDIT")) %>'><i class="fa fa-eye"></i></a></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>

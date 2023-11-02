@@ -29,7 +29,7 @@ public partial class Soft_TourPlan : System.Web.UI.Page
             {
                 FillData(Request.QueryString["EMPID"], "USERID");
                 drpheadQtr.Enabled = false;
-                drpUser.Enabled = false;
+                drpUser.Enabled = false; 
             }
         }
     }
@@ -47,11 +47,12 @@ public partial class Soft_TourPlan : System.Web.UI.Page
 
         DataTable dtt = dv.ToTable();
         hddid.Value = dtt.Rows[0]["Dept_Id"].ToString();
-        bindDrp(true, false, false);
+        bindDrp(true, false, false, false);
         drpUser.SelectedValue = dtt.Rows[0]["CRMUserId"].ToString();
-        bindDrp(false, true, false);
+        bindDrp(false, true, false, false);
         drpheadQtr.SelectedValue = dtt.Rows[0]["HeadQtrNo"].ToString();
-        bindDrp(false, false, true);
+        bindDrp(false, false, true,false);
+        bindDrp(false, false, false,true);
         if (_Type == "TourId")
         {
             drpDistrict.SelectedValue = dtt.Rows[0]["DistrictNo"].ToString();
@@ -62,7 +63,7 @@ public partial class Soft_TourPlan : System.Web.UI.Page
         }
     }
 
-    private void bindDrp(bool isuser, bool ishqtr, bool isdstrct)
+    private void bindDrp(bool isuser, bool ishqtr, bool isdstrct, bool isstn)
     {
         DataSet dsusr = getdata.getHqtrUserDpt(hddid.Value);
         ViewState["tbl1"] = dsusr;
@@ -100,6 +101,17 @@ public partial class Soft_TourPlan : System.Web.UI.Page
             drpDistrict.DataBind();
             drpDistrict.Items.Insert(0, new ListItem("Select", "0"));
         }
+        if (isstn)
+        {
+            if (drpheadQtr.SelectedIndex > 0)
+                dv.RowFilter = "HeadQtrNO='" + drpheadQtr.SelectedValue + "'";
+            dv.Sort = "HeadQtr";
+            drpStation.DataSource = dv.ToTable(true, "Station", "StationNO");
+            drpStation.DataTextField = "Station";
+            drpStation.DataValueField = "StationNO";
+            drpStation.DataBind();
+            drpStation.Items.Insert(0, new ListItem("Select", "0"));
+        }
     }
 
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
@@ -121,21 +133,30 @@ public partial class Soft_TourPlan : System.Web.UI.Page
         DropDownList ddl = sender as DropDownList;
         if (ddl == drpUser)
         {
-            bindDrp(false, true, false);
+            bindDrp(false, true, false, false);
         }
         if (ddl == drpheadQtr)
         {
-            bindDrp(false, true, false);
+            bindDrp(false, true, false, false);
         }
         if (ddl == drpDistrict)
         {
-            bindDrp(false, false, true);
-        }
+            bindDrp(false, false, true, false);
+        } 
     }
 
     protected void btnsave_Click(object sender, EventArgs e)
     {
-        string sqlcom = "Update [TourPlan] set District='" + drpDistrict.SelectedItem.Text + "', Station='" + drpStation.SelectedItem.Text + "',DistrictNo='" + drpDistrict.SelectedValue + "', StationNo='" + drpStation.SelectedValue + "', TDate='" + data.YYYYMMDD(dpFrom.Text.Trim()) + "' , Purpose='" + txtPurpose.Text.Trim() + "' where Id=" + Request.QueryString["Id"].ToString() + "";
+        string sqlcom = "";
+        if (Request.QueryString["Id"] == null)
+        {
+            sqlcom = "INSERT INTO [dbo].[TourPlan]([UserID],[HeadQtr],[District],[Station],[TDate],[Purpose],[DistrictNo],[HeadQtrNo],[StationNo]) ";
+            sqlcom += " values('" + drpUser.SelectedValue + "','" + drpheadQtr.SelectedItem.Text + "','" + drpDistrict.SelectedItem.Text + "','" + drpStation.SelectedItem.Text + "','" + data.YYYYMMDD(dpFrom.Text.Trim()) + "','" + txtPurpose.Text.Trim() + "','" + drpDistrict.SelectedValue + "','" + drpheadQtr.SelectedValue + "','" + drpStation.SelectedValue + "')";
+        }
+        else
+        {
+            sqlcom = "Update [TourPlan] set District='" + drpDistrict.SelectedItem.Text + "', Station='" + drpStation.SelectedItem.Text + "',DistrictNo='" + drpDistrict.SelectedValue + "', StationNo='" + drpStation.SelectedValue + "', TDate='" + data.YYYYMMDD(dpFrom.Text.Trim()) + "' , Purpose='" + txtPurpose.Text.Trim() + "' where Id=" + Request.QueryString["Id"].ToString() + "";
+        }
         data.executeCommand(sqlcom);
 
         Page.ClientScript.RegisterStartupScript(typeof(Page), "close", string.Format("<script type='text/javascript'>{0}</script>", "parent.location.href='UserTourPlan.aspx'; parent.$.fancybox.close() ;"));

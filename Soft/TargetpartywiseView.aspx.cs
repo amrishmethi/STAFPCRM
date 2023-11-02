@@ -30,7 +30,7 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
 
             gd.fillDepartment(drpDepartment);
             gd.FillPartyCategory(drpCatg);
-            gd.FillMainGroup(lstGroup);
+            gd.FillGroup1(lstGroup);
             //gd.FillAccount(drpParty, drpCatg.SelectedValue);
             mnth.Text = DateTime.Now.ToString("MM-yyyy");
 
@@ -54,12 +54,26 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
             drpheadQtr.DataBind();
             drpheadQtr.Items.Insert(0, new ListItem("Select", "0"));
 
-
+            CreateTable();
         }
     }
 
 
+    public void CreateTable()
+    {
+        if (ViewState["Target"] == null)
+        {
+            Dt.Columns.Add("Party");
+            Dt.Columns.Add("Mobile");
+            Dt.Columns.Add("STATION");
+            Dt.Columns.Add("CATEGORY");
+            Dt.Columns.Add("Target", typeof(int));
+            Dt.Columns.Add("Sale", typeof(int));
+            Dt.Columns.Add("Balance", typeof(int));
 
+            ViewState["Target"] = Dt;
+        }
+    }
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
         DataSet dsusr = (DataSet)ViewState["tbl1"];
@@ -76,40 +90,65 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
 
     public void fillData()
     {
-        string grp = "0";
-        foreach (ListItem item in lstGroup.Items)
+        string _PartyId = "0";
+        if (drpParty.SelectedIndex > 0)
+            _PartyId = drpParty.SelectedValue;
+
+        DataSet ds = getdata.GetSaleTargetReport(drpDepartment.SelectedValue, drpStatus.SelectedValue, drpUser.SelectedValue, drpheadQtr.SelectedValue, mnth.Text, drpCatg.SelectedValue, _PartyId);
+
+        DataView dvv = ds.Tables[0].DefaultView;
+        DataTable dtt = dvv.ToTable(true, "WPNO", "CID", "HQNAME", "STATION");
+
+
+        DataTable dtt2 = (DataTable)ViewState["Target"];
+        dtt2.Rows.Clear();
+        foreach (DataRow drr in dtt.Rows)
         {
-            if (item.Selected)
+            DataRow dr = dtt2.NewRow();
+            dr["Party"] = ds.Tables[0].AsEnumerable().Where(x => x["WPNO"].ToString() == drr["WPNO"].ToString()).Where(x => x["STATION"].ToString() == drr["STATION"].ToString()).Where(x => x["CID"].ToString().Trim() == drr["CID"].ToString().Trim()).Select(r => r["PARTY"]).ToArray()[0];
+            dr["Mobile"] = drr["WPNO"];
+            dr["STATION"] = ds.Tables[0].AsEnumerable().Where(x => x["WPNO"].ToString() == drr["WPNO"].ToString()).Where(x => x["STATION"].ToString() == drr["STATION"].ToString()).Where(x => x["CID"].ToString().Trim() == drr["CID"].ToString().Trim()).Select(r => r["STATION"]).ToArray()[0];
+            dr["CATEGORY"] = ds.Tables[0].AsEnumerable().Where(x => x["WPNO"].ToString() == drr["WPNO"].ToString()).Where(x => x["STATION"].ToString() == drr["STATION"].ToString()).Where(x => x["CID"].ToString().Trim() == drr["CID"].ToString().Trim()).Select(r => r["PARTYCATEGORY"]).ToArray()[0];
+            if (drr["WPNO"].ToString() == "7014307786")
             {
-                grp += "," + item.Value;
+                int a = 0;
             }
+            int _Target = 0, _Sale = 0;
+            foreach (ListItem item in lstGroup.Items)
+            {
+                if (item.Selected)
+                {
+                    _Target += Convert.ToInt32(ds.Tables[0].AsEnumerable().Where(x => x["HQNAME"].ToString() == drr["HQNAME"].ToString()).Where(x => x["STATION"].ToString() == drr["STATION"].ToString()).Where(x => x["WPNO"].ToString() == drr["WPNO"].ToString()).Where(x => x["CID"].ToString().Trim() == drr["CID"].ToString().Trim()).Sum(r => r.Field<Int64?>("" + item.ToString().Replace(" ", "_") + "") ?? 0));
+
+                    _Sale += Convert.ToInt32(ds.Tables[2].AsEnumerable().Where(x => x["WHATSAPPNO"].ToString().Trim() == drr["WPNO"].ToString().Trim()).Where(x => x["STATION"].ToString() == drr["STATION"].ToString()).Where(x => x["PTCMSNO"].ToString().Trim() == drr["CID"].ToString().Trim()).Where(x => x["CMSNAME"].ToString() == item.ToString()).Sum(x => x.Field<int>("ORDBAG")));
+                }
+            }
+            dr["Target"] = _Target;
+            dr["Sale"] = _Sale;
+            dr["Balance"] = _Target - _Sale;
+            if (_Target != 0 || _Sale != 0)
+                dtt2.Rows.Add(dr);
         }
-        SqlCommand cmd = new SqlCommand();
-        cmd.CommandText = "PROC_TARGETVIEWPARTYWISE";
-        cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.Clear();
-        cmd.Parameters.AddWithValue("@HEADQTR", drpheadQtr.SelectedValue);
-        cmd.Parameters.AddWithValue("@PARTYID", drpParty.SelectedValue);
-        cmd.Parameters.AddWithValue("@DISTRICID", drpDistrict.SelectedValue);
-        cmd.Parameters.AddWithValue("@STATIONID", drpStation.SelectedValue);
-        cmd.Parameters.AddWithValue("@CATID", drpCatg.SelectedValue);
-        cmd.Parameters.AddWithValue("@GROUP", grp);
-        cmd.Parameters.AddWithValue("@MONTH", mnth.Text);
-        DataSet dss = data.getDataSet(cmd);
-        DataView dv = dss.Tables[0].DefaultView;
-        dv.Sort = "ACNAME";
+        dtt2.AcceptChanges();
+        DataView dvv1 = dtt2.DefaultView;
+        dvv.Sort = "Party";
+        DataTable dtN = dvv1.ToTable();
+        dtN.AcceptChanges();
+        if (dtN.Rows.Count > 0)
+        {
+            DataRow dr = dtN.NewRow();
+            dr["Party"] = "Total";
+            dr["Mobile"] = "";
+            dr["STATION"] = "";
+            dr["CATEGORY"] = "";
+            dr["Target"] = dtt2.Compute("sum(Target)", "");
+            dr["Sale"] = dtt2.Compute("sum(Sale)", "");
+            dr["Balance"] = dtt2.Compute("sum(Balance)", "");
+            dtN.Rows.Add(dr);
+        }
 
-
-        DataTable dtt = dv.ToTable();
-        DataRow drr = dtt.NewRow();
-        drr["ACNAME"] = "Total";
-        drr["TARGETQTY"] = dtt.Compute("Sum(TARGETQTY)", "");
-        drr["ORDBAG"] = dtt.Compute("Sum(ORDBAG)", "");
-        drr["PENDING"] = dtt.Compute("Sum(PENDING)", "");
-        dtt.Rows.Add(drr);
-        ViewState["tbl"] = dtt;
-     
-        repDetail.DataSource = dtt;
+        dtN.AcceptChanges();
+        repDetail.DataSource = dtN;
         repDetail.DataBind();
     }
     protected void drpDistrict_SelectedIndexChanged(object sender, EventArgs e)

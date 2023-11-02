@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-body">
-                        <div class="form-group"> 
+                        <div class="form-group">
                             <div class="col-md-3">
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
@@ -65,18 +65,30 @@
                             </div>
                             <div class="col-md-2">
                                 <label>Party Type</label>
-                                <asp:DropDownList ID="drpType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
+                                <asp:DropDownList ID="drpType" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Value="0" Selected="True">Primary</asp:ListItem>
                                     <asp:ListItem Value="1">Secondary</asp:ListItem>
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                 <label>Report Type</label>
+                                <label>Report Type</label>
                                 <asp:DropDownList ID="drpReportType" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpType_SelectedIndexChanged" AutoPostBack="true">
                                     <asp:ListItem Value="0" Selected="True">ALL</asp:ListItem>
                                     <asp:ListItem Value="1">Without Category</asp:ListItem>
                                     <asp:ListItem Value="2">With Category</asp:ListItem>
                                 </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <label>GST Type</label>
+                                <asp:DropDownList ID="drpGst" runat="server" CssClass="form-control select2">
+                                    <asp:ListItem Value="0" Selected="True">ALL</asp:ListItem>
+                                    <asp:ListItem Value="1">Without GST</asp:ListItem>
+                                    <asp:ListItem Value="2">With GST</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Month</label>
+                                <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
                             </div>
                             <div class="col-md-2">
                                 <br />
@@ -116,8 +128,10 @@
                                             <th>Station</th>
                                             <th>Party Category</th>
                                             <th>Party</th>
+                                            <th>GSTNo</th>
                                             <th>Mobile</th>
                                             <th>WhatsApp</th>
+                                            <th>isCheckIn</th>
                                         </tr>
 
                                     </thead>
@@ -133,8 +147,10 @@
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;"><%#Eval("PartyCategory") %></td>
                                                     <td style="text-align: left;"><%#Eval("Party") %></td>
+                                                    <td style="text-align: left;"><%#Eval("GSTNo") %></td>
                                                     <td style="text-align: left;"><%#Eval("Mobile") %></td>
                                                     <td style="text-align: left;"><%#Eval("WhatsAppNo") %></td>
+                                                    <td style="text-align: left;"><%#Eval("isCheckIn") %></td>
                                                 </tr>
                                             </ItemTemplate>
 
@@ -152,14 +168,14 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <script type="text/javascript">
         $(document).ready(function () {
-          
+
             $.ajax({
                 url: 'UserWiseParty.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                  
+
                     let text = data.d;
                     const myArray = text.split(",");
 
@@ -196,6 +212,17 @@
             });
         })
 
+    </script>
+    <script type="text/javascript">
+        $('.MnthPicker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            format: "mm-yyyy",
+            viewMode: "months",
+            minViewMode: "months",
+            autoclose: true
+        });
     </script>
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>

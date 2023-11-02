@@ -20,7 +20,7 @@ public partial class Soft_LoanRep : System.Web.UI.Page
         Soft = Request.Cookies["STFP"];
         if (!IsPostBack)
         {
-            Gd.FillUser(drpEmployee);
+            Gd.FillLOanUser(drpEmployee);
             GetReport();
         }
     }

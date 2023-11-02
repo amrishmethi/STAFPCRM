@@ -22,6 +22,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            mnth.Text = DateTime.Now.ToString("MM-yyyy");
             if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
 
             Soft = Request.Cookies["STFP"];
@@ -70,6 +71,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
     public void fillData()
     {
         ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
+
         ViewState["tbl"] = ds.Tables[0];
         DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
 
@@ -96,9 +98,25 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
             if (drpReportType.SelectedIndex == 1)
                 rowFilter += "  and PTCMsNo is null  ";
         }
+        if (drpGst.SelectedIndex > 0)
+        {
+            if (drpGst.SelectedIndex == 1)
+                rowFilter += "and GSTNo=''";
+            if (drpGst.SelectedIndex == 2)
+                rowFilter += "and GSTNo<>''";
+        }
 
         dv.RowFilter = rowFilter;
-        rep.DataSource = dv.ToTable();
+        DataTable dtt = dv.ToTable();
+        dtt.Columns.Add("IsCheckIn");
+
+        DataSet dsCheckIn = data.getDataSet("select * from [TBL_CHECKIN] WHERE USERID=" + drpUser.SelectedValue + " and Format(ADDEDDATE,'MM-yyyy')='" + mnth.Text + "'");
+        foreach (DataRow dr in dtt.Rows)
+        {
+            dr["IsCheckIn"] = dsCheckIn.Tables[0].AsEnumerable().Where(x => x["MOBILENO"].ToString() == dr["MOBILE"].ToString()).Count() > 0 ? "Yes" : "No";
+        }
+        dtt.AcceptChanges();
+        rep.DataSource = dtt;
         rep.DataBind();
     }
 

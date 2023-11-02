@@ -24,7 +24,7 @@
                                 <label>Department</label>
                                 <asp:DropDownList ID="drpDepartment" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
                             </div>
-                             <div class="col-md-2">
+                            <div class="col-md-2">
                                 <label>
                                     Employee Status
                                 </label>
@@ -40,7 +40,7 @@
                                 <asp:DropDownList ID="drpEmp" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
-                           
+
                             <div class="col-md-2">
                                 <label class="control-label">Date From <span style="color: #ff0000">*</span></label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDateFrom"
@@ -123,14 +123,14 @@
                                         <tr>
                                             <th colspan="6" style="text-align: right;">Total Disance</th>
                                             <td>
-                                                <asp:Label ID="txtTotal" runat="server"></asp:Label></td> 
-                                            <td>&nbsp;</td> 
+                                                <asp:Label ID="txtTotal" runat="server"></asp:Label></td>
+                                            <td>&nbsp;</td>
                                             <td>
                                                 <asp:Label ID="lblAmountt" runat="server"></asp:Label></td>
                                             <td>
                                                 <asp:Label ID="lblNight" runat="server"></asp:Label></td>
                                             <td>
-                                                <asp:Label ID="lblDal" runat="server"></asp:Label></td> 
+                                                <asp:Label ID="lblDal" runat="server"></asp:Label></td>
                                             <td>
                                                 <asp:Label ID="lblOther" runat="server"></asp:Label></td>
                                             <td>
@@ -141,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
 
                 <div class="box box-primary" id="summary" runat="server" visible="false">
                     <div class="box-body">
@@ -152,9 +152,10 @@
                                         <tr>
                                             <th style="text-align: left;">S No.</th>
                                             <th style="text-align: left;">Employee Name</th>
+                                            <th style="text-align: left;">Primary Location</th>
                                             <th style="text-align: left;">Travel Date</th>
-                                            <th style="text-align: left;">Place IN</th>
-                                            <th style="text-align: left;">Place Out</th>
+                                            <th style="text-align: left;">Place Att. IN</th>
+                                            <th style="text-align: left;">Place Att. Out</th>
                                             <th style="text-align: left;">Distance in KM</th>
                                             <th style="text-align: left;">Rate Per KM</th>
                                             <th style="text-align: left;">Amount</th>
@@ -172,6 +173,7 @@
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("Emp_NAME") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Location") %></td>
                                                     <td style="text-align: left;"><%#Eval("TravelDate") %></td>
                                                     <td style="text-align: left;"><%#Eval("PlaceIn") %></td>
                                                     <td style="text-align: left;"><%#Eval("PlaceOut") %></td>
@@ -202,7 +204,7 @@
                                             <td>
                                                 <asp:Label ID="lblTotOth" runat="server"></asp:Label></td>
                                             <td>
-                                                <asp:Label ID="lblTotal" runat="server"></asp:Label></td> 
+                                                <asp:Label ID="lblTotal" runat="server"></asp:Label></td>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -228,6 +230,8 @@
                                             <th style="text-align: left;">Daily Allowance</th>
                                             <th style="text-align: left;">Other Claim</th>
                                             <th style="text-align: left;">Total</th>
+                                            <th style="text-align: left;">Advance</th>
+                                            <th style="text-align: left;">Balance</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -245,6 +249,8 @@
                                                     <td style="text-align: left;"><%#Eval("DAL1") %></td>
                                                     <td style="text-align: left;"><%#Eval("Other") %></td>
                                                     <td style="text-align: left;"><%#Eval("Total") %></td>
+                                                    <td style="text-align: left;"><%#Eval("ADVANCE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("NetTotal") %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -261,11 +267,16 @@
                                             <td>
                                                 <asp:Label ID="Label3" runat="server"></asp:Label></td>
                                             <td>
-                                                <asp:Label ID="Label4" runat="server"></asp:Label></td> 
+                                                <asp:Label ID="Label4" runat="server"></asp:Label></td>
                                             <td>
                                                 <asp:Label ID="Label6" runat="server"></asp:Label></td>
+
                                             <td>
                                                 <asp:Label ID="Label5" runat="server"></asp:Label></td>
+                                            <td>
+                                                <asp:Label ID="LabelADVANCE" runat="server"></asp:Label></td>
+                                            <td>
+                                                <asp:Label ID="Label7" runat="server"></asp:Label></td>
 
                                         </tr>
                                     </tfoot>

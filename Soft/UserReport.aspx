@@ -56,7 +56,7 @@
                             </asp:UpdatePanel>--%>
                             <div class="col-md-2">
                                 <label>Mobile No</label>
-                                <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control"  >
+                                <asp:TextBox ID="txtMobile" runat="server" CssClass="form-control">
                                 </asp:TextBox>
                             </div>
 
@@ -80,11 +80,14 @@
                                             <th style="text-align: left;">Sr. No.</th>
                                             <th style="text-align: left;">Employee Name</th>
                                             <th style="text-align: left;">Department</th>
-                                            <th style="text-align: left;">Designation</th>
                                             <th style="text-align: left;">Mobile No</th>
-                                            <th style="text-align: left;">CUG Mobile No</th>
-                                            <th style="text-align: left;">Official Email</th>
+                                            <th style="text-align: left;">Salary Account</th>
+                                            <th style="text-align: left;">Loan Account</th>
+                                            <th style="text-align: left;">Travel Account</th>
+                                            <%--     <th style="text-align: left;">CUG Mobile No</th>
+                                            <th style="text-align: left;">Official Email</th>--%>
                                             <%-- <th style="text-align: left;">Password</th>--%>
+                                            <%--<th style="text-align: left;">Designation</th>--%>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -96,11 +99,14 @@
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("Department") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Designation") %></td>
                                                     <td style="text-align: left;"><%#Eval("MobileNo") %></td>
-                                                    <td style="text-align: left;"><%#Eval("CUG_MobileNO") %></td>
-                                                    <td style="text-align: left;"><%#Eval("O_mail") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Salary_Account") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Loan_Account") %></td>
+                                                    <td style="text-align: left;"><%#Eval("Travel_Account") %></td>
+                                                    <%--<td style="text-align: left;"><%#Eval("CUG_MobileNO") %></td>--%>
+                                                    <%--<%--<td style="text-align: left;"><%#Eval("O_mail") %></td>--%> 
                                                     <%--<td style="text-align: left;"><%#Eval("Password") %></td>--%>
+                                                    <%--<td style="text-align: left;"><%#Eval("Designation") %></td>--%>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -117,14 +123,14 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <script type="text/javascript">
         $(document).ready(function () {
-          
+
             $.ajax({
                 url: 'UserReport.aspx/ControlAccess',
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                  
+
                     let text = data.d;
                     const myArray = text.split(",");
 

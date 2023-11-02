@@ -34,7 +34,7 @@ public partial class Admin_UserControls_SideMenu : System.Web.UI.UserControl
         //{
         query = "select tbl_Menu.*,(select count(*) from tbl_Menu as p inner join tbl_EmpRoles as r on p.MenuId = r.PageID where p.ParentId = tbl_Menu.MenuId and r.UserId = " + Admin.Values["UserId"].ToString() + ") as cc " +
            " from tbl_Menu inner join tbl_EmpRoles on tbl_menu.MenuId = tbl_EmpRoles.PageID where tbl_Menu.ParentId = 0 and tbl_EmpRoles.UserId=" + Admin.Values["UserId"].ToString() + "";
-        query += " and tbl_menu.isDelete=0";
+        query += " and tbl_menu.isDelete=0 and tbl_Menu.ISactive=1";
         //   if (s == true)
         //       query += " and IsMobile=1";
         query += " order by tbl_menu.Position";

@@ -28,9 +28,9 @@
             //  dom: '<"dt-top-container"<l><"dt-center-in-div"B><f>r>t<"dt-filter-spacer"f><ip>',
             // dom: 'lBfrtip',
             dom: '<"dt-top-container"<l><"dt-center-in-div"B><f>r>t<ip>',
-              "processing": true,
-          //    "serverSide": true,
-         // paging:false,
+            "processing": true,
+            //    "serverSide": true,
+            // paging:false,
             rowReorder: {
                 selector: 'td:nth-child(1)'
             },
@@ -46,17 +46,18 @@
                     extend: 'excelHtml5', footer: true,
                     exportOptions: {
                         columns: ':visible',
-                        //format: {
-                        //    body: function (inner, rowidx, colidx, node) {
-                        //        if ($(node).children("input").length > 0) {
-                        //            return $(node).children("input").first().val();
-                        //        } else {
-                        //            return inner;
-                        //        }
-                        //    }
-                        //}
-                    } 
-                }, 
+                        format: {
+                            body: function (inner, rowidx, colidx, node) {
+                              
+                                if ($(node).children("input").length > 0) {
+                                    return $(node).children("input").first().innerText;
+                                } else {
+                                    return inner;
+                                }
+                            }
+                        }
+                    }
+                },
                 {
                     extend: 'pdfHtml5', footer: true, orientation: 'landscape',
                     pageSize: 'A4',
@@ -72,23 +73,32 @@
         });
     });
 
-    //$(document).ready(function () {
 
-    //    $('#table_data').DataTable({
-    //        "processing": true,
-    //        "serverSide": true,
-    //        "ajax": {
-    //            url: "fetch.php",
-    //            type: "POST"
-    //        },
-    //        dom: 'lBfrtip',
-    //        buttons: [
-    //            'excel', 'csv', 'pdf', 'copy'
-    //        ],
-    //        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
-    //    });
+    $(document).ready(function () {
 
-    //});
+        $('#LOkesh').DataTable({
+            dom: 'Bfrtip',
 
+            buttons: [
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        format: {
+
+                            body: function (inner, rowidx, colidx, node) {
+                                if ($(node).children("input").length > 0) {
+                                    return $(node).children("input").first().val();
+                                } else {
+                                    return inner;
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+
+        });
+
+    });
 
 </script>

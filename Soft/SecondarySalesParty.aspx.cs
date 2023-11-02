@@ -33,7 +33,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
             bindDrp();
             Gd.FillPrimaryStation(drpStation);
             ViewState["station"] = Gd.FillStation();
-            Gd.FillDistrict(drpheadQtr, "0"); 
+            Gd.FillDistrict(drpheadQtr, "0");
         }
     }
 
@@ -41,7 +41,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
     {
         DataSet dsusr = (DataSet)ViewState["tbl1"];
         DataView dv = dsusr.Tables[0].DefaultView;
-        
+
         dv.Sort = "Name";
         drpUser.DataSource = dv.ToTable(true, "Name", "MID");
         drpUser.DataTextField = "Name";
@@ -59,7 +59,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
 
     public void fillData()
     {
-        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue, drpStation.SelectedValue, drpStation.SelectedValue, "", "", "", drpheadQtr.SelectedValue, drpBeat1.SelectedValue, drpHeadqtr1.SelectedValue, drpUser.SelectedValue);
+        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue, drpStation.SelectedValue, drpStation.SelectedValue, "", txtMobile.Text,  "", drpheadQtr.SelectedValue, drpBeat1.SelectedValue, drpHeadqtr1.SelectedValue, drpUser.SelectedValue);
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
@@ -111,7 +111,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
 
     protected void drpStation_SelectedIndexChanged1(object sender, EventArgs e)
     {
-        DataSet ds = getdata.StationBeat("select", drpStation.SelectedValue, "0","0", "", drpStation.SelectedValue, "0");
+        DataSet ds = getdata.StationBeat("select", drpStation.SelectedValue, "0", "0", "", drpStation.SelectedValue, "0");
         DataView view = new DataView(ds.Tables[0]);
         string _RowFilter = "0=0";
         if (drpheadQtr.SelectedIndex > 0)

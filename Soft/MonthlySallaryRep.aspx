@@ -117,10 +117,11 @@
                                             <th style="text-align: left;">Gross Salary</th>
                                             <th style="text-align: left;">Provident Fund</th>
                                             <th style="text-align: left;">ESIC</th>
-                                            <th style="text-align: left;">Loan EMI</th>
-                                            <th style="text-align: left;">Advance</th>
                                             <th style="text-align: left;">TDS</th>
                                             <th style="text-align: left;">Salary Payble</th>
+                                            <th style="text-align: left;">Loan EMI</th>
+                                            <th style="text-align: left;">Advance</th>
+                                            <th style="text-align: left;">Net Salary</th>
                                             <th style="text-align: left;">Employer PF</th>
                                             <th style="text-align: left;">Employer ESIC</th>
                                             <th style="text-align: left;">CTC</th>
@@ -155,10 +156,11 @@
                                                     <td style="text-align: left;"><%#Eval("GrossSalary") %></td>
                                                     <td style="text-align: left;"><%#Eval("PF_EMPLOYEEVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ESIC_EMPLOYEEVALUE") %></td>
+                                                    <td style="text-align: left;"><%#Eval("TDSVALUE") %></td>
+                                                    <td style="text-align: left;"><a href='<%#Eval("_URL") %>' runat="server" target="_blank"><%#Eval("SALARYPAYBLE") %></a></td>
                                                     <td style="text-align: left;"><%#Eval("LOANAMOUNT") %></td>
                                                     <td style="text-align: left;"><%#Eval("Advance") %></td>
-                                                    <td style="text-align: left;"><%#Eval("TDSVALUE") %></td>
-                                                    <td style="text-align: left;"><a href='<%#Eval("_URL") %>' runat="server" target="_blank"><%#Eval("NETSALARY") %></a></td>
+                                                    <td style="text-align: left;"><%#Eval("NETSALARY") %></td>
                                                     <td style="text-align: left;"><%#Eval("PF_EMPLOYERVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("ESIC_EMPLOYERVALUE") %></td>
                                                     <td style="text-align: left;"><%#Eval("CTC") %></td>

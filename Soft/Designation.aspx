@@ -62,7 +62,8 @@
                                                     <td style="text-align: left;">
                                                         <%#Eval("DESG_NAME") %> 
                                                     </td>
-                                                    <td style="text-align: left;">
+                                                    <td style="text-align: left;"> 
+                                                        <asp:HyperLink ID="lnkAssbtn" runat="server" NavigateUrl='<%# "AddUserRolesMobile.aspx?id=" + (string)Eval("Desg_Id").ToString() %>' class="btn btn-small btn-primary">Assign Roles</asp:HyperLink>
 
                                                         <a href="Designation.aspx?id=<%#Eval("Desg_Id") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
 

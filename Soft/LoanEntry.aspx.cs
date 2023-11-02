@@ -21,12 +21,12 @@ public partial class Soft_LoanEntry : System.Web.UI.Page
         Soft = Request.Cookies["STFP"];
         if (!IsPostBack)
         {
-            Gd.FillUser(drpEmployee);
+            Gd.FillLOanUser(drpEmployee);
             if (Request.QueryString["Id"] != null)
                 FillData(Request.QueryString["Id"].ToString());
         }
     }
-     
+
 
     private void FillData(string Id)
     {
@@ -34,7 +34,7 @@ public partial class Soft_LoanEntry : System.Web.UI.Page
         drpEmployee.SelectedValue = ds.Tables[0].Rows[0]["EMPID"].ToString();
         txtLoanAmount.Text = ds.Tables[0].Rows[0]["amount"].ToString();
         txtNoOfInstallment.Text = ds.Tables[0].Rows[0]["Installments"].ToString();
-        txtInstallmentAmount.Text = ds.Tables[0].Rows[0]["InstAmount"].ToString();
+        txtInstallmentAmount.Value = ds.Tables[0].Rows[0]["InstAmount"].ToString();
         txtIntRate.Text = ds.Tables[0].Rows[0]["InsRate"].ToString();
         txtLoanDate.Text = ds.Tables[0].Rows[0]["LoanDate1"].ToString();
         txtLoanDeductDate.Text = ds.Tables[0].Rows[0]["LoanDeductDate1"].ToString();
@@ -49,7 +49,7 @@ public partial class Soft_LoanEntry : System.Web.UI.Page
         string _Action = Request.QueryString["Id"] == null ? "SAVE" : "UPDATE";
         string _Id = Request.QueryString["Id"] == null ? "0" : Request.QueryString["Id"];
 
-        DataSet ds = Master.IUD_Loan(_Action, _Id, drpEmployee.SelectedValue, txtLoanAmount.Text, txtNoOfInstallment.Text, txtInstallmentAmount.Text, txtIntRate.Text, txtLoanDate.Text, txtLoanDeductDate.Text);
+        DataSet ds = Master.IUD_Loan(_Action, _Id, drpEmployee.SelectedValue, txtLoanAmount.Text, txtNoOfInstallment.Text, txtInstallmentAmount.Value, txtIntRate.Text, txtLoanDate.Text, txtLoanDeductDate.Text);
         if (ds.Tables[0].Rows[0]["Result"].ToString() == "")
         {
             ScriptManager.RegisterStartupScript(this, GetType(), "redirect", "alert('Record " + _Action + " Successfully'); window.location='LoanRep.aspx';", true);
@@ -60,5 +60,17 @@ public partial class Soft_LoanEntry : System.Web.UI.Page
         }
     }
 
-
+    protected void drpEmployee_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (drpEmployee.SelectedIndex > 0)
+        {
+            string query = "SELECT ISNULL((SELECT ISNULL(ABS(B.ACCURBAL),0)ACCURBAL FROM TBL_EMPMASTER EMP LEFT JOIN ACCOUNT A ON A.ID=EMP.ACCOUNTLOAN LEFT JOIN ACBAL B ON B.ACCODE=A.ACCODE AND B.ACPSCISNO=EMP.ACCOUNTGROUPLOAN WHERE EMP.DELID=0 AND EMP.EmpId=" + drpEmployee.SelectedValue + "),0)ACCURBAL";
+            DataSet ds = data.getDataSet(query);
+            txtLoanAmount.Text = ds.Tables[0].Rows[0]["ACCURBAL"].ToString();
+        }
+        else
+        {
+            txtLoanAmount.Text = "0";
+        }
+    }
 }

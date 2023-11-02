@@ -20,7 +20,7 @@ public partial class Soft_PRODUCTS : System.Web.UI.Page
         if (!IsPostBack)
         {
             if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
-
+            txtbasepath.Text = "http://img.tadkeshwarfoods.com/";
             Soft = Request.Cookies["STFP"];
             Gd.FillGroup(drpGroup);
         }

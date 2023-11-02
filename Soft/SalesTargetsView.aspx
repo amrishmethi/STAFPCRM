@@ -3,16 +3,16 @@
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>Sales Target View(STAFP)</title>
+    <title>Target Employee Wise View(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <asp:ScriptManager ID="scpt1" runat="server"></asp:ScriptManager>
     <section class="content-header" style="height: 2.5em;">
-        <h1>Sales Target View</h1>
+        <h1>Target Employee Wise View</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/SalesTarget.aspx" class="active">Sales Target</a></li>
+            <li><a href="/Soft/SalesTargetsView.aspx" class="active">Target Employee Wise View</a></li>
         </ol>
     </section>
     <section class="content">
@@ -35,7 +35,6 @@
                             </div>
                             <div class="col-md-2">
                                 <label>Employee</label>
-
                                 <asp:DropDownList ID="drpUser" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpUser_SelectedIndexChanged" AutoPostBack="true">
                                 </asp:DropDownList>
                             </div>
@@ -50,7 +49,19 @@
                                     ErrorMessage="Please Select" ValidationGroup="aa" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
                                 <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
                             </div>
-
+                            <div class="col-md-4">
+                                <label>Group</label>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="drpGrp"
+                                    ErrorMessage="Please Select" ValidationGroup="aa" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
+                                <asp:ListBox ID="drpGrp" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Party Category </label>
+                                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select" InitialValue="0"
+                                    Font-Bod="true" ForeColor="Red" ControlToValidate="drpCatg" ValidationGroup="aa"></asp:RequiredFieldValidator>--%>
+                                <asp:DropDownList ID="drpCatg" runat="server" CssClass="form-control select2">
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-4">
                                 <br />
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" Text="Get Report"
@@ -70,39 +81,24 @@
                                 <table id="Tbl" class="table table-bordered display table-striped">
                                     <thead>
                                         <tr>
-                                            <th rowspan="2">Sr. No.</th>
-                                            <th rowspan="2">Employee</th>
-                                            <th rowspan="2">HeadQuarter</th>
-                                            <asp:Repeater ID="repHead" runat="server">
-                                                <ItemTemplate>
-                                                    <th style="text-align: center" colspan="3"><%#Eval("sText") %></th>
-                                                </ItemTemplate>
-                                            </asp:Repeater>
-                                        </tr>
-                                        <tr>
-                                            <asp:Repeater ID="repHead1" runat="server">
-                                                <ItemTemplate>
-                                                    <th>Target</th>
-                                                    <th>Sale</th>
-                                                    <th>Balance</th>
-                                                </ItemTemplate>
-                                            </asp:Repeater>
+                                            <th>Sr. No.</th>
+                                            <th>Employee</th>
+                                            <th>HeadQuarter</th>
+                                            <th>Target</th>
+                                            <th>Sale</th>
+                                            <th>Balance</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <asp:Repeater ID="repDetail" runat="server" OnItemDataBound="repDetail_ItemDataBound">
+                                        <asp:Repeater ID="repDetail" runat="server">
                                             <ItemTemplate>
                                                 <tr>
                                                     <td><%# Container.ItemIndex+1%></td>
                                                     <td><%#Eval("EMP_NAME") %></td>
-                                                    <td><%#Eval("MSNAME") %>
-                                                        <asp:HiddenField ID="HddHeadQtrNo" runat="server" Value='<%#Eval("HEADQTR") %>' />
-                                                    </td>
-                                                    <asp:repeater ID="repDetail1" runat="server">
-                                                        <ItemTemplate>
-                                                            <td><%#Eval("Qty")%></td>
-                                                        </ItemTemplate>
-                                                    </asp:repeater>
+                                                    <td><%#Eval("HeadQtr") %></td>
+                                                    <td><%#Eval("Target") %></td>
+                                                    <td><%#Eval("Sale") %></td>
+                                                    <td><%#Eval("Balance") %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
