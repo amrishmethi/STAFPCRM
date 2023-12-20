@@ -40,14 +40,14 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
             bindDrp(true, true);
             Gd.FillPrimaryParty(drpParty);
             Gd.FillGroup(drpGrp);
-            foreach (ListItem size in drpGrp.Items)
-            {//
-                //if (size.Value.ToString() == "DISHWAS" || size.Value.ToString() == "POWDER" || size.Value.ToString() == "ARTICLE" || size.Value.ToString() == "KLEAN B")
-                if (size.Value.ToString() == "ALL IN")
-                {
-                    size.Selected = true;
-                }
-            }
+            //foreach (ListItem size in drpGrp.Items)
+            //{//
+            //    //if (size.Value.ToString() == "DISHWAS" || size.Value.ToString() == "POWDER" || size.Value.ToString() == "ARTICLE" || size.Value.ToString() == "KLEAN B")
+            //    if (size.Value.ToString() == "ALL IN")
+            //    {
+            //        size.Selected = true;
+            //    }
+            //}
 
             Filldata();
         }
@@ -89,6 +89,7 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
         // if (drpStatus.SelectedValue == "Active") { str += " and Status = 'Active'"; }
         // else if (drpStatus.SelectedValue == "Non-Active") { str += " and Status = 'Non-Active'"; }
         // dv.RowFilter = str;
+        ViewState["MobileSalesOrder"] = ds;
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
 
@@ -106,20 +107,25 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
         {
             HiddenField hddid = (HiddenField)e.Item.FindControl("hddid");
             Repeater rep1 = (Repeater)e.Item.FindControl("rep1");
-            Label lblTotal = (Label)e.Item.FindControl("lblTotal");
+            //Label lblTotal = (Label)e.Item.FindControl("lblTotal");
             Label lblQty = (Label)e.Item.FindControl("lblQty");
             //  Label lblPacking = (Label)e.Item.FindControl("lblPacking");
             Label lblWeight = (Label)e.Item.FindControl("lblWeight");
 
             string grp = "0";
+            string _fltr = "";
             foreach (ListItem item in drpGrp.Items)
             {
                 if (item.Selected)
                 {
                     grp += "," + item.Value;
+                    if (_fltr == "")
+                        _fltr = " GRpCodeM='" + item.Value + "'";
+                    else
+                        _fltr += " or GRpCodeM='" + item.Value + "'";
                 }
             }
-
+            //DataSet dsrep1 = (DataSet)ViewState["MobileSalesOrder"];
             DataSet dsrep1 = getdata.getSalesOrder("SELECT", hddid.Value, "", "", "", "", "", "", "", grp);
             if (dsrep1.Tables[1].Rows.Count > 0)
             {
@@ -127,16 +133,20 @@ public partial class Soft_SalesOrder_Report : System.Web.UI.Page
                 _TotalBags += (Convert.ToDouble(dsrep1.Tables[1].Compute("Sum(OrdQty)", "")));
                 _TotalWght += (Convert.ToDouble(dsrep1.Tables[1].Compute("Sum(Weight)", "")));
 
-                lblTotal.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(Amount)", ""))).ToString("#0.00");
+                //lblTotal.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(Amount)", ""))).ToString("#0.00");
                 lblQty.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(OrdQty)", ""))).ToString("#0");
                 //    lblPacking.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("Sum(Packing)", ""))).ToString("#0.00");
                 lblWeight.Text = (Convert.ToDecimal(dsrep1.Tables[1].Compute("sum(Weight)", ""))).ToString("#0.00");
-
-                rep1.DataSource = dsrep1.Tables[1];
+                DataView dvv = dsrep1.Tables[1].DefaultView;
+                //if (_fltr == "")
+                //    dvv.RowFilter = "OrderID=" + hddid.Value + " ";
+                //else
+                //    dvv.RowFilter = "OrderID=" + hddid.Value + " and  (" + _fltr + ")";
+                rep1.DataSource = dvv.ToTable();
                 rep1.DataBind();
             }
         }
-          
+
     }
 
 

@@ -31,14 +31,14 @@ public partial class Soft_Employeegroupassign : System.Web.UI.Page
             //FillRecords();
         }
     }
-     
+
 
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
         Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue, drpStatus.SelectedValue, drpDesignation.SelectedValue);
     }
     protected void btnSearch_Click(object sender, EventArgs e)
-    { 
+    {
         DataSet dsusr = getdata.GetEmployeList(drpDepartment.SelectedValue, drpDesignation.SelectedValue, drpProjectManager.SelectedValue, drpStatus.SelectedValue);
 
         DataTable dt = new DataTable();
@@ -102,8 +102,8 @@ public partial class Soft_Employeegroupassign : System.Web.UI.Page
     {
         string CMSCode = "", CMSName = "";
         HiddenField hddAssID = new HiddenField();
-
-
+        Soft = Request.Cookies["STFP"];
+        string _UserId = Soft["UserId"];
         DataTable dtable1 = ((DataTable)ViewState["GroupList"]);
         foreach (DataRow drr in dtable1.Rows)
         {
@@ -125,7 +125,7 @@ public partial class Soft_Employeegroupassign : System.Web.UI.Page
             CMSName = CMSName.Substring(0, CMSName.Length - 1);
         }
         hddAssID.Value = dtable1.Rows[0]["PartyID"].ToString();
-        data.executeCommand("Update tbl_EMPMaster set ItemGroup='" + CMSCode + "' where EMPID='" + hddAssID.Value.ToString() + "'");
+        data.executeCommand("Update tbl_EMPMaster set ItemGroup='" + CMSCode + "',ModifyDate=GETDATE(),ModifyUser='" + _UserId + "' where EMPID='" + hddAssID.Value.ToString() + "'");
 
         DataTable dtable = ((DataTable)ViewState["PartyList"]);
         foreach (DataRow drr in dtable.Rows)
@@ -139,7 +139,7 @@ public partial class Soft_Employeegroupassign : System.Web.UI.Page
         dtable.AcceptChanges();
         ViewState["PartyList"] = dtable;
         rep.DataSource = dtable;
-        rep.DataBind(); 
+        rep.DataBind();
     }
 
     protected void chkItems_CheckedChanged(object sender, EventArgs e)

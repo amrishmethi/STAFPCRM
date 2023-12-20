@@ -751,9 +751,9 @@ public class Master
     }
 
 
-    public DataSet GetSaleTargetReport(string DEPT_ID, string STATUS, string USERID, string HEADQTR, string TARGETDATE, string CatID="0", string PartyId = "0")
-    {
-        cmd = new SqlCommand("PROC_SALETARGETVIEW");
+    public DataSet GetSaleTargetReport(string DEPT_ID, string STATUS, string USERID, string HEADQTR, string TARGETDATE, string ProcName, string CatID = "0", string PartyId = "0")
+    { 
+        cmd = new SqlCommand(ProcName);
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@DEPT_ID", DEPT_ID);
         cmd.Parameters.AddWithValue("@STATUS", STATUS);

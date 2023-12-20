@@ -66,6 +66,8 @@
                                             <th style="text-align: left;">Emp Code</th>
                                             <th style="text-align: left;">Emp Name</th>
                                             <th style="text-align: left;">Rep Manager</th>
+                                            <th style="text-align: left;">PF A/c No</th>
+                                            <th style="text-align: left;">ESIC A/c No</th>
                                             <th style="text-align: left;">In Hand Salary</th>
                                             <th style="text-align: left;">Net Salary</th>
                                             <th style="text-align: left;">Status</th>
@@ -85,6 +87,8 @@
                                                     <td style="text-align: left;"><%#Eval("Emp_Code") %></td>
                                                     <td style="text-align: left;"><%#Eval("Emp_Name") %></td>
                                                     <td style="text-align: left;"><%#Eval("REP_MANAGERNAME") %></td>
+                                                    <td style="text-align: left;"><%#Eval("PF_AcNo") %></td>
+                                                    <td style="text-align: left;"><%#Eval("ESI_AcNO") %></td>
                                                     <td style="text-align: left;"><%#Eval("In_Hand") %></td>
                                                     <td style="text-align: left;"><%#Eval("Net_Salary") %></td>
                                                     <td style="text-align: left;"><%#Eval("Status") %></td>
@@ -105,7 +109,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <td colspan="6" style="text-align: right;"><strong>Total</strong></td>
+                                            <td colspan="8" style="text-align: right;"><strong>Total</strong></td>
                                             <td><strong>
                                                 <asp:Label ID="lblTotInHand" runat="server"></asp:Label></strong></td>
                                             <td><strong>

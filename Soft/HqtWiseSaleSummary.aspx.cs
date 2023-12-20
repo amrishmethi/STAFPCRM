@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -44,6 +45,8 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
     private void bindDrp()
     {
         DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
+        dv.RowFilter = " Status='Active'";
+
         dv.Sort = "Name";
         DrpEmployee.DataSource = dv.ToTable(true, "Name", "MID");
         DrpEmployee.DataTextField = "Name";
@@ -229,8 +232,6 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
         Drpstation.Items.Insert(0, new ListItem("Select", "0"));
     }
 
-
-
     protected void btnExport_Click(object sender, EventArgs e)
     {
         Response.Clear();
@@ -249,4 +250,23 @@ public partial class Soft_HqtWiseSaleSummary : System.Web.UI.Page
         Response.End();
     }
 
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+
+        Session["DateRange"] = " AS ON " + dpFrom.Text + " To " + dpTo.Text;
+        DataTable dataTable = (DataTable)ViewState["SaleSUmmary"];   
+        Session["GridData"] = dataTable;
+        Session["TermsId"] = "";
+        string _ITemgroup = "";
+        foreach (ListItem item in drpGrp.Items)
+        {
+            if (item.Selected)
+            {
+                _ITemgroup += item.Text + ",";
+            }
+        }
+        Session["Title"] = "HQ GROUP /PARTY WISE SALE  OF " + DrpEmployee.SelectedItem.Text + " (" + drpHeadQtr.SelectedItem.Text + ") </br>" + _ITemgroup;
+
+        Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
+    }
 }

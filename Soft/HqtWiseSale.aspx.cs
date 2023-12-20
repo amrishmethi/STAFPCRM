@@ -68,7 +68,7 @@ public partial class Soft_HqtWiseSale : System.Web.UI.Page
         string station = Drpstation.SelectedValue;
         string party = drpParty.SelectedValue;
         string rate = Drprate.SelectedValue;
-        string grp = "0";
+        string grp = "0"; 
         foreach (ListItem item in drpGrp.Items)
         {
             if (item.Selected)

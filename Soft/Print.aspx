@@ -7,7 +7,7 @@
     <title></title>
     <style>
         .page-header, .page-header-space {
-            height: 125px;
+            height: 140px;
         }
 
         .page-footer, .page-footer-space {
@@ -88,7 +88,7 @@
                     <td>
                         <div id="bindTable" runat="server"></div>
                     </td>
-                </tr> 
+                </tr>
             </tbody>
 
             <tfoot>
@@ -102,7 +102,7 @@
         </table>
         <div>
             <table style="width: 100%; padding-right: 15px; border-spacing: 0px;">
- 
+
                 <tr style="padding: 0px; margin-top: -10px; margin-bottom: -10px;">
                     <td colspan="2" style="padding: 0px;">
                         <asp:Label ID="lblTermsHeading" runat="server" Style="font-size: 20px; color: firebrick;"></asp:Label>

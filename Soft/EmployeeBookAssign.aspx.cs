@@ -103,7 +103,7 @@ public partial class Soft_EmployeeBookAssign : System.Web.UI.Page
     {
         string MsName = "", MsNo = "";
         HiddenField hddAssID = new HiddenField();
-
+        Soft = Request.Cookies["STFP"];
 
         DataTable dtable1 = ((DataTable)ViewState["CategoryList"]);
         foreach (DataRow drr in dtable1.Rows)
@@ -125,8 +125,8 @@ public partial class Soft_EmployeeBookAssign : System.Web.UI.Page
             MsName = MsName.Substring(0, MsName.Length - 1);
             MsNo = MsNo.Substring(0, MsNo.Length - 1);
         }
-        hddAssID.Value = dtable1.Rows[0]["PartyID"].ToString();
-        data.executeCommand("Update tbl_EMPMaster set BOOK='" + MsNo + "' where EMPID='" + hddAssID.Value.ToString() + "'");
+        hddAssID.Value = dtable1.Rows[0]["PartyID"].ToString(); string _UserId = Soft["UserId"];
+        data.executeCommand("Update tbl_EMPMaster set BOOK='" + MsNo + "',ModifyDate=GETDATE(),ModifyUser='" + _UserId + "' where EMPID='" + hddAssID.Value.ToString() + "'");
 
         DataTable dtable = ((DataTable)ViewState["PartyList"]);
         foreach (DataRow drr in dtable.Rows)

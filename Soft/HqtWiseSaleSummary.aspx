@@ -3,7 +3,7 @@
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>HQ GROUP /party WISE SALE</title>
+    <title>HQ GROUP /PARTY WISE SALE</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
@@ -50,7 +50,7 @@
                                 </asp:DropDownList>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-2 hidden">
                                 <label>Rate</label>
                                 <asp:DropDownList ID="Drprate" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Text="With Tax" Value="1"></asp:ListItem>
@@ -102,7 +102,12 @@
                                 &nbsp;
                                 &nbsp;
                                 <asp:Button ID="btnExport" runat="server" CssClass="btn btn-success" OnClick="btnExport_Click" Text="Export To Excel" />
-
+                                  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+                                <asp:Button ID="btnPrint" runat="server" CssClass="btn btn-success" Text="Print Report"
+    ValidationGroup="aa" OnClick="btnPrint_Click" />
                             </div>
                             <div class="clearfix">&nbsp;</div>
                         </div>

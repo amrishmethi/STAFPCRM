@@ -64,6 +64,7 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
         if (ViewState["Target"] == null)
         {
             Dt.Columns.Add("Party");
+            Dt.Columns.Add("Chk");
             Dt.Columns.Add("Mobile");
             Dt.Columns.Add("STATION");
             Dt.Columns.Add("CATEGORY");
@@ -90,11 +91,12 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
 
     public void fillData()
     {
+        chkAll.Checked = false;
         string _PartyId = "0";
         if (drpParty.SelectedIndex > 0)
             _PartyId = drpParty.SelectedValue;
 
-        DataSet ds = getdata.GetSaleTargetReport(drpDepartment.SelectedValue, drpStatus.SelectedValue, drpUser.SelectedValue, drpheadQtr.SelectedValue, mnth.Text, drpCatg.SelectedValue, _PartyId);
+        DataSet ds = getdata.GetSaleTargetReport(drpDepartment.SelectedValue, drpStatus.SelectedValue, drpUser.SelectedValue, drpheadQtr.SelectedValue, mnth.Text, "PROC_SALETARGETVIEW", drpCatg.SelectedValue, _PartyId);
 
         DataView dvv = ds.Tables[0].DefaultView;
         DataTable dtt = dvv.ToTable(true, "WPNO", "CID", "HQNAME", "STATION");
@@ -109,10 +111,7 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
             dr["Mobile"] = drr["WPNO"];
             dr["STATION"] = ds.Tables[0].AsEnumerable().Where(x => x["WPNO"].ToString() == drr["WPNO"].ToString()).Where(x => x["STATION"].ToString() == drr["STATION"].ToString()).Where(x => x["CID"].ToString().Trim() == drr["CID"].ToString().Trim()).Select(r => r["STATION"]).ToArray()[0];
             dr["CATEGORY"] = ds.Tables[0].AsEnumerable().Where(x => x["WPNO"].ToString() == drr["WPNO"].ToString()).Where(x => x["STATION"].ToString() == drr["STATION"].ToString()).Where(x => x["CID"].ToString().Trim() == drr["CID"].ToString().Trim()).Select(r => r["PARTYCATEGORY"]).ToArray()[0];
-            if (drr["WPNO"].ToString() == "7014307786")
-            {
-                int a = 0;
-            }
+
             int _Target = 0, _Sale = 0;
             foreach (ListItem item in lstGroup.Items)
             {
@@ -123,6 +122,7 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
                     _Sale += Convert.ToInt32(ds.Tables[2].AsEnumerable().Where(x => x["WHATSAPPNO"].ToString().Trim() == drr["WPNO"].ToString().Trim()).Where(x => x["STATION"].ToString() == drr["STATION"].ToString()).Where(x => x["PTCMSNO"].ToString().Trim() == drr["CID"].ToString().Trim()).Where(x => x["CMSNAME"].ToString() == item.ToString()).Sum(x => x.Field<int>("ORDBAG")));
                 }
             }
+            dr["Chk"] = "0";
             dr["Target"] = _Target;
             dr["Sale"] = _Sale;
             dr["Balance"] = _Target - _Sale;
@@ -148,6 +148,7 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
         }
 
         dtN.AcceptChanges();
+        Session["TargetpartywiseView"] = dtN;
         repDetail.DataSource = dtN;
         repDetail.DataBind();
     }
@@ -183,4 +184,53 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
         fillData();
     }
 
+    [WebMethod]
+    public static string txtRep_TextChanged(string Id)
+    {
+        DataTable Dt = (DataTable)HttpContext.Current.Session["TargetpartywiseView"];
+        if (Id == "Body_chkAll")
+        {
+            foreach (DataRow drw in Dt.Rows) { drw["Chk"] = drw["Chk"].ToString() == "1" ? "0" : "1"; }
+        }
+        else
+        {
+            int _RowID = Convert.ToInt32(Id.Split('_')[3]);
+            DataRow drr = Dt.Rows[_RowID];
+            drr["Chk"] = drr["Chk"].ToString() == "1" ? "0" : "1";
+        }
+        Dt.AcceptChanges();
+        HttpContext.Current.Session["TargetpartywiseView"] = Dt;
+        int j = Dt.Rows.Count - 1;
+
+        return j.ToString();
+
+    }
+
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+        
+        Session["DateRange"] = " AS ON " + mnth.Text;
+        DataTable dataTable = (DataTable)Session["TargetpartywiseView"];
+        DataTable dtPrint = ((DataTable)Session["TargetpartywiseView"]).Select("chk=1").CopyToDataTable();
+        int _CID = dtPrint.Rows.Count - 1;
+        dtPrint.Rows[_CID]["Balance"] = dtPrint.Compute("sum(Balance)", "Party<>'TOTAL'");
+        dtPrint.Rows[_CID]["Target"] = dtPrint.Compute("sum(Target)", "Party<>'TOTAL'");
+        dtPrint.Rows[_CID]["Sale"] = dtPrint.Compute("sum(Sale)", "Party<>'TOTAL'");
+
+        dtPrint.Columns.Remove("Chk");
+        dtPrint.AcceptChanges();
+        Session["GridData"] = dtPrint;
+        Session["TermsId"] = "";
+        string _ITemgroup = "";
+        foreach (ListItem item in lstGroup.Items)
+        {
+            if (item.Selected)
+            {
+                _ITemgroup += item.Text + ",";
+            }
+        }
+        Session["Title"] = "TARGET PARTY WISE </br>" + drpUser.SelectedItem.Text + " (" + drpheadQtr.SelectedItem.Text + ") Of " + _ITemgroup; 
+     
+        Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
+    }
 }

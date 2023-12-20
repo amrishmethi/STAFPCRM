@@ -52,7 +52,7 @@
                                 </asp:DropDownList>
                             </div>
 
-                            <div class="col-md-2">
+                            <div class="col-md-2 hidden">
                                 <label>Rate</label>
                                 <asp:DropDownList ID="Drprate" runat="server" CssClass="form-control select2">
                                     <asp:ListItem Text="With Tax" Value="1"></asp:ListItem>

@@ -1,18 +1,18 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="SalesTargetsView.aspx.cs" Inherits="Admin_SalesTargetsView" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Soft/AdminMaster.master" AutoEventWireup="true" CodeFile="EMPLOYEESALES.aspx.cs" Inherits="Soft_EMPLOYEESALES" %>
 
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>Target Employee Wise View(STAFP)</title>
+    <title>Employee Wise Sale(STAFP)</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
     <asp:ScriptManager ID="scpt1" runat="server"></asp:ScriptManager>
     <section class="content-header" style="height: 2.5em;">
-        <h1>Target Employee Wise View</h1>
+        <h1>Employee Wise Sale</h1>
         <ol class="breadcrumb">
             <li><a href="/Soft/Dashboard.aspx"><i class="fa fa-dashboard"></i>Home</a></li>
-            <li><a href="/Soft/SalesTargetsView.aspx" class="active">Target Employee Wise View</a></li>
+            <li><a href="/Soft/EMPLOYEESALES.aspx" class="active">Employee Wise Sale</a></li>
         </ol>
     </section>
     <section class="content">
@@ -44,23 +44,24 @@
                                 </asp:DropDownList>
                             </div>
                             <div class="col-md-2">
-                                <label>Month</label>
+                                <label>Year</label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="mnth"
                                     ErrorMessage="Please Select" ValidationGroup="aa" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
-                                <asp:TextBox ID="mnth" runat="server" type="text" class="form-control MnthPicker" autocomplete="off" />
+                                <asp:TextBox ID="mnth" runat="server" type="text" class="form-control YearPicker" autocomplete="off" />
+                            </div>
+                            <div class="col-md-2">
+                                <label>Report Type </label>
+                                <asp:DropDownList ID="drpReportType" runat="server" CssClass="form-control select2">
+                                    <asp:ListItem Text="Bag Wise" Value="0" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="Weight Wise" Value="1"></asp:ListItem>
+                                    <asp:ListItem Text="Amount Wise" Value="2"></asp:ListItem>
+                                </asp:DropDownList>
                             </div>
                             <div class="col-md-4">
                                 <label>Group</label>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="drpGrp"
                                     ErrorMessage="Please Select" ValidationGroup="aa" ForeColor="Red" InitialValue=""></asp:RequiredFieldValidator>
                                 <asp:ListBox ID="drpGrp" runat="server" CssClass="form-control select2" SelectionMode="Multiple"></asp:ListBox>
-                            </div>
-                            <div class="col-md-2">
-                                <label>Party Category </label>
-                                <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please Select" InitialValue="0"
-                                    Font-Bod="true" ForeColor="Red" ControlToValidate="drpCatg" ValidationGroup="aa"></asp:RequiredFieldValidator>--%>
-                                <asp:DropDownList ID="drpCatg" runat="server" CssClass="form-control select2">
-                                </asp:DropDownList>
                             </div>
                             <div class="col-md-4">
                                 <br />
@@ -84,9 +85,19 @@
                                             <th>Sr. No.</th>
                                             <th>Employee</th>
                                             <th>HeadQuarter</th>
-                                            <th>Target</th>
-                                            <th>Sale</th>
-                                            <th>Balance</th>
+                                            <th>Apr</th>
+                                            <th>May</th>
+                                            <th>Jun</th>
+                                            <th>Jul</th>
+                                            <th>Aug</th>
+                                            <th>Sep</th>
+                                            <th>Oct</th>
+                                            <th>Nov</th>
+                                            <th>Dec</th>
+                                            <th>Jan</th>
+                                            <th>Feb</th>
+                                            <th>Mar</th>
+                                            <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -96,9 +107,19 @@
                                                     <td><%# Container.ItemIndex+1%></td>
                                                     <td><%#Eval("EMP_NAME") %></td>
                                                     <td><%#Eval("HeadQtr") %></td>
-                                                    <td><%#Eval("Target") %></td>
-                                                    <td><%#Eval("Sale") %></td>
-                                                    <td><%#Eval("Balance") %></td>
+                                                    <td><%#Eval("Apr") %></td>
+                                                    <td><%#Eval("May") %></td>
+                                                    <td><%#Eval("Jun") %></td>
+                                                    <td><%#Eval("Jul") %></td>
+                                                    <td><%#Eval("Aug") %></td>
+                                                    <td><%#Eval("Sep") %></td>
+                                                    <td><%#Eval("Oct") %></td>
+                                                    <td><%#Eval("Nov") %></td>
+                                                    <td><%#Eval("Dec") %></td>
+                                                    <td><%#Eval("Jan") %></td>
+                                                    <td><%#Eval("Feb") %></td>
+                                                    <td><%#Eval("Mar") %></td>
+                                                    <td><%#Eval("Total") %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
@@ -115,7 +136,6 @@
     </section>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
-     
     <uc1:DTJS runat="server" ID="DTJS" />
 </asp:Content>
 

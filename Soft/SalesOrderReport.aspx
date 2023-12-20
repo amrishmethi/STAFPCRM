@@ -145,8 +145,8 @@
                                                                     <th>BAG/CASE</th>
                                                                     <th>Packing</th>
                                                                     <th>Weight</th>
-                                                                    <th>RATE PER KG</th>
-                                                                    <th>Amount</th>
+                                                                   <%-- <th>RATE PER KG</th>
+                                                                    <th>Amount</th>--%>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -161,8 +161,8 @@
                                                                             <td style="text-align: left;"><%#Eval("OrdQty","{0:0}") %></td>
                                                                             <td style="text-align: left;"><%#Eval("Packing") %></td>
                                                                             <td style="text-align: left;"><%# string.Format("{0:0.00}",Eval("Weight")) %></td>
-                                                                            <td style="text-align: left;"><%#Eval("OrdStpRate") %></td>
-                                                                            <td style="text-align: left;"><%#Eval("Amount") %></td>
+                                                                           <%-- <td style="text-align: left;"><%#Eval("OrdStpRate") %></td>
+                                                                            <td style="text-align: left;"><%#Eval("Amount") %></td>--%>
 
                                                                         </tr>
                                                                     </ItemTemplate>
@@ -179,9 +179,9 @@
                                                                     <td><strong>
                                                                         <asp:Label ID="lblWeight" runat="server"></asp:Label></strong></td>
                                                                     <td>&nbsp;</td>
-                                                                    <td><strong>
+                                                                    <%--<td><strong>
                                                                         <asp:Label ID="lblTotal" runat="server"></asp:Label>
-                                                                    </strong></td>
+                                                                    </strong></td>--%>
                                                                     <td>&nbsp;</td>
                                                                 </tr>
                                                             </tfoot>
@@ -203,7 +203,7 @@
                                     <label>Total Weight</label>
                                     <asp:TextBox ID="txtTotalWeight" runat="server" Style="font-weight: bold; text-align: right;" ReadOnly="true" Text="0.00"></asp:TextBox>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 hidden">
                                     <label>Grand Total</label>
                                     <asp:TextBox ID="txtGrandTot" runat="server" Style="font-weight: bold; text-align: right;" ReadOnly="true" Text="0.00"></asp:TextBox>
                                 </div>

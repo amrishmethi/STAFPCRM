@@ -27,7 +27,7 @@ public partial class Soft_partyacbal : System.Web.UI.Page
             Soft = Request.Cookies["STFP"];
 
             gd.FillPrimaryStation(DrpStation);
-            gd.FillAccounts(DrpParty);
+            //gd.FillAccounts(DrpParty);
         }
     }
 

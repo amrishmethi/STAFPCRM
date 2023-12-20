@@ -221,7 +221,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                 {
                     if (dt_ord.Rows[i]["ORDER_DATE"].ToString() != "")
                     {
-                        sb.Append("<td>" + dt_ord.Rows[i]["ORDER_DATE"] + "<br/>" + dt_ord.Rows[i]["ORDER_TIME"] + " <br/>(Amount : " + dt_ord.Rows[0]["ORDER_AMT"] + ")</td>");
+                        sb.Append("<td>" + dt_ord.Rows[i]["ORDER_DATE"] + "<br/>" + dt_ord.Rows[i]["ORDER_TIME"] + " <br/>(Amount : " + dt_ord.Rows[i]["ORDER_AMT"] + ")</td>");
                         sb.Append("<td>" + dt_ord.Rows[i]["ORDER_PARTY"] + " (" + dt_ord.Rows[i]["ORDER_STATION"] + ")</td>");
                     }
                     else
@@ -427,7 +427,7 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<tr>");
                             sb.Append("<td align='center'><table width='990' border='0' cellspacing='0' cellpadding='0'>");
                             sb.Append("<tr>");
-                            sb.Append("<td width='990' align='center'><strong>Employee Daily Report</strong></td>");
+                            sb.Append("<td width='990' align='center'><strong>Employee Daily Report of " + txtdate.Text.Trim().ToString() + "</strong></td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
                             sb.Append("<td align='center'>&nbsp;</td>");
@@ -435,23 +435,23 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<tr>");
                             sb.Append("<td align='center'><table width='100%' border='1px' bordercolor='#CCC' cellspacing='0' cellpadding='5' style='border:1px solid #CCC; border-collapsecollapse;'>");
                             sb.Append("<tr>");
-                            sb.Append("<td>Employee Name: " + dt.Rows[0]["Emp_Name"].ToString() + "</td>");
-                            sb.Append("<td>&nbsp;</td>");
-                            sb.Append("<td>Department Name: " + master.GetDepartment("Select", dt.Rows[0]["Dept_Id"].ToString(), "", "", "").Tables[0].Rows[0]["DEPT_NAME"].ToString() + "</td>");
-                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>Employee Name: </td>");
+                            sb.Append("<td>" + dt.Rows[0]["Emp_Name"].ToString() + "</td>");
+                            sb.Append("<td>Department Name: </td>");
+                            sb.Append("<td>" + master.GetDepartment("Select", dt.Rows[0]["Dept_Id"].ToString(), "", "", "").Tables[0].Rows[0]["DEPT_NAME"].ToString() + "</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
-                            sb.Append("<td>Headquarter: " + drHqtr["HeadQtr"] + "</td>");
-                            sb.Append("<td>&nbsp;</td>");
-                            sb.Append("<td>Reporting Officer : " + dt.Rows[0]["Rep_Manager"] + " </td>");
-                            sb.Append("<td>&nbsp;</td>");
+                            sb.Append("<td>Headquarter: </td>");
+                            sb.Append("<td>" + drHqtr["HeadQtr"] + "</td>");
+                            sb.Append("<td>Reporting Officer :  </td>");
+                            sb.Append("<td>" + dt.Rows[0]["Rep_Manager"] + "</td>");
                             sb.Append("</tr>");
-                            sb.Append("<tr>");
-                            sb.Append("<td>&nbsp;</td>");
-                            sb.Append("<td>&nbsp;</td>");
-                            sb.Append("<td>date : " + txtdate.Text.Trim().ToString() + "</td>");
-                            sb.Append("<td></td>");
-                            sb.Append("</tr>");
+                            //sb.Append("<tr>");
+                            //sb.Append("<td>&nbsp;</td>");
+                            //sb.Append("<td>&nbsp;</td>");
+                            //sb.Append("<td>date :</td>");
+                            //sb.Append("<td> " + txtdate.Text.Trim().ToString() + "</td>");
+                            //sb.Append("</tr>");
                             sb.Append("<tr>");
                             sb.Append("<td>Tour Plan :    </td>");
                             sb.Append("<td colspan='3' align='center'>" + _TourPlan + "</td>");
@@ -462,10 +462,10 @@ public partial class Soft_EmployeeStatus : System.Web.UI.Page
                             sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["Att_DATEIN"].ToString() + " " + dt.Rows[0]["Att_TIMEIN"].ToString() + "</td>");
                             sb.Append("</tr>");
                             sb.Append("<tr>");
-                            sb.Append("<td>Check in : " + dt.Rows[0]["CHECKIN_PARTY"].ToString() + " </td>");
-                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["CHECKIN_DATE"].ToString() + " " + dt.Rows[0]["CHECKIN_TIME"].ToString() + "</td>");
+                            sb.Append("<td>Check in :  </td>");
+                            sb.Append("<td colspan='3' align='center'>" + dt.Rows[0]["CHECKIN_PARTY"].ToString() + "</br> " + dt.Rows[0]["CHECKIN_DATE"].ToString() + " " + dt.Rows[0]["CHECKIN_TIME"].ToString() + "</td>");
                             sb.Append("</tr>");
-                          
+
                             sb.Append("<td>Secondary sale(Amount)</td>");
 
 

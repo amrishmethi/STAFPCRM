@@ -61,6 +61,7 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">Sr. No.</th>
+                                            <th style="text-align: left;">Product Image</th>
                                             <th style="text-align: left;">Item Name</th>
                                             <th style="text-align: left;">Rate Per Kg</th>
                                             <th style="text-align: left;">Rate Per Pc</th>
@@ -76,12 +77,12 @@
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
+                                                    <td style="text-align: left;"><img src='<%#Eval("ImageUrl") %>' height="50px" width="50px" /></td>
                                                     <td style="text-align: left;"><%#Eval("itname") %></td>
                                                     <td style="text-align: left;"><%#Eval("SalesOrderRate") %></td>
                                                     <td style="text-align: left;"><%#Eval("tRate") %></td>
                                                     <td style="text-align: left;"><%#Eval("itpacking") %></td>
-                                                    <td style="text-align: left;"><%#Eval("BagRate") %></td>
-
+                                                    <td style="text-align: left;"><%#Eval("BagRate") %></td> 
                                                     <td style="text-align: left;"><%#Eval("MRP") %></td>
                                                 </tr>
                                             </ItemTemplate>

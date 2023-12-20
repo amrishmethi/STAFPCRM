@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -117,10 +118,6 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
         Drpstation.Items.Insert(0, new ListItem("Select", "0"));
     }
 
-
-
-
-
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         SqlCommand cmd = new SqlCommand("PROC_HEADQTRWISEOUTSTANDING");
@@ -144,10 +141,9 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
 
             decimal totalPrice = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["GLAMOUNT"]));
             decimal totalPrice1 = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["GLOSAMT"]));
-             
+
             var groupedData = from row in dt.AsEnumerable()
-                              group row by new { acname = row.Field<string>("acname"), ACCREDITDY = row.Field<string>("ACCREDITDY"), Station = row.Field<string>("Station") }
-                          into grp
+                              group row by new { acname = row.Field<string>("acname"), ACCREDITDY = row.Field<string>("ACCREDITDY"), Station = row.Field<string>("Station") } into grp
                               select new
                               {
                                   ACCREDITDY = grp.Key.ACCREDITDY,
@@ -174,13 +170,16 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
             mergedTable.Columns.Add("DUEDAY", typeof(string));
             mergedTable.Columns.Add("COLOR", typeof(string));
             mergedTable.Columns.Add("MM", typeof(string));
+            mergedTable.Columns.Add("GLDATE", typeof(string));
 
 
             foreach (var item in groupedData)
             {
-                //mergedTable.Rows.Add(DBNull.Value, DBNull.Value, item.Station, item.acname + " As On " + dpFrom.Text + " (" + item.ACCREDITDY + ")", DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value, DBNull.Value);
+                DataTable dttttttt = item.rows;
+                DataView dvvtt = dttttttt.DefaultView;
+                dvvtt.Sort = " GLDATE";
 
-                foreach (DataRow row in item.rows.Rows)
+                foreach (DataRow row in dvvtt.ToTable().Rows)
                 {
                     mergedTable.ImportRow(row);
                 }
@@ -195,7 +194,7 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
                 mergedTable.Rows.Add(groupFooterRow);
             }
 
-            DataRow footerRow = mergedTable.NewRow(); 
+            DataRow footerRow = mergedTable.NewRow();
             footerRow["VOCID"] = "Grand Total";
             footerRow["BILLAMT"] = totalPrice > 0 ? totalPrice.ToString("0.00") : (totalPrice * -1).ToString("0.00");
             footerRow["DUEAMT"] = totalPrice1 > 0 ? totalPrice1.ToString("0.00") : (totalPrice1 * -1).ToString("0.00");
@@ -204,8 +203,53 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
 
             DataView dvv = mergedTable.DefaultView;
             dvv.Sort = "Station,acname";
+
+            Session["HQ WISE OUTSTANDING"] = dvv.ToTable();
             rep.DataSource = dvv.ToTable();
             rep.DataBind();
         }
+    }
+
+
+    protected void btnPrint_Click(object sender, EventArgs e)
+    { 
+        Session["DateRange"] = " AS ON " + dpFrom.Text;
+        DataTable dataTable = (DataTable)Session["HQ WISE OUTSTANDING"];
+        DataTable dtPrint = ((DataTable)Session["HQ WISE OUTSTANDING"]).Select("chk=1").CopyToDataTable();
+        //int _CID = dtPrint.Rows.Count - 1;
+        //dtPrint.Rows[_CID]["Balance"] = dtPrint.Compute("sum(Balance)", "Party<>'TOTAL'");
+        //dtPrint.Rows[_CID]["Target"] = dtPrint.Compute("sum(Target)", "Party<>'TOTAL'");
+        //dtPrint.Rows[_CID]["Sale"] = dtPrint.Compute("sum(Sale)", "Party<>'TOTAL'");
+
+        dtPrint.Columns.Remove("Chk");
+        dtPrint.AcceptChanges();
+        Session["GridData"] = dtPrint;
+        Session["TermsId"] = ""; 
+
+        Session["Title"] = "HQ WISE OUTSTANDING </br>" + DrpEmployee.SelectedItem.Text + " (" + drpHeadQtr.SelectedItem.Text + ")  ";
+
+        Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
+    }
+
+    [WebMethod]
+    public static string txtRep_TextChanged(string Id)
+    {
+        DataTable Dt = (DataTable)HttpContext.Current.Session["HQ WISE OUTSTANDING"];
+        if (Id == "Body_chkAll")
+        {
+            foreach (DataRow drw in Dt.Rows) { drw["Chk"] = drw["Chk"].ToString() == "1" ? "0" : "1"; }
+        }
+        else
+        {
+            int _RowID = Convert.ToInt32(Id.Split('_')[3]);
+            DataRow drr = Dt.Rows[_RowID];
+            drr["Chk"] = drr["Chk"].ToString() == "1" ? "0" : "1";
+        }
+        Dt.AcceptChanges();
+        HttpContext.Current.Session["HQ WISE OUTSTANDING"] = Dt;
+        int j = Dt.Rows.Count - 1;
+
+        return j.ToString();
+
     }
 }

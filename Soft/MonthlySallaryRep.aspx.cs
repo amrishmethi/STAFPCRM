@@ -4,6 +4,7 @@ using System.Activities.Statements;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -106,5 +107,40 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
         DataSet dss = data.getDataSet(str);
         Session["SalaryId"] = dss.Tables[0].Rows[0][0].ToString();
         Response.Write("<script>window.open ('SalarySlip.aspx','_blank');</script>");
+    }
+
+    protected void btnPF_Click(object sender, EventArgs e)
+    {
+        string str = "SELECT PF_ACNO,EMP_NAME, GROSSSALARY,EPF,EPSBASIC,EDLI,EE,EPS,ER,  [NCP DAYS],  [A/C.02 (RS.)],[A/C.21 (RS.)] FROM PFREPORT_VIEW WHERE  Format(SALARYMONTH,'MM-yyyy')='" + mnth.Text + "'";
+        if (drpDepartment.SelectedIndex > 0)
+            str += " and Dept_Id=" + drpDepartment.SelectedValue;
+        if (drpProjectManager.SelectedIndex > 0)
+            str += " and EMP_ID=" + drpProjectManager.SelectedValue;
+        if (drpStatus.SelectedIndex > 0)
+            str += " and Status='" + drpStatus.SelectedValue + "'";
+        if (drpPf.SelectedIndex > 0)
+            str += " and Is_PF=" + drpPf.SelectedValue;
+        DataSet dss = data.getDataSet(str);
+        //Session["PfReport"] = dss.Tables[0].Rows[0][0].ToString();
+
+        DataGrid grdreport = new DataGrid();
+        grdreport.DataSource = dss;
+        grdreport.DataBind();
+
+        Response.Clear();
+        Response.Buffer = true;
+        Response.ClearContent();
+        Response.ClearHeaders();
+        Response.Charset = "";
+        string FileName = "PF REPORT OF " + mnth.Text + ".xls";
+        StringWriter strwritter = new StringWriter();
+        HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
+        Response.Cache.SetCacheability(HttpCacheability.NoCache);
+        Response.ContentType = "application/vnd.ms-excel";
+        Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
+        grdreport.RenderControl(htmltextwrtter);
+        Response.Write(strwritter.ToString());
+        Response.End();
+        //Response.Write("<script>window.open ('SalarySlip.aspx','_blank');</script>");
     }
 }

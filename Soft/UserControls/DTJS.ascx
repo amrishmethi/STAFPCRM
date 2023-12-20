@@ -22,26 +22,15 @@
         //    ]
         //}); 
     });
-
+     
     $(document).ready(function () {
-        $('#ExportTbl').DataTable({
-            //  dom: '<"dt-top-container"<l><"dt-center-in-div"B><f>r>t<"dt-filter-spacer"f><ip>',
-            // dom: 'lBfrtip',
+        $('#ExportTbl').DataTable({ 
             dom: '<"dt-top-container"<l><"dt-center-in-div"B><f>r>t<ip>',
-            "processing": true,
-            //    "serverSide": true,
-            // paging:false,
+            "processing": true, 
             rowReorder: {
                 selector: 'td:nth-child(1)'
-            },
-            //responsive: true,
-            buttons: [
-                //{
-                //    extend: 'copyhtml5',
-                //    exportoptions: {
-                //        columns: [0, ':visible']
-                //    }
-                //},
+            }, 
+            buttons: [ 
                 {
                     extend: 'excelHtml5', footer: true,
                     exportOptions: {
@@ -61,6 +50,38 @@
                 {
                     extend: 'pdfHtml5', footer: true, orientation: 'landscape',
                     pageSize: 'A4',
+                    exportOptions: { 
+                        columns: ':visible',
+                    }
+                },
+                'colvis'
+            ],
+            pageLength: -1,
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        });
+    });
+
+     
+    $(document).ready(function () {
+        $('#ExportTbl1').DataTable({ 
+            dom: '<"dt-top-container"<l><"dt-center-in-div"B><f>r>t<ip>',
+            "processing": true, 
+            rowReorder: {
+                selector: 'td:nth-child(1)'
+            }, 
+            buttons: [ 
+                {
+                    extend: 'excelHtml5', footer: true,
+                    exportOptions: {
+                        columns: ':visible',
+                        format: {
+                            
+                        }
+                    }
+                },
+                {
+                    extend: 'pdfHtml5', footer: true, orientation: 'landscape',
+                    pageSize: 'A4',
                     exportOptions: {
                         //columns: [0, 1, 2, 5]
                         columns: ':visible',
@@ -72,33 +93,4 @@
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
         });
     });
-
-
-    $(document).ready(function () {
-
-        $('#LOkesh').DataTable({
-            dom: 'Bfrtip',
-
-            buttons: [
-                {
-                    extend: 'excel',
-                    exportOptions: {
-                        format: {
-
-                            body: function (inner, rowidx, colidx, node) {
-                                if ($(node).children("input").length > 0) {
-                                    return $(node).children("input").first().val();
-                                } else {
-                                    return inner;
-                                }
-                            }
-                        }
-                    }
-                }
-            ]
-
-        });
-
-    });
-
 </script>

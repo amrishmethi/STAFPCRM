@@ -116,8 +116,8 @@
                                                 <th>Order Bag</th>
                                                 <th>packing</th>
                                                 <th>Qty</th>
-                                                <th>Rate</th>
-                                                <th>Amount</th>
+                                               <%-- <th>Rate</th>
+                                                <th>Amount</th>--%>
 
                                             </tr>
 
@@ -139,8 +139,8 @@
                                                         <td style="text-align: left;"><%#Eval("ordbag") %></td>
                                                         <td style="text-align: left;"><%#Eval("CWeight") %></td>
                                                         <td style="text-align: left;"><%#Eval("qty") %></td>
-                                                        <td style="text-align: left;"><%#Eval("ordstprate") %></td>
-                                                        <td style="text-align: left;"><%#Eval("amount") %></td>
+                                                     <%--   <td style="text-align: left;"><%#Eval("ordstprate") %></td>
+                                                        <td style="text-align: left;"><%#Eval("amount") %></td>--%>
                                                     </tr>
                                                 </ItemTemplate>
                                             </asp:Repeater>
@@ -153,9 +153,9 @@
                                                 <td></td>
                                                 <td>
                                                     <asp:Label ID="lblTotalQty" runat="server"></asp:Label></td>
-                                                <td></td>
+                                                <%--<td></td>
                                                 <td>
-                                                    <asp:Label ID="lblTotalAmt" runat="server"></asp:Label></td>
+                                                    <asp:Label ID="lblTotalAmt" runat="server"></asp:Label></td>--%>
                                             </tr>
                                         </tfoot>
                                     </table>

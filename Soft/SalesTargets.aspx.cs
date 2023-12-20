@@ -86,15 +86,17 @@ public partial class Admin_SalesTargets : System.Web.UI.Page
         int year = Convert.ToInt32(mnth.Text.Split('-')[1]);
         string _DD = year + "-" + month + "-01";
 
-        string qq = "Select distinct S.*,EMP.Emp_Name  from tbl_SalesTarge_new S LEFT JOIN tbl_EmpMaster EMP on EMP.CRMUserId=S.UserID and EMP.Delid=0 LEFT JOIN ACCOUNT A on A.Id in (select item from SplitString(S.partyId,',')) LEFT JOIN station ST on ST.StationNo=A.StationNo LEFT JOIN HeadQtrDistrict HDQ on HDQ.DistrictNo=ST.DistrictNo LEFT JOIN mastbyno mm on mm.MsNo=HDQ.HeadQtrNo and mm.MsSR='HDQ'";
+        //string qq = "Select distinct S.*,EMP.Emp_Name  from tbl_SalesTarge_new S LEFT JOIN tbl_EmpMaster EMP on EMP.CRMUserId=S.UserID and EMP.Delid=0 LEFT JOIN ACCOUNT A on A.Id in (select item from SplitString(S.partyId,',')) LEFT JOIN station ST on ST.StationNo=A.StationNo LEFT JOIN HeadQtrDistrict HDQ on HDQ.DistrictNo=ST.DistrictNo LEFT JOIN mastbyno mm on mm.MsNo=HDQ.HeadQtrNo and mm.MsSR='HDQ'"; 
+        
+        string qq = "Select distinct S.*  from tbl_SalesTarge_new S LEFT JOIN ACCOUNT A on A.Id in (select item from SplitString(S.partyId,',')) LEFT JOIN station ST on ST.StationNo=A.StationNo LEFT JOIN HeadQtrDistrict HDQ on HDQ.DistrictNo=ST.DistrictNo LEFT JOIN mastbyno mm on mm.MsNo=HDQ.HeadQtrNo and mm.MsSR='HDQ'";
         if (drpheadQtr.SelectedIndex > 0)
             qq += " and HDQ.HeadQtrNo=" + drpheadQtr.SelectedValue;
 
-        qq += " where 0=0   ";
-        if (drpDepartment.SelectedIndex > 0)
-            qq += " and EMP.Dept_Id=" + drpDepartment.SelectedValue;
-        if (drpStatus.SelectedIndex > 0)
-            qq += " and EMP.Status='" + drpStatus.SelectedValue + "'";
+        //qq += " where 0=0   ";
+        //if (drpDepartment.SelectedIndex > 0)
+        //    qq += " and EMP.Dept_Id=" + drpDepartment.SelectedValue;
+        //if (drpStatus.SelectedIndex > 0)
+        //    qq += " and EMP.Status='" + drpStatus.SelectedValue + "'";
         DataSet dsTarget = data.getDataSet(qq);
         DataTable dtt = dsTarget.Tables[0];
         DataRow dr = dtt.NewRow();
@@ -162,6 +164,10 @@ public partial class Admin_SalesTargets : System.Web.UI.Page
         DataTable Dt = (DataTable)Session["dtMain"];
         foreach (DataRow drr in Dt.Rows)
         {
+            if (drr["Whatsappno"].ToString() == "9982160414")
+            {
+                string a = "";
+            }
             string q = "", _ColumnName = "", _ColumnValue = "";
             if (data.Exist("select * from tbl_SalesTarge_new where PartyId='" + drr["PartyId"] + "' "))
             {
@@ -171,7 +177,8 @@ public partial class Admin_SalesTargets : System.Web.UI.Page
                     string ss = drCol["SS"].ToString().Replace(' ', '_').ToString();
                     q += ", [" + ss + "] = " + drr[drCol["SS"].ToString()].ToString() + "";
                 }
-                q += " where PartyId='" + drr["PartyId"] + "' and Whatsappno='" + drr["Whatsappno"] + "' and PTCMSNO='" + drr["PTCMSNO"] + "' ";
+                //q += " where PartyId='" + drr["PartyId"] + "' and Whatsappno='" + drr["Whatsappno"] + "' and PTCMSNO='" + drr["PTCMSNO"] + "' ";
+                q += " where PartyId='" + drr["PartyId"] + "' and Whatsappno='" + drr["Whatsappno"] + "'  ";
             }
             else
             {
@@ -249,6 +256,9 @@ public partial class Admin_SalesTargets : System.Web.UI.Page
                 HiddenField HddHeadQtrNo = (HiddenField)e.Item.FindControl("HddHeadQtrNo");
                 HiddenField HddNo = (HiddenField)e.Item.FindControl("HddNo");
                 HiddenField hddMID = (HiddenField)e.Item.FindControl("hddMID");
+                if (HddNo.Value == "8003869991")
+                {
+                }
                 DataView dvv = ((DataTable)ViewState["TargetData"]).DefaultView;
                 dvv.RowFilter = "PARTYID='" + hddMID.Value.Trim() + "'";
                 DataTable dtt = dvv.ToTable();
@@ -263,6 +273,7 @@ public partial class Admin_SalesTargets : System.Web.UI.Page
                 DataRow drrMian = DtMain.NewRow();
                 drrMian["PartyId"] = hddMID.Value;
                 drrMian["Whatsappno"] = HddNo.Value;
+                
                 drrMian["PTCMSNO"] = HddHeadQtrNo.Value;
 
                 foreach (DataRow drr in dss.Tables[0].Rows)
@@ -342,7 +353,7 @@ public partial class Admin_SalesTargets : System.Web.UI.Page
     {
         DataTable Dt = (DataTable)HttpContext.Current.Session["dtMain"];
         int _RowID = Convert.ToInt32(Id.Split('_')[3]);
-        int _ColumnID = Convert.ToInt32(Id.Split('_')[5]) + 1;
+        int _ColumnID = Convert.ToInt32(Id.Split('_')[5]) + 3;
         DataRow drr = Dt.Rows[_RowID];
         drr[_ColumnID] = Val;
         Dt.AcceptChanges();

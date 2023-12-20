@@ -170,119 +170,119 @@
                                                     <td>
                                                        <%#Eval("EmployeeName")%>
                                                     </td>
-                                                    <td style='<%# Eval("Dat1")=="S"||Eval("Dat1")=="HD"?"background-color: Orange; color:white": Eval("Dat1")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat1")=="S"||Eval("Dat1")=="HD"||Eval("Dat1")=="PL"?"background-color: Orange; color:white": Eval("Dat1")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                          <%#Eval("Dat1") %> 
                                                     </td>
-                                                    <td style='<%# Eval("Dat2")=="S"||Eval("Dat2")=="HD"?"background-color: Orange; color:white": Eval("Dat2")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat2")=="S"||Eval("Dat2")=="HD"||Eval("Dat2")=="PL"?"background-color: Orange; color:white": Eval("Dat2")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                          <%#Eval("Dat2") %> 
                                                     </td>
-                                                    <td style='<%# Eval("Dat3")=="S"||Eval("Dat3")=="HD"?"background-color: Orange; color:white": Eval("Dat3")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat3")=="S"||Eval("Dat3")=="HD"||Eval("Dat3")=="PL"?"background-color: Orange; color:white": Eval("Dat3")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                        <%#Eval("Dat3") %> 
                                                     </td>
-                                                    <td style='<%# Eval("Dat4")=="S"||Eval("Dat4")=="HD"?"background-color: Orange; color:white": Eval("Dat4")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat4")=="S"||Eval("Dat4")=="HD"||Eval("Dat4")=="PL"?"background-color: Orange; color:white": Eval("Dat4")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                          <%#Eval("Dat4") %> 
                                                     </td>
-                                                    <td style='<%# Eval("Dat5")=="S"||Eval("Dat5")=="HD"?"background-color: Orange; color:white": Eval("Dat5")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat5")=="S"||Eval("Dat5")=="HD"||Eval("Dat5")=="PL"?"background-color: Orange; color:white": Eval("Dat5")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat5") %>                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat6")=="S"||Eval("Dat6")=="HD"?"background-color: Orange; color:white": Eval("Dat6")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat6")=="S"||Eval("Dat6")=="HD"||Eval("Dat6")=="PL"?"background-color: Orange; color:white": Eval("Dat6")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat6") %>                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat7")=="S"||Eval("Dat7")=="HD"?"background-color: Orange; color:white": Eval("Dat7")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'><%#Eval("Dat7") %> 
+                                                    <td style='<%# Eval("Dat7")=="S"||Eval("Dat7")=="HD"||Eval("Dat7")=="PL"?"background-color: Orange; color:white": Eval("Dat7")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'><%#Eval("Dat7") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat8")=="S"||Eval("Dat8")=="HD"?"background-color: Orange; color:white": Eval("Dat8")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat8")=="S"||Eval("Dat8")=="HD"||Eval("Dat8")=="PL"?"background-color: Orange; color:white": Eval("Dat8")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat8") %>  
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat9")=="S"||Eval("Dat9")=="HD"?"background-color: Orange; color:white": Eval("Dat9")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat9")=="S"||Eval("Dat9")=="HD"||Eval("Dat9")=="PL"?"background-color: Orange; color:white": Eval("Dat9")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat9") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat10")=="S"||Eval("Dat10")=="HD"?"background-color: Orange; color:white": Eval("Dat10")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat10")=="S"||Eval("Dat10")=="HD"||Eval("Dat10")=="PL"?"background-color: Orange; color:white": Eval("Dat10")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat10") %>  
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat11")=="S"||Eval("Dat11")=="HD"?"background-color: Orange; color:white": Eval("Dat11")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat11")=="S"||Eval("Dat11")=="HD"||Eval("Dat11")=="PL"?"background-color: Orange; color:white": Eval("Dat11")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat11") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat12")=="S"||Eval("Dat12")=="HD"?"background-color: Orange; color:white": Eval("Dat12")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat12")=="S"||Eval("Dat12")=="HD"||Eval("Dat12")=="PL"?"background-color: Orange; color:white": Eval("Dat12")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat12") %>  
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat13")=="S"||Eval("Dat13")=="HD"?"background-color: Orange; color:white": Eval("Dat13")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat13")=="S"||Eval("Dat13")=="HD"||Eval("Dat13")=="PL"?"background-color: Orange; color:white": Eval("Dat13")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat13") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat14")=="S" ||Eval("Dat14")=="HD"  ?"background-color: Orange; color:white": Eval("Dat14")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat14")=="S" ||Eval("Dat14")=="HD"||Eval("Dat14")=="PL"  ?"background-color: Orange; color:white": Eval("Dat14")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat14") %>  
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat15")=="S"||Eval("Dat15")=="HD"?"background-color: Orange; color:white": Eval("Dat15")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat15")=="S"||Eval("Dat15")=="HD"||Eval("Dat15")=="PL"?"background-color: Orange; color:white": Eval("Dat15")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat15") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat16")=="S"||Eval("Dat16")=="HD"?"background-color: Orange; color:white": Eval("Dat16")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat16")=="S"||Eval("Dat16")=="HD"||Eval("Dat16")=="PL"?"background-color: Orange; color:white": Eval("Dat16")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat16") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat17")=="S"||Eval("Dat17")=="HD"?"background-color: Orange; color:white": Eval("Dat17")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat17")=="S"||Eval("Dat17")=="HD"||Eval("Dat17")=="PL"?"background-color: Orange; color:white": Eval("Dat17")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat17") %>  
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat18")=="S"||Eval("Dat18")=="HD"?"background-color: Orange; color:white": Eval("Dat18")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat18")=="S"||Eval("Dat18")=="HD"||Eval("Dat18")=="PL"?"background-color: Orange; color:white": Eval("Dat18")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat18") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat19")=="S"||Eval("Dat19")=="HD"?"background-color: Orange; color:white": Eval("Dat19")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat19")=="S"||Eval("Dat19")=="HD"||Eval("Dat19")=="PL"?"background-color: Orange; color:white": Eval("Dat19")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat19") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat20")=="S"||Eval("Dat20")=="HD"?"background-color: Orange; color:white": Eval("Dat20")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat20")=="S"||Eval("Dat20")=="HD"||Eval("Dat20")=="PL"?"background-color: Orange; color:white": Eval("Dat20")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat20") %>                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat21")=="S"||Eval("Dat21")=="HD"?"background-color: Orange; color:white": Eval("Dat21")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat21")=="S"||Eval("Dat21")=="HD"||Eval("Dat21")=="PL"?"background-color: Orange; color:white": Eval("Dat21")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat21") %>
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat22")=="S"||Eval("Dat22")=="HD"?"background-color: Orange; color:white": Eval("Dat22")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat22")=="S"||Eval("Dat22")=="HD"||Eval("Dat22")=="PL"?"background-color: Orange; color:white": Eval("Dat22")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat22") %>  
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat23")=="S"||Eval("Dat23")=="HD"?"background-color: Orange; color:white": Eval("Dat23")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat23")=="S"||Eval("Dat23")=="HD"||Eval("Dat23")=="PL"?"background-color: Orange; color:white": Eval("Dat23")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat23") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat24")=="S"||Eval("Dat24")=="HD"?"background-color: Orange; color:white": Eval("Dat24")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat24")=="S"||Eval("Dat24")=="HD"||Eval("Dat24")=="PL"?"background-color: Orange; color:white": Eval("Dat24")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat24") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat25")=="S"||Eval("Dat25")=="HD"?"background-color: Orange; color:white": Eval("Dat25")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat25")=="S"||Eval("Dat25")=="HD"||Eval("Dat25")=="PL"?"background-color: Orange; color:white": Eval("Dat25")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat25") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat26")=="S"||Eval("Dat26")=="HD"?"background-color: Orange; color:white": Eval("Dat26")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat26")=="S"||Eval("Dat26")=="HD"||Eval("Dat26")=="PL"?"background-color: Orange; color:white": Eval("Dat26")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat26") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat27")=="S"||Eval("Dat27")=="HD"?"background-color: Orange; color:white": Eval("Dat27")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat27")=="S"||Eval("Dat27")=="HD"||Eval("Dat27")=="PL"?"background-color: Orange; color:white": Eval("Dat27")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat27") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat28")=="S"||Eval("Dat28")=="HD"?"background-color: Orange; color:white": Eval("Dat28")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat28")=="S"||Eval("Dat28")=="HD"||Eval("Dat28")=="PL"?"background-color: Orange; color:white": Eval("Dat28")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat28") %>  
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat29")=="S"||Eval("Dat29")=="HD"?"background-color: Orange; color:white": Eval("Dat29")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat29")=="S"||Eval("Dat29")=="HD"||Eval("Dat29")=="PL"?"background-color: Orange; color:white": Eval("Dat29")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat29") %>
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat30")=="S"||Eval("Dat30")=="HD"?"background-color: Orange; color:white": Eval("Dat30")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat30")=="S"||Eval("Dat30")=="HD"||Eval("Dat30")=="PL"?"background-color: Orange; color:white": Eval("Dat30")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat30") %> 
                                                            
                                                     </td>
-                                                    <td style='<%# Eval("Dat31")=="S"||Eval("Dat31")=="HD"?"background-color: Orange; color:white": Eval("Dat31")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
+                                                    <td style='<%# Eval("Dat31")=="S"||Eval("Dat31")=="HD"||Eval("Dat31")=="PL"?"background-color: Orange; color:white": Eval("Dat31")=="L"?"background-color: red; color:white" : "background-color: Green; color:white"%>'>
                                                         <%#Eval("Dat31") %> 
                                                            
                                                     </td>

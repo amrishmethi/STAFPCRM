@@ -25,7 +25,7 @@
                                <label>Station</label>
                                <asp:DropDownList ID="DrpStation" runat="server" CssClass="form-control select2"></asp:DropDownList>
                            </div>
-                           <div class="col-md-3">
+                           <div class="col-md-3 hidden">
                                <label>Party</label>
                                <asp:DropDownList ID="DrpParty" runat="server" CssClass="form-control select2"></asp:DropDownList>
                            </div>

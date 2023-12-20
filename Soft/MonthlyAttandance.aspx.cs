@@ -326,8 +326,17 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                                             }
                                             else
                                             {
-                                                dt1.Rows[i][j] = "L";
-                                                totalleave = totalleave + 1;
+                                                DataSet dssLeave = data.getDataSet("GETLEAVEOFEMPLOYEE  '" + ds.Tables[0].Rows[i]["EmpId"].ToString() + "','" + nextdate.ToString("MM/dd/yyyy") + "'");
+                                                if (dssLeave.Tables[0].Rows.Count > 0)
+                                                {
+                                                    totattend = totattend + 1;
+                                                    dt1.Rows[i][j] = "PL";
+                                                }
+                                                else
+                                                {
+                                                    dt1.Rows[i][j] = "L";
+                                                    totalleave = totalleave + 1;
+                                                }
                                             }
                                         }
                                         else

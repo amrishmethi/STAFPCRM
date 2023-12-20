@@ -25,10 +25,10 @@ public partial class Admin_PriceList : System.Web.UI.Page
 
             Soft = Request.Cookies["STFP"];
             Session["AccessRigthsSet"] = getdata.AccessRights("PriceList.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
-       
+
 
             Gd.FillGroup(drpGroup);
-            Gd.FillTerms(drpTerms); 
+            Gd.FillTerms(drpTerms);
             fillData();
         }
     }
@@ -77,6 +77,7 @@ public partial class Admin_PriceList : System.Web.UI.Page
 
 
         datatable.Columns.Add("Sr. No.");
+        datatable.Columns.Add("Product Image");
         datatable.Columns.Add("Item Name");
         datatable.Columns.Add("Rate Per Kg");
         datatable.Columns.Add("Rate Per Pc");
@@ -89,6 +90,7 @@ public partial class Admin_PriceList : System.Web.UI.Page
         {
             DataRow _row = datatable.NewRow();
             _row["Sr. No."] = datatable.Rows.Count + 1;
+            _row["Product Image"] = dr["ImageUrl"];
             _row["Item Name"] = dr["itname"];
             _row["Rate Per Kg"] = dr["SalesOrderRate"];
             _row["Rate Per Pc"] = dr["tRate"];
@@ -100,7 +102,7 @@ public partial class Admin_PriceList : System.Web.UI.Page
         }
 
         Session["GridData"] = datatable;
-        Session["Title"] = "Price List";
+        Session["Title"] = "Price List </br> As On " + DateTime.Now.ToString("MM-yyy");
         string strGrp = "";
         foreach (ListItem item in drpGroup.Items)
         {
@@ -114,6 +116,7 @@ public partial class Admin_PriceList : System.Web.UI.Page
         }
         Session["DateRange"] = "(" + strGrp + ")";
         Session["TermsId"] = drpTerms.SelectedValue;
+        Session["Filter"] = "";
         //Response.Redirect("Print.aspx");
         Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
     }

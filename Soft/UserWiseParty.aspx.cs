@@ -35,6 +35,12 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
             DataSet dsusr = getdata.getHqtrUserDpt("0");
             ViewState["tbl1"] = dsusr;
             DataView dv = dsusr.Tables[0].DefaultView;
+            string sr = "0=0";
+            if (drpDepartment.SelectedIndex > 0)
+                sr += " and Dept_Id=" + drpDepartment.SelectedValue + "";
+            if (drpStatus.SelectedIndex > 0)
+                sr += " and Status='" + drpStatus.SelectedValue + "'";
+            dv.RowFilter = sr;
             dv.Sort = "Name";
             drpUser.DataSource = dv.ToTable(true, "Name", "MId");
             drpUser.DataTextField = "Name";
@@ -110,7 +116,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         DataTable dtt = dv.ToTable();
         dtt.Columns.Add("IsCheckIn");
 
-        DataSet dsCheckIn = data.getDataSet("select * from [TBL_CHECKIN] WHERE USERID=" + drpUser.SelectedValue + " and Format(ADDEDDATE,'MM-yyyy')='" + mnth.Text + "'");
+        DataSet dsCheckIn = data.getDataSet("select * from [TBL_CHECKIN] WHERE  Format(ADDEDDATE,'MM-yyyy')='" + mnth.Text + "'");
         foreach (DataRow dr in dtt.Rows)
         {
             dr["IsCheckIn"] = dsCheckIn.Tables[0].AsEnumerable().Where(x => x["MOBILENO"].ToString() == dr["MOBILE"].ToString()).Count() > 0 ? "Yes" : "No";

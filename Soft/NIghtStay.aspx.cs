@@ -53,7 +53,7 @@ public partial class Soft_NIghtStay : System.Web.UI.Page
     }
     protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
     {
-        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue,drpStatus.SelectedValue);
+        Gd.FillUser(drpProjectManager, drpDepartment.SelectedValue, drpStatus.SelectedValue);
         FillRecords();
     }
 
@@ -65,11 +65,13 @@ public partial class Soft_NIghtStay : System.Web.UI.Page
 
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
+        Soft = Request.Cookies["STFP"];
+        string _EntryBy = "By CRM (" + Soft["UserName"] + ")";
         string _ID = e.CommandArgument.ToString();
         string _CHARGESTYPE1 = e.CommandName.ToString();
         if (e.CommandName == "Delete")
         {
-            string _query = "ALLOWANCE_UPDATE '" + _ID + "','" + _CHARGESTYPE1.ToUpper() + "'";
+            string _query = "ALLOWANCE_UPDATE '" + _ID + "','" + _CHARGESTYPE1.ToUpper() + "','" + _EntryBy + "'";
 
             if (data.executeCommand(_query) == 0)
             {
@@ -78,7 +80,7 @@ public partial class Soft_NIghtStay : System.Web.UI.Page
         }
         else
         {
-            dsResult = data.getDataSet("ALLOWANCE_UPDATE '" + _ID + "','" + _CHARGESTYPE1 + "'");
+            dsResult = data.getDataSet("ALLOWANCE_UPDATE '" + _ID + "','" + _CHARGESTYPE1 + "','" + _EntryBy + "'");
         }
         FillRecords();
     }

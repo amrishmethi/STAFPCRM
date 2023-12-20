@@ -21,14 +21,19 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <label>Group</label>
-                                <asp:ListBox ID="drpGroup" runat="server" CssClass="form-control select2" SelectionMode="Multiple" Width="100%"></asp:ListBox>
+                                <asp:DropDownList ID="drpGroup" runat="server" CssClass="form-control select2" Width="100%"></asp:DropDownList>
                             </div>
                             <div class="col-md-3">
-                                <label>Image Base Pah</label>
+                                <label>Image Base Path</label>
                                 <asp:TextBox ID="txtbasepath" runat="server" Text=""
                                     Enabled="false" CssClass="form-control"></asp:TextBox>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Group Path</label>
+                                <asp:TextBox ID="txtgrouppath" runat="server" Text="" CssClass="form-control"></asp:TextBox>
+                                <a id="grpImage" href='<%#Eval("imageurl") %>' target="_blank" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox" runat="server" visible="false"><i class="fa fa-eye"></i></a>
                             </div>
                             <div class="col-md-3" style="padding-top: 3px;">
                                 <div class="clearfix">&nbsp;</div>

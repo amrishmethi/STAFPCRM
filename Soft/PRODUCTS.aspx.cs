@@ -20,9 +20,9 @@ public partial class Soft_PRODUCTS : System.Web.UI.Page
         if (!IsPostBack)
         {
             if (Request.Cookies["STFP"] == null) { Response.Redirect("../Login.aspx"); }
-            txtbasepath.Text = "http://img.tadkeshwarfoods.com/";
+            txtbasepath.Text = "https://image.tadkeshwarfoods.com/";
             Soft = Request.Cookies["STFP"];
-            Gd.FillGroup(drpGroup);
+            Gd.FillSubGroup(drpGroup);
         }
     }
 
@@ -38,6 +38,9 @@ public partial class Soft_PRODUCTS : System.Web.UI.Page
                 dtt.Merge(ds.Tables[0]);
             }
         }
+        txtgrouppath.Text = dtt.Rows[0]["GroupITEMIMAGE"].ToString();
+        grpImage.HRef = dtt.Rows[0]["GroupImageURL"].ToString();
+        grpImage.Visible = dtt.Rows[0]["GroupITEMIMAGE"].ToString() == "" ? false : true;
         ViewState["tbl"] = dtt;
         rep.DataSource = dtt;
         rep.DataBind();
@@ -69,6 +72,9 @@ public partial class Soft_PRODUCTS : System.Web.UI.Page
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
+        data.executeCommand("update [CMaster] set [ITEMIMAGE]='" + txtgrouppath.Text + "' where CMsCode='" + drpGroup.SelectedValue + "'");
+
+
         DataTable dtt = (DataTable)ViewState["tbl"];
         DataView dvv = dtt.DefaultView;
         dvv.RowFilter = "ITEMIMAGE<>''";

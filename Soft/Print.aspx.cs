@@ -33,7 +33,7 @@ public partial class Soft_Print : System.Web.UI.Page
     {
         string strbreak = ""; string brkStr = "";
         StringBuilder strHTML = new StringBuilder();
-        strHTML.Append("<table  border='1' class='table display table-striped' style='border-collapse: collapse; font-size:10px;width: 100%;'>");
+        strHTML.Append("<table  border='1' class='table display table-striped' style='border-collapse: collapse; font-size:16px;width: 100%;'>");
         strHTML.Append("<thead>");
 
         strHTML.Append("<tr>");
@@ -84,7 +84,10 @@ public partial class Soft_Print : System.Web.UI.Page
 
             for (int c = 0; c < tbl.Columns.Count; c++)
             {
-                strHTML.Append("<td style='text-align: left;'>" + tbl.Rows[r][c] + "</td>");
+                if (tbl.Rows[r][c].ToString().Contains("https"))
+                    strHTML.Append("<td style='text-align: center;'><img src='" + tbl.Rows[r][c] + "' height='50px' width='50px' /></td>");
+                else
+                    strHTML.Append("<td style='text-align: center;'>" + tbl.Rows[r][c] + "</td>");
             }
             strHTML.Append("</tr>");
             if (Session["Title"].ToString() == "Secondary Sales")
@@ -110,6 +113,7 @@ public partial class Soft_Print : System.Web.UI.Page
         }
 
         strHTML.Append("</tbody>");
+        strHTML.Append("</table>");
         bindTable.InnerHtml = strHTML.ToString();
     }
 }

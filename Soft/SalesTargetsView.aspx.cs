@@ -86,7 +86,7 @@ public partial class Admin_SalesTargetsView : System.Web.UI.Page
 
     public void fillData()
     {
-        DataSet ds = getdata.GetSaleTargetReport(drpDepartment.SelectedValue, drpStatus.SelectedValue, drpUser.SelectedValue, drpheadQtr.SelectedValue, mnth.Text, drpCatg.SelectedValue);
+        DataSet ds = getdata.GetSaleTargetReport(drpDepartment.SelectedValue, drpStatus.SelectedValue, drpUser.SelectedValue, drpheadQtr.SelectedValue, mnth.Text, "PROC_SALETARGETVIEW", drpCatg.SelectedValue);
 
         DataView dvv = ds.Tables[0].DefaultView;
         DataTable dtt = dvv.ToTable(true, "EMP_NAME", "HQNAME");
@@ -100,6 +100,7 @@ public partial class Admin_SalesTargetsView : System.Web.UI.Page
             dr["EMP_NAME"] = drr["EMP_NAME"];
             dr["HeadQtr"] = drr["HQNAME"];
             int _Target = 0, _Sale = 0;
+
             foreach (ListItem item in drpGrp.Items)
             {
                 if (item.Selected)

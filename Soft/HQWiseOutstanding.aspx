@@ -4,7 +4,7 @@
 <%@ Register Src="~/Soft/UserControls/DTCSS.ascx" TagPrefix="uc1" TagName="DTCSS" %>
 <%@ Register Src="~/Soft/UserControls/DTJS.ascx" TagPrefix="uc1" TagName="DTJS" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>HQ Wise Outstanding</title>
+    <title>HQ WISE OUTSTANDING</title>
     <uc1:DTCSS runat="server" ID="DTCSS" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Body" runat="Server">
@@ -83,6 +83,9 @@
                             <div class="col-md-2">
                                 <br />
                                 <asp:Button ID="btnSearch" runat="server" CssClass="btn btn-primary" OnClick="btnSearch_Click" Text="Get Data" />
+
+                                <asp:Button ID="btnPrint" runat="server" CssClass="btn btn-success" Text="Print Report"
+                                    ValidationGroup="aa" OnClick="btnPrint_Click" />
                             </div>
                             <div class="clearfix">&nbsp;</div>
                         </div>
@@ -96,6 +99,8 @@
                                     <thead>
                                         <tr>
                                             <th>Sr. No.</th>
+                                            <th>
+                                                <input type='checkbox' id='chkAll' runat='server' onclick='javascript: chkChange(this);' /></th>
                                             <th>DISTRICT</th>
                                             <th>STATION</th>
                                             <th>Party </th>
@@ -111,9 +116,12 @@
                                     <tbody>
                                         <asp:Repeater ID="rep" runat="server">
                                             <ItemTemplate>
-                                                <tr class="gradeA" style="color: <%# Eval("color") %>">
+                                                <tr class="gradeA" style="color: <%#Eval("color") %>">
                                                     <td>
                                                         <%#Container.ItemIndex+1  %>
+                                                    </td>
+                                                    <td>
+                                                        <input id="chk" runat="server" type="checkbox" onclick="javascript: chkChange(this);" visible='<%#Eval("acname").ToString().Contains("Total") ?false:true%>' />
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("District") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
@@ -140,4 +148,66 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <uc1:DTJS runat="server" ID="DTJS" />
+
+    var cksku =""; 
+    <script type="text/javascript"> 
+        function SelectAllCheckboxes(spanChk) {
+
+            var theBox = (spanChk.type == "checkbox") ?
+                spanChk : spanChk.children.item[0];
+            xState = theBox.checked;
+            elm = theBox.form.elements;
+            var n = 0;
+            for (i = 0; i < elm.length; i++)
+
+                if (elm[i].type == "checkbox" &&
+                    elm[i].id != theBox.id) {
+
+                    if (elm[i].checked != xState) {
+
+                        elm[i].click();
+                        chkChange(elm[i]);
+                    }
+                    n++;
+                }
+        }
+
+    </script>
+
+
+    <script>
+        function chkChange(e) {
+
+            var id = e.id;
+            $.ajax({
+                type: 'POST',
+                url: "HQWiseOutstanding.aspx/txtRep_TextChanged",
+                data: '{Id: "' + id + '"  }',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+
+                    if (id == "Body_chkAll") {
+                        var theBox = (e.type == "checkbox") ?
+                            e : e.children.item[0];
+                        xState = theBox.checked;
+                        elm = theBox.form.elements;
+                        var n = 0;
+                        for (i = 0; i < elm.length; i++) {
+                            if (elm[i].type == "checkbox" &&
+                                elm[i].id != theBox.id) {
+
+                                if (elm[i].checked != xState) {
+
+                                    elm[i].checked = xState;
+                                }
+                                n++;
+                            }
+                        }
+                    }
+                }
+            });
+
+        }
+    </script>
 </asp:Content>

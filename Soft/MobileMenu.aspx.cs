@@ -89,7 +89,7 @@ public partial class Admin_MobileMenu : System.Web.UI.Page
     {
         if (e.CommandName == "Delete")
         {
-            string query = "update tbl_Menu set IsDelete = 1  where MenuId=" + e.CommandArgument + "";
+            string query = "update tbl_MenuMobile set IsDelete = 1  where MenuId=" + e.CommandArgument + "";
             data.executeCommand(query);
             ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Deleted Successfully......')", true);
             Response.Redirect("MobileMenu.aspx");

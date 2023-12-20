@@ -91,7 +91,7 @@ public partial class Soft_orderreportsp : System.Web.UI.Page
 
         lblTotalBag.Text = ds.Tables[0].Compute("sum(ordbag)", "").ToString();
         lblTotalQty.Text = ds.Tables[0].Compute("sum(qty)", "").ToString();
-        lblTotalAmt.Text = ds.Tables[0].Compute("sum(amount)", "").ToString();
+        //lblTotalAmt.Text = ds.Tables[0].Compute("sum(amount)", "").ToString();
     }
 
     protected void btnSearch_Click(object sender, EventArgs e)

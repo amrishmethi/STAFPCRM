@@ -94,12 +94,18 @@ public partial class Soft_StationBeatA : System.Web.UI.Page
         string _Action = Request.QueryString["Id"] == null ? "SAVE" : "UPDATE";
         string _Id = Request.QueryString["Id"] == null ? "0" : Request.QueryString["Id"];
 
-        DataSet dss = master.StationBeat(_Action, drpStation.SelectedValue, drpDistrict.SelectedValue, drpHeadqtr.SelectedValue, txtBeat.Text.Trim(), drpStation.SelectedValue, _Id);
-
-        if (dss.Tables[0].Rows[0]["Result"].ToString() == "")
+        DataSet dsexi = master.StationBeat("CHECK", drpStation.SelectedValue, drpDistrict.SelectedValue, drpHeadqtr.SelectedValue, txtBeat.Text.Trim(), drpStation.SelectedValue, _Id);
+        if (dsexi.Tables[0].Rows.Count == 0)
         {
-            ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record " + _Action + " Successfully');window.location ='StationBeatA.aspx'", true);
+            DataSet dss = master.StationBeat(_Action, drpStation.SelectedValue, drpDistrict.SelectedValue, drpHeadqtr.SelectedValue, txtBeat.Text.Trim(), drpStation.SelectedValue, _Id);
+
+            if (dss.Tables[0].Rows[0]["Result"].ToString() == "")
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record " + _Action + " Successfully');window.location ='StationBeatA.aspx'", true);
+            }
         }
+        else
+            ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record Already Exist');", true);
     }
 
     protected void btnBack_Click(object sender, EventArgs e)

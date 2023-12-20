@@ -90,7 +90,7 @@
                                                     </td>
                                                     <td style="text-align: left;">
 
-                                                        <a href="Menu.aspx?id=<%#Eval("MenuId") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
+                                                        <a href="MobileMenu.aspx?id=<%#Eval("MenuId") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
 
                                                         <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"
                                                             CommandArgument='<%#Eval("MenuId") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>

@@ -246,6 +246,17 @@
             });
         </script>
 
+        <script type="text/javascript">
+            $('.YearPicker').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+                format: "yyyy",
+                viewMode: "years",
+                minViewMode: "years",
+                autoclose: true
+            });
+        </script>
         <script>
             $(function () {
                 $('.form-control').keyup(function () {
@@ -282,10 +293,9 @@
                     return false;
                 return true;
             }
-            function IsNumericKey(e) {
-              
+            function IsNumericKey(e) { 
                 var charCode = (e.which) ? e.which : e.keyCode;
-                if ((charCode < 46 || charCode > 57) )
+                if ((charCode < 45 || charCode > 57) )
                     return false;
                 return true;
             }

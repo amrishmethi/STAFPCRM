@@ -103,8 +103,8 @@ public partial class Soft_EmployeeCategoryAssign : System.Web.UI.Page
     {
         string MsName = "", MsNo = "";
         HiddenField hddAssID = new HiddenField();
-
-
+        Soft = Request.Cookies["STFP"];
+        string _UserId = Soft["UserId"];
         DataTable dtable1 = ((DataTable)ViewState["CategoryList"]);
         foreach (DataRow drr in dtable1.Rows)
         {
@@ -126,7 +126,7 @@ public partial class Soft_EmployeeCategoryAssign : System.Web.UI.Page
             MsNo = MsNo.Substring(0, MsNo.Length - 1);
         }
         hddAssID.Value = dtable1.Rows[0]["PartyID"].ToString();
-        data.executeCommand("Update tbl_EMPMaster set PARTYCATEGORY='" + MsNo + "' where EMPID='" + hddAssID.Value.ToString() + "'");
+        data.executeCommand("Update tbl_EMPMaster set PARTYCATEGORY='" + MsNo + "' ,ModifyDate=GETDATE(),ModifyUser='" + _UserId + "' where EMPID='" + hddAssID.Value.ToString() + "'");
 
         DataTable dtable = ((DataTable)ViewState["PartyList"]);
         foreach (DataRow drr in dtable.Rows)
