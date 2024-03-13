@@ -100,15 +100,15 @@ public partial class Soft_Payroll : System.Web.UI.Page
             drpStatus.SelectedValue = dsGet.Tables[0].Rows[0]["Status"].ToString();
             hddEmpNo.Value = dsGet.Tables[0].Rows[0]["EmpNo"].ToString();
             hddCrmUserId.Value = dsGet.Tables[0].Rows[0]["CRMUserId"].ToString();
-            
+
             drpAccountGroup.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNTGROUP"].ToString();
             Gd.FillAccounts(drpAccount, "0", drpAccountGroup.SelectedValue);
             drpAccount.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNT"].ToString();
-                       
+
             drpaccountGroupLoan.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNTGROUPLOAN"].ToString();
             Gd.FillAccounts(drpAccountLoan, "0", drpaccountGroupLoan.SelectedValue);
             drpAccountLoan.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNTLOAN"].ToString();
-              
+
             drpaccountGroupTravel.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNTGROUPTRAVEL"].ToString();
             Gd.FillAccounts(drpAccountTravel, "0", drpaccountGroupTravel.SelectedValue);
             drpAccountTravel.SelectedValue = dsGet.Tables[0].Rows[0]["ACCOUNTTRAVEL"].ToString();
@@ -378,7 +378,9 @@ public partial class Soft_Payroll : System.Web.UI.Page
         {
             drpGender.SelectedValue = dsGet.Tables[4].Rows[0]["Gender"].ToString();
             txtDOB.Text = dsGet.Tables[4].Rows[0]["DOB1"].ToString();
-            drpMarriedStatus.SelectedValue = dsGet.Tables[4].Rows[0]["Marrital_Status"].ToString();
+            drpMarriedStatus.SelectedValue = dsGet.Tables[4].Rows[0]["Marrital_Status"].ToString(); 
+            txtDOM.Enabled = (drpMarriedStatus.SelectedValue.ToString() == "Married") ? true : false;
+            TxtMaternityLeave.Enabled = (drpMarriedStatus.SelectedValue.ToString() == "Married") ? true : false;
             txtEducation.Text = dsGet.Tables[4].Rows[0]["Qualification"].ToString();
             txtDOM.Text = dsGet.Tables[4].Rows[0]["DOM1"].ToString();
             TxtMaternityLeave.Text = dsGet.Tables[4].Rows[0]["Metarnitiy_Leave"].ToString();
@@ -648,13 +650,13 @@ public partial class Soft_Payroll : System.Web.UI.Page
         Gd.FillAccounts(drpAccount, "0", drpAccountGroup.SelectedValue);
     }
 
-     
+
 
     protected void drpaccountGroupLoan_SelectedIndexChanged(object sender, EventArgs e)
     {
         Gd.FillAccounts(drpAccountLoan, "0", drpaccountGroupLoan.SelectedValue);
-    } 
-    
+    }
+
     protected void drpaccountGroupTravel_SelectedIndexChanged(object sender, EventArgs e)
     {
         Gd.FillAccounts(drpAccountTravel, "0", drpaccountGroupTravel.SelectedValue);

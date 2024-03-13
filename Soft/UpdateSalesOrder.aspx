@@ -86,20 +86,22 @@
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="clearfix">&nbsp;</div>
-                    <asp:HiddenField ID="hddid" runat="server"/>
+                    <asp:HiddenField ID="hddid" runat="server" />
                     <asp:UpdatePanel ID="updt1" runat="server">
-                    <ContentTemplate>
-                        <div class="col-sm-4">
-                        <label>Group</label>
-                        <asp:DropDownList ID="drpGroup" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpGroup_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
-                    </div>
-                    <div class="col-sm-4">
-                        <label>Item</label>
-                        <asp:DropDownList ID="drpItem" runat="server" CssClass="form-control select2"></asp:DropDownList>
-                    </div>
-                        
+                        <ContentTemplate>
+                            <div class="col-sm-4">
+                                <label>Group</label>
+                                <asp:DropDownList ID="drpGroup" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpGroup_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Item</label>
+                                <asp:DropDownList ID="drpItem" runat="server" CssClass="form-control select2"></asp:DropDownList>
+                            </div>
+
                         </ContentTemplate>
-                    <Triggers><asp:AsyncPostBackTrigger ControlID="drpGroup" EventName="SelectedIndexChanged"/></Triggers>    
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="drpGroup" EventName="SelectedIndexChanged" />
+                        </Triggers>
                     </asp:UpdatePanel>
                     <div class="col-sm-1">
                         <label>Bag/Case</label>
@@ -109,7 +111,7 @@
                         <label>Rate Per Kg</label>
                         <asp:TextBox ID="txtRate" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
-                    <div class="col-sm-1" style="padding-top: 3px;" >
+                    <div class="col-sm-1" style="padding-top: 3px;">
                         <div class="clearfix">&nbsp;</div>
                         <asp:LinkButton ID="btnplus" runat="server" CssClass="btn btn-primary fa fa-plus" OnClick="btnplus_Click"></asp:LinkButton>
                     </div>

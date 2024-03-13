@@ -21,6 +21,14 @@
                 <div class="box box-primary">
                     <div class="box-body">
                         <div class="form-group">
+                            <div class="col-md-2">
+                                <label>Employee Status</label>
+                                <asp:DropDownList ID="drpStatus" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="drpDepartment_SelectedIndexChanged" AutoPostBack="true">
+                                    <asp:ListItem Text="ALL" Value="ALL"></asp:ListItem>
+                                    <asp:ListItem Text="Active" Value="Active" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="Non-Active" Value="Non-Active"></asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
                             <div class="col-md-3">
                                 <label>Employee</label>
                                 <asp:DropDownList ID="DrpEmployee" runat="server" CssClass="form-control select2" OnSelectedIndexChanged="DrpEmployee_SelectedIndexChanged" AutoPostBack="true">
@@ -47,7 +55,6 @@
                                 <asp:DropDownList ID="drpParty" runat="server" CssClass="form-control select2">
                                 </asp:DropDownList>
                             </div>
-                            <div class="clearfix">&nbsp;</div>
                             <div class="col-md-2">
                                 <label>Account Group</label>
                                 <asp:DropDownList ID="drpAccountGrp" runat="server" CssClass="form-control select2">
@@ -121,7 +128,7 @@
                                                         <%#Container.ItemIndex+1  %>
                                                     </td>
                                                     <td>
-                                                        <input id="chk" runat="server" type="checkbox" onclick="javascript: chkChange(this);" visible='<%#Eval("acname").ToString().Contains("Total") ?false:true%>' />
+                                                        <input id="chk" runat="server" type="checkbox" onclick="javascript: chkChange(this);" visible='<%#Eval("VOCID").ToString().Contains("Total") ?false:true%>' />
                                                     </td>
                                                     <td style="text-align: left;"><%#Eval("District") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>

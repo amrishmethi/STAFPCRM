@@ -46,14 +46,11 @@ public partial class Soft_Print : System.Web.UI.Page
         strHTML.Append("</thead>");
         strHTML.Append("<tbody>");
         brkStr = tbl.Rows[0][2].ToString();
-        //strHTML.Append("<tr style='height:2px;background-color:silver;'>");
-        //strHTML.Append("<td style='text-align: left;' colspan='" + tbl.Columns.Count + "'></td>");
-        //strHTML.Append("</tr>");
         decimal totSecSales = 0, totTrgtAmt = 0, totAchivePer = 0;
         int totVisits = 0, totTrgtVisit = 0, totProdVisit = 0, totNonProdVisit = 0;
+        string _PartyName = "";
         for (int r = 0; r < tbl.Rows.Count; r++)
         {
-
             if (Session["Title"].ToString() == "Secondary Sales")
             {
                 totSecSales += Convert.ToDecimal(tbl.Rows[r][4].ToString() == "" ? "0" : tbl.Rows[r][4].ToString());
@@ -77,19 +74,94 @@ public partial class Soft_Print : System.Web.UI.Page
                         strbreak = "";
                     }
                 }
-
             }
+            if (Session["Title"].ToString().Contains("HQ WISE OUTSTANDING"))
+            {
+                if (_PartyName != tbl.Rows[r]["Party"].ToString())
+                {
+                    if (r != 0)
+                    {
+                        DataTable dataTable = (DataTable)Session["HQ WISE OUTSTANDING"];
+                        DataRow drr = dataTable.AsEnumerable().Where(x => x["acname"].ToString().Contains(_PartyName)).FirstOrDefault();
 
+                        strHTML.Append("<tr>");
+                        strHTML.Append("<td></td>");
+                        strHTML.Append("<td></td>");
+                        strHTML.Append("<td style='text-align:center'><b>" + _PartyName + "" + Session["DateRange"] + " (" + drr["ACCREDITDY"] + ") </b></td>");
+                        strHTML.Append("<td></td>");
+                        strHTML.Append("<td>Total</td>");
+                        double _BillAMt = Convert.ToDouble(tbl.Compute("sum([Bill Amount])", "Party='" + _PartyName + "'"));
+                        string _BillAMt1 = (_BillAMt > 0) ? _BillAMt + " CR" : _BillAMt * -1 + " DR";
+                        double _DueAMt = Convert.ToDouble(tbl.Compute("sum([Due Amount])", "Party='" + _PartyName + "'"));
+                        string _DueAMt1 = (_DueAMt > 0) ? _DueAMt + " CR" : _DueAMt * -1 + " DR";
+
+                        strHTML.Append("<td style='text-align:center'>" + _BillAMt1 + "</td > ");
+                        strHTML.Append("<td style='text-align:center'>" + _DueAMt1 + "</td>");
+                        strHTML.Append("<td></td>");
+                        strHTML.Append("<td></td>");
+                        strHTML.Append("</tr>");
+                    }
+                    _PartyName = tbl.Rows[r]["Party"].ToString();
+                }
+            }
             strHTML.Append("<tr>");
 
             for (int c = 0; c < tbl.Columns.Count; c++)
             {
                 if (tbl.Rows[r][c].ToString().Contains("https"))
                     strHTML.Append("<td style='text-align: center;'><img src='" + tbl.Rows[r][c] + "' height='50px' width='50px' /></td>");
+                else if (Session["Title"].ToString().Contains("HQ WISE OUTSTANDING"))
+                    if (tbl.Columns[c].ColumnName == "Bill Amount" || tbl.Columns[c].ColumnName == "Due Amount")
+                    {
+                        string _str = Convert.ToDouble(tbl.Rows[r][c]) > 0 ? Convert.ToDouble(tbl.Rows[r][c]).ToString() + " CR" : (Convert.ToDouble(tbl.Rows[r][c]) * -1).ToString() + " DR";
+                        strHTML.Append("<td style='text-align: center;'>" + _str + "</td>");
+                    }
+                    else
+                        strHTML.Append("<td style='text-align: center;'>" + tbl.Rows[r][c] + "</td>");
+
                 else
                     strHTML.Append("<td style='text-align: center;'>" + tbl.Rows[r][c] + "</td>");
             }
             strHTML.Append("</tr>");
+            if (Session["Title"].ToString().Contains("HQ WISE OUTSTANDING"))
+            {
+                if (r + 1 == tbl.Rows.Count)
+                {
+                    DataTable dataTable = (DataTable)Session["HQ WISE OUTSTANDING"];
+                    DataRow drr = dataTable.AsEnumerable().Where(x => x["acname"].ToString().Contains(_PartyName)).FirstOrDefault();
+
+                    strHTML.Append("<tr>");
+                    strHTML.Append("<td></td>");
+                    strHTML.Append("<td></td>");
+                    strHTML.Append("<td style='text-align:center'><b>" + _PartyName + "" + Session["DateRange"] + " (" + drr["ACCREDITDY"] + ") </b></td>");
+                    strHTML.Append("<td></td>");
+                    strHTML.Append("<td>Total</td>");
+                    double _BillAMt = Convert.ToDouble(tbl.Compute("sum([Bill Amount])", "Party='" + _PartyName + "'"));
+                    string _BillAMt1 = (_BillAMt > 0) ? _BillAMt + " CR" : _BillAMt * -1 + " DR";
+                    double _DueAMt = Convert.ToDouble(tbl.Compute("sum([Due Amount])", "Party='" + _PartyName + "'"));
+                    string _DueAMt1 = (_DueAMt > 0) ? _DueAMt + " CR" : _DueAMt * -1 + " DR";
+
+                    strHTML.Append("<td style='text-align:center'>" + _BillAMt1 + "</td > ");
+                    strHTML.Append("<td style='text-align:center'>" + _DueAMt1 + "</td>");
+                    strHTML.Append("<td></td>");
+                    strHTML.Append("<td></td>");
+                    strHTML.Append("</tr>");
+
+                    strHTML.Append("<tr>");
+                    strHTML.Append("<td style='text-align:right' colspan='4'></td>");
+                    strHTML.Append("<td><b>Grand Total</b> </td>");
+                    double _TBillAMt = Convert.ToDouble(tbl.Compute("sum([Bill Amount])", ""));
+                    string _TBillAMt1 = (_TBillAMt > 0) ? _TBillAMt + " CR" : _TBillAMt * -1 + " DR";
+                    double _TDueAMt = Convert.ToDouble(tbl.Compute("sum([Due Amount])", ""));
+                    string _TDueAMt1 = (_TDueAMt > 0) ? _TDueAMt + " CR" : _TDueAMt * -1 + " DR";
+
+
+                    strHTML.Append("<td style='text-align:center'>" + _TBillAMt1 + "</td > ");
+                    strHTML.Append("<td style='text-align:center'>" + _TDueAMt1 + "</td>");
+                    strHTML.Append("<td colspan='2'></td>");
+                    strHTML.Append("</tr>");
+                }
+            }
             if (Session["Title"].ToString() == "Secondary Sales")
             {
                 if (strbreak != "" || r == tbl.Rows.Count - 1)

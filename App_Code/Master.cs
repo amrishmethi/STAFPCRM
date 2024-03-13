@@ -201,6 +201,15 @@ public class Master
         cmd.Parameters.AddWithValue("@type", type);
         ds = data.getDataSet(cmd);
         return ds;
+    }  
+    public DataSet getUserwiseParty(string userid, string type)
+    {
+        cmd = new SqlCommand("PROC_UserwiseParty");
+        cmd.CommandType = CommandType.StoredProcedure;
+        cmd.Parameters.AddWithValue("@UserID", userid);
+        cmd.Parameters.AddWithValue("@type", type);
+        ds = data.getDataSet(cmd);
+        return ds;
     }
 
     public DataSet getUserTourPlanN(string HEADQTR, string DEPT_ID, string CRMUSERID, string DISTRICTNO, string STATUS, string DATEFROM, string DATETO)

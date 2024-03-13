@@ -163,11 +163,7 @@ public partial class Admin_SalesTargets : System.Web.UI.Page
         DataTable dtColumn = ((DataSet)ViewState["Columns"]).Tables[0];
         DataTable Dt = (DataTable)Session["dtMain"];
         foreach (DataRow drr in Dt.Rows)
-        {
-            if (drr["Whatsappno"].ToString() == "9982160414")
-            {
-                string a = "";
-            }
+        { 
             string q = "", _ColumnName = "", _ColumnValue = "";
             if (data.Exist("select * from tbl_SalesTarge_new where PartyId='" + drr["PartyId"] + "' "))
             {

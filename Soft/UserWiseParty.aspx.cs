@@ -76,7 +76,7 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
     }
     public void fillData()
     {
-        ds = getdata.getUserTourPlan(drpUser.SelectedValue, drpType.SelectedValue);
+        ds = getdata.getUserwiseParty(drpUser.SelectedValue, drpType.SelectedValue);
 
         ViewState["tbl"] = ds.Tables[0];
         DataView dv = ((DataTable)ViewState["tbl"]).DefaultView;
@@ -115,11 +115,13 @@ public partial class Admin_UserWiseParty : System.Web.UI.Page
         dv.RowFilter = rowFilter;
         DataTable dtt = dv.ToTable();
         dtt.Columns.Add("IsCheckIn");
+        dtt.Columns.Add("SecondarySale");
 
-        DataSet dsCheckIn = data.getDataSet("select * from [TBL_CHECKIN] WHERE  Format(ADDEDDATE,'MM-yyyy')='" + mnth.Text + "'");
+        DataSet dsCheckIn = data.getDataSet("select Ci.MobileNo, ISNULL((Select SUM( CO.OrdQty * CO.OrdStpRate * I.CWeight)   FROM [STM_Tadkeshwar].[dbo].[tbl_CheckOutItem] CO     \r\n  left join [STM_Tadkeshwar].[dbo].[ITEM] I on I.ITName = CO.ITName  where FID in (Select ID from [STM_Tadkeshwar].[DBO].[TBL_CHECKOUT]  where CheckInID = CI.Id)),'') AMOunt  From tbl_CheckIn CI WHERE  Format(ADDEDDATE,'MM-yyyy')='" + mnth.Text + "'");
         foreach (DataRow dr in dtt.Rows)
         {
             dr["IsCheckIn"] = dsCheckIn.Tables[0].AsEnumerable().Where(x => x["MOBILENO"].ToString() == dr["MOBILE"].ToString()).Count() > 0 ? "Yes" : "No";
+            dr["SecondarySale"] = dsCheckIn.Tables[0].Compute("Sum(AMOunt)", "MOBILENO='" + dr["MOBILE"].ToString() + "'");
         }
         dtt.AcceptChanges();
         rep.DataSource = dtt;

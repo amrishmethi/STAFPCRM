@@ -227,8 +227,7 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                                 if (nextdate.DayOfWeek.ToString() == "Sunday")
                                 {
                                     #region if mark attendance on sunday then show 
-                                    dt1.Rows[i][j] = "S";
-                                    //if mark attendance on sunday then show 
+                                    dt1.Rows[i][j] = "S"; 
                                     string query2 = "select Format(AttendancedateIn, 'hh:mm tt') AttendancedateIn,Format(Attendancedateout, 'hh:mm tt') Attendancedateout, IsAttendanceOUT from Attendance   where IsDeleted=0 ANd  Cast(AttendanceDateIN as date)='" + nextdate + "'   ";
 
                                     if (CRMUSERID == "0")
@@ -239,32 +238,45 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
 
                                     dsnext = data.getDataSet(query2);
                                     if (dsnext.Tables[0].Rows.Count > 0)
+                                    { 
+                                        dt1.Rows[i][j] = "P";
+                                    }
+                                    else
                                     {
-                                        string Mtime = ""; string Etime = ""; TimeSpan ts;
-                                        double hrs = 0; double minutes = 0;
-                                        string duration = "";
-
-                                        Mtime = dsnext.Tables[0].Rows[0]["AttendanceDateIN"].ToString();
-                                        if (dsnext.Tables[0].Rows[0]["IsAttendanceOUT"].ToString().ToUpper() == "TRUE")
-                                            Etime = dsnext.Tables[0].Rows[0]["AttendanceDateOut"].ToString();
-
-                                        if (Etime == "" || Etime == null)
+                                        if (nextdate.ToString("MM/dd/yyyy") == "03/06/2023")
                                         {
-                                            duration = "";
+                                            int a = 0;
+                                        }
+                                        string query1 = "GETHOLIDAYLIST_Proc '" + nextdate.ToString("MM/dd/yyyy") + "'  ";
+                                        DataSet dsholiday = data.getDataSet(query1);
+                                        if (dsholiday.Tables[0].Rows.Count > 0)
+                                        {
+                                            DataView dvv = dsholiday.Tables[0].DefaultView;
+                                            dvv.RowFilter = "DATEFROM ='" + nextdate.ToString("MM/dd/yyyy") + "'";
+                                            if (dvv.ToTable().Rows.Count > 0)
+                                            {
+                                                if (dt1.Rows[i][j].ToString() != "P")
+                                                    dt1.Rows[i][j] = "HD";
+                                            }
+                                            else
+                                            {
+                                                DataSet dssLeave = data.getDataSet("GETLEAVEOFEMPLOYEE  '" + ds.Tables[0].Rows[i]["EmpId"].ToString() + "','" + nextdate.ToString("MM/dd/yyyy") + "'");
+                                                if (dssLeave.Tables[0].Rows.Count > 0)
+                                                {
+                                                    totattend = totattend + 1;
+                                                    dt1.Rows[i][j] = "PL";
+                                                } 
+                                            }
                                         }
                                         else
                                         {
-                                            DateTime dat1 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Mtime);
-                                            DateTime dat2 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Etime);
-                                            ts = dat2 - dat1;
-
-                                            hrs = dat2.Subtract(dat1).Hours;
-                                            minutes = dat2.Subtract(dat1).Minutes;
-
-                                            //duration = "(" + hrs + ":" + minutes + "Hours)";
+                                            DataSet dssLeave = data.getDataSet("GETLEAVEOFEMPLOYEE  '" + ds.Tables[0].Rows[i]["EmpId"].ToString() + "','" + nextdate.ToString("MM/dd/yyyy") + "'");
+                                            if (dssLeave.Tables[0].Rows.Count > 0)
+                                            {
+                                                totattend = totattend + 1;
+                                                dt1.Rows[i][j] = "PL";
+                                            } 
                                         }
-                                        //dt1.Rows[i][j] = Mtime + "<br />" + Etime + "<br />" + duration;
-                                        dt1.Rows[i][j] = "P";
                                     }
                                     totattend = totattend + 1;
                                     #endregion
@@ -279,32 +291,8 @@ public partial class Soft_MonthlyAttandance : System.Web.UI.Page
                                         query2 += " and (EmpID=" + EmpId + " or USERID=" + CRMUSERID + ")";
                                     dsnext = data.getDataSet(query2);
                                     if (dsnext.Tables[0].Rows.Count > 0)
-                                    {
-                                        string Mtime = ""; string Etime = ""; TimeSpan ts;
-                                        double hrs = 0; double minutes = 0;
-                                        string duration = "";
-
-                                        Mtime = dsnext.Tables[0].Rows[0]["AttendanceDateIN"].ToString();
-                                        if (dsnext.Tables[0].Rows[0]["IsAttendanceOUT"].ToString().ToUpper() == "TRUE")
-                                            Etime = dsnext.Tables[0].Rows[0]["AttendanceDateOut"].ToString();
-
-                                        if (Etime == "" || Etime == null)
-                                        {
-                                            duration = "";
-                                        }
-                                        else
-                                        {
-                                            DateTime dat1 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Mtime);
-                                            DateTime dat2 = Convert.ToDateTime(nextdate.ToString("MM/dd/yyyy") + " " + Etime);
-                                            ts = dat2 - dat1;
-
-                                            hrs = dat2.Subtract(dat1).Hours;
-                                            minutes = dat2.Subtract(dat1).Minutes;
-
-                                            //duration = "(" + hrs + ":" + minutes + "Hours)";
-                                        }
-                                        totattend = totattend + 1;
-                                        //dt1.Rows[i][j] = Mtime + "<br />" + Etime + "<br />" + duration;
+                                    { 
+                                        totattend = totattend + 1; 
                                         dt1.Rows[i][j] = "P";
                                     }
                                     else

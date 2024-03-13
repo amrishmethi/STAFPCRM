@@ -132,6 +132,7 @@
                                             <th>Mobile</th>
                                             <th>WhatsApp</th>
                                             <th>isCheckIn</th>
+                                            <th>Secondary Sale</th>
                                         </tr>
 
                                     </thead>
@@ -151,6 +152,7 @@
                                                     <td style="text-align: left;"><%#Eval("Mobile") %></td>
                                                     <td style="text-align: left;"><%#Eval("WhatsAppNo") %></td>
                                                     <td style="text-align: left;"><%#Eval("isCheckIn") %></td>
+                                                    <td style="text-align: left;"><%#Eval("SecondarySale") %></td>
                                                 </tr>
                                             </ItemTemplate>
 

@@ -76,9 +76,7 @@
                             <div class="cold-md-3">
                                 <br />
                                 <asp:Button ID="btnUpdateBeat" runat="server" CssClass="btn btn-success" Text="Update Beat" OnClick="btnUpdateBeat_Click" />
-                                 &nbsp;
-                                <asp:Button ID="btnUpdateLocation" runat="server" CssClass="btn btn-primary" Text="Update Location" OnClick="btnUpdateLocation_Click" />
-                            </div> 
+                            </div>
                         </div>
 
                     <div class="clearfix">&nbsp;</div>
@@ -125,15 +123,17 @@
                                                 <td style="text-align: left;"><%#Eval("WhatsUpMobileNo") %></td>
 
                                                 <td style="text-align: left;">
-                                                    <i class="fa fa-map-marker" aria-hidden="true" title="<%# !string.IsNullOrEmpty(Eval("Place") as string) ? Eval("Place") : "Location not available" %>"></i>
                                                     <div class="isEditVisible" style="display: inline;">
                                                         <a href="SecondarySalesPartyMaster.aspx?id=<%#Eval("ID") %>" style="padding: 1px 6px; font-size: 11px;" class="btn btn-small btn-primary rolese" aria-label="Edit" rel="lightbox"><i class="fa fa-pencil"></i></a>
                                                     </div>
                                                     <div class="isDelVisible" style="display: inline;">
                                                         <asp:LinkButton ID="lnkDelete" runat="server" Style="padding: 1px 6px; font-size: 11px;" OnClientClick="javascript:return confirm('Are you sure you want to delete ?');" CommandName="Delete" CssClass="btn btn-small btn-danger"
                                                             CommandArgument='<%#Eval("ID") %>'><i class="fa fa-trash-o"></i></asp:LinkButton>
-                                                    </div> 
-                                                </td> 
+                                                    </div>
+
+                                                </td>
+
+
                                             </tr>
                                         </ItemTemplate>
 

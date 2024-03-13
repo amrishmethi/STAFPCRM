@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Spire.Pdf.Tables;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -67,7 +69,7 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
             summary.Visible = true;
             detail.Visible = false;
             all.Visible = false;
-
+            Session["DistanceDetailReport"] = dss.Tables[0];
             Repeater1.DataSource = dss;
             Repeater1.DataBind();
             if (dss.Tables[0].Rows.Count > 0)
@@ -155,7 +157,7 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
                     boundTable.Rows.Add(row);
                 }
 
-                 
+
                 foreach (DataRow dr in boundTable.Rows)
                 {
                     decimal rate = Convert.ToDecimal(recDt.Select("Emp_Name = '" + dr["Emp_Name"] + "'").FirstOrDefault()["Rate"]);
@@ -181,5 +183,80 @@ public partial class Soft_DistanceDetailReport : System.Web.UI.Page
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         GetReport();
+    }
+
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+        Session["DateRange"] = " AS ON " + txtDateFrom.Text + " To " + txtDateTo.Text;
+        DataTable dataTable = (DataTable)Session["DistanceDetailReport"];
+        DataTable dtPrint = ((DataTable)Session["DistanceDetailReport"]).Select("chk=1").CopyToDataTable();
+
+        dtPrint.Columns.Remove("Chk");
+        dtPrint.AcceptChanges();
+        DataTable dtS = new DataTable();
+        dtS.Columns.Add("Sr No");
+        dtS.Columns.Add("Travel Date");
+        dtS.Columns.Add("Place Att. IN");
+        dtS.Columns.Add("Place Att. Out");
+        dtS.Columns.Add("Distance in KM");
+        dtS.Columns.Add("Rate Per KM");
+        dtS.Columns.Add("Amount");
+        dtS.Columns.Add("Night Stay");
+        dtS.Columns.Add("Daily Allowance");
+        dtS.Columns.Add("Other Claim");
+        dtS.Columns.Add("Total");
+
+        foreach (DataRow dti in dtPrint.Rows)
+        {
+            DataRow drr = dtS.NewRow();
+            drr["Sr No"] = dtS.Rows.Count + 1;
+            drr["Travel Date"] = dti["TravelDate"];
+            drr["Place Att. IN"] = dti["PlaceIn"];
+            drr["Place Att. Out"] = dti["PlaceOut"];
+            drr["Distance in KM"] = dti["Distance"];
+            drr["Rate Per KM"] = dti["Rate"];
+            drr["Amount"] = dti["Amount"];
+            drr["Night Stay"] = dti["NightStay"];
+            drr["Daily Allowance"] = dti["DAL1"];
+            drr["Other Claim"] = dti["Other"];
+            drr["Total"] = dti["Total"];
+            dtS.Rows.Add(drr);
+        }
+        DataRow drr1 = dtS.NewRow();
+        drr1["Distance in KM"] = dtPrint.Compute("sum(Distance)", "");
+        drr1["Amount"] = dtPrint.Compute("sum(Amount)", "");
+        drr1["Night Stay"] = dtPrint.Compute("sum(NightStay)", "");
+        drr1["Daily Allowance"] = dtPrint.Compute("sum(DAL1)", "");
+        drr1["Other Claim"] = dtPrint.Compute("sum(Other)", "");
+        drr1["Total"] = dtPrint.Compute("sum(Total)", "");
+        dtS.Rows.Add(drr1);
+
+
+        Session["GridData"] = dtS;
+        Session["TermsId"] = "";
+        Session["Title"] = "Distance Detail Report</br>" + drpEmp.SelectedItem.Text + " ";
+
+        Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
+    }
+    [WebMethod]
+    public static string txtRep_TextChanged(string Id)
+    {
+        DataTable Dt = (DataTable)HttpContext.Current.Session["DistanceDetailReport"];
+        if (Id == "Body_chkAll")
+        {
+            foreach (DataRow drw in Dt.Rows) { drw["Chk"] = drw["Chk"].ToString() == "1" ? "0" : "1"; }
+        }
+        else
+        {
+            int _RowID = Convert.ToInt32(Id.Split('_')[3]);
+            DataRow drr = Dt.Rows[_RowID];
+            drr["Chk"] = drr["Chk"].ToString() == "1" ? "0" : "1";
+        }
+        Dt.AcceptChanges();
+        HttpContext.Current.Session["DistanceDetailReport"] = Dt;
+        int j = Dt.Rows.Count - 1;
+
+        return j.ToString();
+
     }
 }

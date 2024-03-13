@@ -63,6 +63,7 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
     {
         if (ViewState["Target"] == null)
         {
+            Dt.Columns.Add("Srno");
             Dt.Columns.Add("Party");
             Dt.Columns.Add("Chk");
             Dt.Columns.Add("Mobile");
@@ -104,9 +105,11 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
 
         DataTable dtt2 = (DataTable)ViewState["Target"];
         dtt2.Rows.Clear();
+        int i = 1;
         foreach (DataRow drr in dtt.Rows)
         {
             DataRow dr = dtt2.NewRow();
+            dr["Srno"] = i++;
             dr["Party"] = ds.Tables[0].AsEnumerable().Where(x => x["WPNO"].ToString() == drr["WPNO"].ToString()).Where(x => x["STATION"].ToString() == drr["STATION"].ToString()).Where(x => x["CID"].ToString().Trim() == drr["CID"].ToString().Trim()).Select(r => r["PARTY"]).ToArray()[0];
             dr["Mobile"] = drr["WPNO"];
             dr["STATION"] = ds.Tables[0].AsEnumerable().Where(x => x["WPNO"].ToString() == drr["WPNO"].ToString()).Where(x => x["STATION"].ToString() == drr["STATION"].ToString()).Where(x => x["CID"].ToString().Trim() == drr["CID"].ToString().Trim()).Select(r => r["STATION"]).ToArray()[0];
@@ -137,6 +140,7 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
         if (dtN.Rows.Count > 0)
         {
             DataRow dr = dtN.NewRow();
+            dr["Srno"] = dtN.Rows.Count + 1;
             dr["Party"] = "Total";
             dr["Mobile"] = "";
             dr["STATION"] = "";
@@ -217,7 +221,12 @@ public partial class Admin_TargetpartywiseView : System.Web.UI.Page
         dtPrint.Rows[_CID]["Target"] = dtPrint.Compute("sum(Target)", "Party<>'TOTAL'");
         dtPrint.Rows[_CID]["Sale"] = dtPrint.Compute("sum(Sale)", "Party<>'TOTAL'");
 
-        dtPrint.Columns.Remove("Chk");
+        dtPrint.Columns.Remove("Chk"); 
+        int i = 1;
+        foreach(DataRow drr in dtPrint.Rows)
+        {
+            drr["Srno"] = i++;
+        }
         dtPrint.AcceptChanges();
         Session["GridData"] = dtPrint;
         Session["TermsId"] = "";

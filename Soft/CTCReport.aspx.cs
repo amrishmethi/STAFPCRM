@@ -1,14 +1,8 @@
-﻿using Mailjet.Client.Resources;
-using Newtonsoft.Json.Linq;
-using Org.BouncyCastle.Ocsp;
-using Spire.Pdf.Tables;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class Soft_CTCReport : System.Web.UI.Page
@@ -66,7 +60,7 @@ public partial class Soft_CTCReport : System.Web.UI.Page
             }
         }
         cmd.CommandText = "PROC_CTCREPORT";
-        cmd.CommandType = CommandType.StoredProcedure; 
+        cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.Clear();
         cmd.Parameters.AddWithValue("@DEPT_ID", drpDepartment.SelectedValue);
         cmd.Parameters.AddWithValue("@STATUS", drpStatus.SelectedValue);
@@ -78,23 +72,43 @@ public partial class Soft_CTCReport : System.Web.UI.Page
 
         if (ds.Tables[2].Rows.Count > 0)
         {
+
             DataTable dt = ds.Tables[2];
+
+            foreach (DataRow drr in dt.Rows)
+            {
+                int _TargetQty = 0;
+                foreach (ListItem item in drpGrp.Items)
+                {
+                    if (item.Selected)
+                    {
+                        _TargetQty += Convert.ToInt32(ds.Tables[3].AsEnumerable().Where(r => r.Field<string>("EMP_NAME") == drr["Emp_Name"].ToString()).Sum(r => r.Field<Int64?>("" + item.ToString().Replace(" ", "_") + "") ?? 0));
+                    }
+                }
+                drr["TargetQty"] = _TargetQty;
+                drr["Balance"] = _TargetQty - Convert.ToInt32(drr["SALEQTY"]);
+            }
             DataView dvv = dt.DefaultView;
-            DataTable dtN = dvv.ToTable(true, "HEADQTR", "SALE", "DUEAMT", "Emp_Name", "SALEQTY", "PENDINGQTY");
+            DataTable dtN = dvv.ToTable(true, "HEADQTR", "SALE", "DUEAMT", "Emp_Name", "SALEQTY", "PENDINGQTY", "TargetQty", "Balance");
 
             decimal Target_Visit = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Target_Visit"]));
             decimal Total_Visit = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Total_Visit"]));
             decimal Productive_Visit = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Productive_Visit"]));
-            decimal Sales_Amount = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Sales_Amount"])); 
+            decimal Sales_Amount = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Sales_Amount"]));
             decimal Salary = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Salary"]));
             decimal Sale = dtN.AsEnumerable().Where(r => r.Field<string>("Emp_Name") == drpUser.SelectedItem.Text).Sum(row => Convert.ToDecimal(row["SALE"]));
-            decimal Expenses = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Expenses"])); 
+            decimal Expenses = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Expenses"]));
             decimal Total_Expenses = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Total_Expenses"]));
             decimal Create_Dealer = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Create_Dealer"]));
             decimal Client_MEET = dt.AsEnumerable().Sum(row => Convert.ToDecimal(row["Client_MEET"]));
             decimal DUEAMT = Math.Abs(dtN.AsEnumerable().Where(r => r.Field<string>("Emp_Name") == drpUser.SelectedItem.Text).Sum(row => Convert.ToDecimal(row["DUEAMT"])));
-            decimal SALEQTY = Math.Abs(dtN.AsEnumerable().Where(r => r.Field<string>("Emp_Name") == drpUser.SelectedItem.Text).Sum(row => Convert.ToInt32(row["SALEQTY"]))); 
+            decimal SALEQTY = Math.Abs(dtN.AsEnumerable().Where(r => r.Field<string>("Emp_Name") == drpUser.SelectedItem.Text).Sum(row => Convert.ToInt32(row["SALEQTY"])));
             decimal PENDINGQTY = Math.Abs(dtN.AsEnumerable().Where(r => r.Field<string>("Emp_Name") == drpUser.SelectedItem.Text).Sum(row => Convert.ToInt32(row["PENDINGQTY"])));
+            decimal TargetQty = Math.Abs(dtN.AsEnumerable().Where(r => r.Field<string>("Emp_Name") == drpUser.SelectedItem.Text).Sum(row => Convert.ToInt32(row["TargetQty"])));
+            decimal Balance = Math.Abs(dtN.AsEnumerable().Where(r => r.Field<string>("Emp_Name") == drpUser.SelectedItem.Text).Sum(row => Convert.ToInt32(row["Balance"])));
+
+
+
 
             var groupedData = from row in dt.AsEnumerable()
                               group row by new { Emp_Name = row.Field<string>("Emp_Name"), Rep_Manager = row.Field<string>("Rep_Manager") }
@@ -117,7 +131,9 @@ public partial class Soft_CTCReport : System.Web.UI.Page
                                   Client_MEET = grp.Sum(row => Convert.ToDecimal(row["Client_MEET"])),
                                   DUEAMT = Math.Abs(grp.Sum(row => Convert.ToDecimal(row["DUEAMT"]))),
                                   PENDINGQTY = Math.Abs(grp.Sum(row => Convert.ToInt32(row["PENDINGQTY"]))),
-                                  SALEQTY = Math.Abs(grp.Sum(row => Convert.ToInt32(row["SALEQTY"])))
+                                  SALEQTY = Math.Abs(grp.Sum(row => Convert.ToInt32(row["SALEQTY"]))),
+                                  TargetQty = Math.Abs(grp.Sum(row => Convert.ToInt32(row["TargetQty"]))),
+                                  Balance = Math.Abs(grp.Sum(row => Convert.ToInt32(row["Balance"])))
                               };
             groupedData.ToList();
 
@@ -128,7 +144,9 @@ public partial class Soft_CTCReport : System.Web.UI.Page
             mergedTable.Columns.Add("Total_Visit", typeof(decimal));
             mergedTable.Columns.Add("Productive_Visit", typeof(decimal));
             mergedTable.Columns.Add("Sales_Amount", typeof(decimal));
+            mergedTable.Columns.Add("TargetQty", typeof(decimal));
             mergedTable.Columns.Add("Sale", typeof(decimal));
+            mergedTable.Columns.Add("Balance", typeof(decimal));
             mergedTable.Columns.Add("Salary", typeof(decimal));
             mergedTable.Columns.Add("Expenses", typeof(decimal));
             mergedTable.Columns.Add("CTC", typeof(decimal));
@@ -142,11 +160,11 @@ public partial class Soft_CTCReport : System.Web.UI.Page
 
 
             foreach (var item in groupedData)
-            { 
+            {
                 foreach (DataRow row in item.rows.Rows)
                 {
                     mergedTable.ImportRow(row);
-                } 
+                }
             }
 
             DataRow footerRow = mergedTable.NewRow();
@@ -155,7 +173,9 @@ public partial class Soft_CTCReport : System.Web.UI.Page
             footerRow["Total_Visit"] = Total_Visit;
             footerRow["Productive_Visit"] = Productive_Visit;
             footerRow["Sales_Amount"] = Sales_Amount;
+            footerRow["TargetQty"] = TargetQty;
             footerRow["Sale"] = Sale;
+            footerRow["Balance"] = Balance;
             footerRow["Salary"] = Salary;
             footerRow["Expenses"] = Expenses;
             footerRow["CTC"] = (Sale == 0 ? "0" : ((Total_Expenses * 100) / Sale).ToString("0.00"));

@@ -34,14 +34,9 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
 
             DataSet dsusr = getdata.getHqtrUserDpt("0");
             ViewState["tbl"] = dsusr.Tables[0];
+
             DataView dv = dsusr.Tables[0].DefaultView;
-            //dv.RowFilter = " Status='Active'";
-            dv.Sort = "Name";
-            DrpEmployee.DataSource = dv.ToTable(true, "Name", "MId");
-            DrpEmployee.DataTextField = "Name";
-            DrpEmployee.DataValueField = "MId";
-            DrpEmployee.DataBind();
-            DrpEmployee.Items.Insert(0, new System.Web.UI.WebControls.ListItem("Select", "0"));
+            FillEmployee();
 
             dv.Sort = "HeadQtr";
             drpHeadQtr.DataSource = dv.ToTable(true, "HeadQtr", "HeadQtrNo");
@@ -63,6 +58,24 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
             gd.FillBookType(drpBookType);
             gd.FillAccountGroup(drpAccountGrp);
         }
+    }
+    protected void drpDepartment_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        FillEmployee();
+    }
+
+    private void FillEmployee()
+    {
+        DataTable dsusr = (DataTable)ViewState["tbl"];
+        DataView dv = dsusr.DefaultView;
+        if (drpStatus.SelectedIndex > 0)
+            dv.RowFilter = " Status='" + drpStatus.SelectedValue + "'";
+        dv.Sort = "Name";
+        DrpEmployee.DataSource = dv.ToTable(true, "Name", "MId");
+        DrpEmployee.DataTextField = "Name";
+        DrpEmployee.DataValueField = "MId";
+        DrpEmployee.DataBind();
+        DrpEmployee.Items.Insert(0, new ListItem("Select", "0"));
     }
 
     protected void drpHeadQtr_SelectedIndexChanged(object sender, EventArgs e)
@@ -156,6 +169,7 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
             groupedData.ToList();
 
             DataTable mergedTable = new DataTable();
+            mergedTable.Columns.Add("Chk", typeof(string));
             mergedTable.Columns.Add("HEADQTRNO", typeof(string));
             mergedTable.Columns.Add("District", typeof(string));
             mergedTable.Columns.Add("Station", typeof(string));
@@ -171,6 +185,7 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
             mergedTable.Columns.Add("COLOR", typeof(string));
             mergedTable.Columns.Add("MM", typeof(string));
             mergedTable.Columns.Add("GLDATE", typeof(string));
+            mergedTable.Columns.Add("ACCREDITDY", typeof(string));
 
 
             foreach (var item in groupedData)
@@ -212,19 +227,45 @@ public partial class Soft_HQWiseOutstanding : System.Web.UI.Page
 
 
     protected void btnPrint_Click(object sender, EventArgs e)
-    { 
+    {
         Session["DateRange"] = " AS ON " + dpFrom.Text;
         DataTable dataTable = (DataTable)Session["HQ WISE OUTSTANDING"];
         DataTable dtPrint = ((DataTable)Session["HQ WISE OUTSTANDING"]).Select("chk=1").CopyToDataTable();
-        //int _CID = dtPrint.Rows.Count - 1;
-        //dtPrint.Rows[_CID]["Balance"] = dtPrint.Compute("sum(Balance)", "Party<>'TOTAL'");
-        //dtPrint.Rows[_CID]["Target"] = dtPrint.Compute("sum(Target)", "Party<>'TOTAL'");
-        //dtPrint.Rows[_CID]["Sale"] = dtPrint.Compute("sum(Sale)", "Party<>'TOTAL'");
 
         dtPrint.Columns.Remove("Chk");
         dtPrint.AcceptChanges();
-        Session["GridData"] = dtPrint;
-        Session["TermsId"] = ""; 
+        DataTable dtS = new DataTable();
+        dtS.Columns.Add("DISTRICT");
+        dtS.Columns.Add("STATION");
+        dtS.Columns.Add("Party");
+        dtS.Columns.Add("Bill Date");
+        dtS.Columns.Add("Bill No");
+        dtS.Columns.Add("Bill Amount", typeof(decimal));
+        dtS.Columns.Add("Due Amount", typeof(decimal));
+        dtS.Columns.Add("Due Date");
+        dtS.Columns.Add("Due Day");
+
+        foreach (DataRow dti in dtPrint.Rows)
+        {
+            if (!dti["VOCID"].ToString().Contains("Total"))
+            {
+                DataRow drr = dtS.NewRow();
+                drr["DISTRICT"] = dti["District"];
+                drr["Station"] = dti["Station"];
+                drr["Party"] = dti["acname"];
+                drr["Bill Date"] = dti["VOCDATE"];
+                drr["Bill No"] = dti["VOCID"];
+                drr["Bill Amount"] = dti["MM"].ToString() == "CR" ? Convert.ToDecimal(dti["BILLAMT"]) : Convert.ToDecimal(dti["BILLAMT"]) * -1;
+                drr["Due Amount"] = dti["MM"].ToString() == "CR" ? Convert.ToDecimal(dti["DUEAMT"]) : Convert.ToDecimal(dti["DUEAMT"]) * -1;
+                drr["Due Date"] = dti["DUEDATE"];
+                drr["Due Day"] = dti["DUEDAY"];
+                dtS.Rows.Add(drr);
+            }
+        }
+        DataView dv = dtS.DefaultView;
+        dv.Sort = "Party";
+        Session["GridData"] = dv.ToTable();
+        Session["TermsId"] = "";
 
         Session["Title"] = "HQ WISE OUTSTANDING </br>" + DrpEmployee.SelectedItem.Text + " (" + drpHeadQtr.SelectedItem.Text + ")  ";
 

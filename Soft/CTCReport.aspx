@@ -80,7 +80,9 @@
                                             <th>Secondary Sales Productive Visit </th>
                                             <th>Secondary Sales Amount</th>
                                             <th>Sale Without Tax</th>
+                                            <th>Sale Target</th>
                                             <th>Sale Qty</th>
+                                            <th>Balance</th>
                                             <%--As Per HQ Party Group Wse--%>
                                             <th>Salary</th>
                                             <th>Expenses</th>
@@ -108,7 +110,9 @@
                                                     <td style='<%# Eval("Emp_Name").ToString()=="Total" ? "text-align: left;font-weight: bold;": "text-align: left;" %>'><%# Eval("Productive_Visit")  %></td>
                                                     <td style='<%# Eval("Emp_Name").ToString()=="Total" ? "text-align: left;font-weight: bold;": "text-align: left;" %>'><%# Eval("Sales_Amount")  %></td>
                                                     <td style='<%# Eval("Emp_Name").ToString()=="Total" ? "text-align: left;font-weight: bold;": "text-align: left;" %>'><%# Eval("Sale")  %></td>
+                                                    <td style='<%# Eval("Emp_Name").ToString()=="Total" ? "text-align: left;font-weight: bold;": "text-align: left;" %>'><%# Eval("TargetQty")  %></td>
                                                     <td style='<%# Eval("Emp_Name").ToString()=="Total" ? "text-align: left;font-weight: bold;": "text-align: left;" %>'><%# Eval("SALEQTY")  %></td>
+                                                    <td style='<%# Eval("Emp_Name").ToString()=="Total" ? "text-align: left;font-weight: bold;": "text-align: left;" %>'><%# Eval("Balance")  %></td>
                                                     <td style='<%# Eval("Emp_Name").ToString()=="Total" ? "text-align: left;font-weight: bold;": "text-align: left;" %>'><%# Eval("Salary")  %></td>
                                                     <td style='<%# Eval("Emp_Name").ToString()=="Total" ? "text-align: left;font-weight: bold;": "text-align: left;" %>'><%# Eval("Expenses")  %></td>
                                                     <td style='<%# Eval("Emp_Name").ToString()=="Total" ? "text-align: left;font-weight: bold;": "text-align: left;" %>'><%# Eval("Total_Expenses")  %></td>

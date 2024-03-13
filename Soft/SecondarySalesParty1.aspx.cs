@@ -59,7 +59,7 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
 
     public void fillData()
     {
-        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue, drpStation.SelectedValue, drpStation.SelectedValue, "", txtMobile.Text, "", drpheadQtr.SelectedValue, drpBeat1.SelectedValue, drpHeadqtr1.SelectedValue, drpUser.SelectedValue);
+        ds = getdata.getSecondarySalesParty("SELECT", drpParty.SelectedValue, drpStation.SelectedValue, drpStation.SelectedValue, "", txtMobile.Text,  "", drpheadQtr.SelectedValue, drpBeat1.SelectedValue, drpHeadqtr1.SelectedValue, drpUser.SelectedValue);
         rep.DataSource = ds.Tables[0];
         rep.DataBind();
     }
@@ -85,15 +85,8 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
     [WebMethod]
     public static string ControlAccess()
     {
-        try
-        {
-            DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
-            return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
-        }
-        catch
-        {
-            return "";
-        }
+        DataTable tbl1 = (DataTable)HttpContext.Current.Session["AccessRigthsSet"];
+        return tbl1.Rows[0]["AddStatus"].ToString() + "," + tbl1.Rows[0]["EditStatus"].ToString() + "," + tbl1.Rows[0]["DeleteStatus"].ToString() + "," + tbl1.Rows[0]["ViewP"].ToString();
     }
 
 
@@ -142,21 +135,6 @@ public partial class Admin_SecondarySalesParty : System.Web.UI.Page
             if (chk.Checked == true)
             {
                 data.executeCommand("UPDATE TBL_SECONDARYSALESPARTY SET BeatId='" + drpBeat.SelectedValue + "'  WHERE Id=" + hddPartyId.Value);
-            }
-        }
-        ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Beat Update Successfully');window.location ='SecondarySalesParty.aspx'", true);
-
-    }
-
-    protected void btnUpdateLocation_Click(object sender, EventArgs e)
-    {
-        for (int i = 0; i < rep.Items.Count; i++)
-        {
-            CheckBox chk = (CheckBox)rep.Items[i].FindControl("chk");
-            HiddenField hddPartyId = (HiddenField)rep.Items[i].FindControl("hddPartyId");
-            if (chk.Checked == true)
-            {
-                data.executeCommand("UPDATE TBL_SECONDARYSALESPARTY SET IsLocationUpdated='0', Latitude = '', Longitude = ''  WHERE Id=" + hddPartyId.Value);
             }
         }
         ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Beat Update Successfully');window.location ='SecondarySalesParty.aspx'", true);

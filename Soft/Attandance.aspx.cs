@@ -21,8 +21,8 @@ public partial class Soft_Attandance : System.Web.UI.Page
         Soft = Request.Cookies["STFP"];
         if (!IsPostBack)
         {
-            Session["AccessRigthsSet"] = master.AccessRights("Attandance.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
 
+            Session["AccessRigthsSet"] = master.AccessRights("Attandance.aspx", Soft["Type"] == "admin" ? "0" : Soft["UserId"]).Tables[0];
             Gd.fillDepartment(drpDepartment);
             Gd.fillDesignation(drpDesignation, drpDepartment.SelectedValue);
             Gd.FillUser(drpProjectManager);
@@ -48,6 +48,8 @@ public partial class Soft_Attandance : System.Web.UI.Page
 
     private void FillRecords()
     {
+        ViewState["IsHoliday"] = data.getDataSet("Select Count(*) FROM [STM_Tadkeshwar].[dbo].[tbl_Holiday] where delid=0 and Cast('" + data.ConvertToDateTime(txtDate.Text) + "' as date) between Cast(DateFrom as date) and Cast(Dateto as date)").Tables[0].Rows[0][0].ToString();
+
         lblDate.Text = txtDate.Text;
         DataSet ds = data.getDataSet("PROC_EMPHIERARCHY '" + drpProjectManager.SelectedValue + "','" + drpDepartment.SelectedValue + "'");
         rep.DataSource = ds;
@@ -57,8 +59,7 @@ public partial class Soft_Attandance : System.Web.UI.Page
     protected void rep_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         TextBox txtWorkingTimeFRom = (TextBox)e.Item.FindControl("txtWorkingTimeFRom");
-        string _Action = e.CommandName;
-
+        string _Action = e.CommandName; 
         string _EmpId = e.CommandArgument.ToString();
         string Lat = hddLnL.Value.Split(',')[0].Replace("(", "");
         string Lang = hddLnL.Value.Split(',')[1].Replace(")", "");
@@ -85,9 +86,9 @@ public partial class Soft_Attandance : System.Web.UI.Page
         txtWorkingTimeFRom.Text = DateTime.Now.ToString("HH:mm");
         DataSet dss = data.getDataSet("Select FORMAT(ATTENDANCEDATEIN,'hh:mm tt')ATTENDANCEDATEIN,FORMAT(ATTENDANCEDATEOUT,'hh:mm tt')ATTENDANCEDATEOUT  ,IsAttendanceOUT  from Attendance where IsDeleted=0 And IIF(" + HddCrmUserId.Value + "=0,EMPID,UserId)=IIF(" + HddCrmUserId.Value + "=0," + HddEmpId.Value + "," + HddCrmUserId.Value + ")  and Cast(AttendanceDateIN as date)=Cast('" + data.YYYYMMDD(txtDate.Text) + "' as date)");
 
-        lnkOut.Visible = (dss.Tables[0].Rows.Count > 0) ? Convert.ToBoolean(dss.Tables[0].Rows[0]["IsAttendanceOUT"]) ? false : true : false;
-        lnkLeave.Visible = (dss.Tables[0].Rows.Count > 0) ? Convert.ToBoolean(dss.Tables[0].Rows[0]["IsAttendanceOUT"]) ? true : true : false;
-        lnkIN.Visible = (dss.Tables[0].Rows.Count > 0) ? false : true;
+        lnkOut.Visible = ViewState["IsHoliday"].ToString() == "1" ? false : (dss.Tables[0].Rows.Count > 0) ? Convert.ToBoolean(dss.Tables[0].Rows[0]["IsAttendanceOUT"]) ? false : true : false;
+        lnkLeave.Visible = ViewState["IsHoliday"].ToString() == "1" ? false : (dss.Tables[0].Rows.Count > 0) ? Convert.ToBoolean(dss.Tables[0].Rows[0]["IsAttendanceOUT"]) ? true : true : false;
+        lnkIN.Visible = ViewState["IsHoliday"].ToString() == "1" ? false : (dss.Tables[0].Rows.Count > 0) ? false : true;
         if (dss.Tables[0].Rows.Count > 0)
         {
             string AttandanceIn = "In: " + dss.Tables[0].Rows[0]["ATTENDANCEDATEIN"].ToString();

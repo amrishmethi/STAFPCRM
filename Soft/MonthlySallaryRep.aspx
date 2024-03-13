@@ -83,6 +83,12 @@
   &nbsp;
   <asp:Button ID="btnPF" runat="server" CssClass="btn btn-primary" Text="PF REPORT"
       ValidationGroup="aa" OnClick="btnPF_Click" />
+                                
+                                &nbsp;
+  &nbsp;
+  &nbsp;
+  <asp:Button ID="btnPDFPrint" runat="server" CssClass="btn btn-primary" Text="PDF REPORT"
+      ValidationGroup="aa" OnClick="btnPDFPrint_Click" />
                             </div>
                         </div>
 

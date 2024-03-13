@@ -704,12 +704,12 @@
                                 <label class="control-label">
                                     Date of Marriage
                                 </label>
-                                <asp:TextBox ID="txtDOM" runat="server" ClientIDMode="Static" CssClass="form-control datepicker" Enabled="false"></asp:TextBox>
+                                <asp:TextBox ID="txtDOM" runat="server" ClientIDMode="Static" CssClass="form-control datepicker"></asp:TextBox>
                             </div>
                             <div id="ShowMaternity" runat="server" class="col-md-3">
                                 <label class="control-label">
                                     Maternity Leave</label>
-                                <asp:TextBox ID="TxtMaternityLeave" ClientIDMode="Static" runat="server" CssClass="form-control" Text="0" onkeypress="return IsNumericKey(event);" Enabled="false"></asp:TextBox>
+                                <asp:TextBox ID="TxtMaternityLeave" ClientIDMode="Static" runat="server" CssClass="form-control" Text="0" onkeypress="return IsNumericKey(event);"></asp:TextBox>
                             </div>
 
                             <div class="col-md-3">
@@ -1036,7 +1036,6 @@
         }
 
         function OnSelected(me, valuee1, valuee2) {
-
             var value = me.selectedIndex;
             if (value > 1) {
                 document.getElementById(valuee1).disabled = false;

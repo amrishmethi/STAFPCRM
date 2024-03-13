@@ -101,7 +101,16 @@ public partial class Soft_StationBeatA : System.Web.UI.Page
 
             if (dss.Tables[0].Rows[0]["Result"].ToString() == "")
             {
-                ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record " + _Action + " Successfully');window.location ='StationBeatA.aspx'", true);
+                if (Request.QueryString["Id"] == null)
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record " + _Action + " Successfully');", true);
+                    txtBeat.Text = "";
+                    txtBeat.Focus();
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, typeof(Page), UniqueID, "alert('Record " + _Action + " Successfully');window.location ='StationBeatA.aspx'", true);
+                }
             }
         }
         else

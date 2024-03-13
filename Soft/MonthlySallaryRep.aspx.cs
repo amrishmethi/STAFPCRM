@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Activities.Expressions;
-using System.Activities.Statements;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -60,9 +55,6 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
 
         rep.DataSource = mergedTable;
         rep.DataBind();
-
-        //Repeater1.DataSource = dss.Tables[1];
-        //Repeater1.DataBind();
 
         Session["Salary"] = dss.Tables[0];
     }
@@ -121,7 +113,6 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
         if (drpPf.SelectedIndex > 0)
             str += " and Is_PF=" + drpPf.SelectedValue;
         DataSet dss = data.getDataSet(str);
-        //Session["PfReport"] = dss.Tables[0].Rows[0][0].ToString();
 
         DataGrid grdreport = new DataGrid();
         grdreport.DataSource = dss;
@@ -142,5 +133,82 @@ public partial class Soft_MonthlySallaryRep : System.Web.UI.Page
         Response.Write(strwritter.ToString());
         Response.End();
         //Response.Write("<script>window.open ('SalarySlip.aspx','_blank');</script>");
+    }
+
+    protected void btnPDFPrint_Click(object sender, EventArgs e)
+    {
+        Session["DateRange"] = " AS ON " + mnth.Text;
+        DataTable dataTable = (DataTable)Session["Salary"];
+
+
+        DataTable dtS = new DataTable();
+
+        dtS.Columns.Add("S NO");
+        dtS.Columns.Add("Department Name");
+        dtS.Columns.Add("Employee Name");
+        dtS.Columns.Add("PF AC / No");
+        dtS.Columns.Add("ESIC AC / No");
+        dtS.Columns.Add("Net Salary");
+        dtS.Columns.Add("No Of Working Days");
+        dtS.Columns.Add("OT Days");
+        dtS.Columns.Add("Over Time");
+        dtS.Columns.Add("Basic Salary");
+        dtS.Columns.Add("House Rent Allowance");
+        dtS.Columns.Add("Other Allowance");
+        dtS.Columns.Add("Gross Salary");
+        dtS.Columns.Add("Provident Fund");
+        dtS.Columns.Add("ESIC");
+        dtS.Columns.Add("TDS");
+        dtS.Columns.Add("Salary Payble");
+
+        foreach (DataRow dti in dataTable.Rows)
+        {
+            if (dti["_URL"].ToString() != "#")
+            {
+                DataRow drr = dtS.NewRow();
+                drr["S NO"] = dtS.Rows.Count + 1;
+                drr["Department Name"] = dti["Dept_Name"];
+                drr["Employee Name"] = dti["Emp_Name"];
+                drr["PF AC / No"] = dti["PF_AcNo"];
+                drr["ESIC AC / No"] = dti["ESI_AcNO"];
+                drr["Net Salary"] = dti["Net_Salary"];
+                drr["No Of Working Days"] = dti["NOOFWORKINGDAY"] + "/" + dti["TotalWorkingDay"];
+                drr["OT Days"] = dti["TotalOT"];
+                drr["Over Time"] = dti["OverTime"];
+                drr["Basic Salary"] = dti["BASIC_SALARYVALUE"];
+                drr["House Rent Allowance"] = dti["HRAVALUE"];
+                drr["Other Allowance"] = dti["OAVALUE"];
+                drr["Gross Salary"] = dti["GrossSalary"];
+                drr["Provident Fund"] = dti["PF_EMPLOYEEVALUE"];
+                drr["ESIC"] = dti["ESIC_EMPLOYEEVALUE"];
+                drr["TDS"] = dti["TDSVALUE"];
+                drr["Salary Payble"] = dti["SALARYPAYBLE"];
+                dtS.Rows.Add(drr);
+            }
+        }
+        DataRow drr1 = dtS.NewRow();
+        drr1["S NO"] = dtS.Rows.Count + 1;
+        drr1["Net Salary"] = dataTable.Compute("sum(Net_Salary)", "_URL<>'#'");
+        drr1["OT Days"] = dataTable.Compute("sum(TotalOT)", "_URL<>'#'");
+        drr1["Over Time"] = dataTable.Compute("sum(OverTime)", "_URL<>'#'");
+        drr1["Basic Salary"] = dataTable.Compute("sum(BASIC_SALARYVALUE)", "_URL<>'#'");
+        drr1["House Rent Allowance"] = dataTable.Compute("sum(HRAVALUE)", "_URL<>'#'");
+        drr1["Other Allowance"] = dataTable.Compute("sum(OAVALUE)", "_URL<>'#'");
+        drr1["Gross Salary"] = dataTable.Compute("sum(GrossSalary)", "_URL<>'#'");
+        drr1["Provident Fund"] = dataTable.Compute("sum(PF_EMPLOYEEVALUE)", "_URL<>'#'");
+        drr1["ESIC"] = dataTable.Compute("sum(ESIC_EMPLOYEEVALUE)", "_URL<>'#'");
+        drr1["TDS"] = dataTable.Compute("sum(TDSVALUE)", "_URL<>'#'");
+        drr1["Salary Payble"] = dataTable.Compute("sum(SALARYPAYBLE)", "_URL<>'#'");
+        dtS.Rows.Add(drr1);
+
+
+        DataView dv = dtS.DefaultView;
+        //dv.Sort = "Party";
+        Session["GridData"] = dv.ToTable();
+        Session["TermsId"] = "";
+
+        Session["Title"] = "Salary Sheet ";
+
+        Response.Write("<script>window.open ('Print.aspx','_blank');</script>");
     }
 }

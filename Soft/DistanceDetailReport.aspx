@@ -66,6 +66,8 @@
                             <div class="col-md-2">
                                 <br />
                                 <asp:Button ID="btnSubmit" runat="server" CssClass="btn btn-success" ValidationGroup="aa" Text="Get Report" OnClick="btnSubmit_Click" />
+                                <asp:Button ID="btnPrint" runat="server" CssClass="btn btn-success" Text="Print Report"
+                                    ValidationGroup="aa" OnClick="btnPrint_Click" />
                             </div>
                         </div>
                         <div class="clearfix">&nbsp;</div>
@@ -102,7 +104,7 @@
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
-                                                    <td style="text-align: left;"><%#Eval("EMP_NAME") %></td>
+                                                    <td style="text-align: left;" ><%#Eval("EMP_NAME") %></td>
                                                     <td style="text-align: left;"><%#Eval("Station") %></td>
                                                     <td style="text-align: left;"><%#Eval("TravelDate") %></td>
                                                     <td style="text-align: left;"><%#Eval("EntryType") %></td>
@@ -151,6 +153,8 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: left;">S No.</th>
+                                            <th>
+                                                <input type='checkbox' id='chkAll' runat='server' onclick='javascript: chkChange(this);' /></th>
                                             <th style="text-align: left;">Employee Name</th>
                                             <th style="text-align: left;">Primary Location</th>
                                             <th style="text-align: left;">Travel Date</th>
@@ -168,29 +172,31 @@
                                     <tbody>
                                         <asp:Repeater ID="Repeater1" runat="server">
                                             <ItemTemplate>
-                                                <tr class="gradeA">
+                                                <tr class="gradeA" style='<%# Eval("IsConfirm").ToString().ToUpper()!="FALSE" ?"background-color: steelblue; color:white": "" %>'>
                                                     <td>
                                                         <%#Container.ItemIndex+1 %>
                                                     </td>
-                                                    <td style="text-align: left;"><%#Eval("Emp_NAME") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Location") %></td>
-                                                    <td style="text-align: left;"><%#Eval("TravelDate") %></td>
-                                                    <td style="text-align: left;"><%#Eval("PlaceIn") %></td>
-                                                    <td style="text-align: left;"><%#Eval("PlaceOut") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Distance") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Rate") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Amount") %></td>
-                                                    <td style="text-align: left;"><%#Eval("NightStay") %></td>
-                                                    <td style="text-align: left;"><%#Eval("DAL1") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Other") %></td>
-                                                    <td style="text-align: left;"><%#Eval("Total") %></td>
+                                                    <td>
+                                                        <input id="chk" runat="server" type="checkbox" onclick="javascript: chkChange(this);" />
+                                                        <td style="text-align: left;"><%#Eval("Emp_NAME") %></td>
+                                                        <td style="text-align: left;"><%#Eval("Location") %></td>
+                                                        <td style="text-align: left;"><%#Eval("TravelDate") %></td>
+                                                        <td style="text-align: left;"><%#Eval("PlaceIn") %></td>
+                                                        <td style="text-align: left;"><%#Eval("PlaceOut") %></td>
+                                                        <td style="text-align: left;"><%#Eval("Distance") %></td>
+                                                        <td style="text-align: left;"><%#Eval("Rate") %></td>
+                                                        <td style="text-align: left;"><%#Eval("Amount") %></td>
+                                                        <td style="text-align: left;"><%#Eval("NightStay") %></td>
+                                                        <td style="text-align: left;"><%#Eval("DAL1") %></td>
+                                                        <td style="text-align: left;"><%#Eval("Other") %></td>
+                                                        <td style="text-align: left;"><%#Eval("Total") %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </tbody>
                                     <tfoot>
                                         <tr class="gradeA">
-                                            <th colspan="5" style="text-align: right;">Total Distance</th>
+                                            <th colspan="7" style="text-align: right;">Total Distance</th>
                                             <td>
                                                 <asp:Label ID="lblTotalKM" runat="server"></asp:Label></td>
                                             <td>&nbsp;</td>
@@ -291,5 +297,63 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Footer" runat="Server">
     <uc1:DTJS runat="server" ID="DTJS" />
+    var cksku =""; 
+    <script type="text/javascript"> 
+        function SelectAllCheckboxes(spanChk) {
+
+            var theBox = (spanChk.type == "checkbox") ?
+                spanChk : spanChk.children.item[0];
+            xState = theBox.checked;
+            elm = theBox.form.elements;
+            var n = 0;
+            for (i = 0; i < elm.length; i++)
+
+                if (elm[i].type == "checkbox" &&
+                    elm[i].id != theBox.id) {
+
+                    if (elm[i].checked != xState) {
+
+                        elm[i].click();
+                        chkChange(elm[i]);
+                    }
+                    n++;
+                }
+        }
+
+    </script>
+    <script>
+        function chkChange(e) {
+
+            var id = e.id;
+            $.ajax({
+                type: 'POST',
+                url: "DistanceDetailReport.aspx/txtRep_TextChanged",
+                data: '{Id: "' + id + '"  }',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+
+                    if (id == "Body_chkAll") {
+                        var theBox = (e.type == "checkbox") ?
+                            e : e.children.item[0];
+                        xState = theBox.checked;
+                        elm = theBox.form.elements;
+                        var n = 0;
+                        for (i = 0; i < elm.length; i++) {
+                            if (elm[i].type == "checkbox" &&
+                                elm[i].id != theBox.id) {
+
+                                if (elm[i].checked != xState) {
+
+                                    elm[i].checked = xState;
+                                }
+                                n++;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
 </asp:Content>
 

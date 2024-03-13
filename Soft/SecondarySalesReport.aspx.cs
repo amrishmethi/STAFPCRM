@@ -61,9 +61,7 @@ public partial class Admin_SecondarySalesReport : System.Web.UI.Page
         rep.DataSource = dtt;
         rep.DataBind();
     }
-
-
-
+     
 
     [WebMethod]
     public static string ControlAccess()
